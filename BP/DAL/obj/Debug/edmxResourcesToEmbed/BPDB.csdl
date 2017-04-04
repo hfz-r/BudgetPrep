@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="USERS" EntityType="BPModel.USER" />
+  </EntityContainer>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Guid" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserIC" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="UserPhoneNo" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uuid" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="200" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="FullName" Type="varchar" MaxLength="100" />
+    <Property Name="UserIC" Type="varchar" MaxLength="8000" />
+    <Property Name="Department" Type="varchar" MaxLength="30" />
+    <Property Name="Position" Type="varchar" MaxLength="30" />
+    <Property Name="UserPhoneNo" Type="varchar" MaxLength="8000" />
+  </EntityType>
+  <EntityContainer Name="BPModelStoreContainer">
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="public" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
