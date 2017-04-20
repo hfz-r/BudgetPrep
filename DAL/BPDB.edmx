@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BPEventLog">
+          <Key>
+            <PropertyRef Name="EventLogID" />
+          </Key>
+          <Property Name="EventLogID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Object" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="ObjectName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ObjectChanges" Type="bpchar" MaxLength="1000" />
+          <Property Name="EventMassage" Type="bpchar" MaxLength="100" />
+          <Property Name="Status" Type="bpchar" MaxLength="1" />
+          <Property Name="CreatedBy" Type="int4" />
+          <Property Name="CreatedTimeStamp" Type="timestamp" />
+        </EntityType>
+        <EntityType Name="MasterRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="300" />
+          <Property Name="RUID" Type="uuid" />
+        </EntityType>
+        <EntityType Name="MasterUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UUID" Type="uuid" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="200" />
+          <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
+          <Property Name="UserIC" Type="varchar" MaxLength="8000" />
+          <Property Name="Department" Type="varchar" MaxLength="30" />
+          <Property Name="Position" Type="varchar" MaxLength="30" />
+          <Property Name="UserPhoneNo" Type="varchar" MaxLength="8000" />
+          <Property Name="SecQuestion" Type="bpchar" MaxLength="250" />
+          <Property Name="SecAnswer" Type="bpchar" MaxLength="250" />
+          <Property Name="UserStatus" Type="bpchar" MaxLength="1" />
+          <Property Name="CreatedBy" Type="int4" />
+          <Property Name="CreatedTimeStamp" Type="timestamp" />
+          <Property Name="ModifiedBy" Type="int4" />
+          <Property Name="ModifiedTimeStamp" Type="timestamp" />
+        </EntityType>
+        <EntityContainer Name="BPModelStoreContainer">
+          <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
+          <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
+          <EntitySet Name="MasterUser" EntityType="Self.MasterUser" Schema="public" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BPEventLogs" EntityType="BPModel.BPEventLog" />
+          <EntitySet Name="MasterUsers" EntityType="BPModel.MasterUser" />
+          <EntitySet Name="MasterRoles" EntityType="BPModel.MasterRole" />
+        </EntityContainer>
+        <EntityType Name="BPEventLog">
+          <Key>
+            <PropertyRef Name="EventLogID" />
+          </Key>
+          <Property Name="EventLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Object" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectChanges" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="EventMassage" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+        </EntityType>
+        <EntityType Name="MasterUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UUID" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserIC" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UserPhoneNo" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="SecQuestion" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="SecAnswer" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="UserStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+        </EntityType>
+        <EntityType Name="MasterRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RUID" Type="Guid" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BPModelStoreContainer" CdmEntityContainer="BPEntities">
+          <EntitySetMapping Name="BPEventLogs">
+            <EntityTypeMapping TypeName="BPModel.BPEventLog">
+              <MappingFragment StoreEntitySet="BPEventLog">
+                <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EventMassage" ColumnName="EventMassage" />
+                <ScalarProperty Name="ObjectChanges" ColumnName="ObjectChanges" />
+                <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+                <ScalarProperty Name="Object" ColumnName="Object" />
+                <ScalarProperty Name="EventLogID" ColumnName="EventLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterUsers">
+            <EntityTypeMapping TypeName="BPModel.MasterUser">
+              <MappingFragment StoreEntitySet="MasterUser">
+                <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+                <ScalarProperty Name="SecAnswer" ColumnName="SecAnswer" />
+                <ScalarProperty Name="SecQuestion" ColumnName="SecQuestion" />
+                <ScalarProperty Name="UserPhoneNo" ColumnName="UserPhoneNo" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="UserIC" ColumnName="UserIC" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterRoles">
+            <EntityTypeMapping TypeName="BPModel.MasterRole">
+              <MappingFragment StoreEntitySet="MasterRole">
+                <ScalarProperty Name="RUID" ColumnName="RUID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
