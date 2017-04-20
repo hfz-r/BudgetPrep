@@ -52,6 +52,7 @@
 
     <!-- ace settings handler -->
 	<script src="<%=Page.ResolveUrl("~/assets/js/ace-extra.min.js")%>"></script>
+<<<<<<< HEAD
 
     <style>
         #spin {
@@ -67,6 +68,9 @@
             opacity: 0.7;
         }
     </style>
+=======
+    
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
@@ -384,7 +388,11 @@
 							            <li class="divider"></li>
 
 							            <li>
+<<<<<<< HEAD
 								            <a href="<%=Page.ResolveUrl("~/Logout.aspx")%>">
+=======
+								            <a href="Logout.aspx">
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 										        <i class="ace-icon fa fa-power-off"></i>
 										        Logout
 									        </a>
@@ -441,7 +449,11 @@
 			    </div><!-- /.sidebar-shortcuts -->
 
 			    <ul class="nav nav-list">
+<<<<<<< HEAD
 				    <li class="active">
+=======
+				    <li class="">
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 					    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">
 						    <i class="menu-icon fa fa-tachometer"></i>
 						    <span class="menu-text"> Dashboard </span>
@@ -461,18 +473,33 @@
 					    <b class="arrow"></b>
 
 					    <ul class="submenu">
+<<<<<<< HEAD
                             <li class="">
 							    <a href="<%=Page.ResolveUrl("~/Setup/UserRole.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
 								    User Roles
-							    </a>
-
-							    <b class="arrow"></b>
-						    </li>
+=======
 						    <li class="">
 							    <a href="<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
 								    User Setup
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
+							    </a>
+
+							    <b class="arrow"></b>
+						    </li>
+<<<<<<< HEAD
+						    <li class="">
+							    <a href="<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    User Setup
+=======
+
+						    <li class="">
+							    <a href="#">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    User Based Authorization
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 							    </a>
 
 							    <b class="arrow"></b>
@@ -493,10 +520,19 @@
 
                         <asp:ContentPlaceHolder runat="server" ID="BreadcrumbsContent">
 					            <ul class="breadcrumb">
+<<<<<<< HEAD
                                     <li><i class="ace-icon fa fa-home home-icon"></i><a href="Dashboard.aspx">Home</a> </li>
                                     <li class="active">Dashboard</li>
                                 </ul>
                                 <!-- /.breadcrumb -->
+=======
+						    <li>
+							    <i class="ace-icon fa fa-home home-icon"></i>
+							    <a href="Dashboard.aspx">Home</a>
+						    </li>
+						    <li class="active">Dashboard</li>
+					    </ul><!-- /.breadcrumb -->
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                         </asp:ContentPlaceHolder>
 
 					    <div class="nav-search" id="nav-search">
@@ -590,6 +626,7 @@
                         </asp:ContentPlaceHolder>
 
 					    <div class="row">
+<<<<<<< HEAD
                             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                                 <ContentTemplate>
 
@@ -637,6 +674,9 @@
 
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+=======
+                           <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 					    </div><!-- /.row -->
 
 				    </div><!-- /.page-content -->
@@ -664,7 +704,11 @@
         <%: Scripts.Render("~/scripts/Form-Elements_Scripts") %>
         <%: Scripts.Render("~/scripts/Form-Wizard_Scripts") %>--%>
 
+<<<<<<< HEAD
 <!----------------------- load scripts start ----------------------->
+=======
+        <!----------------------- load scripts start ----------------------->
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         <script src="<%=Page.ResolveUrl("~/assets/js/jquery-2.1.4.min.js")%>"></script>  
         <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap.min.js")%>"></script>
 
@@ -686,6 +730,10 @@
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.maskedinput.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap-tag.min.js")%>"></script>
         <!-- elements -->
+<<<<<<< HEAD
+=======
+        <script src="<%=Page.ResolveUrl("~/assets/js/bootbox.js")%>"></script>
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.easypiechart.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.gritter.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/spin.js")%>"></script>
@@ -696,6 +744,7 @@
 	    <script src="<%=Page.ResolveUrl("~/assets/js/bootbox.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.maskedinput.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/select2.min.js")%>"></script>
+<<<<<<< HEAD
         <!-- tables -->
         <script src="<%=Page.ResolveUrl("~/assets/js/jquery.dataTables.min.js")%>"></script>
 		<script src="<%=Page.ResolveUrl("~/assets/js/jquery.dataTables.bootstrap.min.js")%>"></script>
@@ -708,11 +757,14 @@
         <script src="<%=Page.ResolveUrl("~/assets/js/jszip.min.js")%>"></script>
         <script src="<%=Page.ResolveUrl("~/assets/js/pdfmake.min.js")%>"></script>
         <script src="<%=Page.ResolveUrl("~/assets/js/vfs_fonts.js")%>"></script>
+=======
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         <!-- page specific plugin scripts end -->
 
         <!-- ace scripts -->
 	    <script src="<%=Page.ResolveUrl("~/assets/js/ace-elements.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/ace.min.js")%>"></script>
+<<<<<<< HEAD
 <!----------------------- load scripts end ----------------------->
 
         <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
@@ -821,6 +873,12 @@
             };
 
         </script>
+=======
+        <!----------------------- load scripts end ----------------------->
+
+        <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     </form>
 </body>
 </html>

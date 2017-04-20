@@ -123,12 +123,14 @@ namespace BP.Setup
 
             for (int r = 0; r < dt.Rows.Count; r++)
             {
-                string roleid = dt.Rows[r]["RoleId"].ToString();
+                Guid roleid = (Guid)dt.Rows[r]["RoleId"];
                 string rolename = dt.Rows[r]["RoleName"].ToString();
 
                 if (!new UsersRoleDAL().GetRoles().Select(x => x.RoleName).Contains(rolename))
-                { 
-                    
+                {
+                    MasterRole roleObj = new MasterRole();
+                    roleObj.RUID = roleid;
+                    roleObj.RoleName = rolename;
                 }
             }
         }

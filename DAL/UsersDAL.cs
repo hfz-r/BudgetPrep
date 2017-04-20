@@ -11,6 +11,7 @@ namespace DAL
     {
         BPEntities db = new BPEntities();
 
+<<<<<<< HEAD
         public MasterUser GetValidUser(string UserName, string Password="")
         {
             try
@@ -25,6 +26,14 @@ namespace DAL
                     return db.MasterUsers.Where(x => x.UserStatus == "A" && x.UserName == UserName).FirstOrDefault() ?? new MasterUser();
                 }
                 
+=======
+        public USER GetValidUser(string UserName, string Password)
+        {
+            try
+            {
+                string encstr = Security.Encrypt(Password);
+                return db.USERS.Where(x => x.UserName == UserName && x.UserPassword == encstr).FirstOrDefault();
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             }
             catch (Exception ex)
             {
@@ -32,6 +41,7 @@ namespace DAL
             }
         }
 
+<<<<<<< HEAD
         public MasterUser VerifyAnswer(string UserName, string Answer)
         {
             string pwd = Security.Encrypt(Answer.ToUpper());
@@ -87,11 +97,19 @@ namespace DAL
             try
             {
                 if (db.MasterUsers.Where(x => x.UserName.Equals(objMasterUser.UserName)).Count() > 0)
+=======
+        public bool InsertUsers(USER _USER)
+        {
+            try
+            {
+                if (db.USERS.Where(x => x.UserName.Equals(_USER.UserName)).Count() > 0)
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                 {
                     return false;
                 }
                 else
                 {
+<<<<<<< HEAD
                     //objMasterUser.UserPassword = Security.Encrypt(objMasterUser.UserPassword);
                     objMasterUser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer.ToUpper());
 
@@ -110,11 +128,19 @@ namespace DAL
                     bpe.CreatedTimeStamp = objMasterUser.CreatedTimeStamp;
                     new EventLogDAL().AddEventLog(bpe);
 
+=======
+                    _USER.UserPassword = Security.Encrypt(_USER.UserPassword);
+
+                    db.USERS.Add(_USER);
+                    db.SaveChanges();
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                     return true;
                 }
             }
             catch (Exception ex)
             {
+<<<<<<< HEAD
                 BPEventLog bpe = new BPEventLog();
                 bpe.Object = "User - New User";
                 bpe.ObjectName = objMasterUser.UserName;
@@ -195,5 +221,10 @@ namespace DAL
             }
         }
 
+=======
+                throw ex;
+            }
+        }
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     }
 }

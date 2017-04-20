@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="User Setup" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserSetup.aspx.cs" Inherits="BP.Setup.UserSetup" %>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <%--<%: Styles.Render("~/styles/Form-Elements_Styles") %>
     <%: Styles.Render("~/styles/Form-Wizard_Styles") %>--%>
@@ -58,6 +61,7 @@
     </div>
 
     <!-- wizard-form -->
+<<<<<<< HEAD
     <div id="form_Wiz" runat="server" visible="false">
         <div id="widget-container-wizform">
             <div class="col-xs-12 widget-container-col" id="wizard-form">
@@ -292,11 +296,234 @@
 		                </div><!-- /.widget-main -->
 	                </div><!-- /.widget-body -->
                 </div>
+=======
+    <div class="invisible" id="widget-container-wizform">
+        <div class="col-xs-12 widget-container-col" id="wizard-form">
+            <div class="widget-box" id="widget-box-wizform">
+                <div class="widget-header">
+                    <h6 class="widget-title">New-User Registration Wizard</h6>
+
+				    <div class="widget-toolbar">
+					    <a href="#" data-action="fullscreen" class="orange2">
+						    <i class="ace-icon fa fa-expand"></i>
+					    </a>
+
+					    <a href="#" data-action="reload">
+						    <i class="ace-icon fa fa-refresh"></i>
+					    </a>
+
+					    <a href="#" data-action="collapse">
+						    <i class="ace-icon fa fa-chevron-up"></i>
+					    </a>
+
+					    <a href="#" data-action="close">
+						    <i class="ace-icon fa fa-times"></i>
+					    </a>
+				    </div>
+                </div>
+
+                <div class="widget-body">
+		            <div class="widget-main">
+			            <div id="fuelux-wizard-container">
+				            <div class="steps-container">
+					            <ul class="steps">
+						            <li data-step="1" class="active">
+							            <span class="step">1</span>
+							            <span class="title">Accounts Information</span>
+						            </li>
+
+						            <li data-step="2">
+							            <span class="step">2</span>
+							            <span class="title">Personal Information</span>
+						            </li>
+
+                                    <li data-step="3">
+							            <span class="step">3</span>
+							            <span class="title">Complete</span>
+						            </li>
+					            </ul>
+				            </div>
+
+				            <hr />
+
+				            <div class="step-content pos-rel">
+
+					            <div class="step-pane active" data-step="1">
+						            <h4 class="lighter block green">Enter the accounts information</h4>
+
+                                    <!--form used for jquery validation only-->
+                                    <form class="form-horizontal" id="validation-form" method="get">
+
+                                        <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="username">Username:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <input type="text" name="username" id="username" class="col-xs-12 col-sm-6" />
+									            </div>
+								            </div>
+							            </div>
+                                        <div class="space-2"></div>
+                                        <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">Password:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <input type="password" name="password" id="password" class="col-xs-12 col-sm-4" />
+									            </div>
+								            </div>
+							            </div>
+							            <div class="space-2"></div>
+							            <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password2">Confirm Password:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <input type="password" name="password2" id="password2" class="col-xs-12 col-sm-4" />
+									            </div>
+								            </div>
+							            </div>
+                                        <div class="space-2"></div>
+							            <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Email Address:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <input type="email" name="email" id="email" class="col-xs-12 col-sm-6" />
+									            </div>
+								            </div>
+							            </div>
+                                        <div class="space-2"></div>
+							            <div class="hr hr-dotted"></div>
+                                        <div class="space-2"></div>
+							            <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="question">Security Question:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <textarea class="input-xlarge" name="question" id="question"></textarea>
+									            </div>
+								            </div>
+							            </div>
+							            <div class="space-2"></div>
+                                        <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="answer">Security Answer:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <textarea class="input-xlarge" name="answer" id="answer"></textarea>
+									            </div>
+								            </div>
+							            </div>
+
+						            </form>
+
+					            </div>
+
+					            <div class="step-pane" data-step="2">
+						            <h4 class="lighter block green">Enter the personal information</h4>
+
+                                    <!--form used for jquery validation only-->
+                                    <form class="form-horizontal" id="validation-form2" method="get">
+                                        
+                                        <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="fullname">Fullname:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <input type="text" name="fullname" id="fullname" class="col-xs-12 col-sm-6" />
+									            </div>
+								            </div>
+							            </div>
+                                        <div class="space-2"></div>
+                                        <div class="form-group">
+								            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="ic">IC:</label>
+
+								            <div class="col-xs-12 col-sm-9">
+									            <div class="clearfix">
+										            <input type="text" name="ic" id="ic" class="col-xs-12 col-sm-6" />
+									            </div>
+								            </div>
+							            </div>
+                                        <div class="space-2"></div>
+                                        <div class="hr hr-dotted"></div>
+                                        <div class="space-2"></div>
+                                        <div class="form-group">
+		                                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="dept">Department:</label>
+
+		                                    <div class="col-xs-12 col-sm-9">
+			                                    <div class="clearfix">
+				                                    <input type="text" name="dept" id="dept" class="col-xs-12 col-sm-4" />
+			                                    </div>
+		                                    </div>
+	                                    </div>
+                                        <div class="space-2"></div>
+                                        <div class="form-group">
+		                                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="post">Position:</label>
+
+		                                    <div class="col-xs-12 col-sm-9">
+			                                    <div class="clearfix">
+				                                    <input type="text" name="post" id="post" class="col-xs-12 col-sm-4" />
+			                                    </div>
+		                                    </div>
+	                                    </div>
+                                        <div class="space-2"></div>
+                                        <div class="form-group">
+										    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="phone">Phone Number:</label>
+											
+                                            <div class="col-xs-12 col-sm-9">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="ace-icon fa fa-phone"></i>
+													</span>
+													<input type="tel" id="phone" name="phone" />
+												</div>
+											</div>
+										</div>
+                                        <div class="space-8"></div>
+										<div class="form-group">
+											<div class="col-xs-12 col-sm-4 col-sm-offset-3">
+												<label>
+													<input name="agree" id="agree" type="checkbox" class="ace" />
+													<span class="lbl"> I accept the policy</span>
+												</label>
+											</div>
+										</div>
+
+                                    </form>
+					            </div>
+
+					            <div class="step-pane" data-step="3">
+						            <div class="center">
+							            <h3 class="green">Complete!</h3>
+							            Your information is ready to save! Click finish to continue!
+						            </div>
+					            </div>
+
+				            </div>
+			            </div>
+			            <hr />
+			            <div class="wizard-actions">
+				            <button id="prev" class="btn btn-prev" onclick="dummyFunc(); return false">
+					            <i class="ace-icon fa fa-arrow-left"></i>
+					            Prev
+				            </button>
+
+				            <button id="next" class="btn btn-success btn-next" data-last="Finish" onclick="dummyFunc(); return false">
+						        Next
+						        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+					        </button>
+			            </div>
+		            </div><!-- /.widget-main -->
+	            </div><!-- /.widget-body -->
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             </div>
         </div>
     </div>
 
     <!--widget-->
+<<<<<<< HEAD
     <div id="form_List" runat="server">
         <div id="widget-container">
             <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
@@ -389,6 +616,72 @@
 		        </div>
 	        </div>
         </div>
+=======
+    <div class="invisible" id="widget-container">
+        <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
+		    <div class="widget-box" id="widget-box-1">
+			    <div class="widget-header">
+				    <h6 class="widget-title">List of Registered Users</h6>
+
+				    <div class="widget-toolbar">
+					    <div class="widget-menu">
+						    <a href="#" data-action="settings" data-toggle="dropdown">
+							    <i class="ace-icon fa fa-bars"></i>
+						    </a>
+
+						    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+							    <li>
+								    <a data-toggle="collapse" href="#wizard-form" role="button" class="blue" aria-expanded="false" aria-controls="wizard-form">
+                                        <i class="ace-icon fa fa-user-plus"></i>&nbsp;&nbsp;Add User
+								    </a>
+							    </li>
+
+							    <li>
+								    <a data-toggle="modal" href="#modal-form" role="button" class="blue">
+                                        <i class="ace-icon fa fa-print"></i>&nbsp;&nbsp;Print
+								    </a>
+							    </li>
+						    </ul>
+					    </div>
+
+					    <a href="#" data-action="fullscreen" class="orange2">
+						    <i class="ace-icon fa fa-expand"></i>
+					    </a>
+
+					    <a href="#" data-action="reload">
+						    <i class="ace-icon fa fa-refresh"></i>
+					    </a>
+
+					    <a href="#" data-action="collapse">
+						    <i class="ace-icon fa fa-chevron-up"></i>
+					    </a>
+
+					    <a href="#" data-action="close">
+						    <i class="ace-icon fa fa-times"></i>
+					    </a>
+				    </div>
+			    </div>
+
+			    <div class="widget-body">
+				    <div class="widget-main">
+                        <asp:UpdatePanel ID="UpdatePanel1" UpdateMode="Conditional" runat="server">
+                            <ContentTemplate>
+					            <%--GridView gvUsers HERE--%>
+                                Last update:
+                                <%= DateTime.Now.ToString() %>
+                                <br />
+                                <button id="UpdatePanelBtn" runat="server" style="visibility:hidden;"></button>
+                            </ContentTemplate>
+                            <Triggers>
+                              <asp:AsyncPostBackTrigger ControlID="UpdatePanelBtn" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+				    </div>
+			    </div>
+
+		    </div>
+	    </div>
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     </div>
 
 </asp:Content>
@@ -422,12 +715,20 @@
                     ui.item.parent({ 'min-height': '' })
                     //p.style.removeProperty('background-color');
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                     //save widget positions
                     var widget_order = {}
                     $('.widget-container-col').each(function () {
                         var container_id = $(this).attr('id');
                         widget_order[container_id] = []
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                         $(this).find('> .widget-box').each(function () {
                             var widget_id = $(this).attr('id');
                             widget_order[container_id].push(widget_id);
@@ -462,6 +763,10 @@
                             var widget = widgets_inside_container[i];
                             $('#' + widget).appendTo('#' + container_id);
                         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                     }
                 }
 
@@ -472,7 +777,11 @@
                         var state = widgets[id];
                         var widget = $('#' + id);
                         if
+<<<<<<< HEAD
 						(
+=======
+							(
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                             (state == 'shown' && widget.hasClass('collapsed'))
                             ||
                             (state == 'hidden' && !widget.hasClass('collapsed'))
@@ -485,6 +794,7 @@
                     }
                 }
 
+<<<<<<< HEAD
                 //wizard form onreloaded
                 $('#widget-box-wizform').on('reloaded.ace.widget', function (event, info) {
                     ace.data.remove('demo', 'widget-state');
@@ -497,10 +807,18 @@
 
                 //wizard form onclosed
                 $('#widget-box-wizform').on('closed.ace.widget', function (event, info) {
+=======
+                $('#widget-container').removeClass('invisible');
+                $('#widget-container-wizform').removeClass('invisible');
+                //$('#widget-box-wizform').widget_box('show');
+
+                $('#widget-box-wizform').on('reloaded.ace.widget', function (event,info) {
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                     ace.data.remove('demo', 'widget-state');
                     ace.data.remove('demo', 'widget-order');
                     $('form').each(function () { this.reset() });
 
+<<<<<<< HEAD
                     $("#MainContent_gvUsers tr").each(function () {
                         $(this).css("background-color", "");
                     });
@@ -530,16 +848,32 @@
                 //disable selection
                 $('#validation-form, #validation-form2, #UserListWidget, .widget-toolbar, #<%=prev.ClientID%>, #<%=next.ClientID%>')
                     .bind('mousedown.ui-disableSelection selectstart.ui-disableSelection', function (event) {
+=======
+                    //move to step 1
+                    $('[data-step=1]').trigger("click");
+                });
+
+                $('#widget-box-1').on('reloaded.ace.widget', function (event) {
+                    __doPostBack('<%= UpdatePanelBtn.ClientID %>', '');
+                });
+
+                $('#validation-form, #validation-form2, #prev, #next').bind('mousedown.ui-disableSelection selectstart.ui-disableSelection', function (event) {
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                     event.stopImmediatePropagation();
                 });
 
             })();
+<<<<<<< HEAD
         });
+=======
+        })
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 
     </script>
 
     <%--<%: Scripts.Render("~/scripts/Form-Wizard_Scripts") %>--%>
     <script type="text/javascript">
+<<<<<<< HEAD
 
         function dummyFunc() { };
 
@@ -553,11 +887,22 @@
         function fncUpdatePanel() {
             spinnerInit();
 
+=======
+        
+        function dummyFunc() { };
+
+        function fncUpdatePanel() {
+            //$('#widget-box-wizform').widget_box('toggle');
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             var formArray = $('#validation-form,#validation-form2').serializeArray();
             var returnArray = {};
             for (var i = 0; i < formArray.length; i++) {
                 returnArray[formArray[i]['name']] = formArray[i]['value'];
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             var jsonData = JSON.stringify({ obj: JSON.stringify(returnArray) });
 
             $.ajax({
@@ -566,6 +911,7 @@
                 data: jsonData,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+<<<<<<< HEAD
                 success: function (dt) {
                     $('#spin').data('spinner').stop();
                     $("#spin").hide();
@@ -589,32 +935,97 @@
                             }
                         }
                     });
+=======
+                success: function (dt)
+                {
+                    if (dt.d.indexOf("Fail") != -1)
+                    {
+                        $.gritter.add({
+                            title: 'Added Process Fail!',
+                            text: dt.d,
+                            class_name: 'gritter-error gritter-light'
+                        });
+                        //location.reload();
+                    }
+                    else
+                    {
+                        $.gritter.add({
+                            title: 'Added Process Successful!',
+                            text: dt.d,
+                            class_name: 'gritter-dark'
+                        });
+
+                        __doPostBack('<%= UpdatePanelBtn.ClientID %>', '');
+                    }
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                 }
             });
         }
 
         jQuery(function ($) {
 
+<<<<<<< HEAD
+=======
+            $('[data-rel=tooltip]').tooltip();
+
+            $('.select2').css('width', '200px').select2({ allowClear: true })
+            .on('change', function () {
+                $(this).closest('form').validate().element($(this));
+            });
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             var $validation = true;
             $('#fuelux-wizard-container').ace_wizard({
                 //step: 2 //optional argument. wizard will jump to step "2" at first
                 //buttons: '.wizard-actions:eq(0)'
+<<<<<<< HEAD
             }).on('actionclicked.fu.wizard', function (e, info) {
+=======
+            })
+            .on('actionclicked.fu.wizard', function (e, info) {
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                 if (info.step == 1 && $validation) {
                     if (!$('#validation-form').valid()) e.preventDefault();
                 }
                 if (info.step == 2 && $validation) {
                     if (!$('#validation-form2').valid()) e.preventDefault();
                 }
+<<<<<<< HEAD
             }).on('finished.fu.wizard', function (e) {
                 fncUpdatePanel();
+=======
+            })
+            //.on('changed.fu.wizard', function() {
+            //})
+            .on('finished.fu.wizard', function (e)
+            {
+                fncUpdatePanel();
+
+                //bootbox.dialog({
+                //    message: "Thank you! Your information was successfully saved!",
+                //    buttons: {
+                //        "success": {
+                //            "label": "OK",
+                //            "className": "btn-sm btn-primary",
+                //            "callback": function () {
+                //                fncUpdatePanel()
+                //            }
+                //        }
+                //    }
+                //});
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             }).on('stepclick.fu.wizard', function (e) {
                 //e.preventDefault();//this will prevent clicking and selecting steps
             });
 
             $.mask.definitions['~'] = '[+-]';
+<<<<<<< HEAD
             $('#<%=phone.ClientID%>').mask('(999) 999-9999');
             $('#<%=icno.ClientID%>').mask('999999-99-9999');
+=======
+            $('#phone').mask('(999) 999-9999');
+            $('#ic').mask('999999-99-9999');
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 
             jQuery.validator.addMethod("phone", function (value, element) {
                 return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
@@ -627,6 +1038,7 @@
                     focusInvalid: false,
                     ignore: "",
                     rules: {
+<<<<<<< HEAD
                     'ctl00$MainContent$email': {
                         required: true,
                         email: true
@@ -874,6 +1286,99 @@
             });
 
         })
+=======
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        password: {
+                            required: true,
+                            minlength: 5
+                        },
+                        password2: {
+                            required: true,
+                            minlength: 5,
+                            equalTo: "#password"
+                        },
+                        username: {
+                            required: true
+                        },
+                        question: {
+                            required: true
+                        },
+                        answer: {
+                            required: true
+                        },
+                        fullname: {
+                            required: true,
+                        },
+                        ic: {
+                            required: true,
+                            ic: 'required'
+                        },
+                        phone: {
+                            required: true,
+                            phone: 'required'
+                        },
+                        agree: {
+                            required: true
+                        }
+                    },
+
+                    messages: {
+                        email: {
+                            required: "Please provide a valid email.",
+                            email: "Please provide a valid email."
+                        },
+                        password: {
+                            required: "Please specify a password.",
+                            minlength: "Please specify a secure password."
+                        },
+                        username: "Please specify a username.",
+                        question: "Please specify a security question.",
+                        answer: "Please specify a security answer.",
+                        fullname: "Please specify a fullname.",
+                        agree: "Please accept our policy."
+                    },
+
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                    },
+
+                    success: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+                        $(e).remove();
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                            var controls = element.closest('div[class*="col-"]');
+                            if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                            else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                        }
+                        else if (element.is('.select2')) {
+                            error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                        }
+                        else if (element.is('.chosen-select')) {
+                            error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                        }
+                        else error.insertAfter(element.parent());
+                    },
+
+                    submitHandler: function (form) {
+                    },
+                    invalidHandler: function (form) {
+                    }
+                });
+            });
+
+            $(document).one('ajaxloadstart.page', function (e) {
+                //in ajax mode, remove remaining elements before leaving page
+                $('[class*=select2]').remove();
+            });
+        })
+
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     </script>
 
 </asp:Content>

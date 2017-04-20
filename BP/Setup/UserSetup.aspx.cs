@@ -2,19 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+<<<<<<< HEAD
+=======
+using System.Web.Script.Serialization;
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 using System.Web.Security;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL;
+<<<<<<< HEAD
 using BP.Classes;
 using Newtonsoft.Json;
 using OBSecurity;
+=======
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 
 namespace BP.Setup
 {
     public class User 
     {
+<<<<<<< HEAD
         [JsonProperty("ctl00$MainContent$username")]
         public string username { get; set; }
         [JsonProperty("ctl00$MainContent$password")]
@@ -48,11 +56,29 @@ namespace BP.Setup
     }
 
     public partial class UserSetup : PageHelper
+=======
+        public string username { get; set; }
+        public string password { get; set; }
+        public string password2 { get; set; }
+        public string email { get; set; }
+        public string question { get; set; }
+        public string answer { get; set; }
+        public string fullname { get; set; }
+        public string ic { get; set; }
+        public string dept { get; set; }
+        public string post { get; set; }
+        public string phone { get; set; }
+        public string agree { get; set; }
+    }
+
+    public partial class UserSetup : System.Web.UI.Page
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+<<<<<<< HEAD
                 GetData();
                 Session["UsersPageMode"] = Helper.PageMode.New;
             }
@@ -137,10 +163,14 @@ namespace BP.Setup
             catch (Exception ex)
             {
                 ((SiteMaster)this.Master).ShowMessage("Error", "An error occurred", ex, true);
+=======
+               
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             }
         }
 
         [WebMethod]
+<<<<<<< HEAD
         public static ReturnValue FormValues(string obj)
         {
             var dt = new ReturnValue();
@@ -237,10 +267,54 @@ namespace BP.Setup
                         dt.pageTitle = "Failure";
                         dt.pageBody = "An error occurred while updating User";
                     }
+=======
+        public static string FormValues(string obj)
+        {
+            string msg = string.Empty;
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            User _Users = js.Deserialize<User>(obj);
+
+            MembershipCreateStatus result = new MembershipCreateStatus();
+            try
+            {
+                MembershipUser newUser = Membership.CreateUser(_Users.username,_Users.password,_Users.email,_Users.question,
+                    _Users.answer,true,out result);
+
+                if (result.ToString() == "Success")
+                {
+                    MembershipUser _MembershipUser = Membership.GetUser(newUser.UserName);
+                    Guid UserId = (Guid)_MembershipUser.ProviderUserKey;
+
+                    USER _obj = new USER();
+                    _obj.UserId = UserId;
+                    _obj.UserName = _Users.username;
+                    _obj.UserPassword = _Users.password;
+                    _obj.FullName = _Users.fullname;
+                    _obj.UserEmail = _Users.email;
+                    _obj.UserIC = _Users.ic;
+                    _obj.Department = _Users.dept;
+                    _obj.Position = _Users.post;
+                    _obj.UserPhoneNo = _Users.phone;
+
+                    if (new UsersDAL().InsertUsers(_obj))
+                    {
+                        msg = "Your information was successfully saved!";
+                    }
+                    else
+                    {
+                        msg = "<Fail> Your information was unsuccessfully to save!";
+                    }
+                }
+                else
+                {
+                    //Membership.DeleteUser(_Users.username);
+                    msg = "<Fail> " + GetErrorMessage(result);
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                 }
             }
             catch
             {
+<<<<<<< HEAD
                 //rollback - start
                 Membership.DeleteUser(_Users.username);
                 new UsersDAL().DeleteUsers(_Users.username);
@@ -259,6 +333,13 @@ namespace BP.Setup
             ClearPageData();
             form_Wiz.Visible = true;
             //Response.Redirect(Request.RawUrl);
+=======
+                //Membership.DeleteUser(_Users.username);
+                msg = "<Fail> " + GetErrorMessage(result);
+            }
+
+            return msg;
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         }
 
         public static string GetErrorMessage(MembershipCreateStatus status)
@@ -296,6 +377,7 @@ namespace BP.Setup
                     return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
+<<<<<<< HEAD
 
         private void LoadDropDown()
         {
@@ -388,5 +470,7 @@ namespace BP.Setup
                 }
             }
         }
+=======
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     }
 }

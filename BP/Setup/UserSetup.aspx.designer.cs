@@ -13,21 +13,33 @@ namespace BP.Setup {
     public partial class UserSetup {
         
         /// <summary>
+<<<<<<< HEAD
         /// form_Wiz control.
+=======
+        /// UpdatePanel1 control.
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+<<<<<<< HEAD
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl form_Wiz;
         
         /// <summary>
         /// widget_title control.
+=======
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// UpdatePanelBtn control.
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+<<<<<<< HEAD
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl widget_title;
         
         /// <summary>
@@ -236,5 +248,8 @@ namespace BP.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton UpdatePanel2Btn;
+=======
+        protected global::System.Web.UI.HtmlControls.HtmlButton UpdatePanelBtn;
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     }
 }

@@ -58,6 +58,7 @@ namespace BP {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder PageHeaderContent;
         
         /// <summary>
+<<<<<<< HEAD
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -67,6 +68,8 @@ namespace BP {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
+=======
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         /// MainContent control.
         /// </summary>
         /// <remarks>
@@ -76,6 +79,7 @@ namespace BP {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
         
         /// <summary>
+<<<<<<< HEAD
         /// lblSessionTime control.
         /// </summary>
         /// <remarks>
@@ -112,6 +116,8 @@ namespace BP {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divModalDetail;
         
         /// <summary>
+=======
+>>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         /// ScriptContent control.
         /// </summary>
         /// <remarks>
