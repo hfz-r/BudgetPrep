@@ -41,6 +41,7 @@
     <EntitySetMapping Name="MasterRoles">
       <EntityTypeMapping TypeName="BPModel.MasterRole">
         <MappingFragment StoreEntitySet="MasterRole">
+          <ScalarProperty Name="RUID" ColumnName="RUID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />

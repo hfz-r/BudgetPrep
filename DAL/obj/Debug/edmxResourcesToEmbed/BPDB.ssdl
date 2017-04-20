@@ -20,6 +20,7 @@
     <Property Name="RoleID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoleName" Type="varchar" MaxLength="40" Nullable="false" />
     <Property Name="Description" Type="varchar" MaxLength="300" />
+    <Property Name="RUID" Type="uuid" />
   </EntityType>
   <EntityType Name="MasterUser">
     <Key>
