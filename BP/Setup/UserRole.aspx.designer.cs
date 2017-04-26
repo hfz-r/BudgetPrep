@@ -7,117 +7,90 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BP {
+namespace BP.Setup {
     
     
-    public partial class SiteMaster {
+    public partial class UserRole {
         
         /// <summary>
-        /// HeadContent control.
+        /// EditForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditForm;
         
         /// <summary>
-        /// main_form control.
+        /// ddlRole control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm main_form;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRole;
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// dlbGroupA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::BP.Setup.DualListbox dlbGroupA;
         
         /// <summary>
-        /// BreadcrumbsContent control.
+        /// txtDesc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder BreadcrumbsContent;
+        protected global::System.Web.UI.WebControls.TextBox txtDesc;
         
         /// <summary>
-        /// PageHeaderContent control.
+        /// ddlStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder PageHeaderContent;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSubmit;
         
         /// <summary>
-        /// MainContent control.
+        /// btnReset control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReset;
         
         /// <summary>
-        /// lblSessionTime control.
+        /// ListForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSessionTime;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ListForm;
         
         /// <summary>
-        /// lblModalTitle control.
+        /// gvRoles control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblModalTitle;
-        
-        /// <summary>
-        /// lblModalBody control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblModalBody;
-        
-        /// <summary>
-        /// divModalDetail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divModalDetail;
-        
-        /// <summary>
-        /// ScriptContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ScriptContent;
+        protected global::System.Web.UI.WebControls.GridView gvRoles;
     }
 }

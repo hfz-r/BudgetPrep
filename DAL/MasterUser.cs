@@ -12,8 +12,9 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class USER
+    public partial class MasterUser
     {
+        public int UserID { get; set; }
         public System.Guid UUID { get; set; }
         public string UserName { get; set; }
         public string UserPassword { get; set; }
@@ -23,6 +24,19 @@ namespace DAL
         public string Department { get; set; }
         public string Position { get; set; }
         public string UserPhoneNo { get; set; }
-        public int UserID { get; set; }
+        public string SecQuestion { get; set; }
+        public string SecAnswer { get; set; }
+        public string UserStatus { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedTimeStamp { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
+        public Nullable<System.DateTime> BirthDate { get; set; }
+        public string Gender { get; set; }
+        public string Comment { get; set; }
+        public string Website { get; set; }
+        public byte[] Image { get; set; }
+    
+        public virtual JuncUserRole JuncUserRole { get; set; }
     }
 }

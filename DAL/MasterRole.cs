@@ -12,17 +12,19 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class USER
+    public partial class MasterRole
     {
-        public System.Guid UUID { get; set; }
-        public string UserName { get; set; }
-        public string UserPassword { get; set; }
-        public string UserEmail { get; set; }
-        public string FullName { get; set; }
-        public string UserIC { get; set; }
-        public string Department { get; set; }
-        public string Position { get; set; }
-        public string UserPhoneNo { get; set; }
-        public int UserID { get; set; }
+        public MasterRole()
+        {
+            this.JuncUserRoles = new HashSet<JuncUserRole>();
+        }
+    
+        public int RoleID { get; set; }
+        public string RoleName { get; set; }
+        public string Description { get; set; }
+        public Nullable<System.Guid> RUID { get; set; }
+        public string RoleStatus { get; set; }
+    
+        public virtual ICollection<JuncUserRole> JuncUserRoles { get; set; }
     }
 }

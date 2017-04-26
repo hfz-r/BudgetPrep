@@ -5,11 +5,14 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DAL;
+using System.Diagnostics;
 
 namespace BP
 {
     public partial class SiteMaster : MasterPage
     {
+        MasterUser AuthUser;
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
@@ -67,7 +70,48 @@ namespace BP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            AuthUser = (MasterUser)Session["UserData"];
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "onrefLoad", "RefreshSession();", true);
 
+           if (!Page.IsPostBack)
+            {
+
+            }
+        }
+
+        public void ShowMessage(string Title, string Body)
+        {
+            lblModalTitle.Text = Title;
+            lblModalBody.Text = Body;
+            divModalDetail.InnerHtml = string.Empty;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myMsgModal", "$('#myMsgModal').modal();", true);
+        }
+
+        public void ShowMessage(string Title, string Body, Exception Exception, bool LogError)
+        {
+            lblModalTitle.Text = Title;
+            lblModalBody.Text = Body;
+            divModalDetail.InnerHtml = Exception.Message;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myMsgModal", "$('#myMsgModal').modal();", true);
+
+            if (LogError && !Exception.Message.Contains("Thread was being aborted"))
+            {
+                if (AuthUser == null)
+                    AuthUser = (MasterUser)Session["UserData"];
+
+                StackTrace t = new StackTrace();
+                System.Reflection.MethodBase mb = t.GetFrame(1).GetMethod();
+
+                BPEventLog bpe = new BPEventLog();
+                bpe.Object = mb.ReflectedType.Name;
+                bpe.ObjectName = mb.Name;
+                bpe.ObjectChanges = Exception.Message;
+                bpe.EventMassage = string.Empty;
+                bpe.Status = "E";
+                bpe.CreatedBy = AuthUser.UserID;
+                bpe.CreatedTimeStamp = DateTime.Now;
+                new EventLogDAL().AddEventLog(bpe);
+            }
         }
     }
 }

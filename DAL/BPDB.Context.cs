@@ -25,6 +25,9 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<USER> USERS { get; set; }
+        public DbSet<BPEventLog> BPEventLogs { get; set; }
+        public DbSet<MasterUser> MasterUsers { get; set; }
+        public DbSet<JuncUserRole> JuncUserRoles { get; set; }
+        public DbSet<MasterRole> MasterRoles { get; set; }
     }
 }

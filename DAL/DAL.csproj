@@ -62,11 +62,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BPDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="USER.cs">
+    <Compile Include="BPEventLog.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="EventLogDAL.cs" />
+    <Compile Include="JuncUserRole.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterRole.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterUser.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsersDAL.cs" />
+    <Compile Include="UsersRoleDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

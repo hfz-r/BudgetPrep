@@ -52,7 +52,21 @@
 
     <!-- ace settings handler -->
 	<script src="<%=Page.ResolveUrl("~/assets/js/ace-extra.min.js")%>"></script>
-    
+
+    <style>
+        #spin {
+		    position: fixed;
+            text-align: center; 
+            height: 100%; 
+            width: 100%; 
+            top: 0; 
+            right: 0; 
+            left: 0; 
+            z-index: 9999999; 
+            background-color: gray; 
+            opacity: 0.7;
+        }
+    </style>
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
@@ -354,14 +368,7 @@
 
                                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 							            <li>
-								            <a href="../Account/Manage" title="Manage your account">
-									            <i class="ace-icon fa fa-cog"></i>
-									            Settings
-								            </a>
-							            </li>
-
-							            <li>
-								            <a href="profile.html">
+                                            <a href="<%=Page.ResolveUrl("~/Profile.aspx")%>">
 									            <i class="ace-icon fa fa-user"></i>
 									            Profile
 								            </a>
@@ -370,7 +377,7 @@
 							            <li class="divider"></li>
 
 							            <li>
-								            <a href="Logout.aspx">
+								            <a href="<%=Page.ResolveUrl("~/Logout.aspx")%>">
 										        <i class="ace-icon fa fa-power-off"></i>
 										        Logout
 									        </a>
@@ -427,7 +434,7 @@
 			    </div><!-- /.sidebar-shortcuts -->
 
 			    <ul class="nav nav-list">
-				    <li class="">
+				    <li class="active">
 					    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">
 						    <i class="menu-icon fa fa-tachometer"></i>
 						    <span class="menu-text"> Dashboard </span>
@@ -447,19 +454,18 @@
 					    <b class="arrow"></b>
 
 					    <ul class="submenu">
-						    <li class="">
-							    <a href="<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>">
+                            <li class="">
+							    <a href="<%=Page.ResolveUrl("~/Setup/UserRole.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
-								    User Setup
+								    User Roles
 							    </a>
 
 							    <b class="arrow"></b>
 						    </li>
-
 						    <li class="">
-							    <a href="#">
+							    <a href="<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
-								    User Based Authorization
+								    User Setup
 							    </a>
 
 							    <b class="arrow"></b>
@@ -480,12 +486,10 @@
 
                         <asp:ContentPlaceHolder runat="server" ID="BreadcrumbsContent">
 					            <ul class="breadcrumb">
-						    <li>
-							    <i class="ace-icon fa fa-home home-icon"></i>
-							    <a href="Dashboard.aspx">Home</a>
-						    </li>
-						    <li class="active">Dashboard</li>
-					    </ul><!-- /.breadcrumb -->
+                                    <li><i class="ace-icon fa fa-home home-icon"></i><a href="Dashboard.aspx">Home</a> </li>
+                                    <li class="active">Dashboard</li>
+                                </ul>
+                                <!-- /.breadcrumb -->
                         </asp:ContentPlaceHolder>
 
 					    <div class="nav-search" id="nav-search">
@@ -579,7 +583,53 @@
                         </asp:ContentPlaceHolder>
 
 					    <div class="row">
-                           <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                                <ContentTemplate>
+
+                                    <div id="spin" style="display:none;"></div>
+                                    <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+
+                                    <%--SessionTimeoutModel--%>
+                                    <div class="modal fade" id="mySessionModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">Session Timeout
+                                                    </h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <asp:Label ID="lblSessionTime" runat="server" Text=""></asp:Label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%--SessionTimeoutModel--%>
+
+                                   <%--AllMessagesModel--%>
+                                    <div class="modal fade" id="myMsgModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">
+                                                        <asp:Label ID="lblModalTitle" runat="server" Text=""></asp:Label></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <asp:Label ID="lblModalBody" runat="server" Text=""></asp:Label>
+                                                    <br />
+                                                    <div id="divModalDetail" runat="server"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <%--AllMessagesModel--%>
+
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
 					    </div><!-- /.row -->
 
 				    </div><!-- /.page-content -->
@@ -593,6 +643,20 @@
 						    My<span class="red bolder">B</span>udget
 						    &copy; <%: DateTime.Now.Year %>
 					    </span>
+                        &nbsp; &nbsp;
+						<span class="action-buttons">
+							<a href="#">
+								<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+							</a>
+
+							<a href="#">
+								<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+							</a>
+
+							<a href="#">
+								<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+							</a>
+						</span>
 				    </div>
 			    </div>
 		    </div>
@@ -607,9 +671,16 @@
         <%: Scripts.Render("~/scripts/Form-Elements_Scripts") %>
         <%: Scripts.Render("~/scripts/Form-Wizard_Scripts") %>--%>
 
-        <!----------------------- load scripts start ----------------------->
-        <script src="<%=Page.ResolveUrl("~/assets/js/jquery-2.1.4.min.js")%>"></script>  
-        <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap.min.js")%>"></script>
+<!----------------------- load scripts start ----------------------->
+        <!--[if !IE]> -->
+		<script src="<%=Page.ResolveUrl("~/assets/js/jquery-2.1.4.min.js")%>"></script>
+		<!-- <![endif]-->
+
+		<script type="text/javascript"> 
+		    if ('ontouchstart' in document.documentElement) document.write("<script src='<%=Page.ResolveUrl("~/assets/js/jquery.mobile.custom.min.js")%>'>"
+                + "<" + "/script>");
+		</script>
+        <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap.min.js")%>"></script>          
 
         <!-- page specific plugin scripts start -->
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery-ui.custom.min.js")%>"></script>
@@ -629,7 +700,6 @@
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.maskedinput.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap-tag.min.js")%>"></script>
         <!-- elements -->
-        <script src="<%=Page.ResolveUrl("~/assets/js/bootbox.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.easypiechart.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.gritter.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/spin.js")%>"></script>
@@ -638,17 +708,132 @@
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.validate.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery-additional-methods.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/bootbox.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.maskedinput.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/select2.min.js")%>"></script>
+        <!-- tables -->
+        <script src="<%=Page.ResolveUrl("~/assets/js/jquery.dataTables.min.js")%>"></script>
+		<script src="<%=Page.ResolveUrl("~/assets/js/jquery.dataTables.bootstrap.min.js")%>"></script>
+		<script src="<%=Page.ResolveUrl("~/assets/js/dataTables.buttons.min.js")%>"></script>
+		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.flash.min.js")%>"></script>
+		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.html5.min.js")%>"></script>
+		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.print.min.js")%>"></script>
+		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.colVis.min.js")%>"></script>
+		<script src="<%=Page.ResolveUrl("~/assets/js/dataTables.select.min.js")%>"></script>
+        <script src="<%=Page.ResolveUrl("~/assets/js/jszip.min.js")%>"></script>
+        <script src="<%=Page.ResolveUrl("~/assets/js/pdfmake.min.js")%>"></script>
+        <script src="<%=Page.ResolveUrl("~/assets/js/vfs_fonts.js")%>"></script>
         <!-- page specific plugin scripts end -->
 
         <!-- ace scripts -->
 	    <script src="<%=Page.ResolveUrl("~/assets/js/ace-elements.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/ace.min.js")%>"></script>
-        <!----------------------- load scripts end ----------------------->
+<!----------------------- load scripts end ----------------------->
 
         <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
 
+        <script type="text/javascript">
+
+            function IsNumberKey(evt) {
+                var charCode = (evt.which) ? evt.which : event.keyCodex
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    return false;
+                }
+                return true;
+            }
+
+            function IsNumberKey(evt, txt) {
+                var charCode = (evt.which) ? evt.which : event.keyCodex
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    if (charCode === 46) {
+                        if (txt.value.indexOf(".") > -1)
+                            return false;
+                        else
+                            return true;
+                    }
+                    return false;
+                }
+                return true;
+            }
+
+            function NoSpaceKey(evt) {
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode === 32) {
+                    return false;
+                }
+                return true;
+            }
+
+            function IsQuestionKey(evt) {
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode === 63 || charCode === 8)
+                    return true;
+                else
+                    return false;
+            }
+
+            var sessionTimeout = "<%= Session.Timeout %>";
+            var count = 0;
+            var myTO;
+            function RefreshSession() {
+                sessionTimeout = "<%= Session.Timeout %>";
+                count = 0;
+                window.clearTimeout(myTO);
+                DisplaySessionTimeout();
+            }
+
+            function DisplaySessionTimeout() {
+                if (sessionTimeout > 1) {
+                    sessionTimeout = sessionTimeout - 1;
+                    myTO = window.setTimeout("DisplaySessionTimeout()", 60000); //60sec timeout
+                }
+                else {
+                    count = count + 1;
+                    if (count % 10 == 1) {
+                        $('#mySessionModal').modal();
+                    }
+                    if (count == 60) {
+                        document.getElementById("<%= lblSessionTime.ClientID %>").innerText = "Your current Session is Expired.";
+                        window.location.href = "<%=Page.ResolveUrl("~/Setup/Login.aspx")%>";
+                    }
+                    else {
+                        document.getElementById("<%= lblSessionTime.ClientID %>").innerText = "Your session will expire in " + ((sessionTimeout * 60) - count) + " second(s).";
+                        myTO = window.setTimeout("DisplaySessionTimeout()", 1000);
+                    }
+                }
+            }
+
+            function spinnerInit() {
+                var opts = {
+                    lines: 12, // The number of lines to draw
+                    length: 7, // The length of each line
+                    width: 4, // The line thickness
+                    radius: 10, // The radius of the inner circle
+                    corners: 1, // Corner roundness (0..1)
+                    rotate: 0, // The rotation offset
+                    color: '#000', // #rgb or #rrggbb
+                    speed: 1, // Rounds per second
+                    trail: 66, // Afterglow percentage
+                    shadow: false, // Whether to render a shadow
+                    hwaccel: false, // Whether to use hardware acceleration
+                };
+
+                $("#spin").show().spin(opts);
+            }
+
+            $.fn.spin = function (opts) {
+                this.each(function () {
+                    var $this = $(this),
+                        spinner = $this.data('spinner');
+                    if (spinner) spinner.stop();
+                    if (opts !== false) {
+                        opts = $.extend({ color: $this.css('color') }, opts);
+                        spinner = new Spinner(opts).spin(this);
+                        $this.data('spinner', spinner);
+                    }
+                });
+                return this;
+            };
+
+        </script>
     </form>
 </body>
 </html>
