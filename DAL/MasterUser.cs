@@ -31,5 +31,12 @@ namespace DAL
         public Nullable<System.DateTime> CreatedTimeStamp { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
+        public Nullable<System.DateTime> BirthDate { get; set; }
+        public string Gender { get; set; }
+        public string Comment { get; set; }
+        public string Website { get; set; }
+        public byte[] Image { get; set; }
+    
+        public virtual JuncUserRole JuncUserRole { get; set; }
     }
 }

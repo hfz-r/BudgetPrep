@@ -6,4 +6,3 @@ D:\Projects\BP\Security\obj\Debug\Security.Properties.Resources.resources
 D:\Projects\BP\Security\obj\Debug\Security.csproj.GenerateResource.Cache
 D:\Projects\BP\Security\obj\Debug\Security.exe
 D:\Projects\BP\Security\obj\Debug\Security.pdb
-D:\Projects\BP\Security\obj\Debug\Security.csprojResolveAssemblyReference.cache

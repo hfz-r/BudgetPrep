@@ -2,27 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-<<<<<<< HEAD
-=======
-using System.Web.Script.Serialization;
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 using System.Web.Security;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL;
-<<<<<<< HEAD
 using BP.Classes;
 using Newtonsoft.Json;
 using OBSecurity;
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 
 namespace BP.Setup
 {
     public class User 
     {
-<<<<<<< HEAD
         [JsonProperty("ctl00$MainContent$username")]
         public string username { get; set; }
         [JsonProperty("ctl00$MainContent$password")]
@@ -37,6 +29,8 @@ namespace BP.Setup
         public string answer { get; set; }
         [JsonProperty("ctl00$MainContent$status")]
         public string status { get; set; }
+        [JsonProperty("ctl00$MainContent$role")]
+        public string role { get; set; }
         [JsonProperty("ctl00$MainContent$fullname")]
         public string fullname { get; set; }
         [JsonProperty("ctl00$MainContent$icno")]
@@ -56,29 +50,11 @@ namespace BP.Setup
     }
 
     public partial class UserSetup : PageHelper
-=======
-        public string username { get; set; }
-        public string password { get; set; }
-        public string password2 { get; set; }
-        public string email { get; set; }
-        public string question { get; set; }
-        public string answer { get; set; }
-        public string fullname { get; set; }
-        public string ic { get; set; }
-        public string dept { get; set; }
-        public string post { get; set; }
-        public string phone { get; set; }
-        public string agree { get; set; }
-    }
-
-    public partial class UserSetup : System.Web.UI.Page
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-<<<<<<< HEAD
                 GetData();
                 Session["UsersPageMode"] = Helper.PageMode.New;
             }
@@ -86,9 +62,12 @@ namespace BP.Setup
 
         protected void gvUsers_PreRender(object sender, EventArgs e)
         {
-            gvUsers.UseAccessibleHeader = true;
-            gvUsers.HeaderRow.TableSection = TableRowSection.TableHeader;
-            gvUsers.FooterRow.TableSection = TableRowSection.TableFooter;
+            if (gvUsers.Rows.Count > 0)
+            {
+                gvUsers.UseAccessibleHeader = true;
+                gvUsers.HeaderRow.TableSection = TableRowSection.TableHeader;
+                gvUsers.FooterRow.TableSection = TableRowSection.TableFooter;
+            }
         }
 
         private void GetData()
@@ -155,6 +134,10 @@ namespace BP.Setup
                         status.SelectedIndex = -1;
                         status.Items.FindByValue(new Helper().GetItemStatusEnumName(Convert.ToChar(objMasterUser.UserStatus))).Selected = true;
 
+                        role.SelectedIndex = -1;
+                        role.Items.FindByValue(new UsersRoleDAL().ListUserRole().Where(x => x.UserID == objMasterUser.UserID)
+                            .Select(y=>Convert.ToString(y.RoleID)).FirstOrDefault()).Selected = true;
+
                         ChangePageMode(Helper.PageMode.Edit);
                         form_Wiz.Visible = true;
                     }
@@ -163,14 +146,10 @@ namespace BP.Setup
             catch (Exception ex)
             {
                 ((SiteMaster)this.Master).ShowMessage("Error", "An error occurred", ex, true);
-=======
-               
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             }
         }
 
         [WebMethod]
-<<<<<<< HEAD
         public static ReturnValue FormValues(string obj)
         {
             var dt = new ReturnValue();
@@ -216,6 +195,12 @@ namespace BP.Setup
                         objMasterUser.ModifiedBy = new UsersDAL().GetUserID(HttpContext.Current.User.Identity.Name);
                         objMasterUser.ModifiedTimeStamp = DateTime.Now;
 
+                        if (new UserSetup().AddUserRole(objMasterUser,_Users.role) == false)
+                        {
+                            dt.pageTitle = "Failure";
+                            dt.pageBody = "An error occurred while creating User";
+                        }
+
                         if (new UsersDAL().InsertUsers(objMasterUser))
                         {
                             bool mail = MailHelper.SendMail(objMasterUser, _MembershipUser.GetPassword(_Users.answer.Trim()));
@@ -253,6 +238,12 @@ namespace BP.Setup
                     objMasterUser.ModifiedBy = new UsersDAL().GetUserID(HttpContext.Current.User.Identity.Name);
                     objMasterUser.ModifiedTimeStamp = DateTime.Now;
 
+                    if (new UserSetup().AddUserRole(objMasterUser, _Users.role) == false)
+                    {
+                        dt.pageTitle = "Failure";
+                        dt.pageBody = "An error occurred while creating User";
+                    }
+
                     if (new UsersDAL().UpdateUsers(objMasterUser))
                     {
                         MembershipUser u = Membership.GetUser(objMasterUser.UserName);
@@ -267,54 +258,10 @@ namespace BP.Setup
                         dt.pageTitle = "Failure";
                         dt.pageBody = "An error occurred while updating User";
                     }
-=======
-        public static string FormValues(string obj)
-        {
-            string msg = string.Empty;
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            User _Users = js.Deserialize<User>(obj);
-
-            MembershipCreateStatus result = new MembershipCreateStatus();
-            try
-            {
-                MembershipUser newUser = Membership.CreateUser(_Users.username,_Users.password,_Users.email,_Users.question,
-                    _Users.answer,true,out result);
-
-                if (result.ToString() == "Success")
-                {
-                    MembershipUser _MembershipUser = Membership.GetUser(newUser.UserName);
-                    Guid UserId = (Guid)_MembershipUser.ProviderUserKey;
-
-                    USER _obj = new USER();
-                    _obj.UserId = UserId;
-                    _obj.UserName = _Users.username;
-                    _obj.UserPassword = _Users.password;
-                    _obj.FullName = _Users.fullname;
-                    _obj.UserEmail = _Users.email;
-                    _obj.UserIC = _Users.ic;
-                    _obj.Department = _Users.dept;
-                    _obj.Position = _Users.post;
-                    _obj.UserPhoneNo = _Users.phone;
-
-                    if (new UsersDAL().InsertUsers(_obj))
-                    {
-                        msg = "Your information was successfully saved!";
-                    }
-                    else
-                    {
-                        msg = "<Fail> Your information was unsuccessfully to save!";
-                    }
-                }
-                else
-                {
-                    //Membership.DeleteUser(_Users.username);
-                    msg = "<Fail> " + GetErrorMessage(result);
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                 }
             }
             catch
             {
-<<<<<<< HEAD
                 //rollback - start
                 Membership.DeleteUser(_Users.username);
                 new UsersDAL().DeleteUsers(_Users.username);
@@ -327,19 +274,49 @@ namespace BP.Setup
             return dt;
         }
 
+        protected bool AddUserRole(MasterUser objMasterUser, string role)
+        {
+            MasterRole objMasterRole = new UsersRoleDAL().GetRoles().Where(x => x.RoleID == Convert.ToInt32(role)).FirstOrDefault();
+            if (objMasterRole != null)
+            {
+                //back-end level;membership checking
+                if (!Roles.IsUserInRole(objMasterUser.UserName, objMasterRole.RoleName))
+                {
+                    string[] getRoles = Roles.GetRolesForUser(objMasterUser.UserName);
+                    if (getRoles.Count() > 0)
+                    {
+                        Roles.RemoveUserFromRoles(objMasterUser.UserName, getRoles);
+                    }
+                    Roles.AddUserToRole(objMasterUser.UserName, objMasterRole.RoleName);
+                }
+
+                //local level checking
+                JuncUserRole objUserRole = new JuncUserRole();
+                objUserRole.RoleID = Convert.ToInt32(role);
+                objUserRole.UserID = objMasterUser.UserID;
+                objUserRole.Status = "A";
+
+                if (new UsersRoleDAL().UserRoleFunc(objUserRole))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             ChangePageMode(Helper.PageMode.New);
             ClearPageData();
             form_Wiz.Visible = true;
             //Response.Redirect(Request.RawUrl);
-=======
-                //Membership.DeleteUser(_Users.username);
-                msg = "<Fail> " + GetErrorMessage(result);
-            }
-
-            return msg;
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         }
 
         public static string GetErrorMessage(MembershipCreateStatus status)
@@ -377,7 +354,6 @@ namespace BP.Setup
                     return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
-<<<<<<< HEAD
 
         private void LoadDropDown()
         {
@@ -385,6 +361,11 @@ namespace BP.Setup
             {
                 status.DataSource = Enum.GetValues(typeof(Helper.ItemStatus));
                 status.DataBind();
+
+                role.DataSource = new UsersRoleDAL().GetRoles();
+                role.DataTextField = "RoleName";
+                role.DataValueField = "RoleID";
+                role.DataBind();
             }
             catch (Exception ex)
             {
@@ -470,7 +451,5 @@ namespace BP.Setup
                 }
             }
         }
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     }
 }

@@ -43,13 +43,10 @@
       <HintPath>..\..\OnlineBudget\BudgetPrep\BudgetPrep\packages\AjaxControlToolkit.16.1.0.0\lib\net40\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-<<<<<<< HEAD
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -263,25 +260,17 @@
     <Content Include="assets\js\jquery.sparkline.index.min.js" />
     <Content Include="assets\js\jquery.ui.touch-punch.min.js" />
     <Content Include="assets\js\jquery.validate.min.js" />
-<<<<<<< HEAD
     <Content Include="assets\js\jszip.min.js" />
     <Content Include="assets\js\markdown.min.js" />
     <Content Include="assets\js\moment.min.js" />
     <Content Include="assets\js\pdfmake.min.js" />
-=======
-    <Content Include="assets\js\markdown.min.js" />
-    <Content Include="assets\js\moment.min.js" />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Content Include="assets\js\prettify.min.js" />
     <Content Include="assets\js\respond.min.js" />
     <Content Include="assets\js\select2.min.js" />
     <Content Include="assets\js\spin.js" />
     <Content Include="assets\js\spinbox.min.js" />
     <Content Include="assets\js\tree.min.js" />
-<<<<<<< HEAD
     <Content Include="assets\js\vfs_fonts.js" />
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Content Include="assets\js\wizard.min.js" />
     <Content Include="assets\swf\flashExport.swf" />
     <Content Include="Content\Site.css" />
@@ -362,13 +351,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Logout.aspx" />
-<<<<<<< HEAD
     <Content Include="MailTemplates\email-confirmation.html" />
     <Content Include="MailTemplates\email-contrast.html" />
     <Content Include="MailTemplates\email-navbar.html" />
     <Content Include="MailTemplates\email-newsletter.html" />
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Content Include="packages.config" />
     <Content Include="assets\font-awesome\4.5.0\fonts\fontawesome-webfont.eot" />
     <Content Include="assets\font-awesome\4.5.0\fonts\fontawesome-webfont.ttf" />
@@ -379,6 +365,7 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Profile.aspx" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
@@ -405,7 +392,6 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-<<<<<<< HEAD
     <Content Include="Setup\Bootstrap-Duallistbox\asp.net-duallistbox-multiple-instances.js" />
     <Content Include="Setup\Bootstrap-Duallistbox\bootstrap-duallistbox.css" />
     <Content Include="Setup\Bootstrap-Duallistbox\jquery.bootstrap-duallistbox.js" />
@@ -413,9 +399,6 @@
     <Content Include="Setup\DualListbox.ascx" />
     <Content Include="Setup\Login.aspx" />
     <Content Include="Setup\UserRole.aspx" />
-=======
-    <Content Include="Setup\Login.aspx" />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Content Include="Setup\UserSetup.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -426,10 +409,8 @@
   <ItemGroup>
     <None Include="Scripts\_references.js" />
     <Content Include="Site.Mobile.Master" />
-<<<<<<< HEAD
     <Content Include="Setup\Web.config" />
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
+    <Content Include="ShowImage.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -476,14 +457,11 @@
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-<<<<<<< HEAD
     <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\MailHelper.cs" />
     <Compile Include="Classes\PageHelper.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -501,8 +479,14 @@
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
     <Compile Include="Setup\DualListbox.ascx.cs">
       <DependentUpon>DualListbox.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -510,8 +494,6 @@
     <Compile Include="Setup\DualListbox.ascx.designer.cs">
       <DependentUpon>DualListbox.ascx</DependentUpon>
     </Compile>
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Compile Include="Setup\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -519,7 +501,6 @@
     <Compile Include="Setup\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Setup\UserRole.aspx.cs">
       <DependentUpon>UserRole.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -527,8 +508,6 @@
     <Compile Include="Setup\UserRole.aspx.designer.cs">
       <DependentUpon>UserRole.aspx</DependentUpon>
     </Compile>
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -558,13 +537,9 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="bin\" />
   </ItemGroup>
-=======
-  <ItemGroup />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
@@ -574,13 +549,10 @@
       <Project>{aa07c21c-69dd-4ee9-bc55-943ecd6db569}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-<<<<<<< HEAD
     <ProjectReference Include="..\Security\Security.csproj">
       <Project>{4a2e9aa2-b04c-4f18-9777-c0d557b1c4f9}</Project>
       <Name>Security</Name>
     </ProjectReference>
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

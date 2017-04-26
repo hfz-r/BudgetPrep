@@ -14,9 +14,17 @@ namespace DAL
     
     public partial class MasterRole
     {
+        public MasterRole()
+        {
+            this.JuncUserRoles = new HashSet<JuncUserRole>();
+        }
+    
         public int RoleID { get; set; }
         public string RoleName { get; set; }
         public string Description { get; set; }
         public Nullable<System.Guid> RUID { get; set; }
+        public string RoleStatus { get; set; }
+    
+        public virtual ICollection<JuncUserRole> JuncUserRoles { get; set; }
     }
 }

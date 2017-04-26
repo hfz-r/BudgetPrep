@@ -13,21 +13,13 @@ namespace BP.Setup {
     public partial class Login {
         
         /// <summary>
-<<<<<<< HEAD
         /// login control.
-=======
-        /// main control.
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-<<<<<<< HEAD
         protected global::System.Web.UI.HtmlControls.HtmlForm login;
-=======
-        protected global::System.Web.UI.HtmlControls.HtmlForm main;
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         
         /// <summary>
         /// LoginUser control.
@@ -37,7 +29,6 @@ namespace BP.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Login LoginUser;
-<<<<<<< HEAD
         
         /// <summary>
         /// lblMessage control.
@@ -119,7 +110,5 @@ namespace BP.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnUsername;
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     }
 }

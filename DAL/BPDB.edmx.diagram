@@ -4,16 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-<<<<<<< HEAD
-      <Diagram DiagramId="850a3dee494e4998890b71824235dce7" Name="Diagram1" ShowGrid="false" ZoomLevel="100">
+      <Diagram DiagramId="850a3dee494e4998890b71824235dce7" Name="Diagram1" ShowGrid="false" ZoomLevel="82">
         <EntityTypeShape EntityType="BPModel.BPEventLog" Width="1.5" PointX="5.875" PointY="0.75" />
-        <EntityTypeShape EntityType="BPModel.MasterUser" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BPModel.MasterRole" Width="1.5" PointX="0.75" PointY="0.75" />
-=======
-      <Diagram DiagramId="850a3dee494e4998890b71824235dce7" Name="Diagram1" ShowGrid="false">
-        <EntityTypeShape EntityType="BPModel.USER" Width="1.5" PointX="0.75" PointY="0.75" />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
-      </Diagram>
+        <EntityTypeShape EntityType="BPModel.MasterUser" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BPModel.JuncUserRole" Width="1.5" PointX="5" PointY="5" />
+        <AssociationConnector Association="BPModel.JuncUserRole_User" />
+        <EntityTypeShape EntityType="BPModel.MasterRole" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="BPModel.JuncUserRole_Role" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

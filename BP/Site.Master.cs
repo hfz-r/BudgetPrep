@@ -5,20 +5,14 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-<<<<<<< HEAD
 using DAL;
 using System.Diagnostics;
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
 
 namespace BP
 {
     public partial class SiteMaster : MasterPage
     {
-<<<<<<< HEAD
         MasterUser AuthUser;
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
@@ -76,14 +70,27 @@ namespace BP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             AuthUser = (MasterUser)Session["UserData"];
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "onrefLoad", "RefreshSession();", true);
 
-           if (!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
-
+                LoadImageHeader();
             }
+        }
+
+        protected void LoadImageHeader()
+        {
+            string src;
+            if (AuthUser.Image == null)
+            {
+                src = "~/assets/images/avatars/profile-pic.jpg";
+            }
+            else
+            {
+                src = "~/ShowImage.ashx?UserId=" + AuthUser.UserID;
+            }
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "LoadImage", "LoadImage('" + src + "');", true);
         }
 
         public void ShowMessage(string Title, string Body)
@@ -119,9 +126,6 @@ namespace BP
                 bpe.CreatedTimeStamp = DateTime.Now;
                 new EventLogDAL().AddEventLog(bpe);
             }
-=======
-
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
         }
     }
 }

@@ -101,7 +101,7 @@ namespace BP.Setup
             if (dlbGeneric.Items.Count > 0)
                 foreach (var val in values)
                 {
-                    dlbGeneric.Items.FindByText(val).Selected = true;
+                    dlbGeneric.Items.FindByValue(val).Selected = true;
                 }
         }
         public List<string> GetSelectedValues()
@@ -110,7 +110,7 @@ namespace BP.Setup
             foreach (ListItem item in dlbGeneric.Items)
             {
                 if (item.Selected)
-                    selectedValues.Add(item.Text);
+                    selectedValues.Add(item.Value);
             }
             return selectedValues;
         }

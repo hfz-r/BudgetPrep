@@ -6,7 +6,6 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL;
-<<<<<<< HEAD
 using BP.Classes;
 using System.Web.Services;
 using Newtonsoft.Json;
@@ -20,23 +19,15 @@ namespace BP.Setup
         public string Question;
     }
 
-=======
-
-namespace BP.Setup
-{
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     public partial class Login : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             if (!Membership.EnablePasswordReset)
             {
                 FormsAuthentication.RedirectToLoginPage();
             }
 
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             if (!Page.IsPostBack)
             {
                 System.Web.Security.FormsAuthentication.SignOut();
@@ -45,7 +36,6 @@ namespace BP.Setup
             }
         }
 
-<<<<<<< HEAD
         protected void Page_Init(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -96,34 +86,15 @@ namespace BP.Setup
                     {
                         e.Authenticated = false;
                     }
-=======
-        protected void LoginUser_Authenticate(object sender, AuthenticateEventArgs e)
-        {
-            if (Membership.ValidateUser(LoginUser.UserName,LoginUser.Password))
-            {
-                USER user = new UsersDAL().GetValidUser(LoginUser.UserName, LoginUser.Password);
-                if (user != null)
-                {
-                    FormsAuthentication.RedirectFromLoginPage(LoginUser.UserName, LoginUser.RememberMeSet);
-
-                    Session["UserData"] = user;
-                    e.Authenticated = true;
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                 }
                 else
                 {
                     e.Authenticated = false;
                 }
             }
-<<<<<<< HEAD
             catch (Exception ex)
             {
                 throw ex;
-=======
-            else
-            {
-                e.Authenticated = false;
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
             }
         }
 
@@ -144,7 +115,6 @@ namespace BP.Setup
                 }
             }
         }
-<<<<<<< HEAD
 
         [WebMethod]
         public static VerifyHelper GetVerification(string email)
@@ -204,8 +174,7 @@ namespace BP.Setup
                     if (u == null)
                     {
                         string myString = HttpUtility.HtmlEncode(username);
-
-                        ReturnObj = new { status = "Fail", result = "Username " + myString + " not found. Please check the value and re-enter." };
+                        throw new Exception("Username " + myString + " not found. Please check the value and re-enter.");
                     }
                     //verify at Membership side
                     newPassword = u.ResetPassword(answer);
@@ -226,17 +195,17 @@ namespace BP.Setup
                         }
                         else
                         {
-                            ReturnObj = new { status = "Fail", result = "Password reset failed. Please re-enter your values and try again." };
+                             throw new Exception("Password reset failed. Please re-enter your values and try again.");
                         }
                     }
                     else
                     {
-                        ReturnObj = new { status = "Fail", result = "Password reset failed. Please re-enter your values and try again." };
+                        throw new Exception("Password reset failed. Please re-enter your values and try again.");
                     }
                 }
                 else
                 {
-                    ReturnObj = new { status = "Fail", result = "Wrong Answer." };
+                    throw new Exception("Wrong Answer.");
                 }
             }
             catch (Exception ex)
@@ -246,7 +215,5 @@ namespace BP.Setup
 
             return json = JsonConvert.SerializeObject(ReturnObj, Formatting.Indented);
         }
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
     }
 }

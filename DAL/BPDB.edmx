@@ -5,7 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-<<<<<<< HEAD
         <EntityType Name="BPEventLog">
           <Key>
             <PropertyRef Name="EventLogID" />
@@ -19,6 +18,14 @@
           <Property Name="CreatedBy" Type="int4" />
           <Property Name="CreatedTimeStamp" Type="timestamp" />
         </EntityType>
+        <EntityType Name="JuncUserRole">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int4" Nullable="false" />
+          <Property Name="RoleID" Type="int4" />
+          <Property Name="Status" Type="bpchar" MaxLength="1" />
+        </EntityType>
         <EntityType Name="MasterRole">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -27,6 +34,7 @@
           <Property Name="RoleName" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="300" />
           <Property Name="RUID" Type="uuid" />
+          <Property Name="RoleStatus" Type="bpchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="MasterUser">
           <Key>
@@ -34,13 +42,6 @@
           </Key>
           <Property Name="UserID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UUID" Type="uuid" Nullable="false" />
-=======
-        <EntityType Name="USERS">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="uuid" Nullable="false" />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
           <Property Name="UserName" Type="varchar" MaxLength="100" />
           <Property Name="UserPassword" Type="varchar" MaxLength="200" />
           <Property Name="UserEmail" Type="varchar" MaxLength="50" />
@@ -49,7 +50,6 @@
           <Property Name="Department" Type="varchar" MaxLength="30" />
           <Property Name="Position" Type="varchar" MaxLength="30" />
           <Property Name="UserPhoneNo" Type="varchar" MaxLength="8000" />
-<<<<<<< HEAD
           <Property Name="SecQuestion" Type="bpchar" MaxLength="250" />
           <Property Name="SecAnswer" Type="bpchar" MaxLength="250" />
           <Property Name="UserStatus" Type="bpchar" MaxLength="1" />
@@ -57,27 +57,68 @@
           <Property Name="CreatedTimeStamp" Type="timestamp" />
           <Property Name="ModifiedBy" Type="int4" />
           <Property Name="ModifiedTimeStamp" Type="timestamp" />
+          <Property Name="BirthDate" Type="timestamp" />
+          <Property Name="Gender" Type="bpchar" MaxLength="1" />
+          <Property Name="Comment" Type="varchar" MaxLength="250" />
+          <Property Name="Website" Type="varchar" MaxLength="50" />
+          <Property Name="Image" Type="bytea" />
         </EntityType>
+        <Association Name="JuncUserRole_Role">
+          <End Role="MasterRole" Type="Self.MasterRole" Multiplicity="0..1" />
+          <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="JuncUserRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JuncUserRole_User">
+          <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="1" />
+          <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MasterUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="JuncUserRole">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BPModelStoreContainer">
           <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
+          <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
           <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
           <EntitySet Name="MasterUser" EntityType="Self.MasterUser" Schema="public" store:Type="Tables" />
-=======
-        </EntityType>
-        <EntityContainer Name="BPModelStoreContainer">
-          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="public" store:Type="Tables" />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
+          <AssociationSet Name="JuncUserRole_Role" Association="Self.JuncUserRole_Role">
+            <End Role="MasterRole" EntitySet="MasterRole" />
+            <End Role="JuncUserRole" EntitySet="JuncUserRole" />
+          </AssociationSet>
+          <AssociationSet Name="JuncUserRole_User" Association="Self.JuncUserRole_User">
+            <End Role="MasterUser" EntitySet="MasterUser" />
+            <End Role="JuncUserRole" EntitySet="JuncUserRole" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="BPEntities" annotation:LazyLoadingEnabled="true">
-<<<<<<< HEAD
           <EntitySet Name="BPEventLogs" EntityType="BPModel.BPEventLog" />
           <EntitySet Name="MasterUsers" EntityType="BPModel.MasterUser" />
+          <EntitySet Name="JuncUserRoles" EntityType="BPModel.JuncUserRole" />
+          <AssociationSet Name="JuncUserRole_User" Association="BPModel.JuncUserRole_User">
+            <End Role="MasterUser" EntitySet="MasterUsers" />
+            <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
+          </AssociationSet>
           <EntitySet Name="MasterRoles" EntityType="BPModel.MasterRole" />
-        </EntityContainer>
+          <AssociationSet Name="JuncUserRole_Role" Association="BPModel.JuncUserRole_Role">
+            <End Role="MasterRole" EntitySet="MasterRoles" />
+            <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="BPEventLog">
           <Key>
             <PropertyRef Name="EventLogID" />
@@ -97,15 +138,6 @@
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UUID" Type="Guid" Nullable="false" />
-=======
-          <EntitySet Name="USERS" EntityType="BPModel.USER" />
-        </EntityContainer>
-        <EntityType Name="USER">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Guid" Nullable="false" />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -114,7 +146,6 @@
           <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UserPhoneNo" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
-<<<<<<< HEAD
           <Property Name="SecQuestion" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="SecAnswer" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="UserStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
@@ -122,7 +153,35 @@
           <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+          <NavigationProperty Name="JuncUserRole" Relationship="BPModel.JuncUserRole_User" FromRole="MasterUser" ToRole="JuncUserRole" />
+          <Property Name="BirthDate" Type="DateTime" Precision="6" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="Binary" MaxLength="2147483647" FixedLength="false" />
         </EntityType>
+        <EntityType Name="JuncUserRole">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="MasterUser" Relationship="BPModel.JuncUserRole_User" FromRole="JuncUserRole" ToRole="MasterUser" />
+          <NavigationProperty Name="MasterRole" Relationship="BPModel.JuncUserRole_Role" FromRole="JuncUserRole" ToRole="MasterRole" />
+        </EntityType>
+        <Association Name="JuncUserRole_User">
+          <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="1" />
+          <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MasterUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="JuncUserRole">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="MasterRole">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -131,16 +190,27 @@
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="RUID" Type="Guid" />
-=======
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
+          <Property Name="RoleStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="JuncUserRoles" Relationship="BPModel.JuncUserRole_Role" FromRole="MasterRole" ToRole="JuncUserRole" />
         </EntityType>
-      </Schema>
+        <Association Name="JuncUserRole_Role">
+          <End Type="BPModel.MasterRole" Role="MasterRole" Multiplicity="0..1" />
+          <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="JuncUserRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BPModelStoreContainer" CdmEntityContainer="BPEntities">
-<<<<<<< HEAD
           <EntitySetMapping Name="BPEventLogs">
             <EntityTypeMapping TypeName="BPModel.BPEventLog">
               <MappingFragment StoreEntitySet="BPEventLog">
@@ -158,6 +228,11 @@
           <EntitySetMapping Name="MasterUsers">
             <EntityTypeMapping TypeName="BPModel.MasterUser">
               <MappingFragment StoreEntitySet="MasterUser">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
@@ -165,11 +240,6 @@
                 <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
                 <ScalarProperty Name="SecAnswer" ColumnName="SecAnswer" />
                 <ScalarProperty Name="SecQuestion" ColumnName="SecQuestion" />
-=======
-          <EntitySetMapping Name="USERS">
-            <EntityTypeMapping TypeName="BPModel.USER">
-              <MappingFragment StoreEntitySet="USERS">
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
                 <ScalarProperty Name="UserPhoneNo" ColumnName="UserPhoneNo" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="Department" ColumnName="Department" />
@@ -178,8 +248,16 @@
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-<<<<<<< HEAD
                 <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JuncUserRoles">
+            <EntityTypeMapping TypeName="BPModel.JuncUserRole">
+              <MappingFragment StoreEntitySet="JuncUserRole">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -187,17 +265,15 @@
           <EntitySetMapping Name="MasterRoles">
             <EntityTypeMapping TypeName="BPModel.MasterRole">
               <MappingFragment StoreEntitySet="MasterRole">
+                <ScalarProperty Name="RoleStatus" ColumnName="RoleStatus" />
                 <ScalarProperty Name="RUID" ColumnName="RUID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-=======
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
->>>>>>> 51c6cb0a8522e20edf9ecab4038564a4b0e3c4ea
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

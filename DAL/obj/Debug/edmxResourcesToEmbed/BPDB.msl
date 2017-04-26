@@ -18,6 +18,11 @@
     <EntitySetMapping Name="MasterUsers">
       <EntityTypeMapping TypeName="BPModel.MasterUser">
         <MappingFragment StoreEntitySet="MasterUser">
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
           <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
@@ -38,9 +43,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="JuncUserRoles">
+      <EntityTypeMapping TypeName="BPModel.JuncUserRole">
+        <MappingFragment StoreEntitySet="JuncUserRole">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="MasterRoles">
       <EntityTypeMapping TypeName="BPModel.MasterRole">
         <MappingFragment StoreEntitySet="MasterRole">
+          <ScalarProperty Name="RoleStatus" ColumnName="RoleStatus" />
           <ScalarProperty Name="RUID" ColumnName="RUID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />

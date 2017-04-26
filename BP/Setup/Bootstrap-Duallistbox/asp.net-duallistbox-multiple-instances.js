@@ -5,6 +5,8 @@
             moveOnSelect: false,
             preserveSelectionOnMove: 'moved',
             helperSelectNamePostfix: '_helper',
+            selectedListLabel: $($("div.dummy >input[id$='hfselectedListLabel'] ")[index]).val(),
+            nonSelectedListLabel: $($("div.dummy >input[id$='hfnonSelectedListLabel'] ")[index]).val(),
             index: index
         })
         //this is the global setting
