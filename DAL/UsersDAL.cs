@@ -48,7 +48,7 @@ namespace DAL
 
         public MasterUser VerifyAnswer(string UserName, string Answer)
         {
-            string pwd = Security.Encrypt(Answer.ToUpper());
+            string pwd = Security.Encrypt(Answer);
             return db.MasterUsers.Where(x => x.UserStatus == "A" && x.UserName == UserName && x.SecAnswer.Trim() == pwd).FirstOrDefault();
         }
 
@@ -107,7 +107,7 @@ namespace DAL
                 else
                 {
                     //objMasterUser.UserPassword = Security.Encrypt(objMasterUser.UserPassword);
-                    objMasterUser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer.ToUpper());
+                    objMasterUser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer);
 
                     db.MasterUsers.Add(objMasterUser);
                     db.SaveChanges();
@@ -214,7 +214,7 @@ namespace DAL
                     if (!string.IsNullOrEmpty(objMasterUser.UserEmail)) objuser.UserEmail = objMasterUser.UserEmail;
                     if (!string.IsNullOrEmpty(objMasterUser.UserPassword)) objuser.UserPassword = objMasterUser.UserPassword;
                     if (!string.IsNullOrEmpty(objMasterUser.SecQuestion)) objuser.SecQuestion = objMasterUser.SecQuestion;
-                    if (!string.IsNullOrEmpty(objMasterUser.SecAnswer)) objuser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer.ToUpper());
+                    if (!string.IsNullOrEmpty(objMasterUser.SecAnswer)) objuser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer);
                     objuser.ModifiedBy = objMasterUser.ModifiedBy;
                     objuser.ModifiedTimeStamp = objMasterUser.ModifiedTimeStamp;
 

@@ -14,7 +14,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="PageHeaderContent" runat="server">
-        <div class="page-header">
+    <div class="page-header">
 		<h1>
 			User Profile
 			<small>
@@ -113,12 +113,12 @@
 
 							        <div class="col-sm-9">
 								        <label class="inline">
-									        <input type="radio" class="ace" id="rbMale" name="rbMale" runat="server" />
+									        <input id="rbMale" name="Gender" type="radio" class="ace" runat="server" value="male" />
 									        <span class="lbl middle"> Male</span>
 								        </label>
 								        &nbsp; &nbsp; &nbsp;
 								        <label class="inline">
-									        <input type="radio" class="ace" id="rbFemale" name="rbFemale" runat="server" />
+									        <input id="rbFemale" name="Gender" type="radio" class="ace" runat="server" value="female"/>
 									        <span class="lbl middle"> Female</span>
 								        </label>
 							        </div>
@@ -254,7 +254,7 @@
 						        Save
                             </asp:LinkButton>--%>
 					        &nbsp; &nbsp;
-					        <button class="btn" type="reset" runat="server">
+					        <button class="btn" type="reset" onclick="Reset();return false;" >
 						        <i class="ace-icon fa fa-undo bigger-110"></i>
 						        Reset
 					        </button>
@@ -274,6 +274,10 @@
     <script type="text/javascript">
         var baseUrl = '<%= Page.ResolveClientUrl("~/") %>';
 
+        function Reset() {
+            $('#myform')[0].reset();
+        }
+
         function PopulateImage(src) {
             var url = src.replace("~/", baseUrl);
 
@@ -282,9 +286,28 @@
             });
         }
 
-        //avatar
-        jQuery(function ($) {
+        var data;
+        function ShowOutput(uid) {
+            $.each(data, function (i, item) {
+                var classname;
+                if (item.source.indexOf("Profile") >= 0)  { classname='gritter-info'; }
+                if (item.source.indexOf("Password") >= 0) { classname='gritter-error'; }
+                if (item.source.indexOf("Security") >= 0) { classname = 'gritter-success'; }
 
+                $.gritter.add({
+                    title: item.source,
+                    text: item.message,
+                    class_name: classname,
+                    image: 'ShowImage.ashx?UserId='+uid,
+                    sticky: false,
+                    time: 60000,
+                    after_close: function () { }
+                });
+            });
+        }
+
+        //avatar
+        $(function ($) {
             $('#user-profile-3').find('input[type=file]').ace_file_input({
                 style: 'well',
                 btn_choose: 'Change avatar',
@@ -302,22 +325,19 @@
 			    $(this).prev().focus();
 			});
 
+            //phone-number only
             $('.input-mask-phone').mask('(999) 999-9999');
 
-        })
-
-        //maintain active tab bootstrap
-        $(function () {
+            //maintain active tab bootstrap
             var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "edit-basic";
             $('#tabs a[href="#' + tabName + '"]').tab('show');
             $("#tabs a").click(function () {
                 $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
             });
-        });
+        })
 
         //form validation
         $(document).ready(function () {
-
             $.validator.addMethod("phone", function (value, element) {
                 return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
             }, "Enter a valid phone number.");
@@ -389,7 +409,9 @@
 
             $('#btnSave').click(function (evt) {
                 evt.preventDefault();
+
                 $('#myform').submit();
+                return false;
             });
         });
 

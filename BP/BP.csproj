@@ -133,6 +133,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccountCodeSetup.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Manage.aspx" />
     <Content Include="Account\OpenAuthProviders.ascx" />
@@ -272,6 +273,17 @@
     <Content Include="assets\js\tree.min.js" />
     <Content Include="assets\js\vfs_fonts.js" />
     <Content Include="assets\js\wizard.min.js" />
+    <Content Include="assets\pace\scripts\pace.min.js" />
+    <Content Include="assets\pace\theme\barber-shop.css" />
+    <Content Include="assets\pace\theme\bounce.css" />
+    <Content Include="assets\pace\theme\center-atom.css" />
+    <Content Include="assets\pace\theme\center-circle.css" />
+    <Content Include="assets\pace\theme\center-radar.css" />
+    <Content Include="assets\pace\theme\center-simplel.css" />
+    <Content Include="assets\pace\theme\corner-indicator.css" />
+    <Content Include="assets\pace\theme\fill-left.css" />
+    <Content Include="assets\pace\theme\flash.css" />
+    <Content Include="assets\pace\theme\loading-bar.css" />
     <Content Include="assets\swf\flashExport.swf" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -338,6 +350,7 @@
     <Content Include="Images\BP\mybudget2.png" />
     <Content Include="Images\bullet.png" />
     <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\loader.gif" />
     <Content Include="Images\orderedList0.png" />
     <Content Include="Images\orderedList1.png" />
     <Content Include="Images\orderedList2.png" />
@@ -419,6 +432,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountCodeSetup.aspx.cs">
+      <DependentUpon>AccountCodeSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountCodeSetup.aspx.designer.cs">
+      <DependentUpon>AccountCodeSetup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="Account\Login.aspx.cs">

@@ -81,7 +81,7 @@ namespace BP.Classes
         protected static string PopulateBody(string FullName, string UserName, string Password)
         {
             string body = string.Empty;
-            using (System.IO.StreamReader reader = new System.IO.StreamReader( System.Web.HttpContext.Current.Server.MapPath("../MailTemplates/email-contrast.html")))
+            using (System.IO.StreamReader reader = new System.IO.StreamReader( System.Web.HttpContext.Current.Server.MapPath("~/MailTemplates/email-contrast.html")))
             {
                 body = reader.ReadToEnd();
             }

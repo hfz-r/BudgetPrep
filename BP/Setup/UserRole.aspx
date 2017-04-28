@@ -39,7 +39,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 			<div class="widget-box" id="widget-box-edit">
 				<div class="widget-header">
-					<h5 class="widget-title">New User Roles</h5>
+					<h5 class="widget-title">User Role - Edit</h5>
 
 					<div class="widget-toolbar">
 						<a href="#" data-action="fullscreen" class="orange2">
@@ -141,7 +141,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
 			<div class="widget-box" id="widget-box-list">
 				<div class="widget-header">
-					<h5 class="widget-title">User Roles</h5>
+					<h5 class="widget-title">User Role - List</h5>
 
 					<div class="widget-toolbar">
 						<a href="#" data-action="fullscreen" class="orange2">
@@ -170,10 +170,14 @@
                         <asp:GridView ID="gvRoles" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered table-hover" 
                             DataKeyNames="RoleID" OnRowDataBound="gvRoles_RowDataBound" OnRowCommand="gvRoles_RowCommand" OnPreRender="gvRoles_PreRender">
                             <Columns>
-                                <asp:TemplateField HeaderText="Role Name">
+                                <asp:TemplateField HeaderStyle-Width="10px" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <span id="count" class="badge badge-yellow tooltip-warning" data-rel="tooltip" data-placement="left" 
                                             title="null" runat="server"></span>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Role Name">
+                                    <ItemTemplate>
                                         <asp:Label ID="lblRolename" runat="server" Text='<%# Eval("RoleName")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -392,6 +396,7 @@
                 var myTable = $('#<%=gvRoles.ClientID%>').DataTable({
                     bAutoWidth: false,
                     "aoColumns": [
+                        { "bSortable": false },
 					      null,
                           null,
                           null,
@@ -411,18 +416,22 @@
                           "extend": "colvis",
                           "text": "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>Show/hide columns</span>",
                           "className": "btn btn-white btn-primary btn-bold",
-                          columns: ':not(:last)'
+                          columns: ':not(:first), :not(:last)'
                       },
                       {
                           "extend": "copyHtml5",
                           "text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
-                          "className": "btn btn-white btn-primary btn-bold"
+                          "className": "btn btn-white btn-primary btn-bold",
+                          exportOptions: {
+                              columns: [0, 1, 2, 3]
+                          }
                       },
                       {
                           "extend": "csvHtml5",
                           "text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>Export to CSV</span>",
                           "className": "btn btn-white btn-primary btn-bold",
                           exportOptions: {
+                              columns: [0, 1, 2, 3],
                               modifier: {
                                   search: 'none'
                               }
@@ -433,6 +442,7 @@
                           "text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
                           "className": "btn btn-white btn-primary btn-bold",
                           exportOptions: {
+                              columns: [0, 1, 2, 3],
                               modifier: {
                                   page: 'current'
                               }
@@ -443,6 +453,7 @@
                           "text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
                           "className": "btn btn-white btn-primary btn-bold",
                           exportOptions: {
+                              columns: [0, 1, 2, 3],
                               modifier: {
                                   page: 'current'
                               }
@@ -453,7 +464,10 @@
                           "text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>Print</span>",
                           "className": "btn btn-white btn-primary btn-bold",
                           autoPrint: false,
-                          message: 'This print was produced using the Print button for DataTables'
+                          message: 'This print was produced using the Print button for DataTables',
+                          exportOptions: {
+                              columns: [0, 1, 2, 3]
+                          }
                       }
                     ]
                 });

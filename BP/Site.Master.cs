@@ -81,14 +81,11 @@ namespace BP
 
         protected void LoadImageHeader()
         {
-            string src;
-            if (AuthUser.Image == null)
-            {
-                src = "~/assets/images/avatars/profile-pic.jpg";
-            }
-            else
+            string src = string.Empty;
+            if (AuthUser.Image != null)
             {
                 src = "~/ShowImage.ashx?UserId=" + AuthUser.UserID;
+
             }
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "LoadImage", "LoadImage('" + src + "');", true);
         }

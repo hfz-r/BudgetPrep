@@ -381,7 +381,7 @@ namespace BP.Setup
                     username.Attributes.Remove("readonly");
                     question.Attributes.Remove("readonly");
                     answer.Attributes.Remove("readonly");
-                    widget_title.InnerText = "New-User Registration Info";
+                    widget_title.InnerText = "User Setup - New";
                     pwdDiv.Visible = true;
                     pwd2Div.Visible = true;
                     SecAns.Visible = true;
@@ -390,7 +390,7 @@ namespace BP.Setup
                     username.Attributes.Add("readonly", "readonly");
                     question.Attributes.Add("readonly", "readonly");
                     answer.Attributes.Add("readonly", "readonly");
-                    widget_title.InnerText = "Edit User Registration Info";
+                    widget_title.InnerText = "User Setup - Edit";
                     pwdDiv.Visible = false;
                     pwd2Div.Visible = false;
                     SecAns.Visible = false;
@@ -434,19 +434,20 @@ namespace BP.Setup
 
                 if (LockedOut == true)
                 {
-                    span.InnerHtml = "<span class=\"label label-sm label-warning arrowed arrowed-right tooltip-warning\" data-rel=\"tooltip\" " +
+                    span.InnerHtml = "<span class=\"label label-sm label-warning arrowed-in arrowed-in-right tooltip-warning\" data-rel=\"tooltip\" " +
                                      "data-placement=\"right\" title=\"Account has been locked out because of too many invalid login attempts.\">Locked</span>";
                 }
                 else
                 {
                     if (UserStatus == "A")
                     {
-                        span.InnerHtml = "<i class=\"fa fa-flag green bigger-150 tooltip-success\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Active\"></i>";
-                        //span.Attributes["class"] = "label label-success";
+                        span.InnerHtml = "<span class=\"label label-sm label-success arrowed-in arrowed-in-right tooltip-success\" " +
+                        "data-rel=\"tooltip\" data-placement=\"right\" title=\"Active Status. All operation has been enabled.\">Active</span>";
                     }
                     else if (UserStatus == "D")
                     {
-                        span.InnerHtml = "<i class=\"fa fa-flag red bigger-150 tooltip-error\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive\"></i>";
+                        span.InnerHtml = "<span class=\"label label-sm label-danger arrowed-in arrowed-in-right tooltip-error\" " +
+                        "data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive Status. All operation has been disabled.\">Inactive</span>";
                     }
                 }
             }

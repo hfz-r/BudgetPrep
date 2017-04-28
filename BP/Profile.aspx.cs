@@ -54,18 +54,14 @@ namespace BP
 
         protected void PopulateProfile()
         {
-            string src;
-            
             MasterUser AuthUser = (MasterUser)Session["ProfileData"];
-            if (AuthUser.Image == null)
-            {
-                src = "~/assets/images/avatars/profile-pic.jpg";
-            }
-            else
+
+            string src = string.Empty;
+            if (AuthUser.Image != null)
             {
                 src = "~/ShowImage.ashx?UserId=" + AuthUser.UserID;
+                
             }
-
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "PopulateImage", "PopulateImage('" + src + "');", true);
 
             username.Value = AuthUser.UserName.Trim();
@@ -85,13 +81,14 @@ namespace BP
             email.Value = AuthUser.UserEmail.Trim();
             website.Value = (!string.IsNullOrEmpty(AuthUser.Website) ? AuthUser.Website.Trim() : string.Empty);
             phone.Value = (!string.IsNullOrEmpty(AuthUser.UserPhoneNo) ? AuthUser.UserPhoneNo.Trim() : string.Empty);
-
             question.InnerText = (!string.IsNullOrEmpty(AuthUser.SecQuestion) ? AuthUser.SecQuestion.Trim() : string.Empty);
             answer.InnerText = (AuthUser.SecAnswer != null && AuthUser.SecAnswer != string.Empty) ? Security.Decrypt(AuthUser.SecAnswer.Trim()) : string.Empty;
         }
 
         protected void OnSubmittedFormSave(object sender, EventArgs e)
         {
+            List<dynamic> ReturnObj = new List<dynamic>();
+
             try
             {
                 Byte[] imgByte = null;
@@ -139,14 +136,10 @@ namespace BP
                             objMasterUser.BirthDate = null;
                         }
 
-                        objMasterUser.Gender = string.Empty;
-                        if (!string.IsNullOrEmpty(nvc["ctl00$MainContent$rbMale"]))
+                        if (!string.IsNullOrEmpty(nvc["ctl00$MainContent$Gender"]))
                         {
-                            objMasterUser.Gender = "M";
-                        }
-                        else if (!string.IsNullOrEmpty(nvc["ctl00$MainContent$rbFemale"]))
-                        {
-                            objMasterUser.Gender = "F";
+                            string selectedGender = nvc["ctl00$MainContent$Gender"].ToString();
+                            objMasterUser.Gender = (selectedGender == "male" ? "M" : "F");
                         }
 
                         objMasterUser.Comment = (!string.IsNullOrEmpty(nvc["ctl00$MainContent$comment"]) ? nvc["ctl00$MainContent$comment"].Trim() : string.Empty);
@@ -182,6 +175,21 @@ namespace BP
                             if (_User.ChangePassword(oldpassword, newpassword))
                             {
                                 objMasterUser.UserPassword = newpassword;
+
+                                bool mail = MailHelper.SendMail(new MasterUser() 
+                                { 
+                                    UserEmail = _User.Email,
+                                    FullName = objMasterUser.FullName,
+                                    UserName = objMasterUser.UserName
+                                }, 
+                                newpassword);
+
+                                ReturnObj.Add(new
+                                {
+                                    source = "Password Updated",
+                                    message = "Password successfully updated. Your new password will be sent to your email id : "
+                                        + new Helper().EmailClipper(_User.Email)
+                                });
                             }
                             else
                             {
@@ -206,20 +214,16 @@ namespace BP
                                 throw new Exception("A security-related error has occured. Please try again.");
                             }
 
-                            string password = string.Empty;
-                            if (!string.IsNullOrEmpty(nvc["ctl00$MainContent$oldpassword"]))
-                            {
-                                password = nvc["ctl00$MainContent$oldpassword"].Trim();
-                            }
-                            else
-                            {
-                                password = _MasterUser.UserPassword.Trim();
-                            }
-
-                            if (_User.ChangePasswordQuestionAndAnswer(password, question, answer))
+                            if (_User.ChangePasswordQuestionAndAnswer(_User.GetPassword(Security.Decrypt(_MasterUser.SecAnswer.Trim())), question, answer))
                             {
                                 objMasterUser.SecQuestion = question;
                                 objMasterUser.SecAnswer = answer;
+
+                                ReturnObj.Add(new
+                                {
+                                    source = "Security Details Updated",
+                                    message = "Security details (question/answer) successfully updated."
+                                });
                             }   
                         }
 
@@ -228,7 +232,17 @@ namespace BP
 
                         if (new UsersDAL().UpdateProfileUser(objMasterUser))
                         {
-                            ((SiteMaster)this.Master).ShowMessage("Success", "User profile updated successfully");
+                            ReturnObj.Add(new
+                            {
+                                source = "Profile Updated",
+                                message = "Profile successfully updated."
+                            });
+
+                            string json = JsonConvert.SerializeObject(ReturnObj, Formatting.Indented);
+                            string script = "var data = " + json + ";";
+                            ClientScript.RegisterClientScriptBlock(this.Page.GetType(), "dataVar", script, true);
+
+                            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "output", "ShowOutput('" + _MasterUser.UserID + "');", true);
                         }
                         else
                         {

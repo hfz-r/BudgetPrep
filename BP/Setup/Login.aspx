@@ -89,7 +89,7 @@
 				                                                    <asp:TextBox ID="UserName" CssClass="form-control" placeholder="Username" runat="server"></asp:TextBox>
                                                                     <i class="ace-icon fa fa-user"></i>
                                                                     <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ForeColor="Red"
-                                                                        CssClass="failureNotification" ErrorMessage="User Name is required." ToolTip="User Name is required." Display="Dynamic"
+                                                                        CssClass="help-block" ErrorMessage="User Name is required." ToolTip="User Name is required." Display="Dynamic"
                                                                         ValidationGroup="LoginUserValidationGroup"></asp:RequiredFieldValidator>
 			                                                    </span>
                                                             </label>
@@ -99,7 +99,7 @@
                                                                     <asp:TextBox ID="Password" CssClass="form-control" placeholder="Password" runat="server" TextMode="Password"></asp:TextBox>
                                                                     <i class="ace-icon fa fa-lock"></i>
                                                                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ForeColor="Red" 
-                                                                        CssClass="failureNotification" ErrorMessage="Password is required." ToolTip="Password is required." Display="Dynamic"
+                                                                        CssClass="help-block" ErrorMessage="Password is required." ToolTip="Password is required." Display="Dynamic"
                                                                         ValidationGroup="LoginUserValidationGroup"></asp:RequiredFieldValidator>            
 			                                                    </span>
 		                                                    </label>
@@ -176,11 +176,12 @@
 						                                <asp:TextBox ID="tbEmail" CssClass="form-control" placeholder="Email" TextMode="Email" runat="server" ValidationGroup="VerifyAccountCheck"></asp:TextBox>
 						                                <i class="ace-icon fa fa-envelope"></i>
 						                                <asp:RequiredFieldValidator ID="EmailValidate" runat="server" ControlToValidate="tbEmail" ForeColor="Red"
-							                                ErrorMessage="Email is required." ToolTip="Email is required." Display="Dynamic"
+							                                ErrorMessage="Email is required." ToolTip="Email is required." Display="Dynamic" CssClass="help-block"
 							                                ValidationGroup="VerifyAccountCheck"></asp:RequiredFieldValidator>
-                                                        <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
-                                                            ForeColor="Red" ControlToValidate="tbEmail" ErrorMessage="Invalid Email Format" ToolTip="Invalid email format." Display="Dynamic"
-                                                            ValidationGroup="VerifyAccountCheck"></asp:RegularExpressionValidator>
+                                                        <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" CssClass="help-block" 
+                                                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="Red" 
+                                                            ControlToValidate="tbEmail" ErrorMessage="Invalid Email Format" ToolTip="Invalid email format."
+                                                            Display="Dynamic" ValidationGroup="VerifyAccountCheck"></asp:RegularExpressionValidator>
 					                                </span>
 				                                </label>
 
