@@ -1,0 +1,10 @@
+D:\Projects\BP\DAL\bin\Debug\DAL.dll.config
+D:\Projects\BP\DAL\bin\Debug\DAL.dll
+D:\Projects\BP\DAL\bin\Debug\DAL.pdb
+D:\Projects\BP\DAL\bin\Debug\EntityFramework.dll
+D:\Projects\BP\DAL\bin\Debug\Security.exe
+D:\Projects\BP\DAL\bin\Debug\Security.pdb
+D:\Projects\BP\DAL\bin\Debug\EntityFramework.xml
+D:\Projects\BP\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\Projects\BP\DAL\obj\Debug\DAL.dll
+D:\Projects\BP\DAL\obj\Debug\DAL.pdb

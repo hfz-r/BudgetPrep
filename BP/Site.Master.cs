@@ -73,10 +73,21 @@ namespace BP
             AuthUser = (MasterUser)Session["UserData"];
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "onrefLoad", "RefreshSession();", true);
 
-           if (!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
+                LoadImageHeader();
+            }
+        }
+
+        protected void LoadImageHeader()
+        {
+            string src = string.Empty;
+            if (AuthUser.Image != null)
+            {
+                src = "~/ShowImage.ashx?UserId=" + AuthUser.UserID;
 
             }
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "LoadImage", "LoadImage('" + src + "');", true);
         }
 
         public void ShowMessage(string Title, string Body)

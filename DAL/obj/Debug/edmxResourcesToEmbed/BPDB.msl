@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BPModelStoreContainer" CdmEntityContainer="BPEntities">
+    <EntitySetMapping Name="BPEventLogs">
+      <EntityTypeMapping TypeName="BPModel.BPEventLog">
+        <MappingFragment StoreEntitySet="BPEventLog">
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EventMassage" ColumnName="EventMassage" />
+          <ScalarProperty Name="ObjectChanges" ColumnName="ObjectChanges" />
+          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+          <ScalarProperty Name="Object" ColumnName="Object" />
+          <ScalarProperty Name="EventLogID" ColumnName="EventLogID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterUsers">
+      <EntityTypeMapping TypeName="BPModel.MasterUser">
+        <MappingFragment StoreEntitySet="MasterUser">
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+          <ScalarProperty Name="SecAnswer" ColumnName="SecAnswer" />
+          <ScalarProperty Name="SecQuestion" ColumnName="SecQuestion" />
+          <ScalarProperty Name="UserPhoneNo" ColumnName="UserPhoneNo" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="UserIC" ColumnName="UserIC" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UUID" ColumnName="UUID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JuncUserRoles">
+      <EntityTypeMapping TypeName="BPModel.JuncUserRole">
+        <MappingFragment StoreEntitySet="JuncUserRole">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterRoles">
+      <EntityTypeMapping TypeName="BPModel.MasterRole">
+        <MappingFragment StoreEntitySet="MasterRole">
+          <ScalarProperty Name="RoleStatus" ColumnName="RoleStatus" />
+          <ScalarProperty Name="RUID" ColumnName="RUID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

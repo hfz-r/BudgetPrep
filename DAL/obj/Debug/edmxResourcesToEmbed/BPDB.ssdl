@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BPEventLog">
+    <Key>
+      <PropertyRef Name="EventLogID" />
+    </Key>
+    <Property Name="EventLogID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Object" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="ObjectName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ObjectChanges" Type="bpchar" MaxLength="1000" />
+    <Property Name="EventMassage" Type="bpchar" MaxLength="100" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+  </EntityType>
+  <EntityType Name="JuncUserRole">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int4" Nullable="false" />
+    <Property Name="RoleID" Type="int4" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="MasterRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="300" />
+    <Property Name="RUID" Type="uuid" />
+    <Property Name="RoleStatus" Type="bpchar" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="MasterUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UUID" Type="uuid" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="200" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="FullName" Type="varchar" MaxLength="100" />
+    <Property Name="UserIC" Type="varchar" MaxLength="8000" />
+    <Property Name="Department" Type="varchar" MaxLength="30" />
+    <Property Name="Position" Type="varchar" MaxLength="30" />
+    <Property Name="UserPhoneNo" Type="varchar" MaxLength="8000" />
+    <Property Name="SecQuestion" Type="bpchar" MaxLength="250" />
+    <Property Name="SecAnswer" Type="bpchar" MaxLength="250" />
+    <Property Name="UserStatus" Type="bpchar" MaxLength="1" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+    <Property Name="BirthDate" Type="timestamp" />
+    <Property Name="Gender" Type="bpchar" MaxLength="1" />
+    <Property Name="Comment" Type="varchar" MaxLength="250" />
+    <Property Name="Website" Type="varchar" MaxLength="50" />
+    <Property Name="Image" Type="bytea" />
+  </EntityType>
+  <Association Name="JuncUserRole_Role">
+    <End Role="MasterRole" Type="Self.MasterRole" Multiplicity="0..1" />
+    <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="JuncUserRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JuncUserRole_User">
+    <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="1" />
+    <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUser">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="JuncUserRole">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BPModelStoreContainer">
+    <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
+    <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
+    <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
+    <EntitySet Name="MasterUser" EntityType="Self.MasterUser" Schema="public" store:Type="Tables" />
+    <AssociationSet Name="JuncUserRole_Role" Association="Self.JuncUserRole_Role">
+      <End Role="MasterRole" EntitySet="MasterRole" />
+      <End Role="JuncUserRole" EntitySet="JuncUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="JuncUserRole_User" Association="Self.JuncUserRole_User">
+      <End Role="MasterUser" EntitySet="MasterUser" />
+      <End Role="JuncUserRole" EntitySet="JuncUserRole" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

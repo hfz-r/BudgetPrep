@@ -14,7 +14,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="PageHeaderContent" runat="server">
-        <div class="page-header">
+    <div class="page-header">
 		<h1>
 			User Profile
 			<small>
@@ -32,7 +32,7 @@
 	        <div id="user-profile-3" class="user-profile row">
 		        <div class="col-sm-offset-1 col-sm-10">
 			        <div class="tabbable">
-				        <ul class="nav nav-tabs padding-16">
+				        <ul id="tabs" class="nav nav-tabs padding-16">
 					        <li class="active">
 						        <a data-toggle="tab" href="#edit-basic">
 							        <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
@@ -54,16 +54,16 @@
 						        </a>
 					        </li>
 				        </ul>
-
-				        <div class="tab-content profile-edit-tab-content">
+                         
+                        <form id="myform" enctype="multipart/form-data" method="post" novalidate>
+				            <div class="tab-content profile-edit-tab-content">
 					        <div id="edit-basic" class="tab-pane in active">
 						        <h4 class="header blue bolder smaller">General</h4>
 
 						        <div class="row">
 							        <div class="col-xs-12 col-sm-4">
                                         <img id="avatar" class="hidden" runat="server" />
-                                        <asp:FileUpload ID="imgUpload" runat="server" />
-								        <%--<input type="file" id="Upload" runat="server" />--%>
+                                        <input ID="imgUpload" type="file" runat="server" />
 							        </div>
 
 							        <div class="vspace-12-sm"></div>
@@ -83,10 +83,7 @@
 									        <label class="col-sm-4 control-label no-padding-right" for="fullname">Fullname</label>
 
 									        <div class="col-sm-8">
-                                                <input class="col-xs-12 col-sm-10" id="fullname" type="text" placeholder="Fullname" runat="server" />
-                                                <br /><br />
-                                                <asp:RequiredFieldValidator ID="ReqFullname" runat="server" ControlToValidate="fullname" ForeColor="Red"
-                                                    CssClass="failureNotification" ErrorMessage="Full Name is required." Display="Dynamic"></asp:RequiredFieldValidator>
+                                                <input class="col-xs-12 col-sm-10" id="fullname" name="fullname" type="text" placeholder="Fullname" runat="server" />
 									        </div>
 								        </div>
 							        </div>
@@ -116,13 +113,12 @@
 
 							        <div class="col-sm-9">
 								        <label class="inline">
-									        <input name="form-field-radio" type="radio" class="ace" id="rbMale" runat="server" />
+									        <input id="rbMale" name="Gender" type="radio" class="ace" runat="server" value="male" />
 									        <span class="lbl middle"> Male</span>
 								        </label>
-
 								        &nbsp; &nbsp; &nbsp;
 								        <label class="inline">
-									        <input name="form-field-radio" type="radio" class="ace" id="rbFemale" runat="server" />
+									        <input id="rbFemale" name="Gender" type="radio" class="ace" runat="server" value="female"/>
 									        <span class="lbl middle"> Female</span>
 								        </label>
 							        </div>
@@ -146,7 +142,7 @@
 
 							        <div class="col-sm-9">
 								        <span class="input-icon input-icon-right">
-									        <input type="email" id="email" runat="server"/>
+									        <input type="email" name="email" id="email" runat="server"/>
 									        <i class="ace-icon fa fa-envelope"></i>
 								        </span>
 							        </div>
@@ -172,11 +168,12 @@
 
 							        <div class="col-sm-9">
 								        <span class="input-icon input-icon-right">
-									        <input class="input-medium input-mask-phone" type="text" id="phone" runat="server"/>
+									        <input class="input-medium input-mask-phone" type="text" id="phone" name="phone" runat="server"/>
 									        <i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 								        </span>
 							        </div>
 						        </div>
+
 					        </div>
 
 					        <div id="edit-settings" class="tab-pane">
@@ -195,7 +192,7 @@
 							        <label class="col-sm-3 control-label no-padding-right" for="question">Security Question</label>
 
 							        <div class="col-sm-9">
-								        <textarea id="question" runat="server" cols="50"></textarea>
+								        <textarea id="question" name="question" runat="server" cols="50"></textarea>
 							        </div>
 						        </div>
 							
@@ -205,7 +202,7 @@
 							        <label class="col-sm-3 control-label no-padding-right" for="answer">Security Answer</label>
 
 							        <div class="col-sm-9">
-								        <textarea id="answer" runat="server" cols="50"></textarea>
+								        <textarea id="answer" name="answer" runat="server" cols="50"></textarea>
 							        </div>
 						        </div>
 
@@ -218,7 +215,7 @@
 							        <label class="col-sm-3 control-label no-padding-right" for="oldpassword">Old Password</label>
 
 							        <div class="col-sm-9">
-								        <input type="password" id="oldpassword" runat="server" />
+								        <input type="password" id="oldpassword" name="oldpassword" runat="server" />
 							        </div>
 						        </div>
 
@@ -228,7 +225,7 @@
 							        <label class="col-sm-3 control-label no-padding-right" for="newpassword">New Password</label>
 
 							        <div class="col-sm-9">
-								        <input type="password" id="newpassword" runat="server" />
+								        <input type="password" id="newpassword" name="newpassword" runat="server" />
 							        </div>
 						        </div>
 
@@ -238,21 +235,26 @@
 							        <label class="col-sm-3 control-label no-padding-right" for="confirmpassword">Confirm Password</label>
 
 							        <div class="col-sm-9">
-								        <input type="password" id="confirmpassword" runat="server" />
+								        <input type="password" id="confirmpassword" name="confirmpassword" runat="server" />
 							        </div>
 						        </div>
 					        </div>
 				        </div>
+                        </form>
 			        </div>
 
 			        <div class="clearfix form-actions">
 				        <div class="col-md-offset-3 col-md-9">
-                            <asp:LinkButton id="btnSave" CssClass="btn btn-info" OnClick="btnSave_OnClick" runat="server">
+                            <button id="btnSave" class="btn btn-info">
                                 <i class="ace-icon fa fa-check bigger-110"></i>
 						        Save
-                            </asp:LinkButton>
+                            </button>
+                            <%--<asp:LinkButton id="btnSave" CssClass="btn btn-info" OnClick="btnSave_OnClick" runat="server">
+                                <i class="ace-icon fa fa-check bigger-110"></i>
+						        Save
+                            </asp:LinkButton>--%>
 					        &nbsp; &nbsp;
-					        <button class="btn" type="reset" runat="server">
+					        <button class="btn" type="reset" onclick="Reset();return false;" >
 						        <i class="ace-icon fa fa-undo bigger-110"></i>
 						        Reset
 					        </button>
@@ -261,10 +263,9 @@
 		        </div><!-- /.span -->
 	        </div><!-- /.user-profile -->
         </ContentTemplate>
-        <Triggers>
-            <asp:PostBackTrigger ControlID = "btnSave" />
-        </Triggers>
     </asp:UpdatePanel>
+
+    <asp:HiddenField ID="TabName" runat="server" />
 
 </asp:Content>
 
@@ -272,6 +273,10 @@
 
     <script type="text/javascript">
         var baseUrl = '<%= Page.ResolveClientUrl("~/") %>';
+
+        function Reset() {
+            $('#myform')[0].reset();
+        }
 
         function PopulateImage(src) {
             var url = src.replace("~/", baseUrl);
@@ -281,8 +286,28 @@
             });
         }
 
-        jQuery(function ($) {
+        var data;
+        function ShowOutput(uid) {
+            $.each(data, function (i, item) {
+                var classname;
+                if (item.source.indexOf("Profile") >= 0)  { classname='gritter-info'; }
+                if (item.source.indexOf("Password") >= 0) { classname='gritter-error'; }
+                if (item.source.indexOf("Security") >= 0) { classname = 'gritter-success'; }
 
+                $.gritter.add({
+                    title: item.source,
+                    text: item.message,
+                    class_name: classname,
+                    image: 'ShowImage.ashx?UserId='+uid,
+                    sticky: false,
+                    time: 60000,
+                    after_close: function () { }
+                });
+            });
+        }
+
+        //avatar
+        $(function ($) {
             $('#user-profile-3').find('input[type=file]').ace_file_input({
                 style: 'well',
                 btn_choose: 'Change avatar',
@@ -300,9 +325,95 @@
 			    $(this).prev().focus();
 			});
 
+            //phone-number only
             $('.input-mask-phone').mask('(999) 999-9999');
 
+            //maintain active tab bootstrap
+            var tabName = $("[id*=TabName]").val() != "" ? $("[id*=TabName]").val() : "edit-basic";
+            $('#tabs a[href="#' + tabName + '"]').tab('show');
+            $("#tabs a").click(function () {
+                $("[id*=TabName]").val($(this).attr("href").replace("#", ""));
+            });
         })
+
+        //form validation
+        $(document).ready(function () {
+            $.validator.addMethod("phone", function (value, element) {
+                return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
+            }, "Enter a valid phone number.");
+
+            $('#myform').validate({
+                errorElement: 'div',
+                errorClass: 'help-block',
+                focusInvalid: false,
+                ignore: ".ignore",
+                rules: {
+                    'ctl00$MainContent$email': {
+                        required: true,
+                        email: true
+                    },
+                    'ctl00$MainContent$phone': {
+                        required: true,
+                        phone: 'required'
+                    },
+                    'ctl00$MainContent$newpassword': {
+                        required: function(element){
+                            return $("#MainContent_oldpassword").val() != "";
+                        },
+                        minlength: 5
+                    },
+                    'ctl00$MainContent$confirmpassword': {
+                        required: function (element) {
+                            return $("#MainContent_oldpassword").val() != "";
+                        },
+                        minlength: 5,
+                        equalTo: $('#<%=newpassword.ClientID%>')
+                    },
+                    'ctl00$MainContent$question': {
+                        required: function (element) {
+                            return $("#MainContent_answer").val() != "";
+                        }
+                    },
+                    'ctl00$MainContent$answer': {
+                        required: function (element) {
+                            return $("#MainContent_question").val() != "";
+                        }
+                    }
+                },
+                messages: {
+                    'ctl00$MainContent$email': {
+                        required: "Please provide a valid email.",
+                        email: "Please provide a valid email."
+                    },
+                    'ctl00$MainContent$newpassword': {
+                        required: "Please specify a password.",
+                        minlength: "Please specify a secure password."
+                    },
+                    'ctl00$MainContent$question': "Please specify a security question.",
+                    'ctl00$MainContent$answer': "Please specify a security answer."
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');
+                    $(e).remove();
+                },
+
+                invalidHandler: function (e, validator) {
+                    if (validator.errorList.length)
+                        $('#tabs a[href="#' + jQuery(validator.errorList[0].element).closest(".tab-pane").attr('id') + '"]').tab('show')
+                }
+            });
+
+            $('#btnSave').click(function (evt) {
+                evt.preventDefault();
+
+                $('#myform').submit();
+                return false;
+            });
+        });
 
 	</script>
 </asp:Content>

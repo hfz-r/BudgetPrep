@@ -37,7 +37,7 @@ namespace BP {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload imgUpload;
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile imgUpload;
         
         /// <summary>
         /// username control.
@@ -56,15 +56,6 @@ namespace BP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText fullname;
-        
-        /// <summary>
-        /// ReqFullname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ReqFullname;
         
         /// <summary>
         /// birthdate control.
@@ -175,12 +166,12 @@ namespace BP {
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword confirmpassword;
         
         /// <summary>
-        /// btnSave control.
+        /// TabName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnSave;
+        protected global::System.Web.UI.WebControls.HiddenField TabName;
     }
 }

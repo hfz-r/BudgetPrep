@@ -36,7 +36,7 @@
             <div class="col-xs-12 widget-container-col" id="wizard-form">
                 <div class="widget-box" id="widget-box-wizform">
                     <div class="widget-header">
-                        <h5 id="widget_title" class="widget-title" runat="server">New-User Registration Info</h5>
+                        <h5 id="widget_title" class="widget-title" runat="server">User Setup - New</h5>
 
 				        <div class="widget-toolbar">
 					        <a href="#" data-action="fullscreen" class="orange2">
@@ -286,7 +286,7 @@
             <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
 		        <div class="widget-box" id="widget-box-1">
 			        <div class="widget-header">
-				        <h5 class="widget-title">Users List</h5>
+				        <h5 class="widget-title">Users Setup - List</h5>
 
 				        <div class="widget-toolbar">
 					        <div class="widget-menu">
@@ -745,13 +745,17 @@
                   {
                       "extend": "copyHtml5",
                       "text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
-                      "className": "btn btn-white btn-primary btn-bold"
+                      "className": "btn btn-white btn-primary btn-bold",
+                      exportOptions: {
+                          columns: [0, 1, 2, 3, 4]
+                      }
                   },
                   {
                       "extend": "csvHtml5",
                       "text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>Export to CSV</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       exportOptions: {
+                          columns: [0, 1, 2, 3, 4],
                           modifier: {
                               search: 'none'
                           }
@@ -762,6 +766,7 @@
                       "text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       exportOptions: {
+                          columns: [0, 1, 2, 3, 4],
                           modifier: {
                               page: 'current'
                           }
@@ -772,6 +777,7 @@
                       "text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       exportOptions: {
+                          columns: [0, 1, 2, 3, 4],
                           modifier: {
                               page: 'current'
                           }
@@ -782,7 +788,10 @@
                       "text": "<i class='fa fa-print bigger-110 grey'></i> <span class='hidden'>Print</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       autoPrint: false,
-                      message: 'This print was produced using the Print button for DataTables'
+                      message: 'This print was produced using the Print button for DataTables',
+                      exportOptions: {
+                          columns: [0, 1, 2, 3, 4]
+                      }
                   }
                 ]
             });
@@ -808,7 +817,8 @@
                 $('.dt-button-collection').appendTo('.tableTools-container .dt-buttons')
             });
 
-            setTimeout(function () {
+            setTimeout(function ()
+            {
                 $($('.tableTools-container')).find('a.dt-button').each(function () {
                     var div = $(this).find(' > div').first();
                     if (div.length == 1) div.tooltip({ container: 'body', title: div.parent().text() });

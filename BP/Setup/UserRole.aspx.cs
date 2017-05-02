@@ -331,12 +331,12 @@ namespace BP.Setup
                 GridViewRow selectedRow = gvRoles.Rows[Convert.ToInt32(e.CommandArgument)];
                 selectedRow.Style["background-color"] = "skyblue";
                 
-                Label lblRolename = (Label)selectedRow.Cells[0].FindControl("lblRolename");
+                Label lblRolename = (Label)selectedRow.Cells[1].FindControl("lblRolename");
 
                 MasterRole objMasterRole = new MasterRole();
                 objMasterRole.RoleID = Convert.ToInt32(gvRoles.DataKeys[selectedRow.RowIndex]["RoleID"]);
                 objMasterRole.RoleName = lblRolename.Text;
-                objMasterRole.Description = selectedRow.Cells[1].Text;
+                objMasterRole.Description = selectedRow.Cells[2].Text;
                 objMasterRole.RoleStatus = new UsersRoleDAL().GetRoles().Where(x => x.RoleID == objMasterRole.RoleID).Select(y => y.RoleStatus).FirstOrDefault();
 
                 Session["SelectedMasterRole"] = objMasterRole;
@@ -356,7 +356,7 @@ namespace BP.Setup
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 List<MasterRole> data = (List<MasterRole>)Session["MasterRoleData"];
-                var span = ((HtmlGenericControl)e.Row.Cells[2].FindControl("CustomStatus"));
+                var span = ((HtmlGenericControl)e.Row.Cells[3].FindControl("CustomStatus"));
                 var countSpan = ((HtmlGenericControl)e.Row.Cells[0].FindControl("count"));
 
                 int RoleId = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "RoleID"));
@@ -364,12 +364,16 @@ namespace BP.Setup
 
                 if (RoleStatus == "A")
                 {
-                    span.InnerHtml = "<i class=\"fa fa-flag green bigger-150 tooltip-success\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Active\"></i>";
                     //span.Attributes["class"] = "label label-success";
+                    //span.InnerHtml = "<i class=\"fa fa-flag green bigger-150 tooltip-success\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Active\"></i>";
+                    span.InnerHtml = "<span class=\"label label-sm label-success arrowed-in arrowed-in-right tooltip-success\" "+
+                        "data-rel=\"tooltip\" data-placement=\"right\" title=\"Active Status. All operation has been enabled.\">Active</span>";
                 }
                 else if (RoleStatus == "D")
                 {
-                    span.InnerHtml = "<i class=\"fa fa-flag red bigger-150 tooltip-error\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive\"></i>";
+                    //span.InnerHtml = "<i class=\"fa fa-flag red bigger-150 tooltip-error\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive\"></i>";
+                    span.InnerHtml = "<span class=\"label label-sm label-danger arrowed-in arrowed-in-right tooltip-error\" "+
+                        "data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive Status. All operation has been disabled.\">Inactive</span>";
                 }
 
                 string countStr = Convert.ToString(new UsersRoleDAL().ListUserRole().Where(x => x.RoleID == RoleId).Select(y => y.UserID).Count());

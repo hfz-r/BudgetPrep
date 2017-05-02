@@ -19,6 +19,9 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 <!----------------------- load css start ----------------------->
+    <!-- PACE -->
+    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/pace/theme/center-circle.css")%>" />
+
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" />
     <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/font-awesome/4.5.0/css/font-awesome.min.css")%>" />
@@ -53,7 +56,7 @@
     <!-- ace settings handler -->
 	<script src="<%=Page.ResolveUrl("~/assets/js/ace-extra.min.js")%>"></script>
 
-    <style>
+    <style type="text/css">
         #spin {
 		    position: fixed;
             text-align: center; 
@@ -66,7 +69,7 @@
             background-color: gray; 
             opacity: 0.7;
         }
-    </style>
+        </style>
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
@@ -355,7 +358,7 @@
                             <asp:LoginView runat="server" ViewStateMode="Disabled">
                                 <LoggedInTemplate>
                                     <a data-toggle="dropdown" href="#" class="dropdown-toggle"> 
-                                        <img class="nav-user-photo" src="../assets/images/avatars/avatar4.png" alt="User's Photo" />
+                                        <img id="avatar" class="nav-user-photo" runat="server" />
 							            <span class="user-info">
                                         
 								            <small>Welcome,</small>
@@ -454,6 +457,14 @@
 					    <b class="arrow"></b>
 
 					    <ul class="submenu">
+                            <li class="">
+							    <a href="<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    Account Code
+							    </a>
+
+							    <b class="arrow"></b>
+						    </li>
                             <li class="">
 							    <a href="<%=Page.ResolveUrl("~/Setup/UserRole.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
@@ -672,6 +683,9 @@
         <%: Scripts.Render("~/scripts/Form-Wizard_Scripts") %>--%>
 
 <!----------------------- load scripts start ----------------------->
+        <!-- PACE -->
+        <script src="<%=Page.ResolveUrl("~/assets/pace/scripts/pace.min.js")%>"></script>
+
         <!--[if !IE]> -->
 		<script src="<%=Page.ResolveUrl("~/assets/js/jquery-2.1.4.min.js")%>"></script>
 		<!-- <![endif]-->
@@ -731,6 +745,15 @@
         <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
 
         <script type="text/javascript">
+
+            var baseUrl = '<%= Page.ResolveClientUrl("~/") %>';
+
+            function LoadImage(src) {
+                var url = src.replace("~/", baseUrl);
+                $('#ctl07_avatar').attr('src', url);
+                //$('#ctl07_avatar').attr('width', '48px');
+                //$('#ctl07_avatar').attr('height', '48px');
+            }
 
             function IsNumberKey(evt) {
                 var charCode = (evt.which) ? evt.which : event.keyCodex

@@ -48,7 +48,7 @@ namespace DAL
 
         public MasterUser VerifyAnswer(string UserName, string Answer)
         {
-            string pwd = Security.Encrypt(Answer.ToUpper());
+            string pwd = Security.Encrypt(Answer);
             return db.MasterUsers.Where(x => x.UserStatus == "A" && x.UserName == UserName && x.SecAnswer.Trim() == pwd).FirstOrDefault();
         }
 
@@ -107,7 +107,7 @@ namespace DAL
                 else
                 {
                     //objMasterUser.UserPassword = Security.Encrypt(objMasterUser.UserPassword);
-                    objMasterUser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer.ToUpper());
+                    objMasterUser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer);
 
                     db.MasterUsers.Add(objMasterUser);
                     db.SaveChanges();
@@ -183,6 +183,61 @@ namespace DAL
             {
                 BPEventLog bpe = new BPEventLog();
                 bpe.Object = "User - Updated";
+                bpe.ObjectName = objMasterUser.UserName;
+                bpe.ObjectChanges = string.Empty;
+                bpe.EventMassage = "Failure";
+                bpe.Status = "A";
+                bpe.CreatedBy = objMasterUser.ModifiedBy;
+                bpe.CreatedTimeStamp = objMasterUser.ModifiedTimeStamp;
+                new EventLogDAL().AddEventLog(bpe);
+
+                throw ex;
+            }
+        }
+
+        public bool UpdateProfileUser(MasterUser objMasterUser)
+        {
+            MasterUser objuser = db.MasterUsers.Where(x => x.UUID == objMasterUser.UUID).FirstOrDefault();
+            string changes = new EventLogDAL().ObjectDifference(objuser, objMasterUser);
+
+            try
+            {
+                if (objuser != null)
+                {
+                    objuser.FullName = objMasterUser.FullName;
+                    objuser.Image = objMasterUser.Image;
+                    objuser.BirthDate = objMasterUser.BirthDate;
+                    objuser.Gender = objMasterUser.Gender;
+                    objuser.Comment = objMasterUser.Comment;
+                    objuser.Website = objMasterUser.Website;
+                    objuser.UserPhoneNo = objMasterUser.UserPhoneNo;
+                    if (!string.IsNullOrEmpty(objMasterUser.UserEmail)) objuser.UserEmail = objMasterUser.UserEmail;
+                    if (!string.IsNullOrEmpty(objMasterUser.UserPassword)) objuser.UserPassword = objMasterUser.UserPassword;
+                    if (!string.IsNullOrEmpty(objMasterUser.SecQuestion)) objuser.SecQuestion = objMasterUser.SecQuestion;
+                    if (!string.IsNullOrEmpty(objMasterUser.SecAnswer)) objuser.SecAnswer = Security.Encrypt(objMasterUser.SecAnswer);
+                    objuser.ModifiedBy = objMasterUser.ModifiedBy;
+                    objuser.ModifiedTimeStamp = objMasterUser.ModifiedTimeStamp;
+
+                    db.SaveChanges();
+
+                    BPEventLog bpe = new BPEventLog();
+                    bpe.Object = "User Profile - Updated";
+                    bpe.ObjectName = objMasterUser.UserName;
+                    //changes = changes + rolechange + wochanges;
+                    bpe.ObjectChanges = changes;
+                    bpe.EventMassage = "Success";
+                    bpe.Status = "A";
+                    bpe.CreatedBy = objMasterUser.ModifiedBy;
+                    bpe.CreatedTimeStamp = objMasterUser.ModifiedTimeStamp;
+                    new EventLogDAL().AddEventLog(bpe);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                BPEventLog bpe = new BPEventLog();
+                bpe.Object = "User Profile - Updated";
                 bpe.ObjectName = objMasterUser.UserName;
                 bpe.ObjectChanges = string.Empty;
                 bpe.EventMassage = "Failure";

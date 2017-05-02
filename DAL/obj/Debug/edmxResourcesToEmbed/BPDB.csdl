@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BPEventLogs" EntityType="BPModel.BPEventLog" />
+    <EntitySet Name="MasterUsers" EntityType="BPModel.MasterUser" />
+    <EntitySet Name="JuncUserRoles" EntityType="BPModel.JuncUserRole" />
+    <AssociationSet Name="JuncUserRole_User" Association="BPModel.JuncUserRole_User">
+      <End Role="MasterUser" EntitySet="MasterUsers" />
+      <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
+    </AssociationSet>
+    <EntitySet Name="MasterRoles" EntityType="BPModel.MasterRole" />
+    <AssociationSet Name="JuncUserRole_Role" Association="BPModel.JuncUserRole_Role">
+      <End Role="MasterRole" EntitySet="MasterRoles" />
+      <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BPEventLog">
+    <Key>
+      <PropertyRef Name="EventLogID" />
+    </Key>
+    <Property Name="EventLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Object" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="true" />
+    <Property Name="ObjectName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ObjectChanges" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+    <Property Name="EventMassage" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+  </EntityType>
+  <EntityType Name="MasterUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UUID" Type="Guid" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserIC" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+    <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="UserPhoneNo" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+    <Property Name="SecQuestion" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+    <Property Name="SecAnswer" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+    <Property Name="UserStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="JuncUserRole" Relationship="BPModel.JuncUserRole_User" FromRole="MasterUser" ToRole="JuncUserRole" />
+    <Property Name="BirthDate" Type="DateTime" Precision="6" />
+    <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="JuncUserRole">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="MasterUser" Relationship="BPModel.JuncUserRole_User" FromRole="JuncUserRole" ToRole="MasterUser" />
+    <NavigationProperty Name="MasterRole" Relationship="BPModel.JuncUserRole_Role" FromRole="JuncUserRole" ToRole="MasterRole" />
+  </EntityType>
+  <Association Name="JuncUserRole_User">
+    <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="1" />
+    <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUser">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="JuncUserRole">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="MasterRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="RUID" Type="Guid" />
+    <Property Name="RoleStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="JuncUserRoles" Relationship="BPModel.JuncUserRole_Role" FromRole="MasterRole" ToRole="JuncUserRole" />
+  </EntityType>
+  <Association Name="JuncUserRole_Role">
+    <End Type="BPModel.MasterRole" Role="MasterRole" Multiplicity="0..1" />
+    <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="JuncUserRole">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
