@@ -43,15 +43,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="JuncUserRoles">
-      <EntityTypeMapping TypeName="BPModel.JuncUserRole">
-        <MappingFragment StoreEntitySet="JuncUserRole">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MasterRoles">
       <EntityTypeMapping TypeName="BPModel.MasterRole">
         <MappingFragment StoreEntitySet="MasterRole">
@@ -60,6 +51,31 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccountCodes">
+      <EntityTypeMapping TypeName="BPModel.AccountCode">
+        <MappingFragment StoreEntitySet="AccountCode">
+          <ScalarProperty Name="Pengiraan" ColumnName="Pengiraan" />
+          <ScalarProperty Name="Keterangan" ColumnName="Keterangan" />
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ParentAccountCode" ColumnName="ParentAccountCode" />
+          <ScalarProperty Name="AccountDesc" ColumnName="AccountDesc" />
+          <ScalarProperty Name="AccountCode1" ColumnName="AccountCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JuncUserRoles">
+      <EntityTypeMapping TypeName="BPModel.JuncUserRole">
+        <MappingFragment StoreEntitySet="JuncUserRole">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

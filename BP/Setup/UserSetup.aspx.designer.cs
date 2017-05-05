@@ -220,15 +220,6 @@ namespace BP.Setup {
         protected global::System.Web.UI.WebControls.LinkButton btnAdd;
         
         /// <summary>
-        /// UpdatePanel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
-        /// <summary>
         /// gvUsers control.
         /// </summary>
         /// <remarks>
@@ -236,14 +227,5 @@ namespace BP.Setup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvUsers;
-        
-        /// <summary>
-        /// UpdatePanel2Btn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton UpdatePanel2Btn;
     }
 }

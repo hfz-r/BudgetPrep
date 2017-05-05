@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountCode.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountCodeDAL.cs" />
     <Compile Include="BPDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

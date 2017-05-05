@@ -1,3 +1,4 @@
+/* This is a compiled file, you should be editing the file in the templates directory */
 .pace {
   -webkit-pointer-events: none;
   pointer-events: none;
@@ -33,7 +34,7 @@
   display: block;
   border-width: 30px;
   border-style: double;
-  border-color: #000000 transparent transparent;
+  border-color: #2299dd transparent transparent;
   border-radius: 50%;
 
   -webkit-animation: spin 1s linear infinite;
@@ -52,7 +53,7 @@
   display: block;
   border-width: 10px;
   border-style: solid;
-  border-color: #000000 transparent transparent;
+  border-color: #2299dd transparent transparent;
   border-radius: 50%;
 }
 

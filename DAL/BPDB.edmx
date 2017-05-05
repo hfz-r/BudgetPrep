@@ -5,6 +5,21 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountCode">
+          <Key>
+            <PropertyRef Name="AccountCode" />
+          </Key>
+          <Property Name="AccountCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AccountDesc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentAccountCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreatedBy" Type="int4" />
+          <Property Name="CreatedTimeStamp" Type="timestamp" />
+          <Property Name="ModifiedBy" Type="int4" />
+          <Property Name="ModifiedTimeStamp" Type="timestamp" />
+          <Property Name="Keterangan" Type="bpchar" MaxLength="100" />
+          <Property Name="Pengiraan" Type="bpchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="BPEventLog">
           <Key>
             <PropertyRef Name="EventLogID" />
@@ -88,6 +103,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BPModelStoreContainer">
+          <EntitySet Name="AccountCode" EntityType="Self.AccountCode" Schema="public" store:Type="Tables" />
           <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
           <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
           <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
@@ -108,14 +124,15 @@
         <EntityContainer Name="BPEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BPEventLogs" EntityType="BPModel.BPEventLog" />
           <EntitySet Name="MasterUsers" EntityType="BPModel.MasterUser" />
-          <EntitySet Name="JuncUserRoles" EntityType="BPModel.JuncUserRole" />
-          <AssociationSet Name="JuncUserRole_User" Association="BPModel.JuncUserRole_User">
-            <End Role="MasterUser" EntitySet="MasterUsers" />
-            <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
-          </AssociationSet>
           <EntitySet Name="MasterRoles" EntityType="BPModel.MasterRole" />
+          <EntitySet Name="AccountCodes" EntityType="BPModel.AccountCode" />
+          <EntitySet Name="JuncUserRoles" EntityType="BPModel.JuncUserRole" />
           <AssociationSet Name="JuncUserRole_Role" Association="BPModel.JuncUserRole_Role">
             <End Role="MasterRole" EntitySet="MasterRoles" />
+            <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="JuncUserRole_User" Association="BPModel.JuncUserRole_User">
+            <End Role="MasterUser" EntitySet="MasterUsers" />
             <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
           </AssociationSet>
           </EntityContainer>
@@ -153,35 +170,13 @@
           <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
-          <NavigationProperty Name="JuncUserRole" Relationship="BPModel.JuncUserRole_User" FromRole="MasterUser" ToRole="JuncUserRole" />
           <Property Name="BirthDate" Type="DateTime" Precision="6" />
           <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="JuncUserRole" Relationship="BPModel.JuncUserRole_User" FromRole="MasterUser" ToRole="JuncUserRole" />
         </EntityType>
-        <EntityType Name="JuncUserRole">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="RoleID" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="MasterUser" Relationship="BPModel.JuncUserRole_User" FromRole="JuncUserRole" ToRole="MasterUser" />
-          <NavigationProperty Name="MasterRole" Relationship="BPModel.JuncUserRole_Role" FromRole="JuncUserRole" ToRole="MasterRole" />
-        </EntityType>
-        <Association Name="JuncUserRole_User">
-          <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="1" />
-          <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="MasterUser">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="JuncUserRole">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="MasterRole">
           <Key>
             <PropertyRef Name="RoleID" />
@@ -193,6 +188,31 @@
           <Property Name="RoleStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="JuncUserRoles" Relationship="BPModel.JuncUserRole_Role" FromRole="MasterRole" ToRole="JuncUserRole" />
         </EntityType>
+        <EntityType Name="AccountCode">
+          <Key>
+            <PropertyRef Name="AccountCode1" />
+          </Key>
+          <Property Name="AccountCode1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentAccountCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+          <Property Name="Keterangan" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Pengiraan" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JuncUserRole">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="MasterRole" Relationship="BPModel.JuncUserRole_Role" FromRole="JuncUserRole" ToRole="MasterRole" />
+          <NavigationProperty Name="MasterUser" Relationship="BPModel.JuncUserRole_User" FromRole="JuncUserRole" ToRole="MasterUser" />
+        </EntityType>
         <Association Name="JuncUserRole_Role">
           <End Type="BPModel.MasterRole" Role="MasterRole" Multiplicity="0..1" />
           <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="*" />
@@ -202,6 +222,18 @@
             </Principal>
             <Dependent Role="JuncUserRole">
               <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JuncUserRole_User">
+          <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="1" />
+          <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MasterUser">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="JuncUserRole">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -253,15 +285,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="JuncUserRoles">
-            <EntityTypeMapping TypeName="BPModel.JuncUserRole">
-              <MappingFragment StoreEntitySet="JuncUserRole">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MasterRoles">
             <EntityTypeMapping TypeName="BPModel.MasterRole">
               <MappingFragment StoreEntitySet="MasterRole">
@@ -270,6 +293,31 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountCodes">
+            <EntityTypeMapping TypeName="BPModel.AccountCode">
+              <MappingFragment StoreEntitySet="AccountCode">
+                <ScalarProperty Name="Pengiraan" ColumnName="Pengiraan" />
+                <ScalarProperty Name="Keterangan" ColumnName="Keterangan" />
+                <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ParentAccountCode" ColumnName="ParentAccountCode" />
+                <ScalarProperty Name="AccountDesc" ColumnName="AccountDesc" />
+                <ScalarProperty Name="AccountCode1" ColumnName="AccountCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JuncUserRoles">
+            <EntityTypeMapping TypeName="BPModel.JuncUserRole">
+              <MappingFragment StoreEntitySet="JuncUserRole">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

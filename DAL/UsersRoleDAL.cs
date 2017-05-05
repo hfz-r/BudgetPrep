@@ -92,26 +92,13 @@ namespace DAL
             return db.JuncUserRoles.Select(x => x).ToList();
         }
 
-        public bool UserRoleFunc(JuncUserRole objUserRole)
+        public bool InsertUserRole(JuncUserRole objUserRole)
         {
             try
             {
-                if (db.JuncUserRoles.Where(x => x.RoleID == objUserRole.RoleID && x.UserID == objUserRole.UserID).Count() == 0)
+                foreach (JuncUserRole obj in db.JuncUserRoles.Where(x => x.UserID == objUserRole.UserID))
                 {
-                    if (db.JuncUserRoles.Where(x => x.UserID == objUserRole.UserID).Count() > 0)
-                    {
-                        foreach (JuncUserRole obj in ListUserRole().Where(x => x.UserID == objUserRole.UserID).ToList())
-                        {
-                            db.JuncUserRoles.Remove(obj);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (JuncUserRole obj in ListUserRole().Where(x => x.UserID == objUserRole.UserID).ToList())
-                    {
-                        db.JuncUserRoles.Remove(obj);
-                    }
+                    db.JuncUserRoles.Remove(obj);
                 }
 
                 if (db.MasterRoles.Where(x=>x.RoleID==objUserRole.RoleID && x.RoleStatus != objUserRole.Status).Count() > 0)
@@ -156,6 +143,33 @@ namespace DAL
                 _role.RoleStatus = objUserRole.Status;
                 db.SaveChanges();
 
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool DeleteUserRole(string username,string[] roles)
+        {
+            try
+            {
+                int uid = new UsersDAL().GetUsers().Where(x => x.UserName == username).Select(x => x.UserID).FirstOrDefault();
+
+                for (int i = 0; i < roles.Count(); i++)
+                {
+                    MasterRole objMasterRole = GetRoles().Where(x => x.RoleName == roles[i]).FirstOrDefault();
+                    if (db.JuncUserRoles.Where(x => x.RoleID == objMasterRole.RoleID).Count() > 0)
+                    {
+                        foreach (JuncUserRole objUserRole in db.JuncUserRoles.Where(x => x.UserID == uid))
+                        {
+                            db.JuncUserRoles.Remove(objUserRole);
+                        }
+                    }
+                }
+
+                db.SaveChanges();
                 return true;
             }
             catch (Exception ex)

@@ -273,17 +273,14 @@
     <Content Include="assets\js\tree.min.js" />
     <Content Include="assets\js\vfs_fonts.js" />
     <Content Include="assets\js\wizard.min.js" />
-    <Content Include="assets\pace\scripts\pace.min.js" />
-    <Content Include="assets\pace\theme\barber-shop.css" />
-    <Content Include="assets\pace\theme\bounce.css" />
-    <Content Include="assets\pace\theme\center-atom.css" />
-    <Content Include="assets\pace\theme\center-circle.css" />
-    <Content Include="assets\pace\theme\center-radar.css" />
-    <Content Include="assets\pace\theme\center-simplel.css" />
-    <Content Include="assets\pace\theme\corner-indicator.css" />
-    <Content Include="assets\pace\theme\fill-left.css" />
-    <Content Include="assets\pace\theme\flash.css" />
-    <Content Include="assets\pace\theme\loading-bar.css" />
+    <Content Include="assets\pace-1.0.2\pace.js" />
+    <Content Include="assets\pace-1.0.2\pace.min.js" />
+    <Content Include="assets\pace-1.0.2\themes\pace-theme-barber-shop.css" />
+    <Content Include="assets\pace-1.0.2\themes\pace-theme-bounce.css" />
+    <Content Include="assets\pace-1.0.2\themes\pace-theme-center-circle.css" />
+    <Content Include="assets\pace-1.0.2\themes\pace-theme-center-radar.css" />
+    <Content Include="assets\pace-1.0.2\themes\pace-theme-flash.css" />
+    <Content Include="assets\pace-1.0.2\themes\pace-theme-loading-bar.css" />
     <Content Include="assets\swf\flashExport.swf" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -342,6 +339,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Images\accent.png" />
+    <Content Include="Images\BP\acc_code_template.png" />
+    <Content Include="Images\BP\acc_code_template2.png" />
     <Content Include="Images\BP\budget1.png" />
     <Content Include="Images\BP\budget2.png" />
     <Content Include="Images\BP\CensofInsights.png" />
@@ -377,6 +376,7 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="FileUploadHandler.ashx" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Profile.aspx" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -482,12 +482,16 @@
     <Compile Include="Classes\PageHelper.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Classes\ReportHelper.cs" />
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FileUploadHandler.ashx.cs">
+      <DependentUpon>FileUploadHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

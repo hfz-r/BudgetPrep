@@ -324,46 +324,38 @@
 				        </div>
 			        </div>
 
-			        <div id="UserListWidget" class="widget-body">
+			        <div class="widget-body">
 				        <div class="widget-main">
                             <div class="clearfix">
                                 <div class="pull-right tableTools-container"></div>
                             </div>
-                            <asp:UpdatePanel ID="UpdatePanel2" UpdateMode="Conditional" ChildrenAsTriggers="true" runat="server">
-                                <ContentTemplate>
-                                    <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered table-hover" 
-                                        DataKeyNames="UserID" OnRowCommand="gvUsers_RowCommand" OnRowDataBound="gvUsers_RowDataBound" OnPreRender="gvUsers_PreRender">
-                                        <Columns>
-                                            <asp:BoundField DataField="FullName" HeaderText="Full Name" />
-                                            <asp:BoundField DataField="UserName" HeaderText="User Name" />
-                                            <asp:BoundField DataField="UserEmail" HeaderText="Email" />
-                                            <asp:BoundField DataField="UserPhoneNo" HeaderText="Phone No" />
-                                            <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center" 
-                                                HeaderStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <span id="CustomStatus" runat="server"></span>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <div class="hidden-sm hidden-xs btn-group">
-                                                        <asp:LinkButton ID="btnEditRow" runat="server" PostBackUrl="~/Setup/UserSetup.aspx" OnClientClick="ShowWizForm();" 
-                                                            CommandName="EditRow" CommandArgument='<%# Container.DataItemIndex %>' 
-                                                            CssClass="btn btn-white btn-minier btn-bold">
+                            <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered table-hover"
+                                DataKeyNames="UserID" OnRowCommand="gvUsers_RowCommand" OnRowDataBound="gvUsers_RowDataBound" OnPreRender="gvUsers_PreRender">
+                                <Columns>
+                                    <asp:BoundField DataField="FullName" HeaderText="Full Name" />
+                                    <asp:BoundField DataField="UserName" HeaderText="User Name" />
+                                    <asp:BoundField DataField="UserEmail" HeaderText="Email" />
+                                    <asp:BoundField DataField="UserPhoneNo" HeaderText="Phone No" />
+                                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
+                                        HeaderStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <span id="CustomStatus" runat="server"></span>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <div class="hidden-sm hidden-xs btn-group">
+                                                <asp:LinkButton ID="btnEditRow" runat="server" PostBackUrl="~/Setup/UserSetup.aspx" OnClientClick="ShowWizForm();"
+                                                    CommandName="EditRow" CommandArgument='<%# Container.DataItemIndex %>'
+                                                    CssClass="btn btn-white btn-minier btn-bold">
 												            <i class="ace-icon glyphicon glyphicon-edit blue"></i>
 												            Edit
-                                                        </asp:LinkButton>
-													</div>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                    </asp:GridView>
-                                <button id="UpdatePanel2Btn" runat="server" style="visibility:hidden;"></button>
-                            </ContentTemplate>
-                                <Triggers>
-                                    <asp:PostBackTrigger ControlID="UpdatePanel2Btn" />
-                                </Triggers>
-                            </asp:UpdatePanel>
+                                                </asp:LinkButton>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
 				        </div>
 			        </div>
 		        </div>
@@ -388,6 +380,7 @@
                 cancel: '.fullscreen',
                 opacity: 0.8,
                 revert: true,
+                cancel: '.widget-main',
                 forceHelperSize: true,
                 placeholder: 'widget-placeholder',
                 forcePlaceholderSize: true,
@@ -429,97 +422,86 @@
                 ace.data.set('demo', 'widget-state', widgets, null, true);
             });
 
-            (function () {
-                //restore widget order
-                var container_list = ace.data.get('demo', 'widget-order', true);
-                if (container_list) {
-                    for (var container_id in container_list) if (container_list.hasOwnProperty(container_id)) {
+            //restore widget order
+            var container_list = ace.data.get('demo', 'widget-order', true);
+            if (container_list) {
+                for (var container_id in container_list) if (container_list.hasOwnProperty(container_id)) {
 
-                        var widgets_inside_container = container_list[container_id];
-                        if (widgets_inside_container.length == 0) continue;
+                    var widgets_inside_container = container_list[container_id];
+                    if (widgets_inside_container.length == 0) continue;
 
-                        for (var i = 0; i < widgets_inside_container.length; i++) {
-                            var widget = widgets_inside_container[i];
-                            $('#' + widget).appendTo('#' + container_id);
-                        }
+                    for (var i = 0; i < widgets_inside_container.length; i++) {
+                        var widget = widgets_inside_container[i];
+                        $('#' + widget).appendTo('#' + container_id);
                     }
                 }
+            }
 
-                //restore widget state
-                var widgets = ace.data.get('demo', 'widget-state', true);
-                if (widgets != null) {
-                    for (var id in widgets) if (widgets.hasOwnProperty(id)) {
-                        var state = widgets[id];
-                        var widget = $('#' + id);
-                        if
-						(
-                            (state == 'shown' && widget.hasClass('collapsed'))
-                            ||
-                            (state == 'hidden' && !widget.hasClass('collapsed'))
-                        ) {
-                            widget.widget_box('toggleFast');
-                        }
-                        else if (state == 'closed') {
-                            widget.widget_box('closeFast');
-                        }
+            //restore widget state
+            var widgets = ace.data.get('demo', 'widget-state', true);
+            if (widgets != null) {
+                for (var id in widgets) if (widgets.hasOwnProperty(id)) {
+                    var state = widgets[id];
+                    var widget = $('#' + id);
+                    if
+					(
+                        (state == 'shown' && widget.hasClass('collapsed'))
+                        ||
+                        (state == 'hidden' && !widget.hasClass('collapsed'))
+                    ) {
+                        widget.widget_box('toggleFast');
+                    }
+                    else if (state == 'closed') {
+                        widget.widget_box('closeFast');
                     }
                 }
+            }
 
-                //wizard form onreloaded
-                $('#widget-box-wizform').on('reloaded.ace.widget', function (event, info) {
-                    ace.data.remove('demo', 'widget-state');
-                    ace.data.remove('demo', 'widget-order');
-                    $('form').each(function () { this.reset() });
+            //wizard form onreloaded
+            $('#widget-box-wizform').on('reloaded.ace.widget', function (event, info) {
+                ace.data.remove('demo', 'widget-state');
+                ace.data.remove('demo', 'widget-order');
+                $('form').each(function () { this.reset() });
                     
-                    //move to step 1
-                    $('[data-step=1]').trigger("click");
+                //move to step 1
+                $('[data-step=1]').trigger("click");
+            });
+
+            //wizard form onclosed
+            $('#widget-box-wizform').on('closed.ace.widget', function (event, info) {
+                ace.data.remove('demo', 'widget-state');
+                ace.data.remove('demo', 'widget-order');
+                $('form').each(function () { this.reset() });
+
+                $("#MainContent_gvUsers tr").each(function () {
+                    $(this).css("background-color", "");
                 });
+            });
 
-                //wizard form onclosed
-                $('#widget-box-wizform').on('closed.ace.widget', function (event, info) {
-                    ace.data.remove('demo', 'widget-state');
-                    ace.data.remove('demo', 'widget-order');
-                    $('form').each(function () { this.reset() });
+            //btn add new user
+            $('#MainContent_btnAdd').on('click', function (e) {
+                spinnerInit();
+                ace.data.remove('demo', 'widget-state');
+                ace.data.remove('demo', 'widget-state');
+                $('#MainContent_form_Wiz').show();
+            });
 
-                    $("#MainContent_gvUsers tr").each(function () {
-                        $(this).css("background-color", "");
-                    });
-                });
+            //user lists onreloaded
+            $('#widget-box-1').on('reloaded.ace.widget', function (event) {
+                ace.data.remove('demo', 'widget-state');
+                ace.data.remove('demo', 'widget-order');
+                $('form').each(function () { this.reset() });
+                $('#MainContent_form_Wiz').hide();
 
-                //btn add new user
-                $('#MainContent_btnAdd').on('click', function (e) {
-                    spinnerInit();
-                    ace.data.remove('demo', 'widget-state');
-                    ace.data.remove('demo', 'widget-state');
-                    $('#MainContent_form_Wiz').show();
-                });
+                var myTable = $('#<%=gvUsers.ClientID%>').DataTable();
+                myTable.state.clear();
 
-                //user lists onreloaded
-                $('#widget-box-1').on('reloaded.ace.widget', function (event) {
-                    ace.data.remove('demo', 'widget-state');
-                    ace.data.remove('demo', 'widget-order');
-                    $('form').each(function () { this.reset() });
-                    $('#MainContent_form_Wiz').hide();
+                location.href = "<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>";
+            });
 
-                    var myTable = $('#<%=gvUsers.ClientID%>').DataTable();
-                    myTable.state.clear();
-
-                    window.location.href = "<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>";
-                });
-
-                //disable selection
-                $('#validation-form, #validation-form2, #UserListWidget, .widget-toolbar, #<%=prev.ClientID%>, #<%=next.ClientID%>')
-                    .bind('mousedown.ui-disableSelection selectstart.ui-disableSelection', function (event) {
-                    event.stopImmediatePropagation();
-                });
-
-            })();
         });
 
-    </script>
-
     <%--<%: Scripts.Render("~/scripts/Form-Wizard_Scripts") %>--%>
-    <script type="text/javascript">
 
         function dummyFunc() { };
 
@@ -560,7 +542,7 @@
                                 $('form').each(function () { this.reset() });
                                 $('#widget-box-wizform').widget_box('close');
 
-                                window.location.href = "<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>";
+                                location.href = "<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>";
                             }
                             else if (dt.d.pageTitle == "Failure")
                             {
@@ -708,10 +690,6 @@
             $('[data-rel=tooltip]').tooltip();
         });
 
-    </script>
-
-    <script type="text/javascript">
-
         //table script
         jQuery(function ($) {
 
@@ -833,6 +811,9 @@
             });
 
         })
+
     </script>
+
+
 
 </asp:Content>

@@ -12,13 +12,17 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class JuncUserRole
+    public partial class AccountCode
     {
-        public int UserID { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public string AccountCode1 { get; set; }
+        public string AccountDesc { get; set; }
+        public string ParentAccountCode { get; set; }
         public string Status { get; set; }
-    
-        public virtual MasterRole MasterRole { get; set; }
-        public virtual MasterUser MasterUser { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedTimeStamp { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
+        public string Keterangan { get; set; }
+        public string Pengiraan { get; set; }
     }
 }

@@ -96,7 +96,7 @@ namespace DAL
             return db.MasterUsers.Select(x => x).OrderBy(x => x.UserName).ToList();
         }
 
-        public bool InsertUsers(MasterUser objMasterUser)
+        public bool InsertUsers(MasterUser objMasterUser, ref int UserId)
         {
             try
             {
@@ -111,6 +111,8 @@ namespace DAL
 
                     db.MasterUsers.Add(objMasterUser);
                     db.SaveChanges();
+
+                    UserId = objMasterUser.UserID;
 
                     BPEventLog bpe = new BPEventLog();
                     bpe.Object = "User - New User";
@@ -250,17 +252,15 @@ namespace DAL
             }
         }
 
-        public Nullable<int> GetUserID(string username)
-        {
-            return GetValidUser(username).UserID;
-        }
-
         public void DeleteUsers(string username)
         {
-            int? UserId = GetUserID(username);
-            if (UserId != null)
+            int UserId = GetValidUser(username).UserID;
+            if (UserId != null || UserId != 0)
             {
-                db.MasterUsers.Remove(new MasterUser() { UserID = UserId.GetValueOrDefault() });
+                foreach (MasterUser user in db.MasterUsers.Where(x => x.UserID == UserId))
+                {
+                    db.MasterUsers.Remove(user);
+                }
             }
         }
 

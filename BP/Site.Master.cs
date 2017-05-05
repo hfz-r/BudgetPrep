@@ -72,22 +72,26 @@ namespace BP
         {
             AuthUser = (MasterUser)Session["UserData"];
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "onrefLoad", "RefreshSession();", true);
-
-            if (!Page.IsPostBack)
-            {
-                LoadImageHeader();
-            }
+            
+            LoadImageHeader();
         }
 
         protected void LoadImageHeader()
         {
-            string src = string.Empty;
-            if (AuthUser.Image != null)
+            try
             {
-                src = "~/ShowImage.ashx?UserId=" + AuthUser.UserID;
+                string src = string.Empty;
+                if (AuthUser.Image != null)
+                {
+                    src = "~/ShowImage.ashx?UserId=" + AuthUser.UserID;
 
+                }
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "LoadImage", "LoadImage('" + src + "');", true);
             }
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "LoadImage", "LoadImage('" + src + "');", true);
+            catch (Exception ex)
+            {
+                ShowMessage("Error", "Internal error occurred", ex, true);
+            }
         }
 
         public void ShowMessage(string Title, string Body)
@@ -107,21 +111,28 @@ namespace BP
 
             if (LogError && !Exception.Message.Contains("Thread was being aborted"))
             {
-                if (AuthUser == null)
-                    AuthUser = (MasterUser)Session["UserData"];
+                try
+                {
+                    if (AuthUser == null)
+                        AuthUser = (MasterUser)Session["UserData"];
 
-                StackTrace t = new StackTrace();
-                System.Reflection.MethodBase mb = t.GetFrame(1).GetMethod();
+                    StackTrace t = new StackTrace();
+                    System.Reflection.MethodBase mb = t.GetFrame(1).GetMethod();
 
-                BPEventLog bpe = new BPEventLog();
-                bpe.Object = mb.ReflectedType.Name;
-                bpe.ObjectName = mb.Name;
-                bpe.ObjectChanges = Exception.Message;
-                bpe.EventMassage = string.Empty;
-                bpe.Status = "E";
-                bpe.CreatedBy = AuthUser.UserID;
-                bpe.CreatedTimeStamp = DateTime.Now;
-                new EventLogDAL().AddEventLog(bpe);
+                    BPEventLog bpe = new BPEventLog();
+                    bpe.Object = mb.ReflectedType.Name;
+                    bpe.ObjectName = mb.Name;
+                    bpe.ObjectChanges = Exception.Message;
+                    bpe.EventMassage = string.Empty;
+                    bpe.Status = "E";
+                    bpe.CreatedBy = AuthUser.UserID;
+                    bpe.CreatedTimeStamp = DateTime.Now;
+                    new EventLogDAL().AddEventLog(bpe);
+                }
+                catch (Exception ex)
+                {
+                    ShowMessage("Error", "Internal error occurred", ex, true);
+                }
             }
         }
     }

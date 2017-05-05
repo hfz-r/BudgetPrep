@@ -120,23 +120,27 @@ namespace BP.Setup
                     {
                         Session["SelectedMasterUser"] = objMasterUser;
 
-                        username.Value = objMasterUser.UserName;
-                        email.Value = objMasterUser.UserEmail;
-                        question.Value = objMasterUser.SecQuestion;
-                        answer.Value = objMasterUser.SecAnswer;
-                        fullname.Value = objMasterUser.FullName;
-                        icno.Value = objMasterUser.UserIC;
-                        dept.Value = objMasterUser.Department;
-                        post.Value = objMasterUser.Position;
-                        phone.Value = objMasterUser.UserPhoneNo;
+                        username.Value = objMasterUser.UserName.Trim();
+                        email.Value = objMasterUser.UserEmail.Trim();
+                        question.Value = objMasterUser.SecQuestion.Trim();
+                        answer.Value = Security.Decrypt(objMasterUser.SecAnswer.Trim());
+                        fullname.Value = objMasterUser.FullName.Trim();
+                        icno.Value = objMasterUser.UserIC.Trim();
+                        dept.Value = objMasterUser.Department.Trim();
+                        post.Value = objMasterUser.Position.Trim();
+                        phone.Value = objMasterUser.UserPhoneNo.Trim();
                         agree.Checked = false;
 
                         status.SelectedIndex = -1;
                         status.Items.FindByValue(new Helper().GetItemStatusEnumName(Convert.ToChar(objMasterUser.UserStatus))).Selected = true;
 
                         role.SelectedIndex = -1;
-                        role.Items.FindByValue(new UsersRoleDAL().ListUserRole().Where(x => x.UserID == objMasterUser.UserID)
-                            .Select(y=>Convert.ToString(y.RoleID)).FirstOrDefault()).Selected = true;
+                        ListItem item = role.Items.FindByValue(new UsersRoleDAL().ListUserRole().Where(x => x.UserID == objMasterUser.UserID)
+                            .Select(y => Convert.ToString(y.RoleID)).FirstOrDefault());
+                        if (item != null)
+                        {
+                            role.SelectedValue = item.Value;
+                        }
 
                         ChangePageMode(Helper.PageMode.Edit);
                         form_Wiz.Visible = true;
@@ -190,19 +194,22 @@ namespace BP.Setup
                         objMasterUser.SecQuestion = _Users.question.Trim();
                         objMasterUser.SecAnswer = _Users.answer.Trim();
                         objMasterUser.UserStatus = new Helper().GetItemStatusEnumValueByName(_Users.status.Trim());
-                        objMasterUser.CreatedBy = new UsersDAL().GetUserID(HttpContext.Current.User.Identity.Name);
+                        objMasterUser.CreatedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
                         objMasterUser.CreatedTimeStamp = DateTime.Now;
-                        objMasterUser.ModifiedBy = new UsersDAL().GetUserID(HttpContext.Current.User.Identity.Name);
+                        objMasterUser.ModifiedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
                         objMasterUser.ModifiedTimeStamp = DateTime.Now;
 
-                        if (new UserSetup().AddUserRole(objMasterUser,_Users.role) == false)
+                        int USERID = 0;
+                        if (new UsersDAL().InsertUsers(objMasterUser, ref USERID))
                         {
-                            dt.pageTitle = "Failure";
-                            dt.pageBody = "An error occurred while creating User";
-                        }
+                            objMasterUser.UserID = USERID;
+                            if (new UserSetup().AddUserRole(objMasterUser, _Users.role) == false)
+                            {
+                                dt.pageTitle = "Failure";
+                                dt.pageBody = "An error occurred while creating User";
+                                throw new Exception();
+                            }
 
-                        if (new UsersDAL().InsertUsers(objMasterUser))
-                        {
                             bool mail = MailHelper.SendMail(objMasterUser, _MembershipUser.GetPassword(_Users.answer.Trim()));
                             //bool mail = MailHelper.NewPasswordMail(objMasterUser.UserEmail, _Users.password);
 
@@ -225,6 +232,7 @@ namespace BP.Setup
                 else if ((Helper.PageMode)HttpContext.Current.Session["UsersPageMode"] == Helper.PageMode.Edit)
                 {
                     MasterUser objMasterUser = (MasterUser)HttpContext.Current.Session["SelectedMasterUser"];
+                    objMasterUser.UserID = new UsersDAL().GetValidUser(_Users.username).UserID;
                     objMasterUser.UserName = _Users.username.Trim();
                     objMasterUser.FullName = _Users.fullname.Trim();
                     objMasterUser.UserEmail = _Users.email.Trim();
@@ -235,13 +243,14 @@ namespace BP.Setup
                     objMasterUser.SecQuestion = _Users.question.Trim();
                     //objMasterUser.SecAnswer = _Users.answer.Trim();
                     objMasterUser.UserStatus = new Helper().GetItemStatusEnumValueByName(_Users.status.Trim());
-                    objMasterUser.ModifiedBy = new UsersDAL().GetUserID(HttpContext.Current.User.Identity.Name);
+                    objMasterUser.ModifiedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
                     objMasterUser.ModifiedTimeStamp = DateTime.Now;
 
                     if (new UserSetup().AddUserRole(objMasterUser, _Users.role) == false)
                     {
                         dt.pageTitle = "Failure";
                         dt.pageBody = "An error occurred while creating User";
+                        throw new Exception();
                     }
 
                     if (new UsersDAL().UpdateUsers(objMasterUser))
@@ -296,7 +305,7 @@ namespace BP.Setup
                 objUserRole.UserID = objMasterUser.UserID;
                 objUserRole.Status = "A";
 
-                if (new UsersRoleDAL().UserRoleFunc(objUserRole))
+                if (new UsersRoleDAL().InsertUserRole(objUserRole))
                 {
                     return true;
                 }
@@ -362,7 +371,7 @@ namespace BP.Setup
                 status.DataSource = Enum.GetValues(typeof(Helper.ItemStatus));
                 status.DataBind();
 
-                role.DataSource = new UsersRoleDAL().GetRoles();
+                role.DataSource = new UsersRoleDAL().GetRoles().OrderBy(x=>x.RoleID);
                 role.DataTextField = "RoleName";
                 role.DataValueField = "RoleID";
                 role.DataBind();

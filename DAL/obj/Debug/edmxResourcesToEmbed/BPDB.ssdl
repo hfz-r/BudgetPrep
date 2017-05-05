@@ -1,5 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AccountCode">
+    <Key>
+      <PropertyRef Name="AccountCode" />
+    </Key>
+    <Property Name="AccountCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="AccountDesc" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParentAccountCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+    <Property Name="Keterangan" Type="bpchar" MaxLength="100" />
+    <Property Name="Pengiraan" Type="bpchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="BPEventLog">
     <Key>
       <PropertyRef Name="EventLogID" />
@@ -83,6 +98,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="BPModelStoreContainer">
+    <EntitySet Name="AccountCode" EntityType="Self.AccountCode" Schema="public" store:Type="Tables" />
     <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
     <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
     <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />

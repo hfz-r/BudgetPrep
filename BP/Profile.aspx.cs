@@ -227,7 +227,7 @@ namespace BP
                             }   
                         }
 
-                        objMasterUser.ModifiedBy = new UsersDAL().GetUserID(HttpContext.Current.User.Identity.Name);
+                        objMasterUser.ModifiedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
                         objMasterUser.ModifiedTimeStamp = DateTime.Now;
 
                         if (new UsersDAL().UpdateProfileUser(objMasterUser))

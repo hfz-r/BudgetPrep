@@ -10,114 +10,96 @@
 namespace BP {
     
     
-    public partial class SiteMaster {
+    public partial class AccountCodeSetup {
         
         /// <summary>
-        /// HeadContent control.
+        /// EditForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadContent;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditForm;
         
         /// <summary>
-        /// main_form control.
+        /// tbCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm main_form;
+        protected global::System.Web.UI.WebControls.TextBox tbCode;
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// AccountCodeRequired control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator AccountCodeRequired;
         
         /// <summary>
-        /// BreadcrumbsContent control.
+        /// tbDesc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder BreadcrumbsContent;
+        protected global::System.Web.UI.WebControls.TextBox tbDesc;
         
         /// <summary>
-        /// PageHeaderContent control.
+        /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder PageHeaderContent;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
-        /// MainUpdatePanel control.
+        /// ddlStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel MainUpdatePanel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
         
         /// <summary>
-        /// MainContent control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.LinkButton btnSave;
         
         /// <summary>
-        /// lblSessionTime control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSessionTime;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCancel;
         
         /// <summary>
-        /// lblModalTitle control.
+        /// ListForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblModalTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ListForm;
         
         /// <summary>
-        /// lblModalBody control.
+        /// gvAccountCodes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblModalBody;
-        
-        /// <summary>
-        /// divModalDetail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divModalDetail;
-        
-        /// <summary>
-        /// ScriptContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ScriptContent;
+        protected global::System.Web.UI.WebControls.GridView gvAccountCodes;
     }
 }
