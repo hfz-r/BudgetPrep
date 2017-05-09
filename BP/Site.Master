@@ -472,6 +472,22 @@
 							    <b class="arrow"></b>
 						    </li>
                             <li class="">
+							    <a href="<%=Page.ResolveUrl("~/GroupPerjawatanSetup.aspx")%>">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    Services Group
+							    </a>
+
+							    <b class="arrow"></b>
+						    </li>
+                            <li class="">
+							    <a href="<%=Page.ResolveUrl("~/YearUploadSetup.aspx")%>">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    Budget Year
+							    </a>
+
+							    <b class="arrow"></b>
+						    </li>
+                            <li class="">
 							    <a href="<%=Page.ResolveUrl("~/Setup/UserRole.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
 								    User Roles

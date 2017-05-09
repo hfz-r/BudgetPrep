@@ -30,5 +30,7 @@ namespace DAL
         public DbSet<MasterRole> MasterRoles { get; set; }
         public DbSet<AccountCode> AccountCodes { get; set; }
         public DbSet<JuncUserRole> JuncUserRoles { get; set; }
+        public DbSet<YearUploadSetup> YearUploadSetups { get; set; }
+        public DbSet<GroupPerjawatan> GroupPerjawatans { get; set; }
     }
 }

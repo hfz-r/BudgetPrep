@@ -45,6 +45,10 @@ namespace BP
                         {
                             AccountCodeFileUpload(ds, ref ListExcluded);
                         }
+                        else if (source == "ServicesGroup")
+                        {
+                            ServicesGroupFileUpload(ds, ref ListExcluded);
+                        }
                     }
                 }
 
@@ -123,7 +127,7 @@ namespace BP
                                 ReturnObj = new
                                 {
                                     status = "Success",
-                                    message = "Account Code uploaded successfully"
+                                    message = "Account Code **" + item.AccountCode1 + "** uploaded successfully"
                                 };
                             }
                             else
@@ -132,6 +136,84 @@ namespace BP
                                 {
                                     status = "Failure",
                                     message = "An error occurred while uploading Account Code"
+                                };
+                            }
+                        }
+
+                        ListExcluded.Add(ReturnObj);
+                    }
+                }
+            }
+            else
+            {
+                ListExcluded.Add(ReturnObj = new
+                {
+                    status = "Error",
+                    message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)
+                });
+            }
+        }
+
+        public void ServicesGroupFileUpload(DataSet ds, ref List<object> ListExcluded)
+        {
+            object ReturnObj = new object();
+
+            List<string> lstErrors = new List<string>();
+            DataTable dt = new DataTable();
+
+            dt = new ReportHelper().Validate<ServiceCodeImport>(ds, "", ref lstErrors);
+
+            if (lstErrors.Count == 0)
+            {
+                List<GroupPerjawatan> ServiceGroupData = (List<GroupPerjawatan>)HttpContext.Current.Session["GroupPerjawatansData"];
+                List<GroupPerjawatan> UploadedData = new ReportHelper().DataTableToList<ServiceCodeImport>(dt).Select(x => new GroupPerjawatan()
+                {
+                    GroupPerjawatanCode = Convert.ChangeType(x.ServiceCode, typeof(string)).ToString(),
+                    GroupPerjawatanDesc = x.ServiceDesc,
+                    Status = ((x.Status == "Active") ? "A" : "D"),
+                    ParentGroupPerjawatanID = ((Convert.ChangeType(x.UpperLevel, typeof(string)).ToString() == "0") ? "" :
+                        Convert.ChangeType(x.UpperLevel, typeof(string)).ToString())
+                }).ToList();
+
+                if (UploadedData.Count > 0)
+                {
+                    foreach (GroupPerjawatan item in UploadedData)
+                    {
+                        GroupPerjawatan objGroupPerjawatan = new GroupPerjawatan();
+
+                        if (ServiceGroupData.Where(x => x.GroupPerjawatanCode == item.GroupPerjawatanCode).Count() > 0)
+                        {
+                            ReturnObj = new
+                            {
+                                status = "Error",
+                                message = "Service Group **" + item.GroupPerjawatanCode + "** already exists. It`ll be excluded."
+                            };
+                        }
+                        else
+                        {
+                            objGroupPerjawatan.GroupPerjawatanCode = item.GroupPerjawatanCode;
+                            objGroupPerjawatan.GroupPerjawatanDesc = item.GroupPerjawatanDesc;
+                            objGroupPerjawatan.Status = item.Status;
+                            objGroupPerjawatan.ParentGroupPerjawatanID = item.ParentGroupPerjawatanID;
+                            objGroupPerjawatan.CreatedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
+                            objGroupPerjawatan.CreatedTimeStamp = DateTime.Now;
+                            objGroupPerjawatan.ModifiedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
+                            objGroupPerjawatan.ModifiedTimeStamp = DateTime.Now;
+
+                            if (new GroupPerjawatanDAL().InsertGroupPerjawatan(objGroupPerjawatan))
+                            {
+                                ReturnObj = new
+					            {
+						            status = "Success",
+                                    message = "Service Group **" + item.GroupPerjawatanCode + "** uploaded successfully"
+					            };
+                            }
+                            else
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Failure",
+                                    message = "An error occurred while uploading Service Group"
                                 };
                             }
                         }

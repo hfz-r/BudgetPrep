@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="BPModel.JuncUserRole" Width="1.5" PointX="5" PointY="4.875" />
         <AssociationConnector Association="BPModel.JuncUserRole_Role" />
         <AssociationConnector Association="BPModel.JuncUserRole_User" />
+        <EntityTypeShape EntityType="BPModel.YearUploadSetup" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="BPModel.GroupPerjawatan" Width="1.5" PointX="8.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

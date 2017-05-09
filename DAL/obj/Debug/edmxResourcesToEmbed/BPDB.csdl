@@ -14,6 +14,8 @@
       <End Role="MasterUser" EntitySet="MasterUsers" />
       <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
     </AssociationSet>
+    <EntitySet Name="YearUploadSetups" EntityType="BPModel.YearUploadSetup" />
+    <EntitySet Name="GroupPerjawatans" EntityType="BPModel.GroupPerjawatan" />
   </EntityContainer>
   <EntityType Name="BPEventLog">
     <Key>
@@ -116,4 +118,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="YearUploadSetup">
+    <Key>
+      <PropertyRef Name="BudgetYearID" />
+    </Key>
+    <Property Name="BudgetYearID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BudgetYear" Type="Int32" />
+    <Property Name="BudgetYearDesc" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+  </EntityType>
+  <EntityType Name="GroupPerjawatan">
+    <Key>
+      <PropertyRef Name="GroupPerjawatanCode" />
+    </Key>
+    <Property Name="GroupPerjawatanCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="GroupPerjawatanDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentGroupPerjawatanID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+  </EntityType>
 </Schema>

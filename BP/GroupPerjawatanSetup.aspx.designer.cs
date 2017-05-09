@@ -10,7 +10,7 @@
 namespace BP {
     
     
-    public partial class AccountCodeSetup {
+    public partial class GroupPerjawatanSetup {
         
         /// <summary>
         /// EditForm control.
@@ -22,13 +22,13 @@ namespace BP {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditForm;
         
         /// <summary>
-        /// tbCode control.
+        /// tbServiceGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCode;
+        protected global::System.Web.UI.WebControls.TextBox tbServiceGroup;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -49,13 +49,13 @@ namespace BP {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
         
         /// <summary>
-        /// tbDesc control.
+        /// tbServiceDesc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDesc;
+        protected global::System.Web.UI.WebControls.TextBox tbServiceDesc;
         
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -76,13 +76,13 @@ namespace BP {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator2;
         
         /// <summary>
-        /// ddlStatus control.
+        /// ddlServiceStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+        protected global::System.Web.UI.WebControls.DropDownList ddlServiceStatus;
         
         /// <summary>
         /// btnSave control.
@@ -112,12 +112,12 @@ namespace BP {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor btnFileUpload;
         
         /// <summary>
-        /// gvAccountCodes control.
+        /// gvGroupPerjawatans control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvAccountCodes;
+        protected global::System.Web.UI.WebControls.GridView gvGroupPerjawatans;
     }
 }

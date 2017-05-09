@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Account Code" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AccountCodeSetup.aspx.cs" Inherits="BP.AccountCodeSetup" %>
+﻿<%@ Page Title="Services Group" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="GroupPerjawatanSetup.aspx.cs" Inherits="BP.GroupPerjawatanSetup" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
@@ -18,44 +18,44 @@
 		    <i class="ace-icon fa fa-home home-icon"></i>
 		    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
 	    </li>
-        <li class="active">Account Code</li>
+        <li class="active">Services Group</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="PageHeaderContent" runat="server">
     <div class="page-header">
 		<h1>
-			Account Code
+			Services Group
 			<small>
 				<i class="ace-icon fa fa-angle-double-right"></i>
-				setup &amp; manage account code
+				setup &amp; manage services group
 			</small>
 		</h1>
 	</div><!-- /.page-header -->
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
+
     <!-- upload box -->
     <div id="modal-form" class="modal" tabindex="-1">
 	    <div class="modal-dialog" style="width:400px;">
 		    <div class="modal-content">
                 <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="blue bigger">Account Code File Upload</h5>
+					<h5 class="blue bigger">Service Group File Upload</h5>
 				</div>
 
 			    <div class="modal-body">
                     <div class="row">
 						<div class="col-xs-12">
-                            <%--<asp:FileUpload ID="FileUpload1" runat="server" />--%>
                             <input type="file" id="upload" name="upload" />
 						</div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <a class="btn btn-sm btn-success pull-left" data-toggle="popover" title="Template Preview - Account Code" 
-                        data-full="<%=Page.ResolveUrl("~/Images/BP/acc_code_template.png")%>" onclick="return false;">
+                    <a class="btn btn-sm btn-success pull-left" data-toggle="popover" title="Template Preview - Service Group" 
+                        data-full="<%=Page.ResolveUrl("~/Images/BP/service_grp_template.png")%>" onclick="return false;">
                         Preview Sample
                     </a>
 
@@ -68,10 +68,6 @@
 					    <i class="ace-icon fa fa-cloud-upload"></i>
 					    Upload
 				    </button>
-                    <%--<asp:LinkButton ID="btnUpload" runat="server" CssClass="btn btn-sm btn-primary" OnClick="btnUpload_Click">
-                        <i class="ace-icon fa fa-cloud-upload"></i>
-					    Upload
-                    </asp:LinkButton>--%>
 			    </div>
             </div>
         </div>
@@ -82,7 +78,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 			<div class="widget-box" id="widget-box-edit">
 				<div class="widget-header">
-					<h5 class="widget-title">Account Code - Edit</h5>
+					<h5 class="widget-title">Services Group - Edit</h5>
 
 					<div class="widget-toolbar">
 						<a href="#" data-action="fullscreen" class="orange2">
@@ -109,43 +105,43 @@
                         <div class="form-horizontal" id="edit-form" role="form">
                             <br />
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="fullname">Account Code:</label>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="tbServiceGroup">Service Group:</label>
 
                                 <div class="col-xs-12 col-sm-9">
                                     <div class="clearfix">
-                                        <asp:TextBox ID="tbCode" runat="server" CssClass="col-xs-12 col-sm-6"></asp:TextBox>
+                                        <asp:TextBox ID="tbServiceGroup" runat="server" CssClass="col-xs-12 col-sm-6"></asp:TextBox>
                                     </div>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbCode" Display="Dynamic" 
-                                        CssClass="help-block" ErrorMessage="Account Code is required." ValidationGroup="SaveValidation" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbServiceGroup" Display="Dynamic" 
+                                        CssClass="help-block" ErrorMessage="Service Group is required." ValidationGroup="SaveValidation" />
                                      <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="CustomValidationFunction" Display="None"
-                                        ValidateEmptyText="True" ValidationGroup="SaveValidation" ControlToValidate="tbCode" SetFocusOnError="true" />
+                                        ValidateEmptyText="True" ValidationGroup="SaveValidation" ControlToValidate="tbServiceGroup" SetFocusOnError="true" />
                                 </div>
                             </div>
 
                             <div class="space-2"></div>
 
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="tbDesc">Description:</label>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="tbServiceDesc">Description:</label>
 
                                 <div class="col-xs-12 col-sm-9">
                                     <div class="clearfix">
-                                        <asp:TextBox ID="tbDesc" CssClass="col-xs-12 col-sm-6" TextMode="multiline" Columns="50" Rows="5" runat="server" />
+                                        <asp:TextBox ID="tbServiceDesc" CssClass="col-xs-12 col-sm-6" TextMode="multiline" Columns="50" Rows="5" runat="server" />
                                     </div>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbDesc" Display="Dynamic" 
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="tbServiceDesc" Display="Dynamic" 
                                         CssClass="help-block" ErrorMessage="Description is required." ValidationGroup="SaveValidation" />
                                     <asp:CustomValidator ID="CustomValidator2" runat="server" ClientValidationFunction="CustomValidationFunction" Display="None"
-                                        ValidateEmptyText="True" ValidationGroup="SaveValidation" ControlToValidate="tbDesc" SetFocusOnError="true" />
+                                        ValidateEmptyText="True" ValidationGroup="SaveValidation" ControlToValidate="tbServiceDesc" SetFocusOnError="true" />
                                 </div>
                             </div>
 
                             <div class="space-2"></div>
 
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="status">Status:</label>
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="ddlServiceStatus">Status:</label>
 
                                 <div class="col-xs-12 col-sm-9">
                                     <div class="clearfix">
-                                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="col-xs-12 col-sm-4" />
+                                        <asp:DropDownList ID="ddlServiceStatus" runat="server" CssClass="col-xs-12 col-sm-4" />
                                     </div>
                                 </div>
                             </div>
@@ -157,10 +153,6 @@
                                         <i class="ace-icon fa fa-check bigger-110"></i>
                                         Save
                                     </asp:LinkButton>
-                                    <%--<asp:LinkButton ID="btnCancel" runat="server" CssClass="btn" OnClick="btnCancel_Click">
-                                        <i class="ace-icon fa fa-undo bigger-110"></i>
-									    Reset
-                                    </asp:LinkButton>--%>
                                     <button id="btnCancel" type="reset" class="btn" onclick="Reset()">
                                         <i class="ace-icon fa fa-undo bigger-110"></i>Reset
                                     </button>
@@ -175,12 +167,12 @@
 		</div>
     </div>
 
-    <!-- List Form -->
+     <!-- List Form -->
     <div id="ListForm" runat="server">
         <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
 			<div class="widget-box" id="widget-box-list">
 				<div class="widget-header">
-					<h5 class="widget-title">Account Code - List</h5>
+					<h5 class="widget-title">Services Group - List</h5>
 
 					<div class="widget-toolbar">
                         <div class="widget-menu">
@@ -190,10 +182,6 @@
 
 						    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
 							    <li>
-                                    <%--<asp:LinkButton ID="btnFileUpload" runat="server" CssClass="orange">
-                                        <i class="ace-icon fa fa-cloud-upload bigger-110"></i>
-                                        Upload
-                                    </asp:LinkButton>--%>
                                     <a href="#modal-form" id="btnFileUpload" runat="server" role="button" class="blue" data-toggle="modal" data-rel="tooltip" 
                                         data-placement="top" title="*Add/Enable current year to enable upload button">
                                         <i class="ace-icon fa fa-cloud-upload bigger-110"></i>
@@ -226,11 +214,11 @@
                                 <div class="pull-right tableTools-container"></div>
                             </div>
 
-                            <asp:GridView ID="gvAccountCodes" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped table-hover"
-                                DataKeyNames="AccountCode" OnRowCommand="gvAccountCodes_RowCommand" OnRowDataBound="gvAccountCodes_RowDataBound"
-                                OnPreRender="gvAccountCodes_PreRender">
+                            <asp:GridView ID="gvGroupPerjawatans" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped table-hover"
+                                DataKeyNames="GroupPerjawatanCode" OnRowCommand="gvGroupPerjawatans_RowCommand" OnRowDataBound="gvGroupPerjawatans_RowDataBound"
+                                OnPreRender="gvGroupPerjawatans_PreRender">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Code" HeaderStyle-CssClass="treecontainer" ItemStyle-HorizontalAlign="Left"
+                                    <asp:TemplateField HeaderText="Group" HeaderStyle-CssClass="treecontainer" ItemStyle-HorizontalAlign="Left"
                                         ItemStyle-VerticalAlign="Middle">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="btnExpand" Font-Underline="false" runat="server" CommandName="Expand"
@@ -238,7 +226,7 @@
                                             </asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:BoundField DataField="AccountDesc" HeaderText="Account Description" />
+                                    <asp:BoundField DataField="GroupPerjawatanDesc" HeaderText="Service Description" />
                                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -302,7 +290,6 @@
                                 </Columns>
                             </asp:GridView>
                         </div>
-                               
 					</div>
 				</div>
 			</div>
@@ -322,8 +309,7 @@
             $("#EditForm").show();
         }
 
-        function InitScript() 
-        {
+        function InitScript() {
             $(".widget-menu a").click(function () {
             });
 
@@ -399,7 +385,7 @@
                 for (var id in widgets) if (widgets.hasOwnProperty(id)) {
                     var state = widgets[id];
                     var widget = $('#' + id);
-                    if
+                    if 
 						(
                         (state == 'shown' && widget.hasClass('collapsed'))
                         ||
@@ -426,18 +412,17 @@
                 ace.data.remove('demo', 'widget-order');
                 $('#btnCancel').click();
 
-                $("#MainContent_gvAccountCodes tr").each(function () {
+                $("#MainContent_gvGroupPerjawatans tr").each(function () {
                     $(this).css("background-color", "");
                 });
 
                 $.ajax({
                     type: "POST",
-                    url: "AccountCodeSetup.aspx/ReloadField?f=widgetclosed",
+                    url: "GroupPerjawatanSetup.aspx/ReloadField?f=widgetclosed",
                     data: "{}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (result)
-                    {
+                    success: function (result) {
                         console.log("Field Reloaded!");
                     }
                 });
@@ -448,7 +433,7 @@
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-order');
 
-                location.href = "<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>";
+                location.href = "<%=Page.ResolveUrl("~/GroupPerjawatanSetup.aspx")%>";
             });
 
             //preview template
@@ -467,8 +452,7 @@
             $('[data-rel=tooltip]').tooltip();
         }
 
-        function FileInput()
-        {
+        function FileInput() {
             var file_input = $('#upload');
 
             file_input.ace_file_input({
@@ -484,14 +468,13 @@
             $('#btnUpload').on('click', function (e) {
                 spinnerInit();
 
-                if (!file_input.data('ace_input_files'))
-                {
+                if (!file_input.data('ace_input_files')) {
                     $('#spin').data('spinner').stop();
                     $("#spin").hide();
 
                     alert("Upload Fail - No file selected!");
                     return false;
-                } 
+                }
 
                 var fd = new FormData();
                 fd.append('upload', $('#upload')[0].files[0]);
@@ -504,7 +487,7 @@
                 }
 
                 $.ajax({
-                    url: 'FileUploadHandler.ashx?source=AccountCode',
+                    url: 'FileUploadHandler.ashx?source=ServicesGroup',
                     type: 'post',
                     data: fd,
                     success: fnsuccesscallback,
@@ -515,8 +498,7 @@
                     }
                 });
 
-                function fnsuccesscallback(response)
-                {
+                function fnsuccesscallback(response) {
                     $('#spin').data('spinner').stop();
                     $("#spin").hide();
 
@@ -535,7 +517,7 @@
                             sticky: false,
                             time: 60000,
                             after_close: function () {
-                                location.href = "<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>";
+                                location.href = "<%=Page.ResolveUrl("~/GroupPerjawatanSetup.aspx")%>";
                             }
                         });
                     });
@@ -544,10 +526,9 @@
             });
         }
 
-        function LoadDataTable()
-        {
+        function LoadDataTable() {
             //initiate dataTables plugin
-            var myTable = $('#<%=gvAccountCodes.ClientID%>').DataTable({
+            var myTable = $('#<%=gvGroupPerjawatans.ClientID%>').DataTable({
                 bAutoWidth: false,
                 "aoColumns": [
 					  null,
@@ -654,7 +635,7 @@
                 });
             }, 500);
 
-            $(document).on('click', '#<%=gvAccountCodes.ClientID%> .dropdown-toggle', function (e) {
+            $(document).on('click', '#<%=gvGroupPerjawatans.ClientID%> .dropdown-toggle', function (e) {
                 e.stopImmediatePropagation();
                 e.stopPropagation();
                 e.preventDefault();
@@ -678,13 +659,11 @@
             }
         }
 
-        function Reset()
-        {
+        function Reset() {
             //Page_ClientValidate('');
 
             if (typeof (Page_Validators) != "undefined") {
-                for (var i = 0; i < Page_Validators.length; i++)
-                {
+                for (var i = 0; i < Page_Validators.length; i++) {
                     var validator = Page_Validators[i];
                     validator.isvalid = true;
                     ValidatorUpdateDisplay(validator);

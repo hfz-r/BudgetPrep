@@ -33,6 +33,19 @@
           <Property Name="CreatedBy" Type="int4" />
           <Property Name="CreatedTimeStamp" Type="timestamp" />
         </EntityType>
+        <EntityType Name="GroupPerjawatan">
+          <Key>
+            <PropertyRef Name="GroupPerjawatanCode" />
+          </Key>
+          <Property Name="GroupPerjawatanCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="GroupPerjawatanDesc" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentGroupPerjawatanID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+          <Property Name="CreatedBy" Type="int4" />
+          <Property Name="CreatedTimeStamp" Type="timestamp" />
+          <Property Name="ModifiedBy" Type="int4" />
+          <Property Name="ModifiedTimeStamp" Type="timestamp" />
+        </EntityType>
         <EntityType Name="JuncUserRole">
           <Key>
             <PropertyRef Name="UserID" />
@@ -78,6 +91,19 @@
           <Property Name="Website" Type="varchar" MaxLength="50" />
           <Property Name="Image" Type="bytea" />
         </EntityType>
+        <EntityType Name="YearUploadSetup">
+          <Key>
+            <PropertyRef Name="BudgetYearID" />
+          </Key>
+          <Property Name="BudgetYearID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BudgetYear" Type="int4" />
+          <Property Name="BudgetYearDesc" Type="varchar" MaxLength="8000" />
+          <Property Name="Status" Type="bpchar" MaxLength="1" />
+          <Property Name="CreatedBy" Type="int4" />
+          <Property Name="CreatedTimeStamp" Type="timestamp" />
+          <Property Name="ModifiedBy" Type="int4" />
+          <Property Name="ModifiedTimeStamp" Type="timestamp" />
+        </EntityType>
         <Association Name="JuncUserRole_Role">
           <End Role="MasterRole" Type="Self.MasterRole" Multiplicity="0..1" />
           <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="*" />
@@ -105,9 +131,11 @@
         <EntityContainer Name="BPModelStoreContainer">
           <EntitySet Name="AccountCode" EntityType="Self.AccountCode" Schema="public" store:Type="Tables" />
           <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
+          <EntitySet Name="GroupPerjawatan" EntityType="Self.GroupPerjawatan" Schema="public" store:Type="Tables" />
           <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
           <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
           <EntitySet Name="MasterUser" EntityType="Self.MasterUser" Schema="public" store:Type="Tables" />
+          <EntitySet Name="YearUploadSetup" EntityType="Self.YearUploadSetup" Schema="public" store:Type="Tables" />
           <AssociationSet Name="JuncUserRole_Role" Association="Self.JuncUserRole_Role">
             <End Role="MasterRole" EntitySet="MasterRole" />
             <End Role="JuncUserRole" EntitySet="JuncUserRole" />
@@ -135,6 +163,8 @@
             <End Role="MasterUser" EntitySet="MasterUsers" />
             <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
           </AssociationSet>
+          <EntitySet Name="YearUploadSetups" EntityType="BPModel.YearUploadSetup" />
+          <EntitySet Name="GroupPerjawatans" EntityType="BPModel.GroupPerjawatan" />
           </EntityContainer>
         <EntityType Name="BPEventLog">
           <Key>
@@ -237,6 +267,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="YearUploadSetup">
+          <Key>
+            <PropertyRef Name="BudgetYearID" />
+          </Key>
+          <Property Name="BudgetYearID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BudgetYear" Type="Int32" />
+          <Property Name="BudgetYearDesc" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+        </EntityType>
+        <EntityType Name="GroupPerjawatan">
+          <Key>
+            <PropertyRef Name="GroupPerjawatanCode" />
+          </Key>
+          <Property Name="GroupPerjawatanCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GroupPerjawatanDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParentGroupPerjawatanID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -318,6 +374,34 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YearUploadSetups">
+            <EntityTypeMapping TypeName="BPModel.YearUploadSetup">
+              <MappingFragment StoreEntitySet="YearUploadSetup">
+                <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="BudgetYearDesc" ColumnName="BudgetYearDesc" />
+                <ScalarProperty Name="BudgetYear" ColumnName="BudgetYear" />
+                <ScalarProperty Name="BudgetYearID" ColumnName="BudgetYearID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupPerjawatans">
+            <EntityTypeMapping TypeName="BPModel.GroupPerjawatan">
+              <MappingFragment StoreEntitySet="GroupPerjawatan">
+                <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ParentGroupPerjawatanID" ColumnName="ParentGroupPerjawatanID" />
+                <ScalarProperty Name="GroupPerjawatanDesc" ColumnName="GroupPerjawatanDesc" />
+                <ScalarProperty Name="GroupPerjawatanCode" ColumnName="GroupPerjawatanCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
