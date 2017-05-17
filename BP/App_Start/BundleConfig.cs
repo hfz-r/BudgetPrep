@@ -40,23 +40,76 @@ namespace BP
 
             /********************************************************************************************************/
 
-            /* master - start */
-            //Ace Template script bundling
-            bundles.Add(new ScriptBundle("~/scripts/ace-scripts")
-            .Include("~/assets/js/jquery-2.1.4.min.js")
+            /* masterpage - start */
+
+            //CSS
+            bundles.Add(new StyleBundle("~/css/site-css")
+            //<!-- bootstrap & fontawesome -->
+            .Include("~/assets/css/bootstrap.min.css")
+            .Include("~/assets/font-awesome/4.5.0/css/font-awesome.min.css")
+            //<!-- page specific plugin styles start -->
+            .Include("~/assets/css/jquery-ui.custom.min.css")
+            //<!-- form-elements -->
+            .Include("~/assets/css/chosen.min.css")
+            .Include("~/assets/css/bootstrap-datepicker3.min.css")
+            .Include("~/assets/css/bootstrap-timepicker.min.css")
+            .Include("~/assets/css/daterangepicker.min.css")
+            .Include("~/assets/css/bootstrap-datetimepicker.min.css")
+            .Include("~/assets/css/bootstrap-colorpicker.min.css")
+            //<!-- elements -->
+            .Include("~/assets/css/jquery.gritter.min.css")
+            //<!-- form-wizard -->
+            .Include("~/assets/css/select2.min.css")
+            //<!-- text fonts -->
+            .Include("~/assets/css/fonts.googleapis.com.css"));
+
+            //SCRIPTS
+            bundles.Add(new ScriptBundle("~/scripts/site-scripts")
+            //<!-- bootstrap -->
             .Include("~/assets/js/bootstrap.min.js")
-            .Include("~/assets/js/ace-extra.min.js")
+            .Include("~/assets/js/jquery-ui.custom.min.js")
+            .Include("~/assets/js/jquery.ui.touch-punch.min.js")
+            //<!-- form-elements-->
+            .Include("~/assets/js/chosen.jquery.min.js")
+            .Include("~/assets/js/spinbox.min.js")
+            .Include("~/assets/js/bootstrap-datepicker.min.js")
+            .Include("~/assets/js/bootstrap-timepicker.min.js")
+            .Include("~/assets/js/moment.min.js")
+            .Include("~/assets/js/daterangepicker.min.js")
+            .Include("~/assets/js/bootstrap-datetimepicker.min.js")
+            .Include("~/assets/js/bootstrap-colorpicker.min.js")
+            .Include("~/assets/js/jquery.knob.min.js")
+            .Include("~/assets/js/autosize.min.js")
+            .Include("~/assets/js/jquery.inputlimiter.min.js")
+            .Include("~/assets/js/jquery.maskedinput.min.js")
+            .Include("~/assets/js/bootstrap-tag.min.js")
+            //<!-- elements -->
+            .Include("~/assets/js/jquery.easypiechart.min.js")
+            .Include("~/assets/js/jquery.gritter.min.js")
+            .Include("~/assets/js/spin.js")
+            //<!-- form-wizard -->
+            .Include("~/assets/js/wizard.min.js")
+            //.Include("~/assets/js/jquery.validate.min.js")
+            //.Include("~/assets/js/jquery-additional-methods.min.js")
+            .Include("~/assets/js/bootbox.js")
+            .Include("~/assets/js/select2.min.js")
+            //<!-- tables -->
+            .Include("~/assets/js/jquery.dataTables.min.js")
+            .Include("~/assets/js/jquery.dataTables.bootstrap.min.js")
+            .Include("~/assets/js/dataTables.buttons.min.js")
+            .Include("~/assets/js/buttons.flash.min.js")
+            .Include("~/assets/js/buttons.html5.min.js")
+            .Include("~/assets/js/buttons.print.min.js")
+            .Include("~/assets/js/buttons.colVis.min.js")
+            .Include("~/assets/js/dataTables.select.min.js")
+            .Include("~/assets/js/jszip.min.js")
+            .Include("~/assets/js/pdfmake.min.js")
+            .Include("~/assets/js/vfs_fonts.js")
+            //<!-- ace scripts -->
             .Include("~/assets/js/ace-elements.min.js")
             .Include("~/assets/js/ace.min.js"));
 
-            //Ace Template style bundling
-            bundles.Add(new StyleBundle("~/css/ace-styles")
-            .Include("~/assets/css/bootstrap.min.css")
-            .Include("~/assets/css/fonts.googleapis.com.css")
-            .Include("~/assets/css/ace.min.css")
-            .Include("~/assets/css/ace-skins.min.css")
-            .Include("~/assets/css/ace-rtl.min.css"));
-            /* master - end */
+            /* masterpage - end */
 
             /* page-specific - start */
             //using at (SCRIPTS): Dashboard (CHART etc.)
@@ -68,45 +121,6 @@ namespace BP
             .Include("~/assets/js/jquery.flot.min.js")
             .Include("~/assets/js/jquery.flot.pie.min.js")
             .Include("~/assets/js/jquery.flot.resize.min.js"));
-
-            //using at (STYLES): FORM-ELEMENTS 
-            bundles.Add(new StyleBundle("~/styles/Form-Elements_Styles")
-            .Include("~/assets/css/jquery-ui.custom.min.css")
-            .Include("~/assets/css/bootstrap-datepicker3.min.css")
-            .Include("~/assets/css/bootstrap-timepicker.min.css")
-            .Include("~/assets/css/daterangepicker.min.css")
-            .Include("~/assets/css/bootstrap-datetimepicker.min.css")
-            .Include("~/assets/css/bootstrap-colorpicker.min.css"));
-
-            //using at (SCRIPTS): FORM-ELEMENTS 
-            bundles.Add(new ScriptBundle("~/scripts/Form-Elements_Scripts")
-            .Include("~/assets/js/jquery-ui.custom.min.js")
-		    .Include("~/assets/js/jquery.ui.touch-punch.min.js")
-		    .Include("~/assets/js/chosen.jquery.min.js")
-            .Include("~/assets/js/jquery.knob.min.js")
-            .Include("~/assets/js/jquery.inputlimiter.min.js")
-            .Include("~/assets/js/jquery.maskedinput.min.js")
-		    .Include("~/assets/js/spinbox.min.js")
-		    .Include("~/assets/js/bootstrap-datepicker.min.js")
-		    .Include("~/assets/js/bootstrap-timepicker.min.js")
-		    .Include("~/assets/js/moment.min.js")
-		    .Include("~/assets/js/daterangepicker.min.js")
-		    .Include("~/assets/js/bootstrap-datetimepicker.min.js")
-		    .Include("~/assets/js/bootstrap-colorpicker.min.js")
-		    .Include("~/assets/js/autosize.min.js")
-		    .Include("~/assets/js/bootstrap-tag.min.js"));
-
-            //using at (STYLES): FORM-WIZARD 
-            bundles.Add(new StyleBundle("~/styles/Form-Wizard_Styles")
-            .Include("~/assets/css/select2.min.css"));
-
-            //using at (SCRIPTS): FORM-WIZARD 
-            bundles.Add(new ScriptBundle("~/scripts/Form-Wizard_Scripts")
-            .Include("~/assets/js/jquery.validate.min.js")
-            .Include("~/assets/js/jquery-additional-methods.min.js")
-            .Include("~/assets/js/wizard.min.js")
-            .Include("~/assets/js/bootbox.js")
-            .Include("~/assets/js/select2.min.js"));
             /* page-specific - end */
 
             //ignore *.min

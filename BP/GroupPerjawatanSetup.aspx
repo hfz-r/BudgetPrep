@@ -321,7 +321,7 @@
                 cancel: '.fullscreen',
                 opacity: 0.8,
                 revert: true,
-                cancel: '.widget-main',
+                cancel: '.widget-main, .widget-toolbar',
                 forceHelperSize: true,
                 placeholder: 'widget-placeholder',
                 forcePlaceholderSize: true,

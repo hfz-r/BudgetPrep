@@ -158,6 +158,11 @@
 									                <div class="clearfix">
 										                <asp:DropDownList ID="role" name="role" runat="server" CssClass="col-xs-12 col-sm-4">
 										                </asp:DropDownList>
+                                                        <div class="col-xs-3">
+                                                            <input name="switch-field-1" class="ace ace-switch ace-switch-7" type="checkbox" />
+                                                            <span class="lbl"
+                                                                data-lbl="NIL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK"></span>
+                                                        </div>
 									                </div>
 								                </div>
 									        </div>
@@ -380,7 +385,7 @@
                 cancel: '.fullscreen',
                 opacity: 0.8,
                 revert: true,
-                cancel: '.widget-main',
+                cancel: '.widget-main, .widget-toolbar',
                 forceHelperSize: true,
                 placeholder: 'widget-placeholder',
                 forcePlaceholderSize: true,
@@ -578,7 +583,7 @@
             $('#<%=phone.ClientID%>').mask('(999) 999-9999');
             $('#<%=icno.ClientID%>').mask('999999-99-9999');
 
-            jQuery.validator.addMethod("phone", function (value, element) {
+            $.validator.addMethod("phone", function (value, element) {
                 return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
             }, "Enter a valid phone number.");
 

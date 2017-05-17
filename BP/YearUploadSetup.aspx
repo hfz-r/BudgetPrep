@@ -75,7 +75,7 @@
 
                                 <div class="col-xs-12 col-sm-9">
                                     <div class="clearfix">
-                                        <asp:TextBox ID="tbDesc" name="tbDesc" CssClass="col-xs-12 col-sm-6" TextMode="multiline" Columns="50" Rows="5" runat="server" />
+                                        <asp:TextBox ID="tbDesc" CssClass="col-xs-12 col-sm-6" TextMode="multiline" Columns="50" Rows="5" runat="server" />
                                     </div>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbDesc" Display="Dynamic" 
                                         CssClass="help-block" ErrorMessage="Description is required." ValidationGroup="SaveValidation"  />
@@ -110,7 +110,6 @@
                             </div>
 
                         </div>
-														
 					</div>
 				</div>
 			</div>
@@ -219,7 +218,7 @@
                 cancel: '.fullscreen',
                 opacity: 0.8,
                 revert: true,
-                cancel: '.widget-main',
+                cancel: '.widget-main, .widget-toolbar',
                 forceHelperSize: true,
                 placeholder: 'widget-placeholder',
                 forcePlaceholderSize: true,

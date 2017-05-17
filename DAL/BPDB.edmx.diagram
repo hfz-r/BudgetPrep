@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="850a3dee494e4998890b71824235dce7" Name="Diagram1" ShowGrid="false" ZoomLevel="62">
+      <Diagram DiagramId="850a3dee494e4998890b71824235dce7" Name="Diagram1" ShowGrid="false" ZoomLevel="67">
         <EntityTypeShape EntityType="BPModel.BPEventLog" Width="1.5" PointX="5.875" PointY="0.75" />
         <EntityTypeShape EntityType="BPModel.MasterUser" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="BPModel.MasterRole" Width="1.5" PointX="0.75" PointY="6.875" />
@@ -14,6 +14,15 @@
         <AssociationConnector Association="BPModel.JuncUserRole_User" />
         <EntityTypeShape EntityType="BPModel.YearUploadSetup" Width="1.5" PointX="7.375" PointY="4.75" />
         <EntityTypeShape EntityType="BPModel.GroupPerjawatan" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BPModel.FieldMenguru" Width="1.5" PointX="5.375" PointY="9" />
+        <EntityTypeShape EntityType="BPModel.PeriodMenguru" Width="1.5" PointX="7.625" PointY="9" />
+        <AssociationConnector Association="BPModel.PeriodMengurus_FieldPerjawatan" />
+        <EntityTypeShape EntityType="BPModel.FieldPerjawatan" Width="1.5" PointX="9.375" PointY="5" />
+        <EntityTypeShape EntityType="BPModel.PeriodPerjawatan" Width="1.5" PointX="11.625" PointY="5" />
+        <AssociationConnector Association="BPModel.PeriodPerjawatan_FieldPerjawatan" />
+        <EntityTypeShape EntityType="BPModel.Segment" Width="1.5" PointX="10.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BPModel.SegmentDetail" Width="1.5" PointX="12.625" PointY="9.125" />
+        <AssociationConnector Association="BPModel.SegmentDetail_Segment" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

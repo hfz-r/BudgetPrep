@@ -25,38 +25,14 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 <!----------------------- load css start ----------------------->
-
-    <!-- bootstrap & fontawesome -->
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/bootstrap.min.css")%>" />
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/font-awesome/4.5.0/css/font-awesome.min.css")%>" />
-    
-    <!-- page specific plugin styles start -->
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/jquery-ui.custom.min.css")%>" />
-    <!-- form-elements -->
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/chosen.min.css")%>" />
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/bootstrap-datepicker3.min.css")%>" />
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/bootstrap-timepicker.min.css")%>" />
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/daterangepicker.min.css")%>" />
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/bootstrap-datetimepicker.min.css")%>" />
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/bootstrap-colorpicker.min.css")%>" />
-    <!-- elements -->
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/jquery.gritter.min.css")%>" />
-    <!-- form-wizard -->
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/select2.min.css")%>" />
-    <!-- page specific plugin styles end -->
-
-    <!-- text fonts -->
-    <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/fonts.googleapis.com.css")%>" />
+    <%: Styles.Render("~/css/site-css") %>
 
     <!-- ace styles -->
     <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/ace.min.css")%>" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/ace-skins.min.css")%>" />
     <link rel="stylesheet" href="<%=Page.ResolveUrl("~/assets/css/ace-rtl.min.css")%>" />
 <!----------------------- load css end ----------------------->
-
-    <%--<link rel="stylesheet" href="~/assets/font-awesome/4.5.0/css/font-awesome.min.css" />--%>
-    <%--<%: Styles.Render("~/css/ace-styles") %>--%>
-
+    
     <!-- ace settings handler -->
 	<script src="<%=Page.ResolveUrl("~/assets/js/ace-extra.min.js")%>"></script>
 
@@ -73,7 +49,8 @@
             background-color: gray; 
             opacity: 0.7;
         }
-        </style>
+    </style>
+
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body class="no-skin">
@@ -464,6 +441,14 @@
 
 					    <ul class="submenu">
                             <li class="">
+							    <a href="<%=Page.ResolveUrl("~/SegmentSetup.aspx")%>">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    Segment
+							    </a>
+
+							    <b class="arrow"></b>
+						    </li>
+                            <li class="">
 							    <a href="<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
 								    Account Code
@@ -483,6 +468,22 @@
 							    <a href="<%=Page.ResolveUrl("~/YearUploadSetup.aspx")%>">
 								    <i class="menu-icon fa fa-caret-right"></i>
 								    Budget Year
+							    </a>
+
+							    <b class="arrow"></b>
+						    </li>
+                            <li class="">
+							    <a href="<%=Page.ResolveUrl("~/PeriodMengurusSetup.aspx")%>">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    Period Mengurus
+							    </a>
+
+							    <b class="arrow"></b>
+						    </li>
+                             <li class="">
+							    <a href="<%=Page.ResolveUrl("~/PeriodPerjawatanSetup.aspx")%>">
+								    <i class="menu-icon fa fa-caret-right"></i>
+								    Period Perjawatan
 							    </a>
 
 							    <b class="arrow"></b>
@@ -672,7 +673,7 @@
 		    <div class="footer">
 			    <div class="footer-inner">
 				    <div class="footer-content">
-					    <span class="bigger-120">
+					    <span class="bigger-120 reset-widgets">
 						    My<span class="red bolder">B</span>udget
 						    &copy; <%: DateTime.Now.Year %>
 					    </span>
@@ -700,12 +701,7 @@
 
         </div><!-- /.main-container -->
 
-        <%--<%: Scripts.Render("~/scripts/ace-scripts") %>
-        <%: Scripts.Render("~/scripts/Form-Elements_Scripts") %>
-        <%: Scripts.Render("~/scripts/Form-Wizard_Scripts") %>--%>
-
 <!----------------------- load scripts start ----------------------->
-
         <!--[if !IE]> -->
 		<script src="<%=Page.ResolveUrl("~/assets/js/jquery-2.1.4.min.js")%>"></script>
 		<!-- <![endif]-->
@@ -714,52 +710,13 @@
 		    if ('ontouchstart' in document.documentElement) document.write("<script src='<%=Page.ResolveUrl("~/assets/js/jquery.mobile.custom.min.js")%>'>"
                 + "<" + "/script>");
 		</script>
-        <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap.min.js")%>"></script>          
 
-        <!-- page specific plugin scripts start -->
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery-ui.custom.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.ui.touch-punch.min.js")%>"></script>
-        <!-- form-elements-->
-        <script src="<%=Page.ResolveUrl("~/assets/js/chosen.jquery.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/spinbox.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap-datepicker.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap-timepicker.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/moment.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/daterangepicker.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap-datetimepicker.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap-colorpicker.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.knob.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/autosize.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.inputlimiter.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.maskedinput.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap-tag.min.js")%>"></script>
-        <!-- elements -->
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.easypiechart.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.gritter.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/spin.js")%>"></script>
-        <!-- form-wizard -->
-        <script src="<%=Page.ResolveUrl("~/assets/js/wizard.min.js")%>"></script>
+        <!-- form-wizard ext. [start]-->
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery.validate.min.js")%>"></script>
 	    <script src="<%=Page.ResolveUrl("~/assets/js/jquery-additional-methods.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/bootbox.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/select2.min.js")%>"></script>
-        <!-- tables -->
-        <script src="<%=Page.ResolveUrl("~/assets/js/jquery.dataTables.min.js")%>"></script>
-		<script src="<%=Page.ResolveUrl("~/assets/js/jquery.dataTables.bootstrap.min.js")%>"></script>
-		<script src="<%=Page.ResolveUrl("~/assets/js/dataTables.buttons.min.js")%>"></script>
-		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.flash.min.js")%>"></script>
-		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.html5.min.js")%>"></script>
-		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.print.min.js")%>"></script>
-		<script src="<%=Page.ResolveUrl("~/assets/js/buttons.colVis.min.js")%>"></script>
-		<script src="<%=Page.ResolveUrl("~/assets/js/dataTables.select.min.js")%>"></script>
-        <script src="<%=Page.ResolveUrl("~/assets/js/jszip.min.js")%>"></script>
-        <script src="<%=Page.ResolveUrl("~/assets/js/pdfmake.min.js")%>"></script>
-        <script src="<%=Page.ResolveUrl("~/assets/js/vfs_fonts.js")%>"></script>
-        <!-- page specific plugin scripts end -->
+        <!-- form-wizard ext. [end] -->
 
-        <!-- ace scripts -->
-	    <script src="<%=Page.ResolveUrl("~/assets/js/ace-elements.min.js")%>"></script>
-	    <script src="<%=Page.ResolveUrl("~/assets/js/ace.min.js")%>"></script>
+        <%: Scripts.Render("~/scripts/site-scripts") %>
 <!----------------------- load scripts end ----------------------->
 
         <asp:ContentPlaceHolder runat="server" ID="ScriptContent" />
@@ -875,6 +832,13 @@
                 });
                 return this;
             };
+
+            //reset saved positions and states
+            $('span.reset-widgets').on('click', function () {
+                ace.data.remove('demo', 'widget-state');
+                ace.data.remove('demo', 'widget-order');
+                document.location.reload();
+            });
 
         </script>
     </form>

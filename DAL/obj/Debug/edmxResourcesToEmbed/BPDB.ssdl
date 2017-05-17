@@ -28,6 +28,32 @@
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
   </EntityType>
+  <EntityType Name="FieldMengurus">
+    <Key>
+      <PropertyRef Name="FieldMengurusID" />
+    </Key>
+    <Property Name="FieldMengurusID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FieldMengurusSDesc" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="FieldMengurusDesc" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
+  <EntityType Name="FieldPerjawatan">
+    <Key>
+      <PropertyRef Name="FieldPerjawatanID" />
+    </Key>
+    <Property Name="FieldPerjawatanID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FieldPerjawatanSDesc" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="FieldPerjawatanDesc" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
   <EntityType Name="GroupPerjawatan">
     <Key>
       <PropertyRef Name="GroupPerjawatanCode" />
@@ -86,6 +112,61 @@
     <Property Name="Website" Type="varchar" MaxLength="50" />
     <Property Name="Image" Type="bytea" />
   </EntityType>
+  <EntityType Name="PeriodMengurus">
+    <Key>
+      <PropertyRef Name="PeriodMengurusID" />
+    </Key>
+    <Property Name="PeriodMengurusID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FieldMengurusID" Type="int4" Nullable="false" />
+    <Property Name="MengurusYear" Type="int4" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
+  <EntityType Name="PeriodPerjawatan">
+    <Key>
+      <PropertyRef Name="PeriodPerjawatanID" />
+    </Key>
+    <Property Name="PeriodPerjawatanID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FieldPerjawatanID" Type="int4" Nullable="false" />
+    <Property Name="PerjawatanYear" Type="int4" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
+  <EntityType Name="Segment">
+    <Key>
+      <PropertyRef Name="SegmentID" />
+    </Key>
+    <Property Name="SegmentID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SegmentName" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SegmentOrder" Type="int4" />
+    <Property Name="ShapeFormat" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
+  <EntityType Name="SegmentDetail">
+    <Key>
+      <PropertyRef Name="SegmentDetailID" />
+    </Key>
+    <Property Name="SegmentDetailID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SegmentID" Type="int4" />
+    <Property Name="DetailCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DetailDesc" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParentDetailID" Type="int4" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
   <EntityType Name="YearUploadSetup">
     <Key>
       <PropertyRef Name="BudgetYearID" />
@@ -123,13 +204,55 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="PeriodMengurus_FieldPerjawatan">
+    <End Role="FieldMengurus" Type="Self.FieldMengurus" Multiplicity="1" />
+    <End Role="PeriodMengurus" Type="Self.PeriodMengurus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FieldMengurus">
+        <PropertyRef Name="FieldMengurusID" />
+      </Principal>
+      <Dependent Role="PeriodMengurus">
+        <PropertyRef Name="FieldMengurusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PeriodPerjawatan_FieldPerjawatan">
+    <End Role="FieldPerjawatan" Type="Self.FieldPerjawatan" Multiplicity="1" />
+    <End Role="PeriodPerjawatan" Type="Self.PeriodPerjawatan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FieldPerjawatan">
+        <PropertyRef Name="FieldPerjawatanID" />
+      </Principal>
+      <Dependent Role="PeriodPerjawatan">
+        <PropertyRef Name="FieldPerjawatanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SegmentDetail_Segment">
+    <End Role="Segment" Type="Self.Segment" Multiplicity="0..1" />
+    <End Role="SegmentDetail" Type="Self.SegmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Segment">
+        <PropertyRef Name="SegmentID" />
+      </Principal>
+      <Dependent Role="SegmentDetail">
+        <PropertyRef Name="SegmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="BPModelStoreContainer">
     <EntitySet Name="AccountCode" EntityType="Self.AccountCode" Schema="public" store:Type="Tables" />
     <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
+    <EntitySet Name="FieldMengurus" EntityType="Self.FieldMengurus" Schema="public" store:Type="Tables" />
+    <EntitySet Name="FieldPerjawatan" EntityType="Self.FieldPerjawatan" Schema="public" store:Type="Tables" />
     <EntitySet Name="GroupPerjawatan" EntityType="Self.GroupPerjawatan" Schema="public" store:Type="Tables" />
     <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
     <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
     <EntitySet Name="MasterUser" EntityType="Self.MasterUser" Schema="public" store:Type="Tables" />
+    <EntitySet Name="PeriodMengurus" EntityType="Self.PeriodMengurus" Schema="public" store:Type="Tables" />
+    <EntitySet Name="PeriodPerjawatan" EntityType="Self.PeriodPerjawatan" Schema="public" store:Type="Tables" />
+    <EntitySet Name="Segment" EntityType="Self.Segment" Schema="public" store:Type="Tables" />
+    <EntitySet Name="SegmentDetail" EntityType="Self.SegmentDetail" Schema="public" store:Type="Tables" />
     <EntitySet Name="YearUploadSetup" EntityType="Self.YearUploadSetup" Schema="public" store:Type="Tables" />
     <AssociationSet Name="JuncUserRole_Role" Association="Self.JuncUserRole_Role">
       <End Role="MasterRole" EntitySet="MasterRole" />
@@ -138,6 +261,18 @@
     <AssociationSet Name="JuncUserRole_User" Association="Self.JuncUserRole_User">
       <End Role="MasterUser" EntitySet="MasterUser" />
       <End Role="JuncUserRole" EntitySet="JuncUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="PeriodMengurus_FieldPerjawatan" Association="Self.PeriodMengurus_FieldPerjawatan">
+      <End Role="FieldMengurus" EntitySet="FieldMengurus" />
+      <End Role="PeriodMengurus" EntitySet="PeriodMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="PeriodPerjawatan_FieldPerjawatan" Association="Self.PeriodPerjawatan_FieldPerjawatan">
+      <End Role="FieldPerjawatan" EntitySet="FieldPerjawatan" />
+      <End Role="PeriodPerjawatan" EntitySet="PeriodPerjawatan" />
+    </AssociationSet>
+    <AssociationSet Name="SegmentDetail_Segment" Association="Self.SegmentDetail_Segment">
+      <End Role="Segment" EntitySet="Segment" />
+      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

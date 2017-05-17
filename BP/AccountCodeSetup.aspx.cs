@@ -291,9 +291,9 @@ namespace BP
                     if (rowItem.ChildCount > 0)
                     {
                         if (SelectedNodes.Contains(rowItem.AccountCode))
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:#D9D9D9;\" class=\"ace-icon fa fa-minus pull-right\"></i></label> ";
+                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:red;\" class=\"ace-icon fa fa-minus pull-right\"></i></label> ";
                         else
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:#D9D9D9;\" class=\"ace-icon fa fa-plus pull-right\"></i></label> ";
+                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:red;\" class=\"ace-icon fa fa-plus pull-right\"></i></label> ";
                     }
                     else
                         strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i></i></label> ";

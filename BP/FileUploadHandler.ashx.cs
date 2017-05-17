@@ -49,6 +49,10 @@ namespace BP
                         {
                             ServicesGroupFileUpload(ds, ref ListExcluded);
                         }
+                        else if (source == "SegmenDetails")
+                        {
+                            SegmentDetailsFileUpload(ds, ref ListExcluded);
+                        }
                     }
                 }
 
@@ -214,6 +218,84 @@ namespace BP
                                 {
                                     status = "Failure",
                                     message = "An error occurred while uploading Service Group"
+                                };
+                            }
+                        }
+
+                        ListExcluded.Add(ReturnObj);
+                    }
+                }
+            }
+            else
+            {
+                ListExcluded.Add(ReturnObj = new
+                {
+                    status = "Error",
+                    message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)
+                });
+            }
+        }
+
+        public void SegmentDetailsFileUpload(DataSet ds, ref List<object> ListExcluded)
+        {
+            object ReturnObj = new object();
+
+            List<string> lstErrors = new List<string>();
+            DataTable dt = new DataTable();
+
+            dt = new ReportHelper().Validate<SegmentDetailImport>(ds, ((Segment)HttpContext.Current.Session["SelectedSegment"]).ShapeFormat, ref lstErrors);
+
+            if (lstErrors.Count == 0)
+            {
+                List<SegmentDetail> SegmentDetailData = (List<SegmentDetail>)HttpContext.Current.Session["SegmentDetailsData"];
+                List<SegmentDetail> UploadedData = new ReportHelper().DataTableToList<SegmentDetailImport>(dt).Select(x => new SegmentDetail()
+                {
+                    SegmentID = ((Segment)HttpContext.Current.Session["SelectedSegment"]).SegmentID,
+					DetailCode = x.DetailCode,
+					DetailDesc = x.DetailDesc,
+					Status = ((x.Status == "Active") ? "A" : "D")
+                }).ToList();
+
+                if (UploadedData.Count > 0)
+                {
+                    foreach (SegmentDetail item in UploadedData)
+                    {
+                        SegmentDetail objSegmentDetail = new SegmentDetail();
+
+                        if (SegmentDetailData.Where(x => x.DetailCode == item.DetailCode).Count() > 0)
+                        {
+                            ReturnObj = new
+                            {
+                                status = "Error",
+                                message = "Segment Details **" + item.DetailCode + "** already exists. It`ll be excluded."
+                            };
+                        }
+                        else
+                        {
+                            objSegmentDetail.SegmentID = item.SegmentID;
+                            objSegmentDetail.DetailCode = item.DetailCode;
+                            objSegmentDetail.DetailDesc = item.DetailDesc;
+                            objSegmentDetail.Status = item.Status;
+                            objSegmentDetail.ParentDetailID = 0;
+                            objSegmentDetail.CreatedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
+                            objSegmentDetail.CreatedTimeStamp = DateTime.Now;
+                            objSegmentDetail.ModifiedBy = new UsersDAL().GetValidUser(HttpContext.Current.User.Identity.Name).UserID;
+                            objSegmentDetail.ModifiedTimeStamp = DateTime.Now;
+
+                            if (new SegmentDetailsDAL().InsertSegmentDetail(objSegmentDetail))
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Success",
+                                    message = "Segment Details **" + item.DetailCode + "** uploaded successfully"
+                                };
+                            }
+                            else
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Failure",
+                                    message = "An error occurred while uploading Segment Details"
                                 };
                             }
                         }

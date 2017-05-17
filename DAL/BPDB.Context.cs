@@ -32,5 +32,11 @@ namespace DAL
         public DbSet<JuncUserRole> JuncUserRoles { get; set; }
         public DbSet<YearUploadSetup> YearUploadSetups { get; set; }
         public DbSet<GroupPerjawatan> GroupPerjawatans { get; set; }
+        public DbSet<FieldMenguru> FieldMengurus { get; set; }
+        public DbSet<PeriodMenguru> PeriodMengurus { get; set; }
+        public DbSet<FieldPerjawatan> FieldPerjawatans { get; set; }
+        public DbSet<PeriodPerjawatan> PeriodPerjawatans { get; set; }
+        public DbSet<Segment> Segments { get; set; }
+        public DbSet<SegmentDetail> SegmentDetails { get; set; }
     }
 }

@@ -70,6 +70,14 @@
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EventLogDAL.cs" />
+    <Compile Include="FieldMenguru.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FieldMenguruDAL.cs" />
+    <Compile Include="FieldPerjawatan.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FieldPerjawatanDAL.cs" />
     <Compile Include="GroupPerjawatan.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
@@ -83,7 +91,23 @@
     <Compile Include="MasterUser.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="PeriodMenguru.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodMengurusDAL.cs" />
+    <Compile Include="PeriodPerjawatan.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodPerjawatanDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Segment.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentDAL.cs" />
+    <Compile Include="SegmentDetail.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentDetailsDAL.cs" />
     <Compile Include="UsersDAL.cs" />
     <Compile Include="UsersRoleDAL.cs" />
     <Compile Include="YearUploadDAL.cs" />

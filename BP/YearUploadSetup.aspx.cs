@@ -190,13 +190,12 @@ namespace BP
             {
                 case Helper.PageMode.New:
                     ddlYear.Enabled = true;
-                    ddlStatus.Enabled = true;
                     tbDesc.Text = String.Empty;
-                    widget_title.InnerText = "User Setup - New";
+                    widget_title.InnerText = "Budget Year - New";
                     break;
                 case Helper.PageMode.Edit:
                     ddlYear.Enabled = false;
-                    widget_title.InnerText = "User Setup - Edit";
+                    widget_title.InnerText = "Budget Year - Edit";
                     break;
             }
             Session["YearUploadPageMode"] = pagemode;
