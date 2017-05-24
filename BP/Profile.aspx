@@ -286,9 +286,9 @@
         function ShowOutput(uid) {
             $.each(data, function (i, item) {
                 var classname;
-                if (item.source.indexOf("Profile") >= 0)  { classname='gritter-info'; }
-                if (item.source.indexOf("Password") >= 0) { classname='gritter-error'; }
-                if (item.source.indexOf("Security") >= 0) { classname = 'gritter-success'; }
+                if (item.source.indexOf("Profile") >= 0) { classname = 'gritter-success'; }
+                if (item.source.indexOf("Password") >= 0) { classname = 'gritter-info'; }
+                if (item.source.indexOf("Security") >= 0) { classname = 'gritter-info gritter-light'; }
 
                 $.gritter.add({
                     title: item.source,
@@ -310,7 +310,7 @@
                 btn_change: null,
                 no_icon: 'ace-icon fa fa-picture-o',
                 thumbnail: 'large',
-                droppable: true,
+                droppable: false,
                 allowExt: ['jpg', 'jpeg', 'png', 'gif'],
                 allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
             })

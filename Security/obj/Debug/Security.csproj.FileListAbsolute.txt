@@ -1,6 +1,7 @@
 D:\Projects\BP\Security\bin\Debug\Security.exe.config
 D:\Projects\BP\Security\bin\Debug\Security.exe
 D:\Projects\BP\Security\bin\Debug\Security.pdb
+D:\Projects\BP\Security\obj\Debug\Security.csprojResolveAssemblyReference.cache
 D:\Projects\BP\Security\obj\Debug\OBSecurity.Form1.resources
 D:\Projects\BP\Security\obj\Debug\Security.Properties.Resources.resources
 D:\Projects\BP\Security\obj\Debug\Security.csproj.GenerateResource.Cache

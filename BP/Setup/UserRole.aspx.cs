@@ -136,7 +136,7 @@ namespace BP.Setup
                         //add to local db
                         JuncUserRole userrole = new JuncUserRole();
                         userrole.RoleID = Convert.ToInt32(roleid);
-                        userrole.UserID = new UsersDAL().GetUsers().Where(x => x.UserName == username).Select(x => x.UserID).FirstOrDefault();
+                        userrole.UserID = DAL.UsersDAL.StaticUserId(0, username).UserID;
                         userrole.Status = new Helper().GetItemStatusEnumValueByName(stats.Trim());
                         if (!new UsersRoleDAL().InsertUserRole(userrole))
                         {
@@ -176,7 +176,7 @@ namespace BP.Setup
                             //add to local db
                             JuncUserRole userrole = new JuncUserRole();
                             userrole.RoleID = Convert.ToInt32(roleid);
-                            userrole.UserID = new UsersDAL().GetUsers().Where(x => x.UserName == username).Select(x => x.UserID).FirstOrDefault();
+                            userrole.UserID = DAL.UsersDAL.StaticUserId(0, username).UserID;
                             userrole.Status = new Helper().GetItemStatusEnumValueByName(stats.Trim());
                             if (!new UsersRoleDAL().InsertUserRole(userrole))
                             {
@@ -245,7 +245,7 @@ namespace BP.Setup
         {
             try
             {
-                List<int> RoleUserId = new UsersRoleDAL().ListUserRole().Where(x => x.RoleID == _Role.RoleID).Select(y=>y.UserID).ToList();
+                List<int> RoleUserId = new UsersRoleDAL().ListUserRole().Where(x => x.RoleID == _Role.RoleID).Select(y => Convert.ToInt32(y.UserID)).ToList();
 
                 var SelectedItems = new List<DualListClass>();
 
@@ -255,7 +255,7 @@ namespace BP.Setup
                         new DualListClass
                         {
                             Id = RoleUserId[i],
-                            Name = new UsersDAL().GetUsers().Where(x => x.UserID == RoleUserId[i]).Select(y => y.UserName).FirstOrDefault()
+                            Name = DAL.UsersDAL.StaticUserId(RoleUserId[i],"").UserName
                         });
                 }
 

@@ -367,6 +367,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Logout.aspx" />
+    <Content Include="MailInBox.aspx" />
     <Content Include="MailTemplates\email-confirmation.html" />
     <Content Include="MailTemplates\email-contrast.html" />
     <Content Include="MailTemplates\email-navbar.html" />
@@ -518,6 +519,13 @@
     </Compile>
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MailInBox.aspx.cs">
+      <DependentUpon>MailInBox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MailInBox.aspx.designer.cs">
+      <DependentUpon>MailInBox.aspx</DependentUpon>
     </Compile>
     <Compile Include="PeriodMengurusSetup.aspx.cs">
       <DependentUpon>PeriodMengurusSetup.aspx</DependentUpon>

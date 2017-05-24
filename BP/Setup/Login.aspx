@@ -79,30 +79,63 @@
                                                     FailureTextStyle-ForeColor="Red">
                                                     <LayoutTemplate>
                                                         <fieldset>
-                                                            <span class="small">
+                                                            <span class="small red">
                                                                 <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
                                                             </span>
                                                             <div class="space-4"></div>
 
-                                                            <label class="block clearfix">
-			                                                    <span class="block input-icon input-icon-right">
-				                                                    <asp:TextBox ID="UserName" CssClass="form-control" placeholder="Username" runat="server"></asp:TextBox>
-                                                                    <i class="ace-icon fa fa-user"></i>
-                                                                    <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ForeColor="Red"
-                                                                        CssClass="help-block" ErrorMessage="User Name is required." ToolTip="User Name is required." Display="Dynamic"
-                                                                        ValidationGroup="LoginUserValidationGroup"></asp:RequiredFieldValidator>
-			                                                    </span>
-                                                            </label>
-                                                            
-                                                            <label class="block clearfix">
-			                                                    <span class="block input-icon input-icon-right">
-                                                                    <asp:TextBox ID="Password" CssClass="form-control" placeholder="Password" runat="server" TextMode="Password"></asp:TextBox>
-                                                                    <i class="ace-icon fa fa-lock"></i>
-                                                                    <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ForeColor="Red" 
-                                                                        CssClass="help-block" ErrorMessage="Password is required." ToolTip="Password is required." Display="Dynamic"
-                                                                        ValidationGroup="LoginUserValidationGroup"></asp:RequiredFieldValidator>            
-			                                                    </span>
-		                                                    </label>
+                                                            <div class="form-group">
+                                                                <label class="block clearfix">
+                                                                    <span class="block input-icon input-icon-right">
+                                                                        <asp:TextBox ID="UserName" placeholder="Username" CssClass="form-control" runat="server" />
+                                                                        <i class="ace-icon fa fa-user"></i>
+                                                                    </span>
+                                                                </label>
+                                                                <asp:RequiredFieldValidator
+                                                                    ID="UserNameRequired"
+                                                                    runat="server"
+                                                                    ControlToValidate="UserName"
+                                                                    Display="Dynamic"
+                                                                    CssClass="help-block"
+                                                                    ErrorMessage="Username is required."
+                                                                    ValidationGroup="LoginUserValidationGroup" />
+                                                                <asp:CustomValidator
+                                                                    ID="CustomValidator1"
+                                                                    runat="server"
+                                                                    ClientValidationFunction="CustomValidationFunction"
+                                                                    Display="None"
+                                                                    ValidateEmptyText="True"
+                                                                    ValidationGroup="LoginUserValidationGroup"
+                                                                    ControlToValidate="UserName"
+                                                                    SetFocusOnError="true" />
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="block clearfix">
+                                                                    <span class="block input-icon input-icon-right">
+                                                                        <asp:TextBox ID="Password" CssClass="form-control" placeholder="Password"
+                                                                            runat="server" TextMode="Password" />
+                                                                        <i class="ace-icon fa fa-lock"></i>
+                                                                    </span>
+                                                                </label>
+                                                                <asp:RequiredFieldValidator
+                                                                    ID="PasswordRequired"
+                                                                    runat="server"
+                                                                    ControlToValidate="Password"
+                                                                    Display="Dynamic"
+                                                                    CssClass="help-block"
+                                                                    ErrorMessage="Password is required."
+                                                                    ValidationGroup="LoginUserValidationGroup" />
+                                                                <asp:CustomValidator
+                                                                    ID="CustomValidator2"
+                                                                    runat="server"
+                                                                    ClientValidationFunction="CustomValidationFunction"
+                                                                    Display="None"
+                                                                    ValidateEmptyText="True"
+                                                                    ValidationGroup="LoginUserValidationGroup"
+                                                                    ControlToValidate="Password"
+                                                                    SetFocusOnError="true" />
+                                                            </div>
 
 		                                                    <div class="space"></div>
                                                              
@@ -112,7 +145,8 @@
                                                                     <span class="lbl"> Remember Me</span>
                                                                 </label>
 
-			                                                    <asp:LinkButton ID="LoginButton" runat="server" CommandName="Login" CssClass="width-35 pull-right btn btn-sm btn-primary" ValidationGroup="LoginUserValidationGroup">
+			                                                    <asp:LinkButton ID="LoginButton" runat="server" CommandName="Login" 
+                                                                    CssClass="width-35 pull-right btn btn-sm btn-primary" ValidationGroup="LoginUserValidationGroup">
                                                                     <i class="ace-icon fa fa-key"></i>
                                                                     <span class="bigger-110">Login</span>
                                                                 </asp:LinkButton>
@@ -162,28 +196,50 @@
 										    </h4>
 										    <div class="space-6"></div>
 										    <p>
-											    Input your <i>email</i> to reset your password.
+											    Input <i class="red">email</i> to reset password.
 										    </p>
 
                                             <fieldset>
-                                                <span class="small">
+                                                <span class="small red">
 					                                <asp:Label ID="lblMessage" runat="server" CssClass="control-label txt-info"></asp:Label>
 				                                </span>
                                                 <div class="space-4"></div>
 
-				                                <label class="block clearfix">
-					                                <span class="block input-icon input-icon-right">
-						                                <asp:TextBox ID="tbEmail" CssClass="form-control" placeholder="Email" TextMode="Email" runat="server" ValidationGroup="VerifyAccountCheck"></asp:TextBox>
-						                                <i class="ace-icon fa fa-envelope"></i>
-						                                <asp:RequiredFieldValidator ID="EmailValidate" runat="server" ControlToValidate="tbEmail" ForeColor="Red"
-							                                ErrorMessage="Email is required." ToolTip="Email is required." Display="Dynamic" CssClass="help-block"
-							                                ValidationGroup="VerifyAccountCheck"></asp:RequiredFieldValidator>
-                                                        <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" CssClass="help-block" 
-                                                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="Red" 
-                                                            ControlToValidate="tbEmail" ErrorMessage="Invalid Email Format" ToolTip="Invalid email format."
-                                                            Display="Dynamic" ValidationGroup="VerifyAccountCheck"></asp:RegularExpressionValidator>
-					                                </span>
-				                                </label>
+                                                <div class="form-group">
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <asp:TextBox ID="tbEmail" CssClass="form-control" placeholder="Email" TextMode="Email"
+                                                                runat="server" ValidationGroup="VerifyAccountCheck"></asp:TextBox>
+                                                            <i class="ace-icon fa fa-envelope"></i>
+                                                        </span>
+                                                    </label>
+                                                    <asp:RequiredFieldValidator 
+                                                        ID="EmailValidate" 
+                                                        runat="server" 
+                                                        ControlToValidate="tbEmail"
+                                                        ErrorMessage="Email is required." 
+                                                        Display="Dynamic" 
+                                                        CssClass="help-block"
+                                                        ValidationGroup="VerifyAccountCheck" />
+                                                    <asp:RegularExpressionValidator 
+                                                        ID="regexEmailValid" 
+                                                        runat="server" 
+                                                        CssClass="help-block"
+                                                        ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" 
+                                                        ControlToValidate="tbEmail" 
+                                                        ErrorMessage="Invalid Email Format"
+                                                        Display="Dynamic" 
+                                                        ValidationGroup="VerifyAccountCheck" />
+                                                    <asp:CustomValidator
+                                                        ID="CustomValidator3"
+                                                        runat="server"
+                                                        ClientValidationFunction="CustomValidationFunction"
+                                                        Display="None"
+                                                        ValidateEmptyText="True"
+                                                        ValidationGroup="VerifyAccountCheck"
+                                                        ControlToValidate="tbEmail"
+                                                        SetFocusOnError="true" />
+                                                </div>
 
 			                                    <div class="clearfix">
                                                     <asp:LinkButton ID="VerifyButton" runat="server" CssClass="width-35 pull-right btn btn-sm btn-danger" 
@@ -377,7 +433,44 @@
 		            alert(response.d);
                 }
 		    });
-        }
+	    }
+
+	    function CustomValidationFunction(sender, args) {
+	        var control = document.getElementById(sender.controltovalidate);
+
+	        if (args.Value == "") {
+	            args.isValid = false;
+	            $(control).closest(".form-group").addClass("has-error");
+
+	            return;
+	        }
+	        else {
+
+	            if (sender.controltovalidate == "tbEmail") {
+	                //RegularExpressionValidator
+	                var exp = new RegExp(control.Validators[1].validationexpression);
+
+	                if (exp.test(args.Value)) {
+	                    args.isValid = true;
+	                    $(control).closest(".form-group").removeClass("has-error");
+
+	                    return;
+	                }
+	                else {
+	                    args.isValid = false;
+	                    $(control).closest(".form-group").addClass("has-error");
+
+	                    return;
+	                }
+	            }
+	            else {
+	                args.isValid = true;
+	                $(control).closest(".form-group").removeClass("has-error");
+
+	                return;
+	            }
+	        }
+	    }
 	    
 	    function spinnerInit() {
 	        var opts = {

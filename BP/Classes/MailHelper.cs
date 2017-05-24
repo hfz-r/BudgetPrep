@@ -38,9 +38,9 @@ namespace BP.Classes
                     client.Send(msg);
                 }
             }
-            catch(Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
 
             return true;

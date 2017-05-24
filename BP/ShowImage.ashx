@@ -20,13 +20,17 @@ public class ShowImage : IHttpHandler
 
        context.Response.ContentType = "image/jpeg";
        Stream strm = ShowEmpImage(UserId);
-       byte[] buffer = new byte[4096];
-       int byteSeq = strm.Read(buffer, 0, 4096);
 
-       while (byteSeq > 0)
+       if (strm != null)
        {
-           context.Response.OutputStream.Write(buffer, 0, byteSeq);
-           byteSeq = strm.Read(buffer, 0, 4096);
+           byte[] buffer = new byte[4096];
+           int byteSeq = strm.Read(buffer, 0, 4096);
+
+           while (byteSeq > 0)
+           {
+               context.Response.OutputStream.Write(buffer, 0, byteSeq);
+               byteSeq = strm.Read(buffer, 0, 4096);
+           }
        }        
        //context.Response.BinaryWrite(buffer);
     }

@@ -14,6 +14,11 @@ namespace DAL
     
     public partial class GroupPerjawatan
     {
+        public GroupPerjawatan()
+        {
+            this.UserPerjawatanWorkflows = new HashSet<UserPerjawatanWorkflow>();
+        }
+    
         public string GroupPerjawatanCode { get; set; }
         public string GroupPerjawatanDesc { get; set; }
         public string ParentGroupPerjawatanID { get; set; }
@@ -22,5 +27,7 @@ namespace DAL
         public Nullable<System.DateTime> CreatedTimeStamp { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
+    
+        public virtual ICollection<UserPerjawatanWorkflow> UserPerjawatanWorkflows { get; set; }
     }
 }

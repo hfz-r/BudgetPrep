@@ -110,7 +110,7 @@ namespace DAL
                 db.SaveChanges();
 
                 BPEventLog bpe = new BPEventLog();
-                bpe.Object = "UsersRole";
+                bpe.Object = "UserRoles";
                 bpe.ObjectName = GetRoles().Where(x => x.RoleID == objUserRole.RoleID).Select(y => y.RoleName).FirstOrDefault();
                 bpe.ObjectChanges = string.Empty;
                 bpe.EventMassage = "Success";
@@ -123,7 +123,7 @@ namespace DAL
             catch (Exception ex)
             {
                 BPEventLog bpe = new BPEventLog();
-                bpe.Object = "UsersRole";
+                bpe.Object = "UserRoles";
                 bpe.ObjectName = GetRoles().Where(x => x.RoleID == objUserRole.RoleID).Select(y => y.RoleName).FirstOrDefault();
                 bpe.ObjectChanges = string.Empty;
                 bpe.EventMassage = "Failure";
@@ -155,7 +155,7 @@ namespace DAL
         {
             try
             {
-                int uid = new UsersDAL().GetUsers().Where(x => x.UserName == username).Select(x => x.UserID).FirstOrDefault();
+                int uid = DAL.UsersDAL.StaticUserId(0, username).UserID;
 
                 for (int i = 0; i < roles.Count(); i++)
                 {

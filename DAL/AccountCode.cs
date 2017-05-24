@@ -14,6 +14,11 @@ namespace DAL
     
     public partial class AccountCode
     {
+        public AccountCode()
+        {
+            this.UserMengurusWorkflows = new HashSet<UserMengurusWorkflow>();
+        }
+    
         public string AccountCode1 { get; set; }
         public string AccountDesc { get; set; }
         public string ParentAccountCode { get; set; }
@@ -24,5 +29,7 @@ namespace DAL
         public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
         public string Keterangan { get; set; }
         public string Pengiraan { get; set; }
+    
+        public virtual ICollection<UserMengurusWorkflow> UserMengurusWorkflows { get; set; }
     }
 }

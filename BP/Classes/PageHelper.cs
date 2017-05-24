@@ -10,7 +10,6 @@ namespace BP.Classes
 {
     public class PageHelper : System.Web.UI.Page
     {
-        //public MasterUser LoggedInUser = new MasterUser();
         public MasterUser LoggedInUser { get; set; }
         public PageHelper()
         {
@@ -27,19 +26,19 @@ namespace BP.Classes
             {
                 LoggedInUser = (MasterUser)Session["UserData"];
                 if (LoggedInUser.SecQuestion == null || LoggedInUser.SecAnswer == null)
-                    Response.Redirect("~/UserSettings.aspx");
+                    Response.Redirect("~/Setup/Login.aspx");
                 if (LoggedInUser.SecQuestion.Trim() == string.Empty || LoggedInUser.SecAnswer.Trim() == string.Empty)
-                    Response.Redirect("~/UserSettings.aspx");
+                    Response.Redirect("~/Setup/Login.aspx");
             }
 
-            //List<PageMenuHelper> lstPages = (List<PageMenuHelper>)Session["ListPages"];
-            //if (!Request.Path.ToUpper().Contains(("Default.aspx").ToUpper()) && !Request.Path.ToUpper().Contains(("MailInBox.aspx").ToUpper()))
-            //{
-            //    if (lstPages.Where(x => Request.Path.ToUpper().Contains(x.PagePath.Replace("./", "").Trim().ToUpper())).Count() == 0)
-            //    {
-            //        ClearSession();
-            //    }
-            //}
+            List<PageMenuHelper> lstPages = (List<PageMenuHelper>)Session["ListPages"];
+            if (!Request.Path.ToUpper().Contains(("/Dashboard.aspx").ToUpper()) && !Request.Path.ToUpper().Contains(("/MailInBox.aspx").ToUpper()))
+            {
+                if (lstPages.Where(x => Request.Path.ToUpper().Contains(x.PagePath.Replace("~/", "").Trim().ToUpper())).Count() == 0)
+                {
+                    ClearSession();
+                }
+            }
         }
 
         private void ClearSession()

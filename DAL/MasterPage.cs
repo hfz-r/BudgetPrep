@@ -12,21 +12,21 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class MasterRole
+    public partial class MasterPage
     {
-        public MasterRole()
+        public MasterPage()
         {
             this.JuncRolePages = new HashSet<JuncRolePage>();
-            this.JuncUserRoles = new HashSet<JuncUserRole>();
         }
     
-        public int RoleID { get; set; }
-        public string RoleName { get; set; }
-        public string Description { get; set; }
-        public Nullable<System.Guid> RUID { get; set; }
-        public string RoleStatus { get; set; }
+        public int PageID { get; set; }
+        public string PageName { get; set; }
+        public string PagePath { get; set; }
+        public int PageOrder { get; set; }
+        public Nullable<int> ParentPageID { get; set; }
+        public Nullable<int> MenuID { get; set; }
     
         public virtual ICollection<JuncRolePage> JuncRolePages { get; set; }
-        public virtual ICollection<JuncUserRole> JuncUserRoles { get; set; }
+        public virtual MasterMenu MasterMenu { get; set; }
     }
 }

@@ -15,34 +15,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MasterUsers">
-      <EntityTypeMapping TypeName="BPModel.MasterUser">
-        <MappingFragment StoreEntitySet="MasterUser">
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="Website" ColumnName="Website" />
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
-          <ScalarProperty Name="SecAnswer" ColumnName="SecAnswer" />
-          <ScalarProperty Name="SecQuestion" ColumnName="SecQuestion" />
-          <ScalarProperty Name="UserPhoneNo" ColumnName="UserPhoneNo" />
-          <ScalarProperty Name="Position" ColumnName="Position" />
-          <ScalarProperty Name="Department" ColumnName="Department" />
-          <ScalarProperty Name="UserIC" ColumnName="UserIC" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
-          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="UUID" ColumnName="UUID" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MasterRoles">
       <EntityTypeMapping TypeName="BPModel.MasterRole">
         <MappingFragment StoreEntitySet="MasterRole">
@@ -67,15 +39,6 @@
           <ScalarProperty Name="ParentAccountCode" ColumnName="ParentAccountCode" />
           <ScalarProperty Name="AccountDesc" ColumnName="AccountDesc" />
           <ScalarProperty Name="AccountCode1" ColumnName="AccountCode" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="JuncUserRoles">
-      <EntityTypeMapping TypeName="BPModel.JuncUserRole">
-        <MappingFragment StoreEntitySet="JuncUserRole">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -191,6 +154,112 @@
           <ScalarProperty Name="DetailCode" ColumnName="DetailCode" />
           <ScalarProperty Name="SegmentID" ColumnName="SegmentID" />
           <ScalarProperty Name="SegmentDetailID" ColumnName="SegmentDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMengurusWorkflows">
+      <EntityTypeMapping TypeName="BPModel.UserMengurusWorkflow">
+        <MappingFragment StoreEntitySet="UserMengurusWorkflow">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserMengurusWorkflowID" ColumnName="UserMengurusWorkflowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPerjawatanWorkflows">
+      <EntityTypeMapping TypeName="BPModel.UserPerjawatanWorkflow">
+        <MappingFragment StoreEntitySet="UserPerjawatanWorkflow">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="GroupPerjawatanCode" ColumnName="GroupPerjawatanCode" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserPerjawatanWorkflowID" ColumnName="UserPerjawatanWorkflowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSegDtlWorkflows">
+      <EntityTypeMapping TypeName="BPModel.UserSegDtlWorkflow">
+        <MappingFragment StoreEntitySet="UserSegDtlWorkflow">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SegmentDetailID" ColumnName="SegmentDetailID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserSegDtlWorkflowID" ColumnName="UserSegDtlWorkflowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterUsers">
+      <EntityTypeMapping TypeName="BPModel.MasterUser">
+        <MappingFragment StoreEntitySet="MasterUser">
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="OfficeAddress" ColumnName="OfficeAddress" />
+          <ScalarProperty Name="PeriodOfService" ColumnName="PeriodOfService" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="PositionGrade" ColumnName="PositionGrade" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Website" ColumnName="Website" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+          <ScalarProperty Name="SecAnswer" ColumnName="SecAnswer" />
+          <ScalarProperty Name="SecQuestion" ColumnName="SecQuestion" />
+          <ScalarProperty Name="UserPhoneNo" ColumnName="UserPhoneNo" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="UserIC" ColumnName="UserIC" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UUID" ColumnName="UUID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JuncRolePages">
+      <EntityTypeMapping TypeName="BPModel.JuncRolePage">
+        <MappingFragment StoreEntitySet="JuncRolePage">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="JuncRolePageID" ColumnName="JuncRolePageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterMenus">
+      <EntityTypeMapping TypeName="BPModel.MasterMenu">
+        <MappingFragment StoreEntitySet="MasterMenu">
+          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+          <ScalarProperty Name="MenuOrder" ColumnName="MenuOrder" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterPages">
+      <EntityTypeMapping TypeName="BPModel.MasterPage">
+        <MappingFragment StoreEntitySet="MasterPage">
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="ParentPageID" ColumnName="ParentPageID" />
+          <ScalarProperty Name="PageOrder" ColumnName="PageOrder" />
+          <ScalarProperty Name="PagePath" ColumnName="PagePath" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JuncUserRoles">
+      <EntityTypeMapping TypeName="BPModel.JuncUserRole">
+        <MappingFragment StoreEntitySet="JuncUserRole">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="JuncUserRoleID" ColumnName="JuncUserRoleID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

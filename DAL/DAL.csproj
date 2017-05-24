@@ -82,7 +82,16 @@
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="GroupPerjawatanDAL.cs" />
+    <Compile Include="JuncRolePage.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="JuncUserRole.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterMenu.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="MasterRole.cs">
@@ -108,7 +117,16 @@
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="SegmentDetailsDAL.cs" />
+    <Compile Include="UserMengurusWorkflow.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPerjawatanWorkflow.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="UsersDAL.cs" />
+    <Compile Include="UserSegDtlWorkflow.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="UsersRoleDAL.cs" />
     <Compile Include="YearUploadDAL.cs" />
     <Compile Include="YearUploadSetup.cs">

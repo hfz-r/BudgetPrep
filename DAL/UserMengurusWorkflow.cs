@@ -12,14 +12,14 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class JuncUserRole
+    public partial class UserMengurusWorkflow
     {
-        public int JuncUserRoleID { get; set; }
+        public int UserMengurusWorkflowID { get; set; }
         public Nullable<int> UserID { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public string AccountCode { get; set; }
         public string Status { get; set; }
     
-        public virtual MasterRole MasterRole { get; set; }
+        public virtual AccountCode AccountCode1 { get; set; }
         public virtual MasterUser MasterUser { get; set; }
     }
 }

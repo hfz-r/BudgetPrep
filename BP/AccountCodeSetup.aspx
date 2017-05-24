@@ -324,9 +324,6 @@
 
         function InitScript() 
         {
-            $(".widget-menu a").click(function () {
-            });
-
             // widget box drag & drop
             $('.widget-container-col').sortable({
                 connectWith: '.widget-container-col',

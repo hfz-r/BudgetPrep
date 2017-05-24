@@ -12,14 +12,18 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class JuncUserRole
+    public partial class MasterMenu
     {
-        public int JuncUserRoleID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public Nullable<int> RoleID { get; set; }
-        public string Status { get; set; }
+        public MasterMenu()
+        {
+            this.MasterPages = new HashSet<MasterPage>();
+        }
     
-        public virtual MasterRole MasterRole { get; set; }
-        public virtual MasterUser MasterUser { get; set; }
+        public int MenuID { get; set; }
+        public string MenuName { get; set; }
+        public int MenuOrder { get; set; }
+        public string MenuIcon { get; set; }
+    
+        public virtual ICollection<MasterPage> MasterPages { get; set; }
     }
 }

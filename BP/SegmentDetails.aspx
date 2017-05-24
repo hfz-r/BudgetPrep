@@ -656,11 +656,31 @@
                 return;
             }
             else {
-                args.isValid = true;
-                $(control).closest(".form-group").removeClass("has-error");
 
-                return;
-            }
+                if (sender.controltovalidate == "MainContent_tbCode") {
+	                //RegularExpressionValidator
+	                var exp = new RegExp(control.Validators[1].validationexpression);
+
+	                if (exp.test(args.Value)) {
+	                    args.isValid = true;
+	                    $(control).closest(".form-group").removeClass("has-error");
+
+	                    return;
+	                }
+	                else {
+	                    args.isValid = false;
+	                    $(control).closest(".form-group").addClass("has-error");
+
+	                    return;
+	                }
+	            }
+	            else {
+	                args.isValid = true;
+	                $(control).closest(".form-group").removeClass("has-error");
+
+	                return;
+	            }
+	        }
         }
 
         function Reset() {

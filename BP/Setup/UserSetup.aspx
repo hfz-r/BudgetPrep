@@ -1,8 +1,18 @@
 ﻿<%@ Page Title="User Setup" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserSetup.aspx.cs" Inherits="BP.Setup.UserSetup" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <%--<%: Styles.Render("~/styles/Form-Elements_Styles") %>
-    <%: Styles.Render("~/styles/Form-Wizard_Styles") %>--%>
+
+    <style>
+        .ext {
+            position: relative;
+            display: table;
+            overflow-y: auto;
+            overflow-x: auto;
+            width: auto;
+            min-width: 800px;
+        }
+    </style>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="BreadcrumbsContent" runat="server">
@@ -29,261 +39,351 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
+       
+      <asp:UpdatePanel ID="UpdatePanelWizardForm" runat="server" UpdateMode="Conditional">
+          <ContentTemplate>
+              <!-- wizard-form -->
+              <div id="form_Wiz" runat="server" visible="false">
+                  <div id="widget-container-wizform">
+                      <div class="col-xs-12 widget-container-col" id="wizard-form">
+                          <div class="widget-box" id="widget-box-wizform">
+                              <div class="widget-header">
+                                  <h5 id="widget_title" class="widget-title" runat="server">User Setup - New</h5>
 
-    <!-- wizard-form -->
-    <div id="form_Wiz" runat="server" visible="false">
-        <div id="widget-container-wizform">
-            <div class="col-xs-12 widget-container-col" id="wizard-form">
-                <div class="widget-box" id="widget-box-wizform">
-                    <div class="widget-header">
-                        <h5 id="widget_title" class="widget-title" runat="server">User Setup - New</h5>
+                                  <div class="widget-toolbar">
+                                      <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen">
+                                          <i class="ace-icon fa fa-expand"></i>
+                                      </a>
 
-				        <div class="widget-toolbar">
-					        <a href="#" data-action="fullscreen" class="orange2">
-						        <i class="ace-icon fa fa-expand"></i>
-					        </a>
+                                      <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload">
+                                          <i class="ace-icon fa fa-refresh"></i>
+                                      </a>
 
-					        <a href="#" data-action="reload">
-						        <i class="ace-icon fa fa-refresh"></i>
-					        </a>
+                                      <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse">
+                                          <i class="ace-icon fa fa-chevron-up"></i>
+                                      </a>
 
-					        <a href="#" data-action="collapse">
-						        <i class="ace-icon fa fa-chevron-up"></i>
-					        </a>
+                                      <a href="#" data-action="close" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Close">
+                                          <i class="ace-icon fa fa-times"></i>
+                                      </a>
+                                  </div>
+                              </div>
 
-					        <a href="#" data-action="close">
-						        <i class="ace-icon fa fa-times"></i>
-					        </a>
-				        </div>
-                    </div>
+                              <div class="widget-body">
+                                  <div class="widget-main">
+                                      <div id="fuelux-wizard-container">
+                                          <div class="steps-container">
+                                              <ul class="steps">
+                                                  <li data-step="1" class="active">
+                                                      <span class="step">1</span>
+                                                      <span class="title">Accounts Information</span>
+                                                  </li>
 
-                    <div class="widget-body">
-		                <div class="widget-main">
-			                <div id="fuelux-wizard-container">
-				                <div class="steps-container">
-					                <ul class="steps">
-						                <li data-step="1" class="active">
-							                <span class="step">1</span>
-							                <span class="title">Accounts Information</span>
-						                </li>
+                                                  <li data-step="2">
+                                                      <span class="step">2</span>
+                                                      <span class="title">Personal Information</span>
+                                                  </li>
 
-						                <li data-step="2">
-							                <span class="step">2</span>
-							                <span class="title">Personal Information</span>
-						                </li>
+                                                  <li data-step="3">
+                                                      <span class="step">3</span>
+                                                      <span class="title">Complete</span>
+                                                  </li>
+                                              </ul>
+                                          </div>
 
-                                        <li data-step="3">
-							                <span class="step">3</span>
-							                <span class="title">Complete</span>
-						                </li>
-					                </ul>
-				                </div>
+                                          <hr />
 
-				                <hr />
+                                          <div class="step-content pos-rel">
 
-				                <div class="step-content pos-rel">
+                                              <div class="step-pane active" data-step="1">
+                                                  <h4 class="lighter block green">Enter the accounts information</h4>
+                                                  <br />
+                                                  <!--form used for jquery validation only-->
+                                                  <form class="form-horizontal" id="validation-form" method="get">
 
-					                <div class="step-pane active" data-step="1">
-						                <h4 class="lighter block green">Enter the accounts information</h4>
+                                                      <div class="form-group">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="username">Username:</label>
 
-                                        <!--form used for jquery validation only-->
-                                        <form class="form-horizontal" id="validation-form" method="get">
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <input type="text" name="username" id="username" class="col-xs-12 col-sm-6" runat="server" onkeypress="return NoSpaceKey(event);" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="space-2"></div>
+                                                      <div id="pwdDiv" class="form-group" runat="server">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">Password:</label>
 
-                                            <div class="form-group">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="username">Username:</label>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <input type="password" name="password" id="password" class="col-xs-12 col-sm-4" runat="server" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="space-2"></div>
+                                                      <div id="pwd2Div" class="form-group" runat="server">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password2">Confirm Password:</label>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <input type="text" name="username" id="username" class="col-xs-12 col-sm-6" runat="server" onkeypress="return NoSpaceKey(event);"/>
-									                </div>
-								                </div>
-							                </div>
-                                            <div class="space-2"></div>
-                                            <div id="pwdDiv" class="form-group" runat="server">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password">Password:</label>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <input type="password" name="password2" id="password2" class="col-xs-12 col-sm-4" runat="server" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="space-2"></div>
+                                                      <div class="form-group">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Email Address:</label>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <input type="password" name="password" id="password" class="col-xs-12 col-sm-4" runat="server"/>
-									                </div>
-								                </div>
-							                </div>
-							                <div class="space-2"></div>
-							                <div id="pwd2Div" class="form-group" runat="server">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password2">Confirm Password:</label>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <input type="email" name="email" id="email" class="col-xs-12 col-sm-6" runat="server" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="space-2"></div>
+                                                      <div class="hr hr-dotted"></div>
+                                                      <div class="space-2"></div>
+                                                      <div class="form-group">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="question">Security Question:</label>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <input type="password" name="password2" id="password2" class="col-xs-12 col-sm-4" runat="server"/>
-									                </div>
-								                </div>
-							                </div>
-                                            <div class="space-2"></div>
-							                <div class="form-group">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Email Address:</label>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <textarea class="input-xlarge" name="question" id="question" runat="server"></textarea>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="space-2"></div>
+                                                      <div id="SecAns" class="form-group" runat="server">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="answer">Security Answer:</label>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <input type="email" name="email" id="email" class="col-xs-12 col-sm-6" runat="server"/>
-									                </div>
-								                </div>
-							                </div>
-                                            <div class="space-2"></div>
-							                <div class="hr hr-dotted"></div>
-                                            <div class="space-2"></div>
-							                <div class="form-group">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="question">Security Question:</label>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <textarea class="input-xlarge" name="answer" id="answer" runat="server"></textarea>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="space-2"></div>
+                                                      <div class="hr hr-dotted"></div>
+                                                      <div class="space-2"></div>
+                                                      <div class="form-group">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="role">Role:</label>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <textarea class="input-xlarge" name="question" id="question" runat="server"></textarea>
-									                </div>
-								                </div>
-							                </div>
-							                <div class="space-2"></div>
-                                            <div id="SecAns" class="form-group" runat="server">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="answer">Security Answer:</label>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <asp:DropDownList ID="role" name="role" runat="server" CssClass="col-xs-12 col-sm-4" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="space-2"></div>
+                                                      <div class="form-group">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="btnWorkflow">Workflow:</label>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <textarea class="input-xlarge" name="answer" id="answer" runat="server"></textarea>
-									                </div>
-								                </div>
-							                </div>
-                                            <div class="space-2"></div>
-                                            <div class="form-group">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="role">Role:</label>
-                                                        
-                                                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <asp:DropDownList ID="role" name="role" runat="server" CssClass="col-xs-12 col-sm-4">
-										                </asp:DropDownList>
-                                                        <div class="col-xs-3">
-                                                            <input name="switch-field-1" class="ace ace-switch ace-switch-7" type="checkbox" />
-                                                            <span class="lbl"
-                                                                data-lbl="NIL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OK"></span>
-                                                        </div>
-									                </div>
-								                </div>
-									        </div>
-                                            <div class="space-2"></div>
-                                            <div class="form-group">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="status">Status:</label>
-                                                        
-                                                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <asp:DropDownList ID="status" name="status" runat="server" CssClass="col-xs-12 col-sm-4">
-										                </asp:DropDownList>
-									                </div>
-								                </div>
-									        </div>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="btn-group">
+                                                                  <button id="btnWorkflow" runat="server" class="btn">View</button>
 
-						                </form>
+                                                                  <button id="btnWFdropdown" runat="server" data-toggle="dropdown" class="btn dropdown-toggle">
+                                                                      <span class="ace-icon fa fa-caret-down icon-only"></span>
+                                                                  </button>
 
-					                </div>
+                                                                  <ul class="dropdown-menu dropdown-inverse">
+                                                                      <li>
+                                                                          <a href="#">Clear all settings</a>
+                                                                      </li>
 
-					                <div class="step-pane" data-step="2">
-						                <h4 class="lighter block green">Enter the personal information</h4>
+                                                                      <li>
+                                                                          <a href="#">Another action</a>
+                                                                      </li>
 
-                                        <!--form used for jquery validation only-->
-                                        <form class="form-horizontal" id="validation-form2" method="get">
-                                        
-                                            <div class="form-group">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="fullname">Fullname:</label>
+                                                                      <li class="divider"></li>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <input type="text" name="fullname" id="fullname" class="col-xs-12 col-sm-6" runat="server"/>
-									                </div>
-								                </div>
-							                </div>
-                                            <div class="space-2"></div>
-                                            <div class="form-group">
-								                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="icno">IC:</label>
+                                                                      <li>
+                                                                          <a href="#">Disable Workflow</a>
+                                                                      </li>
+                                                                  </ul>
+                                                              </div>
+                                                              <!-- /.btn-group -->
+                                                          </div>
+                                                      </div>
+                                                      <div class="hr hr-dotted"></div>
+                                                      <div class="space-2"></div>
+                                                      <div class="form-group">
+                                                          <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="status">Status:</label>
 
-								                <div class="col-xs-12 col-sm-9">
-									                <div class="clearfix">
-										                <input type="text" name="icno" id="icno" class="col-xs-12 col-sm-6" runat="server"/>
-									                </div>
-								                </div>
-							                </div>
-                                            <div class="space-2"></div>
-                                            <div class="hr hr-dotted"></div>
-                                            <div class="space-2"></div>
-                                            <div class="form-group">
-		                                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="dept">Department:</label>
+                                                          <div class="col-xs-12 col-sm-9">
+                                                              <div class="clearfix">
+                                                                  <asp:DropDownList ID="status" name="status" runat="server" CssClass="col-xs-12 col-sm-4" />
+                                                              </div>
+                                                          </div>
+                                                      </div>
 
-		                                        <div class="col-xs-12 col-sm-9">
-			                                        <div class="clearfix">
-				                                        <input type="text" name="dept" id="dept" class="col-xs-12 col-sm-4" runat="server"/>
-			                                        </div>
-		                                        </div>
-	                                        </div>
-                                            <div class="space-2"></div>
-                                            <div class="form-group">
-		                                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="post">Position:</label>
+                                                  </form>
 
-		                                        <div class="col-xs-12 col-sm-9">
-			                                        <div class="clearfix">
-				                                        <input type="text" name="post" id="post" class="col-xs-12 col-sm-4" runat="server"/>
-			                                        </div>
-		                                        </div>
-	                                        </div>
-                                            <div class="space-2"></div>
-                                            <div class="form-group">
-										        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="phone">Phone Number:</label>
-											
-                                                <div class="col-xs-12 col-sm-9">
-												    <div class="input-group">
-													    <span class="input-group-addon">
-														    <i class="ace-icon fa fa-phone"></i>
-													    </span>
-													    <input type="tel" id="phone" name="phone" runat="server"/>
-												    </div>
-											    </div>
-										    </div>
-                                            <div class="space-8"></div>
-										    <div class="form-group">
-											    <div class="col-xs-12 col-sm-4 col-sm-offset-3">
-												    <label>
-													    <input name="agree" id="agree" type="checkbox" class="ace" runat="server" />
-													    <span class="lbl"> I accept the policy</span>
-												    </label>
-											    </div>
-										    </div>
+                                              </div>
 
-                                        </form>
-					                </div>
+                                              <div class="step-pane" data-step="2">
+                                                  <h4 class="lighter block green">Enter the personal information</h4>
+                                                  <br />
+                                                  <!--form used for jquery validation only-->
+                                                  <form class="form-horizontal" id="validation-form2" method="get">
+                                                      <div class="row">
+                                                          <div class="col-xs-6">
+                                                              
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="fullname">Fullname:</label>
 
-					                <div class="step-pane" data-step="3">
-						                <div class="center">
-							                <h3 class="green">Complete!</h3>
-							                Your information is ready to save! Click finish to continue!
-						                </div>
-					                </div>
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="clearfix">
+                                                                          <input type="text" name="fullname" id="fullname" class="col-xs-12 col-sm-9" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="icno">IC:</label>
 
-				                </div>
-			                </div>
-			                <hr />
-			                <div class="wizard-actions">
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="clearfix">
+                                                                          <input type="text" name="icno" id="icno" class="col-xs-12 col-sm-9" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="title">Title:</label>
 
-				                <button id="prev" class="btn btn-prev" onclick="dummyFunc(); return false" runat="server">
-					                <i class="ace-icon fa fa-arrow-left"></i>
-					                Prev
-				                </button>
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="clearfix">
+                                                                          <input type="text" name="title" id="title" class="col-xs-12 col-sm-9" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="phone">Phone Number:</label>
 
-				                <button id="next" class="btn btn-success btn-next" data-last="Finish" onclick="dummyFunc(); return false" runat="server">
-						            Next
-						            <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-					            </button>
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="input-group">
+                                                                          <span class="input-group-addon">
+                                                                              <i class="ace-icon fa fa-phone"></i>
+                                                                          </span>
+                                                                          <input type="tel" id="phone" name="phone" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="fax">Fax Number:</label>
 
-			                </div>
-		                </div><!-- /.widget-main -->
-	                </div><!-- /.widget-body -->
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="input-group">
+                                                                          <span class="input-group-addon">
+                                                                              <i class="ace-icon fa fa-fax"></i>
+                                                                          </span>
+                                                                          <input type="tel" id="fax" name="fax" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-8"></div>
+
+                                                          </div>
+
+                                                          <div class="col-xs-6">
+                                                              
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="designation">Designation:</label>
+
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="clearfix">
+                                                                          <input type="text" name="designation" id="designation" class="col-xs-12 col-sm-9" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="dept">Department:</label>
+
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="clearfix">
+                                                                          <input type="text" name="dept" id="dept" class="col-xs-12 col-sm-9" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="grade">Position Grade:</label>
+
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="clearfix">
+                                                                          <input type="text" name="grade" id="grade" class="col-xs-12 col-sm-9" runat="server" />
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="period">
+                                                                      Period of Service:</label>
+
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="input-group">
+                                                                          <input type="text" class="input-sm" id="period" name="period" runat="server"/> &nbsp;&nbsp;months
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-2"></div>
+                                                              <div class="form-group">
+                                                                  <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="offaddress">Office Address:</label>
+
+                                                                  <div class="col-xs-12 col-sm-9">
+                                                                      <div class="clearfix">
+                                                                          <textarea id="offaddress" name="offaddress" class="autosize-transition form-control"
+                                                                              runat="server"></textarea>
+                                                                      </div>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="space-8"></div>
+
+                                                          </div>
+                                                      </div>
+                                                  </form>
+                                              </div>
+
+                                              <div class="step-pane" data-step="3">
+                                                  <div class="center">
+                                                      <h3 class="green">Complete!</h3>
+                                                      Your information is ready to save! Click finish to continue!
+                                                  </div>
+                                              </div>
+
+                                          </div>
+                                      </div>
+                                      <hr />
+                                      <div class="wizard-actions">
+
+                                          <button id="prev" class="btn btn-prev" onclick="dummyFunc(); return false" runat="server">
+                                              <i class="ace-icon fa fa-arrow-left"></i>
+                                              Prev
+                                          </button>
+
+                                          <button id="next" class="btn btn-success btn-next" data-last="Finish" onclick="dummyFunc(); return false" runat="server">
+                                              Next
+						                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                          </button>
+
+                                      </div>
+                                  </div>
+                                  <!-- /.widget-main -->
+                              </div>
+                              <!-- /.widget-body -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </ContentTemplate>
+          <Triggers>
+              <asp:PostBackTrigger ControlID="btnSaveWorkflow" />
+          </Triggers>
+    </asp:UpdatePanel>
 
     <!--widget-->
     <div id="form_List" runat="server">
@@ -295,7 +395,7 @@
 
 				        <div class="widget-toolbar">
 					        <div class="widget-menu">
-						        <a href="#" data-action="settings" data-toggle="dropdown">
+						        <a href="#" data-action="settings" data-toggle="dropdown" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Settings">
 							        <i class="ace-icon fa fa-cogs"></i>
 						        </a>
 
@@ -311,15 +411,15 @@
 						        </ul>
 					        </div>
 
-					        <a href="#" data-action="fullscreen" class="orange2">
+					        <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen">
 						        <i class="ace-icon fa fa-expand"></i>
 					        </a>
 
-					        <a href="#" data-action="reload">
+					        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload">
 						        <i class="ace-icon fa fa-refresh"></i>
 					        </a>
 
-					        <a href="#" data-action="collapse">
+					        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse">
 						        <i class="ace-icon fa fa-chevron-up"></i>
 					        </a>
 
@@ -335,7 +435,8 @@
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered table-hover"
-                                DataKeyNames="UserID" OnRowCommand="gvUsers_RowCommand" OnRowDataBound="gvUsers_RowDataBound" OnPreRender="gvUsers_PreRender">
+                                DataKeyNames="UserID" OnRowCommand="gvUsers_RowCommand" OnRowDataBound="gvUsers_RowDataBound" OnRowCreated="gvUsers_RowCreated" 
+                                OnPreRender="gvUsers_PreRender">
                                 <Columns>
                                     <asp:BoundField DataField="FullName" HeaderText="Full Name" />
                                     <asp:BoundField DataField="UserName" HeaderText="User Name" />
@@ -350,11 +451,10 @@
                                     <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <div class="hidden-sm hidden-xs btn-group">
-                                                <asp:LinkButton ID="btnEditRow" runat="server" PostBackUrl="~/Setup/UserSetup.aspx" OnClientClick="ShowWizForm();"
-                                                    CommandName="EditRow" CommandArgument='<%# Container.DataItemIndex %>'
-                                                    CssClass="btn btn-white btn-minier btn-bold">
-												            <i class="ace-icon glyphicon glyphicon-edit blue"></i>
-												            Edit
+                                                <asp:LinkButton ID="btnEditRow" runat="server" OnClientClick="ShowWizForm();" CommandName="EditRow" 
+                                                    CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-white btn-minier btn-bold">
+                                                    <i class="ace-icon glyphicon glyphicon-edit blue"></i>
+                                                    Edit
                                                 </asp:LinkButton>
                                             </div>
                                         </ItemTemplate>
@@ -368,14 +468,128 @@
         </div>
     </div>
 
+    <!-- workflow -->
+    <div id="workflow-modal" class="modal" tabindex="-1">
+		<div class="modal-dialog ext">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="blue bigger">Workflow Setup</h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="row">
+                        <div class="col-sm-12">
+                            <div id="accordion" class="accordion-style1 panel-group accordion-style2">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                <i class="ace-icon fa fa-angle-right bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                                &nbsp; <i class="pink ace-icon fa fa-briefcase bigger-120"></i>&nbsp;Mengurus
+                                            </a>
+                                        </h4>
+                                    </div>
+
+                                    <div class="panel-collapse collapse" id="collapseOne">
+                                        <div class="panel-body">
+                                            <asp:GridView ID="gvMengurusWorkFlow" runat="server" AutoGenerateColumns="false" AllowSorting="true"
+                                                CssClass="table table-bordered table-hover" DataKeyNames="AccountCode1" OnPreRender="gvMengurusWorkFlow_PreRender">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox ID="chkSelect" runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField DataField="AccountCode1" HeaderText="Account Code" />
+                                                    <asp:BoundField DataField="AccountDesc" HeaderText="Account Description" />
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                <i class="ace-icon fa fa-angle-right bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                                &nbsp;<i class="blue ace-icon fa fa-users bigger-110"></i>&nbsp;Perjawatan
+                                            </a>
+                                        </h4>
+                                    </div>
+
+                                    <div class="panel-collapse collapse" id="collapseTwo">
+                                        <div class="panel-body">
+                                            <asp:GridView ID="gvPerjawatanWorkFlow" runat="server" AutoGenerateColumns="false" AllowSorting="true"
+                                                CssClass="table table-bordered table-hover" DataKeyNames="GroupPerjawatanCode" OnPreRender="gvPerjawatanWorkFlow_PreRender">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox ID="chkSelect" runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField DataField="GroupPerjawatanCode" HeaderText="Service Code" />
+                                                    <asp:BoundField DataField="GroupPerjawatanDesc" HeaderText="Service Description" />
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                <i class="ace-icon fa fa-angle-right bigger-110" data-icon-hide="ace-icon fa fa-angle-down" data-icon-show="ace-icon fa fa-angle-right"></i>
+                                                &nbsp; <i class="green ace-icon fa fa-laptop bigger-110"></i>&nbsp;Segment Details
+                                            </a>
+                                        </h4>
+                                    </div>
+
+                                    <div class="panel-collapse collapse" id="collapseThree">
+                                        <div class="panel-body">
+                                            <asp:GridView ID="gvSegmentDetails" runat="server" AutoGenerateColumns="false" AllowSorting="true"
+                                                CssClass="table table-bordered table-hover" DataKeyNames="SegmentDetailID" OnPreRender="gvSegmentDetails_PreRender">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox ID="chkSelect" runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField DataField="SegmentName" HeaderText="Segment" />
+                                                    <asp:BoundField DataField="DetailCode" HeaderText="Segment Detail" />
+                                                </Columns>
+                                            </asp:GridView>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>		
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-sm" data-dismiss="modal">
+						<i class="ace-icon fa fa-times"></i>
+						Cancel
+					</button>
+                    <button id="btnSaveWorkflow" runat="server" class="btn btn-sm btn-primary" data-dismiss="modal" onserverclick="btnSaveWorkflow_OnClick">
+                        <i class="ace-icon fa fa-check"></i>
+                        Save
+                    </button>
+				</div>
+			</div>
+		</div>
+	</div><!-- PAGE CONTENT ENDS -->
+
 </asp:Content>
 
 <asp:Content ID="Content5" ContentPlaceHolderID="ScriptContent" runat="server">
     
-    <%--<%: Scripts.Render("~/scripts/Form-Elements_Scripts") %>--%>
     <script type="text/javascript">
 
-        jQuery(function ($) {
+        function InitScript() {
 
             // widget box drag & drop example
             $('.widget-container-col').sortable({
@@ -467,7 +681,10 @@
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-order');
                 $('form').each(function () { this.reset() });
-                    
+
+                ClearWorkflowCheckbox();
+                localStorage.clear();
+
                 //move to step 1
                 $('[data-step=1]').trigger("click");
             });
@@ -477,6 +694,9 @@
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-order');
                 $('form').each(function () { this.reset() });
+
+                ClearWorkflowCheckbox()
+                localStorage.clear();
 
                 $("#MainContent_gvUsers tr").each(function () {
                     $(this).css("background-color", "");
@@ -488,6 +708,9 @@
                 spinnerInit();
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-state');
+
+                localStorage.clear();
+
                 $('#MainContent_form_Wiz').show();
             });
 
@@ -504,9 +727,120 @@
                 location.href = "<%=Page.ResolveUrl("~/Setup/UserSetup.aspx")%>";
             });
 
-        });
+            //*workflow handler - start*//
+            $('#<%=role.ClientID%>').bind('change', function ()
+            {
+                if ($('#<%=role.ClientID%> :selected').text() == "Admin")
+                {
+                    $('#<%=btnWorkflow.ClientID%>').prop('disabled', true);
+                    $('#<%=btnWFdropdown.ClientID%>').prop('disabled', true);
+                }
+                else
+                {
+                    $('#<%=btnWorkflow.ClientID%>').prop('disabled', false);
+                    $('#<%=btnWFdropdown.ClientID%>').prop('disabled', false);
+                }
+            });
+            $('#<%=role.ClientID%>').trigger('change');
 
-    <%--<%: Scripts.Render("~/scripts/Form-Wizard_Scripts") %>--%>
+            $('[id^=<%=btnWorkflow.ClientID%>]').on('click', function (e) {
+                e.preventDefault();
+                $('#workflow-modal').modal('show');
+            });
+
+            $('#<%=btnSaveWorkflow.ClientID%>').on('click', function (e) {
+                SaveFormState();
+            });
+            //*workflow handler - end*//
+
+            //tooltip
+            $('[data-rel=tooltip]').tooltip();
+            //autosize
+            autosize($('textarea[class*=autosize]'));
+
+            //spinner - used by period of service
+            $('#<%=period.ClientID%>').ace_spinner({
+                value: 0, min: 0, max: 10000, step: 1, touch_spinner: true,
+                icon_up: 'ace-icon fa fa-caret-up bigger-110',
+                icon_down: 'ace-icon fa fa-caret-down bigger-110'
+            });
+
+            //destroy gritter and modal
+            $(document).one('ajaxloadstart.page', function (e) {
+                //in ajax mode, remove remaining elements before leaving page
+                autosize.destroy('textarea[class*=autosize]')
+                $.gritter.removeAll();
+                $('.modal').modal('hide');
+            });
+        }
+
+        function SaveFormState()
+        {
+            localStorage.username = $('#<%=username.ClientID%>').val();
+            localStorage.email = $('#<%=email.ClientID%>').val();
+            localStorage.question = $('#<%=question.ClientID%>').val();
+            localStorage.answer = $('#<%=answer.ClientID%>').val();
+            localStorage.role = $('#<%=role.ClientID%>').val();
+            localStorage.status = $('#<%=status.ClientID%>').val();
+            localStorage.fullname = $('#<%=fullname.ClientID%>').val();
+            localStorage.icno = $('#<%=icno.ClientID%>').val();
+            localStorage.title = $('#<%=title.ClientID%>').val();
+            localStorage.phone = $('#<%=phone.ClientID%>').val();
+            localStorage.fax = $('#<%=fax.ClientID%>').val();
+            localStorage.designation = $('#<%=designation.ClientID%>').val();
+            localStorage.dept = $('#<%=dept.ClientID%>').val();
+            localStorage.grade = $('#<%=grade.ClientID%>').val();
+            localStorage.period = $('#<%=period.ClientID%>').val();
+            localStorage.offaddress = $('#<%=offaddress.ClientID%>').val();
+        }
+
+        function LoadFormState()
+        {
+            if (localStorage.username != null)
+                $('#<%=username.ClientID%>').val(localStorage.username);
+            if (localStorage.email != null)
+                $('#<%=email.ClientID%>').val(localStorage.email);
+            if (localStorage.question != null)
+                $('#<%=question.ClientID%>').val(localStorage.question);
+            if (localStorage.answer != null)
+                $('#<%=answer.ClientID%>').val(localStorage.answer);
+            if (localStorage.role != null)
+                $('#<%=role.ClientID%>').val(localStorage.role);
+            if (localStorage.status != null)
+                $('#<%=status.ClientID%>').val(localStorage.status);
+            if (localStorage.fullname != null)
+                $('#<%=fullname.ClientID%>').val(localStorage.fullname);
+            if (localStorage.icno != null)
+                $('#<%=icno.ClientID%>').val(localStorage.icno);
+            if (localStorage.title != null)
+                $('#<%=title.ClientID%>').val(localStorage.title);
+            if (localStorage.phone != null)
+                $('#<%=phone.ClientID%>').val(localStorage.phone);
+            if (localStorage.fax != null)
+                $('#<%=fax.ClientID%>').val(localStorage.fax);
+            if (localStorage.designation != null)
+                $('#<%=designation.ClientID%>').val(localStorage.designation);
+            if (localStorage.dept != null)
+                $('#<%=dept.ClientID%>').val(localStorage.dept);
+            if (localStorage.grade != null)
+                $('#<%=grade.ClientID%>').val(localStorage.grade);
+            if (localStorage.period != null)
+                $('#<%=period.ClientID%>').val(localStorage.period);
+            if (localStorage.offaddress != null)
+                $('#<%=offaddress.ClientID%>').val(localStorage.offaddress);
+        }
+
+        function ClearWorkflowCheckbox()
+        {
+            var gvMengurus = $('#<%=gvMengurusWorkFlow.ClientID%>');
+            gvMengurus.find("input[type='checkbox']").prop('checked', false);
+
+            var gvPerjawatan = $('#<%=gvPerjawatanWorkFlow.ClientID%>');
+            gvPerjawatan.find("input[type='checkbox']").prop('checked', false);
+
+            var gvSegmentDetails = $('#<%=gvSegmentDetails.ClientID%>');
+            gvSegmentDetails.find("input[type='checkbox']").prop('checked', false);
+        }
 
         function dummyFunc() { };
 
@@ -514,6 +848,9 @@
             spinnerInit();
             ace.data.remove('demo', 'widget-state');
             ace.data.remove('demo', 'widget-order');
+
+            localStorage.clear();
+
             $("#MainContent_form_Wiz").show();
         }
 
@@ -560,32 +897,39 @@
             });
         }
 
-        jQuery(function ($) {
-
-            var $validation = true;
+        function ValidationInit()
+        {
             $('#fuelux-wizard-container').ace_wizard({
-                //step: 2 //optional argument. wizard will jump to step "2" at first
-                //buttons: '.wizard-actions:eq(0)'
-            }).on('actionclicked.fu.wizard', function (e, info) {
-                if (info.step == 1 && $validation) {
+            }).on('actionclicked.fu.wizard', function (e, info)
+            {
+                if (info.step == 1)
+                {
                     if (!$('#validation-form').valid()) e.preventDefault();
                 }
-                if (info.step == 2 && $validation) {
+                if (info.step == 2)
+                {
                     if (!$('#validation-form2').valid()) e.preventDefault();
                 }
-            }).on('finished.fu.wizard', function (e) {
+            }).on('finished.fu.wizard', function (e)
+            {
                 fncUpdatePanel();
-            }).on('stepclick.fu.wizard', function (e) {
+            }).on('stepclick.fu.wizard', function (e) 
+            {
                 //e.preventDefault();//this will prevent clicking and selecting steps
             });
-
+        
             $.mask.definitions['~'] = '[+-]';
             $('#<%=phone.ClientID%>').mask('(999) 999-9999');
+            $('#<%=fax.ClientID%>').mask('(999) 999-9999');
             $('#<%=icno.ClientID%>').mask('999999-99-9999');
 
             $.validator.addMethod("phone", function (value, element) {
                 return this.optional(element) || /^\(\d{3}\) \d{3}\-\d{4}( x\d{1,6})?$/.test(value);
             }, "Enter a valid phone number.");
+
+            $.validator.addMethod("icno", function (value, element) {
+                return this.optional(element) || /^\d{6}-\d{2}-\d{4}$/.test(value);
+            }, "Enter a valid IC number.");
 
             $('form').each(function () {
                 $(this).validate({
@@ -594,113 +938,107 @@
                     focusInvalid: false,
                     ignore: "",
                     rules: {
-                    'ctl00$MainContent$email': {
-                        required: true,
-                        email: true
+                        'ctl00$MainContent$email': {
+                            required: true,
+                            email: true
+                        },
+                        'ctl00$MainContent$password': {
+                            required: true,
+                            minlength: 5
+                        },
+                        'ctl00$MainContent$password2': {
+                            required: true,
+                            minlength: 5,
+                            equalTo: $('#<%=password.ClientID%>')
                     },
-                    'ctl00$MainContent$password': {
-                        required: true,
-                        minlength: 5
+                        'ctl00$MainContent$username': {
+                            required: true
+                        },
+                        'ctl00$MainContent$question': {
+                            required: true
+                        },
+                        'ctl00$MainContent$answer': {
+                            required: true
+                        },
+                        'ctl00$MainContent$status': {
+                            required: true
+                        },
+                        'ctl00$MainContent$role': {
+                            required: true
+                        },
+                        'ctl00$MainContent$fullname': {
+                            required: true,
+                        },
+                        'ctl00$MainContent$icno': {
+                            required: true,
+                            icno: 'required'
+                        },
+                        'ctl00$MainContent$phone': {
+                            required: true,
+                            phone: 'required'
+                        },
+                        'ctl00$MainContent$designation': {
+                            required: true,
+                        }
                     },
-                    'ctl00$MainContent$password2': {
-                        required: true,
-                        minlength: 5,
-                        equalTo: $('#<%=password.ClientID%>')
+
+                    messages: {
+                        'ctl00$MainContent$email': {
+                            required: "Please provide a valid email.",
+                            email: "Please provide a valid email."
+                        },
+                        'ctl00$MainContent$password': {
+                            required: "Please specify a password.",
+                            minlength: "Please specify a secure password."
+                        },
+                        'ctl00$MainContent$username': "Please specify a username.",
+                        'ctl00$MainContent$question': "Please specify a security question.",
+                        'ctl00$MainContent$answer': "Please specify a security answer.",
+                        'ctl00$MainContent$status': "Please specify a status",
+                        'ctl00$MainContent$role': "Please specify a role",
+                        'ctl00$MainContent$fullname': "Please specify a fullname",
+                        'ctl00$MainContent$icno': "Please specify IC number",
+                        'ctl00$MainContent$phone': "Please specify phone number",
+                        'ctl00$MainContent$designation': "Please specify a designation"
                     },
-                    'ctl00$MainContent$username': {
-                        required: true
+
+                    highlight: function (e) {
+                        $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
                     },
-                    'ctl00$MainContent$question': {
-                        required: true
+
+                    success: function (e) {
+                        $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+                        $(e).remove();
                     },
-                    'ctl00$MainContent$answer': {
-                        required: true
+
+                    errorPlacement: function (error, element) {
+                        if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                            var controls = element.closest('div[class*="col-"]');
+                            if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                            else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                        }
+                        else if (element.is('.select2')) {
+                            error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                        }
+                        else if (element.is('.chosen-select')) {
+                            error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                        }
+                        else error.insertAfter(element.parent());
                     },
-                    'ctl00$MainContent$status': {
-                        required: true
+
+                    submitHandler: function (form) {
                     },
-                    'ctl00$MainContent$role': {
-                        required: true
-                    },
-                    'ctl00$MainContent$fullname': {
-                        required: true,
-                    },
-                    'ctl00$MainContent$icno': {
-                        required: true
-                    },
-                    'ctl00$MainContent$phone': {
-                        required: true,
-                        phone: 'required'
-                    },
-                    'ctl00$MainContent$agree': {
-                        required: true
+                    invalidHandler: function (form) {
                     }
-                },
-
-                messages: {
-                    'ctl00$MainContent$email': {
-                        required: "Please provide a valid email.",
-                        email: "Please provide a valid email."
-                    },
-                    'ctl00$MainContent$password': {
-                        required: "Please specify a password.",
-                        minlength: "Please specify a secure password."
-                    },
-                    'ctl00$MainContent$username': "Please specify a username.",
-                    'ctl00$MainContent$question': "Please specify a security question.",
-                    'ctl00$MainContent$answer': "Please specify a security answer.",
-                    'ctl00$MainContent$status': "Please specify a status",
-                    'ctl00$MainContent$role': "Please specify a role",
-                    'ctl00$MainContent$fullname': "Please specify a fullname.",
-                    'ctl00$MainContent$agree': "Please accept our policy."
-                },
-
-                highlight: function (e) {
-                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
-                },
-
-                success: function (e) {
-                    $(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
-                    $(e).remove();
-                },
-
-                errorPlacement: function (error, element) {
-                    if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
-                        var controls = element.closest('div[class*="col-"]');
-                        if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
-                        else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-                    }
-                    else if (element.is('.select2')) {
-                        error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-                    }
-                    else if (element.is('.chosen-select')) {
-                        error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
-                    }
-                    else error.insertAfter(element.parent());
-                },
-
-                submitHandler: function (form) {
-                },
-                invalidHandler: function (form) {
-                }
+                });
             });
-        });
+        }
 
-            $(document).one('ajaxloadstart.page', function (e) {
-                //in ajax mode, remove remaining elements before leaving page
-                $.gritter.removeAll();
-                $('.modal').modal('hide');
-            });
-
-            $('[data-rel=tooltip]').tooltip();
-        });
-
-        //table script
-        jQuery(function ($) {
-
+        function LoadDataTable() {
             //initiate dataTables plugin
             var myTable = $('#<%=gvUsers.ClientID%>').DataTable({
                 bAutoWidth: false,
+                "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
                 "aoColumns": [
 					  null,
                       null,
@@ -814,8 +1152,22 @@
                 e.stopPropagation();
                 e.preventDefault();
             });
+        }
 
-        })
+        $(document).ready(function () {
+            InitScript();
+            ValidationInit();
+            LoadDataTable();
+            LoadFormState();
+        });
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_endRequest(function () {
+            InitScript();
+            ValidationInit();
+            LoadDataTable();
+            //LoadFormState();
+        });
 
     </script>
 

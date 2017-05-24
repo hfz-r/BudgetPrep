@@ -48,6 +48,7 @@ namespace BP
                 if (!Page.IsPostBack)
                 {
                     Session["SelectedNodes"] = null;
+                    Session["SelectedSegmentDetail"] = null;
                     
                     ChangePageMode(Helper.PageMode.New);
                     GetData();

@@ -10,9 +10,23 @@ using System.Diagnostics;
 
 namespace BP
 {
-    public partial class SiteMaster : MasterPage
+    public class PageMenuHelper
+    {
+        public int PageID { get; set; }
+        public string PageName { get; set; }
+        public string PagePath { get; set; }
+        public int ParentPageID { get; set; }
+        public int PageOrder { get; set; }
+        public int MenuID { get; set; }
+        public string MenuName { get; set; }
+        public string MenuIcon { get; set; }
+        public int MenuOrder { get; set; }
+    }
+
+    public partial class SiteMaster : System.Web.UI.MasterPage
     {
         MasterUser AuthUser;
+
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
@@ -74,6 +88,11 @@ namespace BP
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "onrefLoad", "RefreshSession();", true);
             
             LoadImageHeader();
+
+            if (!IsPostBack)
+            {
+                BuildMenu();
+            }
         }
 
         protected void LoadImageHeader()
@@ -92,6 +111,51 @@ namespace BP
             {
                 ShowMessage("Error", "Internal error occurred", ex, true);
             }
+        }
+
+        private void BuildMenu()
+        {
+            List<PageMenuHelper> lstPages = (List<PageMenuHelper>)Session["ListPages"];
+
+            string ActiveClassDashboard = "\"\"";
+            string PATH = HttpContext.Current.Request.Url.AbsolutePath;
+            if (PATH.Contains("/Dashboard.aspx"))
+            {
+                ActiveClassDashboard = "\"active\"";
+            }
+
+            string DashboardMenu = "<li class=" + ActiveClassDashboard + "><a href=\"" + (HttpContext.Current.Handler as Page).ResolveUrl("~/Dashboard.aspx") + "\"><i class=\"menu-icon fa fa-tachometer\"></i>" +
+                "<span class=\"menu-text\"> Dashboard </span></a><b class=\"arrow\"></b></li>";
+
+            string MenuBuilder = string.Empty;
+            foreach (int MenuId in lstPages.Where(x => x.ParentPageID == 0).OrderBy(x => x.MenuOrder).Select(x => x.MenuID).Distinct())
+            {
+                PageMenuHelper MenuLVL1 = lstPages.Where(x => x.MenuID == MenuId).FirstOrDefault();
+
+                string ActiveClassMenuLVL1 = "\"\"";
+                if (MenuId == lstPages.Where(x => x.PagePath.Contains(Request.Path)).Select(y => y.MenuID).FirstOrDefault())
+                {
+                    ActiveClassMenuLVL1 = "\"active open\"";
+                }
+
+                MenuBuilder = MenuBuilder + "<li class=" + ActiveClassMenuLVL1 + "><a href=\"#\" class=\"dropdown-toggle\"><i class=\"" + MenuLVL1.MenuIcon + "\"></i>";
+                MenuBuilder = MenuBuilder + "<span class=\"menu-text\"> " + MenuLVL1.MenuName + " </span><b class=\"arrow fa fa-angle-down\"></b></a>";
+                MenuBuilder = MenuBuilder + "<b class=\"arrow\"></b><ul class=\"submenu\">";
+
+                foreach (PageMenuHelper MenuLVL2 in lstPages.Where(x => x.ParentPageID == 0 && x.MenuID == MenuId).OrderBy(x => x.PageOrder))
+                {
+                    string ActiveClassMenuLVL2 = "\"\"";
+                    if (MenuLVL2.PagePath.Contains(Request.Path))
+                    {
+                        ActiveClassMenuLVL2 = "\"active\"";
+                    }
+                    MenuBuilder = MenuBuilder + "<li class=" + ActiveClassMenuLVL2 + "><a href=\"" + (HttpContext.Current.Handler as Page).ResolveUrl(MenuLVL2.PagePath) + "\">";
+                    MenuBuilder = MenuBuilder + "<i class=\"menu-icon fa fa-caret-right\"></i> " + MenuLVL2.PageName + " </a><b class=\"arrow\"></b></li>";
+                }
+                MenuBuilder = MenuBuilder + "</ul></li>";
+            }
+
+            MENU.InnerHtml = "<ul class=\"nav nav-list\">" + DashboardMenu + MenuBuilder + "</ul>";
         }
 
         public void ShowMessage(string Title, string Body)
