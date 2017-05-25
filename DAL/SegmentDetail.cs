@@ -14,14 +14,11 @@ namespace DAL
     
     public partial class SegmentDetail
     {
-<<<<<<< HEAD
         public SegmentDetail()
         {
             this.UserSegDtlWorkflows = new HashSet<UserSegDtlWorkflow>();
         }
     
-=======
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
         public int SegmentDetailID { get; set; }
         public Nullable<int> SegmentID { get; set; }
         public string DetailCode { get; set; }
@@ -34,9 +31,6 @@ namespace DAL
         public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
     
         public virtual Segment Segment { get; set; }
-<<<<<<< HEAD
         public virtual ICollection<UserSegDtlWorkflow> UserSegDtlWorkflows { get; set; }
-=======
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     }
 }

@@ -94,7 +94,6 @@ namespace BP.Setup
 
             try
             {
-<<<<<<< HEAD
                 MasterRole roleObj = new MasterRole();
                 roleObj.RoleID = Convert.ToInt32(roleid);
                 roleObj.RoleName = new UsersRoleDAL().GetRoles().Where(x => x.RoleID == Convert.ToInt32(roleid)).Select(y => y.RoleName).FirstOrDefault();
@@ -153,28 +152,10 @@ namespace BP.Setup
                     else
                     {
                         throw new Exception("Fail to authenticated selected users-list & role. Please re-enter your values and try again.");
-=======
-                if (dlbox == "null")
-                {
-                    MasterRole roleObj = new MasterRole();
-                    roleObj.RoleID = Convert.ToInt32(roleid);
-                    roleObj.RoleName = new UsersRoleDAL().GetRoles().Where(x => x.RoleID == Convert.ToInt32(roleid)).Select(y => y.RoleName).FirstOrDefault();
-                    roleObj.Description = desc.Trim();
-                    roleObj.RoleStatus = new Helper().GetItemStatusEnumValueByName(stats.Trim());
-
-                    if (new UsersRoleDAL().UpdateMasterRole(roleObj))
-                    {
-                        ReturnObj = new { status = "Success", result = "Role updated successfully." };
-                    }
-                    else
-                    {
-                        throw new Exception("Fail to authenticated role. Please re-enter your values and try again.");
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
                     }
                 }
                 else
                 {
-<<<<<<< HEAD
                     if (SelectedUname.Count() == RolesUname.Count())
                     {
                         //double check
@@ -243,46 +224,6 @@ namespace BP.Setup
                     {
                         throw new Exception("Fail to authenticated selected users-list & role. Please re-enter your values and try again.");
                     }
-=======
-                    string[] values = dlbox.Split(',');
-                    for (int i = 0; i < values.Count(); i++)
-                    {
-                        MasterUser objMasterUser = new UsersDAL().GetUserDataByID(Convert.ToInt32(values[i]));
-                        MasterRole objMasterRole = new UsersRoleDAL().GetRoles().Where(x => x.RoleID == Convert.ToInt32(roleid)).FirstOrDefault();
-                        if (objMasterRole != null)
-                        {
-                            //back-end level;membership checking
-                            if (!Roles.IsUserInRole(objMasterUser.UserName, objMasterRole.RoleName))
-                            {
-                                string[] getRoles = Roles.GetRolesForUser(objMasterUser.UserName);
-                                if (getRoles.Count() > 0)
-                                {
-                                    Roles.RemoveUserFromRoles(objMasterUser.UserName, getRoles);
-                                }
-                                Roles.AddUserToRole(objMasterUser.UserName, objMasterRole.RoleName);
-                            }
-
-                            //local level checking
-                            JuncUserRole userrole = new JuncUserRole();
-                            userrole.RoleID = Convert.ToInt32(roleid);
-                            userrole.UserID = objMasterUser.UserID;
-                            userrole.Status = new Helper().GetItemStatusEnumValueByName(stats.Trim());
-                            
-                            if (new UsersRoleDAL().UserRoleFunc(userrole))
-                            {
-                                ReturnObj = new { status = "Success", result = "User successfully added to roles." };
-                            }
-                            else
-                            {
-                                throw new Exception("Fail to authenticated selected users-list. Please re-enter your values and try again.");
-                            }
-                        }
-                        else
-                        {
-                            throw new Exception("Fail to authenticated selected users-list. Please re-enter your values and try again.");
-                        }
-                    }
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
                 }
             }   
             catch (Exception ex)
@@ -290,11 +231,7 @@ namespace BP.Setup
                 ReturnObj = new { status = "Fail", result = "An error occurred. Error Message: " + ex.Message };
             }
 
-<<<<<<< HEAD
             return json = JsonConvert.SerializeObject(ReturnObj, Formatting.Indented);
-=======
-            return json = JsonConvert.SerializeObject(ReturnObj, Formatting.Indented); ;
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
         }
 
         #region DualList-Box
@@ -308,12 +245,8 @@ namespace BP.Setup
         {
             try
             {
-<<<<<<< HEAD
                 List<int> RoleUserId = new UsersRoleDAL().ListUserRole().Where(x => x.RoleID == _Role.RoleID).Select(y => Convert.ToInt32(y.UserID)).ToList();
 
-=======
-                List<int> RoleUserId = new UsersRoleDAL().ListUserRole().Where(x => x.RoleID == _Role.RoleID).Select(y=>y.UserID).ToList();
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
                 var SelectedItems = new List<DualListClass>();
 
                 for (int i = 0; i < RoleUserId.Count(); i++)
@@ -322,11 +255,7 @@ namespace BP.Setup
                         new DualListClass
                         {
                             Id = RoleUserId[i],
-<<<<<<< HEAD
                             Name = DAL.UsersDAL.StaticUserId(RoleUserId[i],"").UserName
-=======
-                            Name = new UsersDAL().GetUsers().Where(x => x.UserID == RoleUserId[i]).Select(y => y.UserName).FirstOrDefault()
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
                         });
                 }
 

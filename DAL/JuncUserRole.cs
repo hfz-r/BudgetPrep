@@ -14,7 +14,6 @@ namespace DAL
     
     public partial class JuncUserRole
     {
-<<<<<<< HEAD
         public int JuncUserRoleID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> RoleID { get; set; }
@@ -22,13 +21,5 @@ namespace DAL
     
         public virtual MasterRole MasterRole { get; set; }
         public virtual MasterUser MasterUser { get; set; }
-=======
-        public int UserID { get; set; }
-        public Nullable<int> RoleID { get; set; }
-        public string Status { get; set; }
-    
-        public virtual MasterUser MasterUser { get; set; }
-        public virtual MasterRole MasterRole { get; set; }
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     }
 }

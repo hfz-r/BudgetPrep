@@ -38,15 +38,9 @@ namespace BP.Classes
                     client.Send(msg);
                 }
             }
-<<<<<<< HEAD
             catch
             {
                 return false;
-=======
-            catch(Exception ex)
-            {
-                throw ex;
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
             }
 
             return true;
