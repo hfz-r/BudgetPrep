@@ -36,3 +36,4 @@ D:\Projects\BP\BP\bin\Microsoft.AspNet.FriendlyUrls.xml
 D:\Projects\BP\BP\obj\Debug\BP.csprojResolveAssemblyReference.cache
 D:\Projects\BP\BP\obj\Debug\BP.dll
 D:\Projects\BP\BP\obj\Debug\BP.pdb
+C:\Users\Kovilan\Documents\BitBucket\BP\BP\obj\Debug\BP.csprojResolveAssemblyReference.cache
