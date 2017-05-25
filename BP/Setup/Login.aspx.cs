@@ -80,6 +80,7 @@ namespace BP.Setup
                         Response.Cookies.Add(myCookie);
 
                         Session["UserData"] = user;
+                        CreateMenu(user); 
                         e.Authenticated = true;
                     }
                     else
@@ -116,6 +117,34 @@ namespace BP.Setup
             }
         }
 
+        private void CreateMenu(MasterUser AuthUser)
+        {
+            List<PageMenuHelper> lstPages = new List<PageMenuHelper>();
+            foreach (JuncUserRole jr in AuthUser.JuncUserRoles)
+            {
+                foreach (JuncRolePage rp in jr.MasterRole.JuncRolePages.Where(x => x.Status == "A"))
+                {
+                    if (lstPages.Where(x => x.PageID == rp.PageID).Count() == 0)
+                    {
+                        lstPages.Add(new PageMenuHelper()
+                        {
+                            PageID = (int)rp.PageID,
+                            PageName = rp.MasterPage.PageName,
+                            PagePath = rp.MasterPage.PagePath,
+                            ParentPageID = (rp.MasterPage.ParentPageID != null) ? (int)rp.MasterPage.ParentPageID : 0,
+                            PageOrder = rp.MasterPage.PageOrder,
+                            MenuID = (int)rp.MasterPage.MenuID,
+                            MenuName = rp.MasterPage.MasterMenu.MenuName,
+                            MenuIcon = rp.MasterPage.MasterMenu.MenuIcon,
+                            MenuOrder = rp.MasterPage.MasterMenu.MenuOrder
+                        });
+                    }
+                }
+            }
+
+            Session["ListPages"] = lstPages;
+        }
+
         [WebMethod]
         public static VerifyHelper GetVerification(string email)
         {
@@ -131,7 +160,8 @@ namespace BP.Setup
                 }
                 else
                 {
-                    MasterUser _MasterUser = new UsersDAL().GetValidUser(u.UserName);
+
+                    MasterUser _MasterUser = DAL.UsersDAL.StaticUserId(0, u.UserName);
                     if (_MasterUser.UUID == (Guid)u.ProviderUserKey)
                     {
                         if (_MasterUser.SecQuestion == null)

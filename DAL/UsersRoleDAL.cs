@@ -92,6 +92,15 @@ namespace DAL
             return db.JuncUserRoles.Select(x => x).ToList();
         }
 
+<<<<<<< HEAD
+        public bool InsertUserRole(JuncUserRole objUserRole)
+        {
+            try
+            {
+                foreach (JuncUserRole obj in db.JuncUserRoles.Where(x => x.UserID == objUserRole.UserID))
+                {
+                    db.JuncUserRoles.Remove(obj);
+=======
         public bool UserRoleFunc(JuncUserRole objUserRole)
         {
             try
@@ -112,6 +121,7 @@ namespace DAL
                     {
                         db.JuncUserRoles.Remove(obj);
                     }
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
                 }
 
                 if (db.MasterRoles.Where(x=>x.RoleID==objUserRole.RoleID && x.RoleStatus != objUserRole.Status).Count() > 0)
@@ -123,7 +133,11 @@ namespace DAL
                 db.SaveChanges();
 
                 BPEventLog bpe = new BPEventLog();
+<<<<<<< HEAD
+                bpe.Object = "UserRoles";
+=======
                 bpe.Object = "UsersRole";
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
                 bpe.ObjectName = GetRoles().Where(x => x.RoleID == objUserRole.RoleID).Select(y => y.RoleName).FirstOrDefault();
                 bpe.ObjectChanges = string.Empty;
                 bpe.EventMassage = "Success";
@@ -136,7 +150,11 @@ namespace DAL
             catch (Exception ex)
             {
                 BPEventLog bpe = new BPEventLog();
+<<<<<<< HEAD
+                bpe.Object = "UserRoles";
+=======
                 bpe.Object = "UsersRole";
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
                 bpe.ObjectName = GetRoles().Where(x => x.RoleID == objUserRole.RoleID).Select(y => y.RoleName).FirstOrDefault();
                 bpe.ObjectChanges = string.Empty;
                 bpe.EventMassage = "Failure";
@@ -163,5 +181,35 @@ namespace DAL
                 throw ex;
             }
         }
+<<<<<<< HEAD
+
+        public bool DeleteUserRole(string username,string[] roles)
+        {
+            try
+            {
+                int uid = DAL.UsersDAL.StaticUserId(0, username).UserID;
+
+                for (int i = 0; i < roles.Count(); i++)
+                {
+                    MasterRole objMasterRole = GetRoles().Where(x => x.RoleName == roles[i]).FirstOrDefault();
+                    if (db.JuncUserRoles.Where(x => x.RoleID == objMasterRole.RoleID).Count() > 0)
+                    {
+                        foreach (JuncUserRole objUserRole in db.JuncUserRoles.Where(x => x.UserID == uid))
+                        {
+                            db.JuncUserRoles.Remove(objUserRole);
+                        }
+                    }
+                }
+
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     }
 }

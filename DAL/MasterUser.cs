@@ -14,6 +14,17 @@ namespace DAL
     
     public partial class MasterUser
     {
+<<<<<<< HEAD
+        public MasterUser()
+        {
+            this.UserPerjawatanWorkflows = new HashSet<UserPerjawatanWorkflow>();
+            this.UserSegDtlWorkflows = new HashSet<UserSegDtlWorkflow>();
+            this.UserMengurusWorkflows = new HashSet<UserMengurusWorkflow>();
+            this.JuncUserRoles = new HashSet<JuncUserRole>();
+        }
+    
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
         public int UserID { get; set; }
         public System.Guid UUID { get; set; }
         public string UserName { get; set; }
@@ -22,7 +33,10 @@ namespace DAL
         public string FullName { get; set; }
         public string UserIC { get; set; }
         public string Department { get; set; }
+<<<<<<< HEAD
+=======
         public string Position { get; set; }
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
         public string UserPhoneNo { get; set; }
         public string SecQuestion { get; set; }
         public string SecAnswer { get; set; }
@@ -36,7 +50,22 @@ namespace DAL
         public string Comment { get; set; }
         public string Website { get; set; }
         public byte[] Image { get; set; }
+<<<<<<< HEAD
+        public string Title { get; set; }
+        public string PositionGrade { get; set; }
+        public string Fax { get; set; }
+        public string Designation { get; set; }
+        public string PeriodOfService { get; set; }
+        public string OfficeAddress { get; set; }
+        public string Language { get; set; }
+    
+        public virtual ICollection<UserPerjawatanWorkflow> UserPerjawatanWorkflows { get; set; }
+        public virtual ICollection<UserSegDtlWorkflow> UserSegDtlWorkflows { get; set; }
+        public virtual ICollection<UserMengurusWorkflow> UserMengurusWorkflows { get; set; }
+        public virtual ICollection<JuncUserRole> JuncUserRoles { get; set; }
+=======
     
         public virtual JuncUserRole JuncUserRole { get; set; }
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     }
 }

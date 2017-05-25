@@ -26,8 +26,23 @@ namespace DAL
         }
     
         public DbSet<BPEventLog> BPEventLogs { get; set; }
-        public DbSet<MasterUser> MasterUsers { get; set; }
-        public DbSet<JuncUserRole> JuncUserRoles { get; set; }
         public DbSet<MasterRole> MasterRoles { get; set; }
+        public DbSet<AccountCode> AccountCodes { get; set; }
+        public DbSet<YearUploadSetup> YearUploadSetups { get; set; }
+        public DbSet<GroupPerjawatan> GroupPerjawatans { get; set; }
+        public DbSet<FieldMenguru> FieldMengurus { get; set; }
+        public DbSet<PeriodMenguru> PeriodMengurus { get; set; }
+        public DbSet<FieldPerjawatan> FieldPerjawatans { get; set; }
+        public DbSet<PeriodPerjawatan> PeriodPerjawatans { get; set; }
+        public DbSet<Segment> Segments { get; set; }
+        public DbSet<SegmentDetail> SegmentDetails { get; set; }
+        public DbSet<UserMengurusWorkflow> UserMengurusWorkflows { get; set; }
+        public DbSet<UserPerjawatanWorkflow> UserPerjawatanWorkflows { get; set; }
+        public DbSet<UserSegDtlWorkflow> UserSegDtlWorkflows { get; set; }
+        public DbSet<MasterUser> MasterUsers { get; set; }
+        public DbSet<JuncRolePage> JuncRolePages { get; set; }
+        public DbSet<MasterMenu> MasterMenus { get; set; }
+        public DbSet<MasterPage> MasterPages { get; set; }
+        public DbSet<JuncUserRole> JuncUserRoles { get; set; }
     }
 }

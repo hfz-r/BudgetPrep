@@ -15,9 +15,194 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+    <EntitySetMapping Name="MasterRoles">
+      <EntityTypeMapping TypeName="BPModel.MasterRole">
+        <MappingFragment StoreEntitySet="MasterRole">
+          <ScalarProperty Name="RoleStatus" ColumnName="RoleStatus" />
+          <ScalarProperty Name="RUID" ColumnName="RUID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccountCodes">
+      <EntityTypeMapping TypeName="BPModel.AccountCode">
+        <MappingFragment StoreEntitySet="AccountCode">
+          <ScalarProperty Name="Pengiraan" ColumnName="Pengiraan" />
+          <ScalarProperty Name="Keterangan" ColumnName="Keterangan" />
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ParentAccountCode" ColumnName="ParentAccountCode" />
+          <ScalarProperty Name="AccountDesc" ColumnName="AccountDesc" />
+          <ScalarProperty Name="AccountCode1" ColumnName="AccountCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YearUploadSetups">
+      <EntityTypeMapping TypeName="BPModel.YearUploadSetup">
+        <MappingFragment StoreEntitySet="YearUploadSetup">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BudgetYearDesc" ColumnName="BudgetYearDesc" />
+          <ScalarProperty Name="BudgetYear" ColumnName="BudgetYear" />
+          <ScalarProperty Name="BudgetYearID" ColumnName="BudgetYearID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupPerjawatans">
+      <EntityTypeMapping TypeName="BPModel.GroupPerjawatan">
+        <MappingFragment StoreEntitySet="GroupPerjawatan">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ParentGroupPerjawatanID" ColumnName="ParentGroupPerjawatanID" />
+          <ScalarProperty Name="GroupPerjawatanDesc" ColumnName="GroupPerjawatanDesc" />
+          <ScalarProperty Name="GroupPerjawatanCode" ColumnName="GroupPerjawatanCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FieldMengurus">
+      <EntityTypeMapping TypeName="BPModel.FieldMenguru">
+        <MappingFragment StoreEntitySet="FieldMengurus">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="FieldMengurusDesc" ColumnName="FieldMengurusDesc" />
+          <ScalarProperty Name="FieldMengurusSDesc" ColumnName="FieldMengurusSDesc" />
+          <ScalarProperty Name="FieldMengurusID" ColumnName="FieldMengurusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PeriodMengurus">
+      <EntityTypeMapping TypeName="BPModel.PeriodMenguru">
+        <MappingFragment StoreEntitySet="PeriodMengurus">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MengurusYear" ColumnName="MengurusYear" />
+          <ScalarProperty Name="FieldMengurusID" ColumnName="FieldMengurusID" />
+          <ScalarProperty Name="PeriodMengurusID" ColumnName="PeriodMengurusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FieldPerjawatans">
+      <EntityTypeMapping TypeName="BPModel.FieldPerjawatan">
+        <MappingFragment StoreEntitySet="FieldPerjawatan">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="FieldPerjawatanDesc" ColumnName="FieldPerjawatanDesc" />
+          <ScalarProperty Name="FieldPerjawatanSDesc" ColumnName="FieldPerjawatanSDesc" />
+          <ScalarProperty Name="FieldPerjawatanID" ColumnName="FieldPerjawatanID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PeriodPerjawatans">
+      <EntityTypeMapping TypeName="BPModel.PeriodPerjawatan">
+        <MappingFragment StoreEntitySet="PeriodPerjawatan">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PerjawatanYear" ColumnName="PerjawatanYear" />
+          <ScalarProperty Name="FieldPerjawatanID" ColumnName="FieldPerjawatanID" />
+          <ScalarProperty Name="PeriodPerjawatanID" ColumnName="PeriodPerjawatanID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Segments">
+      <EntityTypeMapping TypeName="BPModel.Segment">
+        <MappingFragment StoreEntitySet="Segment">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ShapeFormat" ColumnName="ShapeFormat" />
+          <ScalarProperty Name="SegmentOrder" ColumnName="SegmentOrder" />
+          <ScalarProperty Name="SegmentName" ColumnName="SegmentName" />
+          <ScalarProperty Name="SegmentID" ColumnName="SegmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SegmentDetails">
+      <EntityTypeMapping TypeName="BPModel.SegmentDetail">
+        <MappingFragment StoreEntitySet="SegmentDetail">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ParentDetailID" ColumnName="ParentDetailID" />
+          <ScalarProperty Name="DetailDesc" ColumnName="DetailDesc" />
+          <ScalarProperty Name="DetailCode" ColumnName="DetailCode" />
+          <ScalarProperty Name="SegmentID" ColumnName="SegmentID" />
+          <ScalarProperty Name="SegmentDetailID" ColumnName="SegmentDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMengurusWorkflows">
+      <EntityTypeMapping TypeName="BPModel.UserMengurusWorkflow">
+        <MappingFragment StoreEntitySet="UserMengurusWorkflow">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserMengurusWorkflowID" ColumnName="UserMengurusWorkflowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPerjawatanWorkflows">
+      <EntityTypeMapping TypeName="BPModel.UserPerjawatanWorkflow">
+        <MappingFragment StoreEntitySet="UserPerjawatanWorkflow">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="GroupPerjawatanCode" ColumnName="GroupPerjawatanCode" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserPerjawatanWorkflowID" ColumnName="UserPerjawatanWorkflowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSegDtlWorkflows">
+      <EntityTypeMapping TypeName="BPModel.UserSegDtlWorkflow">
+        <MappingFragment StoreEntitySet="UserSegDtlWorkflow">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SegmentDetailID" ColumnName="SegmentDetailID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserSegDtlWorkflowID" ColumnName="UserSegDtlWorkflowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="MasterUsers">
       <EntityTypeMapping TypeName="BPModel.MasterUser">
         <MappingFragment StoreEntitySet="MasterUser">
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="OfficeAddress" ColumnName="OfficeAddress" />
+          <ScalarProperty Name="PeriodOfService" ColumnName="PeriodOfService" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="PositionGrade" ColumnName="PositionGrade" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+=======
+    <EntitySetMapping Name="MasterUsers">
+      <EntityTypeMapping TypeName="BPModel.MasterUser">
+        <MappingFragment StoreEntitySet="MasterUser">
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Website" ColumnName="Website" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -31,7 +216,10 @@
           <ScalarProperty Name="SecAnswer" ColumnName="SecAnswer" />
           <ScalarProperty Name="SecQuestion" ColumnName="SecQuestion" />
           <ScalarProperty Name="UserPhoneNo" ColumnName="UserPhoneNo" />
+<<<<<<< HEAD
+=======
           <ScalarProperty Name="Position" ColumnName="Position" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
           <ScalarProperty Name="Department" ColumnName="Department" />
           <ScalarProperty Name="UserIC" ColumnName="UserIC" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -43,12 +231,50 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
+    <EntitySetMapping Name="JuncRolePages">
+      <EntityTypeMapping TypeName="BPModel.JuncRolePage">
+        <MappingFragment StoreEntitySet="JuncRolePage">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="JuncRolePageID" ColumnName="JuncRolePageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterMenus">
+      <EntityTypeMapping TypeName="BPModel.MasterMenu">
+        <MappingFragment StoreEntitySet="MasterMenu">
+          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+          <ScalarProperty Name="MenuOrder" ColumnName="MenuOrder" />
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterPages">
+      <EntityTypeMapping TypeName="BPModel.MasterPage">
+        <MappingFragment StoreEntitySet="MasterPage">
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="ParentPageID" ColumnName="ParentPageID" />
+          <ScalarProperty Name="PageOrder" ColumnName="PageOrder" />
+          <ScalarProperty Name="PagePath" ColumnName="PagePath" />
+          <ScalarProperty Name="PageName" ColumnName="PageName" />
+          <ScalarProperty Name="PageID" ColumnName="PageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <EntitySetMapping Name="JuncUserRoles">
       <EntityTypeMapping TypeName="BPModel.JuncUserRole">
         <MappingFragment StoreEntitySet="JuncUserRole">
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
+<<<<<<< HEAD
+          <ScalarProperty Name="JuncUserRoleID" ColumnName="JuncUserRoleID" />
+=======
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -60,6 +286,7 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

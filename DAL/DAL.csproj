@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountCode.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountCodeDAL.cs" />
     <Compile Include="BPDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,7 +70,28 @@
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="EventLogDAL.cs" />
+    <Compile Include="FieldMenguru.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FieldMenguruDAL.cs" />
+    <Compile Include="FieldPerjawatan.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FieldPerjawatanDAL.cs" />
+    <Compile Include="GroupPerjawatan.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroupPerjawatanDAL.cs" />
+    <Compile Include="JuncRolePage.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="JuncUserRole.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterMenu.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="MasterRole.cs">
@@ -75,9 +100,38 @@
     <Compile Include="MasterUser.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="PeriodMenguru.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodMengurusDAL.cs" />
+    <Compile Include="PeriodPerjawatan.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeriodPerjawatanDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Segment.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentDAL.cs" />
+    <Compile Include="SegmentDetail.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SegmentDetailsDAL.cs" />
+    <Compile Include="UserMengurusWorkflow.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPerjawatanWorkflow.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="UsersDAL.cs" />
+    <Compile Include="UserSegDtlWorkflow.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="UsersRoleDAL.cs" />
+    <Compile Include="YearUploadDAL.cs" />
+    <Compile Include="YearUploadSetup.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

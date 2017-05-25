@@ -2,6 +2,74 @@
 <Schema Namespace="BPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="BPEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BPEventLogs" EntityType="BPModel.BPEventLog" />
+<<<<<<< HEAD
+    <EntitySet Name="MasterRoles" EntityType="BPModel.MasterRole" />
+    <EntitySet Name="AccountCodes" EntityType="BPModel.AccountCode" />
+    <EntitySet Name="YearUploadSetups" EntityType="BPModel.YearUploadSetup" />
+    <EntitySet Name="GroupPerjawatans" EntityType="BPModel.GroupPerjawatan" />
+    <EntitySet Name="FieldMengurus" EntityType="BPModel.FieldMenguru" />
+    <EntitySet Name="PeriodMengurus" EntityType="BPModel.PeriodMenguru" />
+    <AssociationSet Name="PeriodMengurus_FieldPerjawatan" Association="BPModel.PeriodMengurus_FieldPerjawatan">
+      <End Role="FieldMenguru" EntitySet="FieldMengurus" />
+      <End Role="PeriodMenguru" EntitySet="PeriodMengurus" />
+    </AssociationSet>
+    <EntitySet Name="FieldPerjawatans" EntityType="BPModel.FieldPerjawatan" />
+    <EntitySet Name="PeriodPerjawatans" EntityType="BPModel.PeriodPerjawatan" />
+    <AssociationSet Name="PeriodPerjawatan_FieldPerjawatan" Association="BPModel.PeriodPerjawatan_FieldPerjawatan">
+      <End Role="FieldPerjawatan" EntitySet="FieldPerjawatans" />
+      <End Role="PeriodPerjawatan" EntitySet="PeriodPerjawatans" />
+    </AssociationSet>
+    <EntitySet Name="Segments" EntityType="BPModel.Segment" />
+    <EntitySet Name="SegmentDetails" EntityType="BPModel.SegmentDetail" />
+    <AssociationSet Name="SegmentDetail_Segment" Association="BPModel.SegmentDetail_Segment">
+      <End Role="Segment" EntitySet="Segments" />
+      <End Role="SegmentDetail" EntitySet="SegmentDetails" />
+    </AssociationSet>
+    <EntitySet Name="UserMengurusWorkflows" EntityType="BPModel.UserMengurusWorkflow" />
+    <AssociationSet Name="UserWorkflow_AccountCode" Association="BPModel.UserWorkflow_AccountCode">
+      <End Role="AccountCode" EntitySet="AccountCodes" />
+      <End Role="UserMengurusWorkflow" EntitySet="UserMengurusWorkflows" />
+    </AssociationSet>
+    <EntitySet Name="UserPerjawatanWorkflows" EntityType="BPModel.UserPerjawatanWorkflow" />
+    <AssociationSet Name="UserPerjawatanWorkflow_AccountCode" Association="BPModel.UserPerjawatanWorkflow_AccountCode">
+      <End Role="GroupPerjawatan" EntitySet="GroupPerjawatans" />
+      <End Role="UserPerjawatanWorkflow" EntitySet="UserPerjawatanWorkflows" />
+    </AssociationSet>
+    <EntitySet Name="UserSegDtlWorkflows" EntityType="BPModel.UserSegDtlWorkflow" />
+    <AssociationSet Name="UserSegDtlWorkflow_SegDtls" Association="BPModel.UserSegDtlWorkflow_SegDtls">
+      <End Role="SegmentDetail" EntitySet="SegmentDetails" />
+      <End Role="UserSegDtlWorkflow" EntitySet="UserSegDtlWorkflows" />
+    </AssociationSet>
+    <EntitySet Name="MasterUsers" EntityType="BPModel.MasterUser" />
+    <AssociationSet Name="UserPerjawatanWorkflow_User" Association="BPModel.UserPerjawatanWorkflow_User">
+      <End Role="MasterUser" EntitySet="MasterUsers" />
+      <End Role="UserPerjawatanWorkflow" EntitySet="UserPerjawatanWorkflows" />
+    </AssociationSet>
+    <AssociationSet Name="UserSegDtlWorkflow_User" Association="BPModel.UserSegDtlWorkflow_User">
+      <End Role="MasterUser" EntitySet="MasterUsers" />
+      <End Role="UserSegDtlWorkflow" EntitySet="UserSegDtlWorkflows" />
+    </AssociationSet>
+    <AssociationSet Name="UserWorkflow_User" Association="BPModel.UserWorkflow_User">
+      <End Role="MasterUser" EntitySet="MasterUsers" />
+      <End Role="UserMengurusWorkflow" EntitySet="UserMengurusWorkflows" />
+    </AssociationSet>
+    <EntitySet Name="JuncRolePages" EntityType="BPModel.JuncRolePage" />
+    <EntitySet Name="MasterMenus" EntityType="BPModel.MasterMenu" />
+    <EntitySet Name="MasterPages" EntityType="BPModel.MasterPage" />
+    <AssociationSet Name="JuncRolePage_Page" Association="BPModel.JuncRolePage_Page">
+      <End Role="MasterPage" EntitySet="MasterPages" />
+      <End Role="JuncRolePage" EntitySet="JuncRolePages" />
+    </AssociationSet>
+    <AssociationSet Name="JuncRolePage_Role" Association="BPModel.JuncRolePage_Role">
+      <End Role="MasterRole" EntitySet="MasterRoles" />
+      <End Role="JuncRolePage" EntitySet="JuncRolePages" />
+    </AssociationSet>
+    <AssociationSet Name="Menu_Page" Association="BPModel.Menu_Page">
+      <End Role="MasterMenu" EntitySet="MasterMenus" />
+      <End Role="MasterPage" EntitySet="MasterPages" />
+    </AssociationSet>
+    <EntitySet Name="JuncUserRoles" EntityType="BPModel.JuncUserRole" />
+=======
     <EntitySet Name="MasterUsers" EntityType="BPModel.MasterUser" />
     <EntitySet Name="JuncUserRoles" EntityType="BPModel.JuncUserRole" />
     <AssociationSet Name="JuncUserRole_User" Association="BPModel.JuncUserRole_User">
@@ -9,10 +77,18 @@
       <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
     </AssociationSet>
     <EntitySet Name="MasterRoles" EntityType="BPModel.MasterRole" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <AssociationSet Name="JuncUserRole_Role" Association="BPModel.JuncUserRole_Role">
       <End Role="MasterRole" EntitySet="MasterRoles" />
       <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
     </AssociationSet>
+<<<<<<< HEAD
+    <AssociationSet Name="JuncUserRole_User" Association="BPModel.JuncUserRole_User">
+      <End Role="MasterUser" EntitySet="MasterUsers" />
+      <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
+    </AssociationSet>
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
   </EntityContainer>
   <EntityType Name="BPEventLog">
     <Key>
@@ -27,6 +103,257 @@
     <Property Name="CreatedBy" Type="Int32" />
     <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
   </EntityType>
+<<<<<<< HEAD
+  <EntityType Name="MasterRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="RUID" Type="Guid" />
+    <Property Name="RoleStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="JuncRolePages" Relationship="BPModel.JuncRolePage_Role" FromRole="MasterRole" ToRole="JuncRolePage" />
+    <NavigationProperty Name="JuncUserRoles" Relationship="BPModel.JuncUserRole_Role" FromRole="MasterRole" ToRole="JuncUserRole" />
+  </EntityType>
+  <EntityType Name="AccountCode">
+    <Key>
+      <PropertyRef Name="AccountCode1" />
+    </Key>
+    <Property Name="AccountCode1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AccountDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentAccountCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="Keterangan" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Pengiraan" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="UserMengurusWorkflows" Relationship="BPModel.UserWorkflow_AccountCode" FromRole="AccountCode" ToRole="UserMengurusWorkflow" />
+  </EntityType>
+  <EntityType Name="YearUploadSetup">
+    <Key>
+      <PropertyRef Name="BudgetYearID" />
+    </Key>
+    <Property Name="BudgetYearID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BudgetYear" Type="Int32" />
+    <Property Name="BudgetYearDesc" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+  </EntityType>
+  <EntityType Name="GroupPerjawatan">
+    <Key>
+      <PropertyRef Name="GroupPerjawatanCode" />
+    </Key>
+    <Property Name="GroupPerjawatanCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="GroupPerjawatanDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentGroupPerjawatanID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="UserPerjawatanWorkflows" Relationship="BPModel.UserPerjawatanWorkflow_AccountCode" FromRole="GroupPerjawatan" ToRole="UserPerjawatanWorkflow" />
+  </EntityType>
+  <EntityType Name="FieldMenguru">
+    <Key>
+      <PropertyRef Name="FieldMengurusID" />
+    </Key>
+    <Property Name="FieldMengurusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldMengurusSDesc" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FieldMengurusDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="PeriodMengurus" Relationship="BPModel.PeriodMengurus_FieldPerjawatan" FromRole="FieldMenguru" ToRole="PeriodMenguru" />
+  </EntityType>
+  <EntityType Name="PeriodMenguru">
+    <Key>
+      <PropertyRef Name="PeriodMengurusID" />
+    </Key>
+    <Property Name="PeriodMengurusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldMengurusID" Type="Int32" Nullable="false" />
+    <Property Name="MengurusYear" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="FieldMenguru" Relationship="BPModel.PeriodMengurus_FieldPerjawatan" FromRole="PeriodMenguru" ToRole="FieldMenguru" />
+  </EntityType>
+  <Association Name="PeriodMengurus_FieldPerjawatan">
+    <End Type="BPModel.FieldMenguru" Role="FieldMenguru" Multiplicity="1" />
+    <End Type="BPModel.PeriodMenguru" Role="PeriodMenguru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FieldMenguru">
+        <PropertyRef Name="FieldMengurusID" />
+      </Principal>
+      <Dependent Role="PeriodMenguru">
+        <PropertyRef Name="FieldMengurusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FieldPerjawatan">
+    <Key>
+      <PropertyRef Name="FieldPerjawatanID" />
+    </Key>
+    <Property Name="FieldPerjawatanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldPerjawatanSDesc" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="FieldPerjawatanDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="PeriodPerjawatans" Relationship="BPModel.PeriodPerjawatan_FieldPerjawatan" FromRole="FieldPerjawatan" ToRole="PeriodPerjawatan" />
+  </EntityType>
+  <EntityType Name="PeriodPerjawatan">
+    <Key>
+      <PropertyRef Name="PeriodPerjawatanID" />
+    </Key>
+    <Property Name="PeriodPerjawatanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldPerjawatanID" Type="Int32" Nullable="false" />
+    <Property Name="PerjawatanYear" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="FieldPerjawatan" Relationship="BPModel.PeriodPerjawatan_FieldPerjawatan" FromRole="PeriodPerjawatan" ToRole="FieldPerjawatan" />
+  </EntityType>
+  <Association Name="PeriodPerjawatan_FieldPerjawatan">
+    <End Type="BPModel.FieldPerjawatan" Role="FieldPerjawatan" Multiplicity="1" />
+    <End Type="BPModel.PeriodPerjawatan" Role="PeriodPerjawatan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FieldPerjawatan">
+        <PropertyRef Name="FieldPerjawatanID" />
+      </Principal>
+      <Dependent Role="PeriodPerjawatan">
+        <PropertyRef Name="FieldPerjawatanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Segment">
+    <Key>
+      <PropertyRef Name="SegmentID" />
+    </Key>
+    <Property Name="SegmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SegmentName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="SegmentOrder" Type="Int32" />
+    <Property Name="ShapeFormat" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="SegmentDetails" Relationship="BPModel.SegmentDetail_Segment" FromRole="Segment" ToRole="SegmentDetail" />
+  </EntityType>
+  <EntityType Name="SegmentDetail">
+    <Key>
+      <PropertyRef Name="SegmentDetailID" />
+    </Key>
+    <Property Name="SegmentDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SegmentID" Type="Int32" />
+    <Property Name="DetailCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DetailDesc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentDetailID" Type="Int32" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="Segment" Relationship="BPModel.SegmentDetail_Segment" FromRole="SegmentDetail" ToRole="Segment" />
+    <NavigationProperty Name="UserSegDtlWorkflows" Relationship="BPModel.UserSegDtlWorkflow_SegDtls" FromRole="SegmentDetail" ToRole="UserSegDtlWorkflow" />
+  </EntityType>
+  <Association Name="SegmentDetail_Segment">
+    <End Type="BPModel.Segment" Role="Segment" Multiplicity="0..1" />
+    <End Type="BPModel.SegmentDetail" Role="SegmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Segment">
+        <PropertyRef Name="SegmentID" />
+      </Principal>
+      <Dependent Role="SegmentDetail">
+        <PropertyRef Name="SegmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserMengurusWorkflow">
+    <Key>
+      <PropertyRef Name="UserMengurusWorkflowID" />
+    </Key>
+    <Property Name="UserMengurusWorkflowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="AccountCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="AccountCode1" Relationship="BPModel.UserWorkflow_AccountCode" FromRole="UserMengurusWorkflow" ToRole="AccountCode" />
+    <NavigationProperty Name="MasterUser" Relationship="BPModel.UserWorkflow_User" FromRole="UserMengurusWorkflow" ToRole="MasterUser" />
+  </EntityType>
+  <Association Name="UserWorkflow_AccountCode">
+    <End Type="BPModel.AccountCode" Role="AccountCode" Multiplicity="0..1" />
+    <End Type="BPModel.UserMengurusWorkflow" Role="UserMengurusWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccountCode">
+        <PropertyRef Name="AccountCode1" />
+      </Principal>
+      <Dependent Role="UserMengurusWorkflow">
+        <PropertyRef Name="AccountCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserPerjawatanWorkflow">
+    <Key>
+      <PropertyRef Name="UserPerjawatanWorkflowID" />
+    </Key>
+    <Property Name="UserPerjawatanWorkflowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="GroupPerjawatanCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="GroupPerjawatan" Relationship="BPModel.UserPerjawatanWorkflow_AccountCode" FromRole="UserPerjawatanWorkflow" ToRole="GroupPerjawatan" />
+    <NavigationProperty Name="MasterUser" Relationship="BPModel.UserPerjawatanWorkflow_User" FromRole="UserPerjawatanWorkflow" ToRole="MasterUser" />
+  </EntityType>
+  <Association Name="UserPerjawatanWorkflow_AccountCode">
+    <End Type="BPModel.GroupPerjawatan" Role="GroupPerjawatan" Multiplicity="0..1" />
+    <End Type="BPModel.UserPerjawatanWorkflow" Role="UserPerjawatanWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupPerjawatan">
+        <PropertyRef Name="GroupPerjawatanCode" />
+      </Principal>
+      <Dependent Role="UserPerjawatanWorkflow">
+        <PropertyRef Name="GroupPerjawatanCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserSegDtlWorkflow">
+    <Key>
+      <PropertyRef Name="UserSegDtlWorkflowID" />
+    </Key>
+    <Property Name="UserSegDtlWorkflowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="SegmentDetailID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="SegmentDetail" Relationship="BPModel.UserSegDtlWorkflow_SegDtls" FromRole="UserSegDtlWorkflow" ToRole="SegmentDetail" />
+    <NavigationProperty Name="MasterUser" Relationship="BPModel.UserSegDtlWorkflow_User" FromRole="UserSegDtlWorkflow" ToRole="MasterUser" />
+  </EntityType>
+  <Association Name="UserSegDtlWorkflow_SegDtls">
+    <End Type="BPModel.SegmentDetail" Role="SegmentDetail" Multiplicity="0..1" />
+    <End Type="BPModel.UserSegDtlWorkflow" Role="UserSegDtlWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegmentDetail">
+        <PropertyRef Name="SegmentDetailID" />
+      </Principal>
+      <Dependent Role="UserSegDtlWorkflow">
+        <PropertyRef Name="SegmentDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
   <EntityType Name="MasterUser">
     <Key>
       <PropertyRef Name="UserID" />
@@ -39,7 +366,10 @@
     <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="UserIC" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
     <Property Name="Department" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+<<<<<<< HEAD
+=======
     <Property Name="Position" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <Property Name="UserPhoneNo" Type="String" MaxLength="8000" FixedLength="false" Unicode="true" />
     <Property Name="SecQuestion" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
     <Property Name="SecAnswer" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
@@ -48,12 +378,145 @@
     <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+<<<<<<< HEAD
+=======
     <NavigationProperty Name="JuncUserRole" Relationship="BPModel.JuncUserRole_User" FromRole="MasterUser" ToRole="JuncUserRole" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <Property Name="BirthDate" Type="DateTime" Precision="6" />
     <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
     <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+<<<<<<< HEAD
+    <Property Name="Title" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="PositionGrade" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="Fax" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="PeriodOfService" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="OfficeAddress" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+    <Property Name="Language" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="UserPerjawatanWorkflows" Relationship="BPModel.UserPerjawatanWorkflow_User" FromRole="MasterUser" ToRole="UserPerjawatanWorkflow" />
+    <NavigationProperty Name="UserSegDtlWorkflows" Relationship="BPModel.UserSegDtlWorkflow_User" FromRole="MasterUser" ToRole="UserSegDtlWorkflow" />
+    <NavigationProperty Name="UserMengurusWorkflows" Relationship="BPModel.UserWorkflow_User" FromRole="MasterUser" ToRole="UserMengurusWorkflow" />
+    <NavigationProperty Name="JuncUserRoles" Relationship="BPModel.JuncUserRole_User" FromRole="MasterUser" ToRole="JuncUserRole" />
+  </EntityType>
+  <Association Name="UserPerjawatanWorkflow_User">
+    <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="0..1" />
+    <End Type="BPModel.UserPerjawatanWorkflow" Role="UserPerjawatanWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUser">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserPerjawatanWorkflow">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserSegDtlWorkflow_User">
+    <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="0..1" />
+    <End Type="BPModel.UserSegDtlWorkflow" Role="UserSegDtlWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUser">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserSegDtlWorkflow">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserWorkflow_User">
+    <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="0..1" />
+    <End Type="BPModel.UserMengurusWorkflow" Role="UserMengurusWorkflow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUser">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="UserMengurusWorkflow">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="JuncRolePage">
+    <Key>
+      <PropertyRef Name="JuncRolePageID" />
+    </Key>
+    <Property Name="JuncRolePageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="PageID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="MasterPage" Relationship="BPModel.JuncRolePage_Page" FromRole="JuncRolePage" ToRole="MasterPage" />
+    <NavigationProperty Name="MasterRole" Relationship="BPModel.JuncRolePage_Role" FromRole="JuncRolePage" ToRole="MasterRole" />
+  </EntityType>
+  <EntityType Name="MasterMenu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="MenuOrder" Type="Int32" Nullable="false" />
+    <Property Name="MenuIcon" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="MasterPages" Relationship="BPModel.Menu_Page" FromRole="MasterMenu" ToRole="MasterPage" />
+  </EntityType>
+  <EntityType Name="MasterPage">
+    <Key>
+      <PropertyRef Name="PageID" />
+    </Key>
+    <Property Name="PageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PageName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="PagePath" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PageOrder" Type="Int32" Nullable="false" />
+    <Property Name="ParentPageID" Type="Int32" />
+    <Property Name="MenuID" Type="Int32" />
+    <NavigationProperty Name="JuncRolePages" Relationship="BPModel.JuncRolePage_Page" FromRole="MasterPage" ToRole="JuncRolePage" />
+    <NavigationProperty Name="MasterMenu" Relationship="BPModel.Menu_Page" FromRole="MasterPage" ToRole="MasterMenu" />
+  </EntityType>
+  <Association Name="JuncRolePage_Page">
+    <End Type="BPModel.MasterPage" Role="MasterPage" Multiplicity="0..1" />
+    <End Type="BPModel.JuncRolePage" Role="JuncRolePage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterPage">
+        <PropertyRef Name="PageID" />
+      </Principal>
+      <Dependent Role="JuncRolePage">
+        <PropertyRef Name="PageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JuncRolePage_Role">
+    <End Type="BPModel.MasterRole" Role="MasterRole" Multiplicity="0..1" />
+    <End Type="BPModel.JuncRolePage" Role="JuncRolePage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterRole">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="JuncRolePage">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Menu_Page">
+    <End Type="BPModel.MasterMenu" Role="MasterMenu" Multiplicity="0..1" />
+    <End Type="BPModel.MasterPage" Role="MasterPage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterMenu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="MasterPage">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="JuncUserRole">
+    <Key>
+      <PropertyRef Name="JuncUserRoleID" />
+    </Key>
+    <Property Name="JuncUserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="MasterRole" Relationship="BPModel.JuncUserRole_Role" FromRole="JuncUserRole" ToRole="MasterRole" />
+    <NavigationProperty Name="MasterUser" Relationship="BPModel.JuncUserRole_User" FromRole="JuncUserRole" ToRole="MasterUser" />
+=======
   </EntityType>
   <EntityType Name="JuncUserRole">
     <Key>
@@ -87,6 +550,7 @@
     <Property Name="RUID" Type="Guid" />
     <Property Name="RoleStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="JuncUserRoles" Relationship="BPModel.JuncUserRole_Role" FromRole="MasterRole" ToRole="JuncUserRole" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
   </EntityType>
   <Association Name="JuncUserRole_Role">
     <End Type="BPModel.MasterRole" Role="MasterRole" Multiplicity="0..1" />
@@ -100,4 +564,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
+  <Association Name="JuncUserRole_User">
+    <End Type="BPModel.MasterUser" Role="MasterUser" Multiplicity="0..1" />
+    <End Type="BPModel.JuncUserRole" Role="JuncUserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUser">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="JuncUserRole">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
 </Schema>
