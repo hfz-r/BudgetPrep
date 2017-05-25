@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<<<<<<< HEAD
   <EntityType Name="AccountCode">
     <Key>
       <PropertyRef Name="AccountCode" />
@@ -15,6 +16,8 @@
     <Property Name="Keterangan" Type="bpchar" MaxLength="100" />
     <Property Name="Pengiraan" Type="bpchar" MaxLength="100" />
   </EntityType>
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
   <EntityType Name="BPEventLog">
     <Key>
       <PropertyRef Name="EventLogID" />
@@ -28,6 +31,7 @@
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
   </EntityType>
+<<<<<<< HEAD
   <EntityType Name="FieldMengurus">
     <Key>
       <PropertyRef Name="FieldMengurusID" />
@@ -105,6 +109,16 @@
     <Property Name="ParentPageID" Type="int4" />
     <Property Name="MenuID" Type="int4" />
   </EntityType>
+=======
+  <EntityType Name="JuncUserRole">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int4" Nullable="false" />
+    <Property Name="RoleID" Type="int4" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" />
+  </EntityType>
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
   <EntityType Name="MasterRole">
     <Key>
       <PropertyRef Name="RoleID" />
@@ -127,6 +141,10 @@
     <Property Name="FullName" Type="varchar" MaxLength="100" />
     <Property Name="UserIC" Type="varchar" MaxLength="8000" />
     <Property Name="Department" Type="varchar" MaxLength="30" />
+<<<<<<< HEAD
+=======
+    <Property Name="Position" Type="varchar" MaxLength="30" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <Property Name="UserPhoneNo" Type="varchar" MaxLength="8000" />
     <Property Name="SecQuestion" Type="bpchar" MaxLength="250" />
     <Property Name="SecAnswer" Type="bpchar" MaxLength="250" />
@@ -140,6 +158,7 @@
     <Property Name="Comment" Type="varchar" MaxLength="250" />
     <Property Name="Website" Type="varchar" MaxLength="50" />
     <Property Name="Image" Type="bytea" />
+<<<<<<< HEAD
     <Property Name="Title" Type="bpchar" MaxLength="15" />
     <Property Name="PositionGrade" Type="bpchar" MaxLength="100" />
     <Property Name="Fax" Type="bpchar" MaxLength="50" />
@@ -267,6 +286,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+=======
+  </EntityType>
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
   <Association Name="JuncUserRole_Role">
     <End Role="MasterRole" Type="Self.MasterRole" Multiplicity="0..1" />
     <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="*" />
@@ -280,8 +302,13 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="JuncUserRole_User">
+<<<<<<< HEAD
     <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="0..1" />
     <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="*" />
+=======
+    <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="1" />
+    <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="0..1" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <ReferentialConstraint>
       <Principal Role="MasterUser">
         <PropertyRef Name="UserID" />
@@ -291,6 +318,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="Menu_Page">
     <End Role="MasterMenu" Type="Self.MasterMenu" Multiplicity="0..1" />
     <End Role="MasterPage" Type="Self.MasterPage" Multiplicity="*" />
@@ -439,6 +467,13 @@
       <End Role="MasterRole" EntitySet="MasterRole" />
       <End Role="JuncRolePage" EntitySet="JuncRolePage" />
     </AssociationSet>
+=======
+  <EntityContainer Name="BPModelStoreContainer">
+    <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
+    <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
+    <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
+    <EntitySet Name="MasterUser" EntityType="Self.MasterUser" Schema="public" store:Type="Tables" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <AssociationSet Name="JuncUserRole_Role" Association="Self.JuncUserRole_Role">
       <End Role="MasterRole" EntitySet="MasterRole" />
       <End Role="JuncUserRole" EntitySet="JuncUserRole" />
@@ -447,6 +482,7 @@
       <End Role="MasterUser" EntitySet="MasterUser" />
       <End Role="JuncUserRole" EntitySet="JuncUserRole" />
     </AssociationSet>
+<<<<<<< HEAD
     <AssociationSet Name="Menu_Page" Association="Self.Menu_Page">
       <End Role="MasterMenu" EntitySet="MasterMenu" />
       <End Role="MasterPage" EntitySet="MasterPage" />
@@ -487,5 +523,7 @@
       <End Role="MasterUser" EntitySet="MasterUser" />
       <End Role="UserMengurusWorkflow" EntitySet="UserMengurusWorkflow" />
     </AssociationSet>
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
   </EntityContainer>
 </Schema>

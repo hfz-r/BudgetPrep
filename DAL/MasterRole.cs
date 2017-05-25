@@ -16,7 +16,10 @@ namespace DAL
     {
         public MasterRole()
         {
+<<<<<<< HEAD
             this.JuncRolePages = new HashSet<JuncRolePage>();
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
             this.JuncUserRoles = new HashSet<JuncUserRole>();
         }
     
@@ -26,7 +29,10 @@ namespace DAL
         public Nullable<System.Guid> RUID { get; set; }
         public string RoleStatus { get; set; }
     
+<<<<<<< HEAD
         public virtual ICollection<JuncRolePage> JuncRolePages { get; set; }
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
         public virtual ICollection<JuncUserRole> JuncUserRoles { get; set; }
     }
 }

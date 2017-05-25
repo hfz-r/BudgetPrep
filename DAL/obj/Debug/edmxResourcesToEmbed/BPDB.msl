@@ -15,6 +15,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
     <EntitySetMapping Name="MasterRoles">
       <EntityTypeMapping TypeName="BPModel.MasterRole">
         <MappingFragment StoreEntitySet="MasterRole">
@@ -197,6 +198,11 @@
           <ScalarProperty Name="Fax" ColumnName="Fax" />
           <ScalarProperty Name="PositionGrade" ColumnName="PositionGrade" />
           <ScalarProperty Name="Title" ColumnName="Title" />
+=======
+    <EntitySetMapping Name="MasterUsers">
+      <EntityTypeMapping TypeName="BPModel.MasterUser">
+        <MappingFragment StoreEntitySet="MasterUser">
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
           <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="Website" ColumnName="Website" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
@@ -210,6 +216,10 @@
           <ScalarProperty Name="SecAnswer" ColumnName="SecAnswer" />
           <ScalarProperty Name="SecQuestion" ColumnName="SecQuestion" />
           <ScalarProperty Name="UserPhoneNo" ColumnName="UserPhoneNo" />
+<<<<<<< HEAD
+=======
+          <ScalarProperty Name="Position" ColumnName="Position" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
           <ScalarProperty Name="Department" ColumnName="Department" />
           <ScalarProperty Name="UserIC" ColumnName="UserIC" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -221,6 +231,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+<<<<<<< HEAD
     <EntitySetMapping Name="JuncRolePages">
       <EntityTypeMapping TypeName="BPModel.JuncRolePage">
         <MappingFragment StoreEntitySet="JuncRolePage">
@@ -253,13 +264,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+=======
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
     <EntitySetMapping Name="JuncUserRoles">
       <EntityTypeMapping TypeName="BPModel.JuncUserRole">
         <MappingFragment StoreEntitySet="JuncUserRole">
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="RoleID" ColumnName="RoleID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
+<<<<<<< HEAD
           <ScalarProperty Name="JuncUserRoleID" ColumnName="JuncUserRoleID" />
+=======
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterRoles">
+      <EntityTypeMapping TypeName="BPModel.MasterRole">
+        <MappingFragment StoreEntitySet="MasterRole">
+          <ScalarProperty Name="RoleStatus" ColumnName="RoleStatus" />
+          <ScalarProperty Name="RUID" ColumnName="RUID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

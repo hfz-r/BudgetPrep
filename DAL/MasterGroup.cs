@@ -12,31 +12,21 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class SegmentDetail
+    public partial class MasterGroup
     {
-<<<<<<< HEAD
-        public SegmentDetail()
+        public MasterGroup()
         {
-            this.UserSegDtlWorkflows = new HashSet<UserSegDtlWorkflow>();
+            this.MasterUsers = new HashSet<MasterUser>();
         }
     
-=======
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
-        public int SegmentDetailID { get; set; }
-        public Nullable<int> SegmentID { get; set; }
-        public string DetailCode { get; set; }
-        public string DetailDesc { get; set; }
-        public Nullable<int> ParentDetailID { get; set; }
-        public string Status { get; set; }
+        public int GroupID { get; set; }
+        public string GroupName { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedTimeStamp { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
+        public string Status { get; set; }
     
-        public virtual Segment Segment { get; set; }
-<<<<<<< HEAD
-        public virtual ICollection<UserSegDtlWorkflow> UserSegDtlWorkflows { get; set; }
-=======
->>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
+        public virtual ICollection<MasterUser> MasterUsers { get; set; }
     }
 }
