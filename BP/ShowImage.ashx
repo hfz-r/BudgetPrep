@@ -20,6 +20,7 @@ public class ShowImage : IHttpHandler
 
        context.Response.ContentType = "image/jpeg";
        Stream strm = ShowEmpImage(UserId);
+<<<<<<< HEAD
 
        if (strm != null)
        {
@@ -31,6 +32,15 @@ public class ShowImage : IHttpHandler
                context.Response.OutputStream.Write(buffer, 0, byteSeq);
                byteSeq = strm.Read(buffer, 0, 4096);
            }
+=======
+       byte[] buffer = new byte[4096];
+       int byteSeq = strm.Read(buffer, 0, 4096);
+
+       while (byteSeq > 0)
+       {
+           context.Response.OutputStream.Write(buffer, 0, byteSeq);
+           byteSeq = strm.Read(buffer, 0, 4096);
+>>>>>>> fa2a2893ae1d7e783d8591f454ef428f3a40756b
        }        
        //context.Response.BinaryWrite(buffer);
     }
