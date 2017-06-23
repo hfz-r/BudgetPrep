@@ -24,7 +24,9 @@ D:\Projects\BP\BP\bin\System.Web.Providers.dll
 D:\Projects\BP\BP\bin\WebGrease.dll
 D:\Projects\BP\BP\bin\DAL.pdb
 D:\Projects\BP\BP\bin\Security.pdb
+D:\Projects\BP\BP\bin\Antlr3.Runtime.pdb
 D:\Projects\BP\BP\bin\Newtonsoft.Json.xml
+D:\Projects\BP\BP\bin\System.Web.Optimization.xml
 D:\Projects\BP\BP\bin\DotNetOpenAuth.Core.xml
 D:\Projects\BP\BP\bin\DotNetOpenAuth.OAuth.xml
 D:\Projects\BP\BP\bin\DotNetOpenAuth.OAuth.Consumer.xml

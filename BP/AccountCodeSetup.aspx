@@ -18,6 +18,7 @@
 		    <i class="ace-icon fa fa-home home-icon"></i>
 		    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
 	    </li>
+        <li class=""><a href="#">Setup</a></li>
         <li class="active">Account Code</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
@@ -85,21 +86,21 @@
 					<h5 class="widget-title">Account Code - Edit</h5>
 
 					<div class="widget-toolbar">
-						<a href="#" data-action="fullscreen" class="orange2">
-							<i class="ace-icon fa fa-expand"></i>
-						</a>
+						<a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen">
+                            <i class="ace-icon fa fa-expand"></i>
+                        </a>
 
-						<a href="#" data-action="reload">
-							<i class="ace-icon fa fa-refresh"></i>
-						</a>
+                        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload">
+                            <i class="ace-icon fa fa-refresh"></i>
+                        </a>
 
-						<a href="#" data-action="collapse">
-							<i class="ace-icon fa fa-chevron-up"></i>
-						</a>
+                        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
 
-						<a href="#" data-action="close">
-							<i class="ace-icon fa fa-times"></i>
-						</a>
+                        <a href="#" data-action="close" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Close">
+                            <i class="ace-icon fa fa-times"></i>
+                        </a>
 					</div>
 				</div>
 
@@ -184,18 +185,14 @@
 
 					<div class="widget-toolbar">
                         <div class="widget-menu">
-						    <a href="#" data-action="settings" data-toggle="dropdown">
+						    <a href="#" data-action="settings" data-toggle="dropdown" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Settings">
 							    <i class="ace-icon fa fa-cogs"></i>
 						    </a>
 
 						    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
 							    <li>
-                                    <%--<asp:LinkButton ID="btnFileUpload" runat="server" CssClass="orange">
-                                        <i class="ace-icon fa fa-cloud-upload bigger-110"></i>
-                                        Upload
-                                    </asp:LinkButton>--%>
                                     <a href="#modal-form" id="btnFileUpload" runat="server" role="button" class="blue" data-toggle="modal" data-rel="tooltip" 
-                                        data-placement="top" title="*Add/Enable current year to enable upload button">
+                                        data-placement="top" title="**[Year Upload] must in 'Active' to use this function**">
                                         <i class="ace-icon fa fa-cloud-upload bigger-110"></i>
                                         Upload
                                     </a>
@@ -203,17 +200,17 @@
 						    </ul>
 					    </div>
 
-						<a href="#" data-action="fullscreen" class="orange2">
-							<i class="ace-icon fa fa-expand"></i>
-						</a>
+						<a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen">
+                            <i class="ace-icon fa fa-expand"></i>
+                        </a>
 
-						<a href="#" data-action="reload">
-							<i class="ace-icon fa fa-refresh"></i>
-						</a>
+                        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload">
+                            <i class="ace-icon fa fa-refresh"></i>
+                        </a>
 
-						<a href="#" data-action="collapse">
-							<i class="ace-icon fa fa-chevron-up"></i>
-						</a>
+                        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
 					</div>
 				</div>
 
@@ -532,7 +529,9 @@
                             sticky: false,
                             time: 60000,
                             after_close: function () {
-                                location.href = "<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>";
+                                if (item.status.indexOf("Success") >= 0) {
+                                    location.href = "<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>";
+                                }
                             }
                         });
                     });

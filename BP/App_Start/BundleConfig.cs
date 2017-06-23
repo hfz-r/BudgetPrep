@@ -11,6 +11,8 @@ namespace BP
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254726
         public static void RegisterBundles(BundleCollection bundles)
         {
+            BundleTable.EnableOptimizations = true;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                     "~/Scripts/jquery-{version}.js"));
 
@@ -33,6 +35,9 @@ namespace BP
                 "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
                 "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js"));
 
+            //bundles.Add(new ScriptBundle("~/bundles/AjaxControlToolkit")
+            //    .IncludeDirectory("~/Scripts/AjaxControlToolkit", "*.js", true));
+
             // Use the Development version of Modernizr to develop with and learn from. Then, when you’re
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -44,9 +49,6 @@ namespace BP
 
             //CSS
             bundles.Add(new StyleBundle("~/css/site-css")
-            //<!-- bootstrap & fontawesome -->
-            .Include("~/assets/css/bootstrap.min.css")
-            .Include("~/assets/font-awesome/4.5.0/css/font-awesome.min.css")
             //<!-- page specific plugin styles start -->
             .Include("~/assets/css/jquery-ui.custom.min.css")
             //<!-- form-elements -->
@@ -65,8 +67,7 @@ namespace BP
 
             //SCRIPTS
             bundles.Add(new ScriptBundle("~/scripts/site-scripts")
-            //<!-- bootstrap -->
-            .Include("~/assets/js/bootstrap.min.js")
+            //<!-- jquery -->
             .Include("~/assets/js/jquery-ui.custom.min.js")
             .Include("~/assets/js/jquery.ui.touch-punch.min.js")
             //<!-- form-elements-->
@@ -89,8 +90,6 @@ namespace BP
             .Include("~/assets/js/spin.js")
             //<!-- form-wizard -->
             .Include("~/assets/js/wizard.min.js")
-            //.Include("~/assets/js/jquery.validate.min.js")
-            //.Include("~/assets/js/jquery-additional-methods.min.js")
             .Include("~/assets/js/bootbox.js")
             .Include("~/assets/js/select2.min.js")
             //<!-- tables -->
@@ -104,10 +103,7 @@ namespace BP
             .Include("~/assets/js/dataTables.select.min.js")
             .Include("~/assets/js/jszip.min.js")
             .Include("~/assets/js/pdfmake.min.js")
-            .Include("~/assets/js/vfs_fonts.js")
-            //<!-- ace scripts -->
-            .Include("~/assets/js/ace-elements.min.js")
-            .Include("~/assets/js/ace.min.js"));
+            .Include("~/assets/js/vfs_fonts.js"));
 
             /* masterpage - end */
 

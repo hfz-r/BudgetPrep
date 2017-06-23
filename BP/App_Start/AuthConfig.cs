@@ -18,14 +18,15 @@ namespace BP
             //    consumerSecret: "your Twitter consumer secret");
 
             //OpenAuth.AuthenticationClients.AddFacebook(
-            //    appId: "your Facebook app id",
-            //    appSecret: "your Facebook app secret");
+            //    appId: "130930140796248",
+            //    appSecret: "779bc467e648d7d9951ea61f5deafe29");
 
             //OpenAuth.AuthenticationClients.AddMicrosoft(
             //    clientId: "your Microsoft account client id",
             //    clientSecret: "your Microsoft account client secret");
 
             //OpenAuth.AuthenticationClients.AddGoogle();
+
         }
     }
 }

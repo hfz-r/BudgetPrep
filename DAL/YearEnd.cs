@@ -12,23 +12,15 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class PeriodMenguru
+    public partial class YearEnd
     {
-        public PeriodMenguru()
-        {
-            this.BudgetMengurus = new HashSet<BudgetMenguru>();
-        }
-    
-        public int PeriodMengurusID { get; set; }
-        public int FieldMengurusID { get; set; }
-        public int MengurusYear { get; set; }
+        public int YearEndID { get; set; }
+        public string BudgetType { get; set; }
+        public int BudgetYear { get; set; }
         public string Status { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedTimeStamp { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
-    
-        public virtual FieldMenguru FieldMenguru { get; set; }
-        public virtual ICollection<BudgetMenguru> BudgetMengurus { get; set; }
     }
 }

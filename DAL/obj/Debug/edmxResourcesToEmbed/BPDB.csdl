@@ -76,6 +76,25 @@
       <End Role="MasterUser" EntitySet="MasterUsers" />
       <End Role="JuncUserRole" EntitySet="JuncUserRoles" />
     </AssociationSet>
+    <EntitySet Name="BudgetMengurus" EntityType="BPModel.BudgetMenguru" />
+    <EntitySet Name="JuncBgtMengurusSegDtls" EntityType="BPModel.JuncBgtMengurusSegDtl" />
+    <AssociationSet Name="BudgetMengurus_AccountCode" Association="BPModel.BudgetMengurus_AccountCode">
+      <End Role="AccountCode" EntitySet="AccountCodes" />
+      <End Role="BudgetMenguru" EntitySet="BudgetMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="BudgetMengurus_PeriodMengurus" Association="BPModel.BudgetMengurus_PeriodMengurus">
+      <End Role="PeriodMenguru" EntitySet="PeriodMengurus" />
+      <End Role="BudgetMenguru" EntitySet="BudgetMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="JuncBgtMengurusSegDtl_BudgetMengurus" Association="BPModel.JuncBgtMengurusSegDtl_BudgetMengurus">
+      <End Role="BudgetMenguru" EntitySet="BudgetMengurus" />
+      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtls" />
+    </AssociationSet>
+    <AssociationSet Name="JuncBgtMengurusSegDtl_SegmentDetail" Association="BPModel.JuncBgtMengurusSegDtl_SegmentDetail">
+      <End Role="SegmentDetail" EntitySet="SegmentDetails" />
+      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtls" />
+    </AssociationSet>
+    <EntitySet Name="YearEnds" EntityType="BPModel.YearEnd" />
   </EntityContainer>
   <EntityType Name="BPEventLog">
     <Key>
@@ -117,6 +136,7 @@
     <Property Name="Keterangan" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="Pengiraan" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="UserMengurusWorkflows" Relationship="BPModel.UserWorkflow_AccountCode" FromRole="AccountCode" ToRole="UserMengurusWorkflow" />
+    <NavigationProperty Name="BudgetMengurus" Relationship="BPModel.BudgetMengurus_AccountCode" FromRole="AccountCode" ToRole="BudgetMenguru" />
   </EntityType>
   <EntityType Name="YearUploadSetup">
     <Key>
@@ -172,6 +192,7 @@
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
     <NavigationProperty Name="FieldMenguru" Relationship="BPModel.PeriodMengurus_FieldPerjawatan" FromRole="PeriodMenguru" ToRole="FieldMenguru" />
+    <NavigationProperty Name="BudgetMengurus" Relationship="BPModel.BudgetMengurus_PeriodMengurus" FromRole="PeriodMenguru" ToRole="BudgetMenguru" />
   </EntityType>
   <Association Name="PeriodMengurus_FieldPerjawatan">
     <End Type="BPModel.FieldMenguru" Role="FieldMenguru" Multiplicity="1" />
@@ -256,6 +277,7 @@
     <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
     <NavigationProperty Name="Segment" Relationship="BPModel.SegmentDetail_Segment" FromRole="SegmentDetail" ToRole="Segment" />
     <NavigationProperty Name="UserSegDtlWorkflows" Relationship="BPModel.UserSegDtlWorkflow_SegDtls" FromRole="SegmentDetail" ToRole="UserSegDtlWorkflow" />
+    <NavigationProperty Name="JuncBgtMengurusSegDtls" Relationship="BPModel.JuncBgtMengurusSegDtl_SegmentDetail" FromRole="SegmentDetail" ToRole="JuncBgtMengurusSegDtl" />
   </EntityType>
   <Association Name="SegmentDetail_Segment">
     <End Type="BPModel.Segment" Role="Segment" Multiplicity="0..1" />
@@ -516,4 +538,97 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="BudgetMenguru">
+    <Key>
+      <PropertyRef Name="BudgetMengurusID" />
+    </Key>
+    <Property Name="BudgetMengurusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PeriodMengurusID" Type="Int32" Nullable="false" />
+    <Property Name="AccountCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="AccountCode1" Relationship="BPModel.BudgetMengurus_AccountCode" FromRole="BudgetMenguru" ToRole="AccountCode" />
+    <NavigationProperty Name="PeriodMenguru" Relationship="BPModel.BudgetMengurus_PeriodMengurus" FromRole="BudgetMenguru" ToRole="PeriodMenguru" />
+    <NavigationProperty Name="JuncBgtMengurusSegDtls" Relationship="BPModel.JuncBgtMengurusSegDtl_BudgetMengurus" FromRole="BudgetMenguru" ToRole="JuncBgtMengurusSegDtl" />
+  </EntityType>
+  <EntityType Name="JuncBgtMengurusSegDtl">
+    <Key>
+      <PropertyRef Name="JuncBgtMengurusSegDtlID" />
+    </Key>
+    <Property Name="JuncBgtMengurusSegDtlID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BudgetMengurusID" Type="Int32" Nullable="false" />
+    <Property Name="SegmentDetailID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+    <NavigationProperty Name="BudgetMenguru" Relationship="BPModel.JuncBgtMengurusSegDtl_BudgetMengurus" FromRole="JuncBgtMengurusSegDtl" ToRole="BudgetMenguru" />
+    <NavigationProperty Name="SegmentDetail" Relationship="BPModel.JuncBgtMengurusSegDtl_SegmentDetail" FromRole="JuncBgtMengurusSegDtl" ToRole="SegmentDetail" />
+  </EntityType>
+  <Association Name="BudgetMengurus_AccountCode">
+    <End Type="BPModel.AccountCode" Role="AccountCode" Multiplicity="1" />
+    <End Type="BPModel.BudgetMenguru" Role="BudgetMenguru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccountCode">
+        <PropertyRef Name="AccountCode1" />
+      </Principal>
+      <Dependent Role="BudgetMenguru">
+        <PropertyRef Name="AccountCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BudgetMengurus_PeriodMengurus">
+    <End Type="BPModel.PeriodMenguru" Role="PeriodMenguru" Multiplicity="1" />
+    <End Type="BPModel.BudgetMenguru" Role="BudgetMenguru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodMenguru">
+        <PropertyRef Name="PeriodMengurusID" />
+      </Principal>
+      <Dependent Role="BudgetMenguru">
+        <PropertyRef Name="PeriodMengurusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JuncBgtMengurusSegDtl_BudgetMengurus">
+    <End Type="BPModel.BudgetMenguru" Role="BudgetMenguru" Multiplicity="1" />
+    <End Type="BPModel.JuncBgtMengurusSegDtl" Role="JuncBgtMengurusSegDtl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BudgetMenguru">
+        <PropertyRef Name="BudgetMengurusID" />
+      </Principal>
+      <Dependent Role="JuncBgtMengurusSegDtl">
+        <PropertyRef Name="BudgetMengurusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JuncBgtMengurusSegDtl_SegmentDetail">
+    <End Type="BPModel.SegmentDetail" Role="SegmentDetail" Multiplicity="1" />
+    <End Type="BPModel.JuncBgtMengurusSegDtl" Role="JuncBgtMengurusSegDtl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegmentDetail">
+        <PropertyRef Name="SegmentDetailID" />
+      </Principal>
+      <Dependent Role="JuncBgtMengurusSegDtl">
+        <PropertyRef Name="SegmentDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="YearEnd">
+    <Key>
+      <PropertyRef Name="YearEndID" />
+    </Key>
+    <Property Name="YearEndID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BudgetType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BudgetYear" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+  </EntityType>
 </Schema>

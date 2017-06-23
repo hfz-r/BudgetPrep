@@ -44,5 +44,8 @@ namespace DAL
         public DbSet<MasterMenu> MasterMenus { get; set; }
         public DbSet<MasterPage> MasterPages { get; set; }
         public DbSet<JuncUserRole> JuncUserRoles { get; set; }
+        public DbSet<BudgetMenguru> BudgetMengurus { get; set; }
+        public DbSet<JuncBgtMengurusSegDtl> JuncBgtMengurusSegDtls { get; set; }
+        public DbSet<YearEnd> YearEnds { get; set; }
     }
 }

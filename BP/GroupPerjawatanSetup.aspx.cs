@@ -280,9 +280,9 @@ namespace BP
                     if (rowItem.ChildCount > 0)
                     {
                         if (SelectedNodes.Contains(rowItem.GroupPerjawatanCode))
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:red;\" class=\"ace-icon fa fa-minus pull-right\"></i></label> ";
+                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-minus-square pull-right\"></i></label> ";
                         else
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:red;\" class=\"ace-icon fa fa-plus pull-right\"></i></label> ";
+                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-plus-square pull-right\"></i></label> ";
                     }
                     else
                         strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i></i></label> ";

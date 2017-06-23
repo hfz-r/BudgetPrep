@@ -21,7 +21,7 @@
 		    <i class="ace-icon fa fa-home home-icon"></i>
 		    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
 	    </li>
-	    <li class="">Setup</li>
+	    <li class=""><a href="#">Setup</a></li>
         <li class="active">User Setup</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
@@ -180,27 +180,21 @@
 
                                                           <div class="col-xs-12 col-sm-9">
                                                               <div class="btn-group">
-                                                                  <button id="btnWorkflow" runat="server" class="btn">View</button>
+                                                                  <button id="btnWorkflow" runat="server" class="btn btn-info"></button>
 
-                                                                  <button id="btnWFdropdown" runat="server" data-toggle="dropdown" class="btn dropdown-toggle">
+                                                                  <%--<button id="btnWFdropdown" runat="server" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
                                                                       <span class="ace-icon fa fa-caret-down icon-only"></span>
                                                                   </button>
 
                                                                   <ul class="dropdown-menu dropdown-inverse">
                                                                       <li>
-                                                                          <a href="#">Clear all settings</a>
+                                                                          <asp:LinkButton 
+                                                                              ID="disableWorkflow" 
+                                                                              runat="server" 
+                                                                              Text="Disable Workflow" 
+                                                                              OnClientClick="return DisableWorkflow(event);" />
                                                                       </li>
-
-                                                                      <li>
-                                                                          <a href="#">Another action</a>
-                                                                      </li>
-
-                                                                      <li class="divider"></li>
-
-                                                                      <li>
-                                                                          <a href="#">Disable Workflow</a>
-                                                                      </li>
-                                                                  </ul>
+                                                                  </ul>--%>
                                                               </div>
                                                               <!-- /.btn-group -->
                                                           </div>
@@ -469,7 +463,7 @@
     </div>
 
     <!-- workflow -->
-    <div id="workflow-modal" class="modal" tabindex="-1">
+    <div id="workflow-modal" class="modal gray" tabindex="-1">
 		<div class="modal-dialog ext">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -494,7 +488,8 @@
                                     <div class="panel-collapse collapse" id="collapseOne">
                                         <div class="panel-body">
                                             <asp:GridView ID="gvMengurusWorkFlow" runat="server" AutoGenerateColumns="false" AllowSorting="true"
-                                                CssClass="table table-bordered table-hover" DataKeyNames="AccountCode1" OnPreRender="gvMengurusWorkFlow_PreRender">
+                                                CssClass="table table-bordered table-striped table-hover" DataKeyNames="AccountCode1"
+                                                OnPreRender="gvMengurusWorkFlow_PreRender">
                                                 <Columns>
                                                     <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                                         <ItemTemplate>
@@ -522,7 +517,8 @@
                                     <div class="panel-collapse collapse" id="collapseTwo">
                                         <div class="panel-body">
                                             <asp:GridView ID="gvPerjawatanWorkFlow" runat="server" AutoGenerateColumns="false" AllowSorting="true"
-                                                CssClass="table table-bordered table-hover" DataKeyNames="GroupPerjawatanCode" OnPreRender="gvPerjawatanWorkFlow_PreRender">
+                                                CssClass="table table-bordered table-striped table-hover" DataKeyNames="GroupPerjawatanCode"
+                                                OnPreRender="gvPerjawatanWorkFlow_PreRender">
                                                 <Columns>
                                                     <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                                         <ItemTemplate>
@@ -550,7 +546,8 @@
                                     <div class="panel-collapse collapse" id="collapseThree">
                                         <div class="panel-body">
                                             <asp:GridView ID="gvSegmentDetails" runat="server" AutoGenerateColumns="false" AllowSorting="true"
-                                                CssClass="table table-bordered table-hover" DataKeyNames="SegmentDetailID" OnPreRender="gvSegmentDetails_PreRender">
+                                                CssClass="table table-bordered table-striped table-hover" DataKeyNames="SegmentDetailID"
+                                                OnPreRender="gvSegmentDetails_PreRender">
                                                 <Columns>
                                                     <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                                         <ItemTemplate>
@@ -733,12 +730,10 @@
                 if ($('#<%=role.ClientID%> :selected').text() == "Admin")
                 {
                     $('#<%=btnWorkflow.ClientID%>').prop('disabled', true);
-                    $('#<%=btnWFdropdown.ClientID%>').prop('disabled', true);
                 }
                 else
                 {
                     $('#<%=btnWorkflow.ClientID%>').prop('disabled', false);
-                    $('#<%=btnWFdropdown.ClientID%>').prop('disabled', false);
                 }
             });
             $('#<%=role.ClientID%>').trigger('change');

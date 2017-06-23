@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DAL;
+using OBSecurity;
 using BP.Classes;
 using System.Web.Services;
 using Newtonsoft.Json;
@@ -30,7 +31,7 @@ namespace BP.Setup
 
             if (!Page.IsPostBack)
             {
-                System.Web.Security.FormsAuthentication.SignOut();
+                FormsAuthentication.SignOut();
                 LoginUser.FailureText = "";
                 Session.Clear();
             }
@@ -61,7 +62,7 @@ namespace BP.Setup
                     if (user != null)
                     {
                         FormsAuthentication.RedirectFromLoginPage(LoginUser.UserName, LoginUser.RememberMeSet);
-                        
+
                         HttpCookie myCookie = new HttpCookie("myCookie");
                         Boolean remember = LoginUser.RememberMeSet;
 
@@ -80,7 +81,7 @@ namespace BP.Setup
                         Response.Cookies.Add(myCookie);
 
                         Session["UserData"] = user;
-                        CreateMenu(user); 
+                        CreateMenu(user);
                         e.Authenticated = true;
                     }
                     else
@@ -152,7 +153,7 @@ namespace BP.Setup
 
             try
             {
-                MembershipUser u = Membership.GetUser(Membership.GetUserNameByEmail(email)); 
+                MembershipUser u = Membership.GetUser(Membership.GetUserNameByEmail(email));
                 if (u == null)
                 {
                     string myString = HttpUtility.HtmlEncode(email);
@@ -181,7 +182,7 @@ namespace BP.Setup
                     }
                 }
             }
-            catch 
+            catch
             {
                 dt.Response = "Invalid Email";
             }
@@ -225,7 +226,7 @@ namespace BP.Setup
                         }
                         else
                         {
-                             throw new Exception("Password reset failed. Please re-enter your values and try again.");
+                            throw new Exception("Password reset failed. Please re-enter your values and try again.");
                         }
                     }
                     else

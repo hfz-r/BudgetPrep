@@ -18,6 +18,7 @@
 		    <i class="ace-icon fa fa-home home-icon"></i>
 		    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
 	    </li>
+        <li class=""><a href="#">Setup</a></li>
         <li class="active">Services Group</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
@@ -183,7 +184,7 @@
 						    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
 							    <li>
                                     <a href="#modal-form" id="btnFileUpload" runat="server" role="button" class="blue" data-toggle="modal" data-rel="tooltip" 
-                                        data-placement="top" title="*Add/Enable current year to enable upload button">
+                                        data-placement="top" title="**[Year Upload] must in 'Active' to use this function**">
                                         <i class="ace-icon fa fa-cloud-upload bigger-110"></i>
                                         Upload
                                     </a>

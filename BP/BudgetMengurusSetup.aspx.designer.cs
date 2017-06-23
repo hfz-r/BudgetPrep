@@ -7,28 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BP.Setup {
+namespace BP {
     
     
-    public partial class UserSetup {
+    public partial class BudgetMengurusSetup {
         
         /// <summary>
-        /// UpdatePanelWizardForm control.
+        /// EditForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanelWizardForm;
-        
-        /// <summary>
-        /// form_Wiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form_Wiz;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditForm;
         
         /// <summary>
         /// widget_title control.
@@ -40,282 +31,246 @@ namespace BP.Setup {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl widget_title;
         
         /// <summary>
-        /// username control.
+        /// gvSegmentDLLs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText username;
+        protected global::System.Web.UI.WebControls.GridView gvSegmentDLLs;
         
         /// <summary>
-        /// pwdDiv control.
+        /// chkKeterangan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pwdDiv;
+        protected global::System.Web.UI.WebControls.CheckBox chkKeterangan;
         
         /// <summary>
-        /// password control.
+        /// chkPengiraan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
+        protected global::System.Web.UI.WebControls.CheckBox chkPengiraan;
         
         /// <summary>
-        /// pwd2Div control.
+        /// chkMedan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pwd2Div;
+        protected global::System.Web.UI.WebControls.CheckBox chkMedan;
         
         /// <summary>
-        /// password2 control.
+        /// gvPeriod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password2;
+        protected global::System.Web.UI.WebControls.GridView gvPeriod;
         
         /// <summary>
-        /// email control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl email;
+        protected global::System.Web.UI.WebControls.LinkButton btnSearch;
         
         /// <summary>
-        /// question control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea question;
+        protected global::System.Web.UI.WebControls.LinkButton btnCancel;
         
         /// <summary>
-        /// SecAns control.
+        /// ListForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SecAns;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ListForm;
         
         /// <summary>
-        /// answer control.
+        /// btnLegend control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea answer;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnLegend;
         
         /// <summary>
-        /// role control.
+        /// btnFileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList role;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnFileUpload;
         
         /// <summary>
-        /// btnWorkflow control.
+        /// btnSearchbox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnWorkflow;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSearchbox;
         
         /// <summary>
-        /// status control.
+        /// gvAccountCodes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList status;
+        protected global::System.Web.UI.WebControls.GridView gvAccountCodes;
         
         /// <summary>
-        /// fullname control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText fullname;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnSubmit;
         
         /// <summary>
-        /// icno control.
+        /// btnReload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText icno;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnReload;
         
         /// <summary>
-        /// title control.
+        /// ddlBulkDecision control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText title;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBulkDecision;
         
         /// <summary>
-        /// phone control.
+        /// tbBulkRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl phone;
+        protected global::System.Web.UI.WebControls.TextBox tbBulkRemarks;
         
         /// <summary>
-        /// fax control.
+        /// btnBulkUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl fax;
+        protected global::System.Web.UI.WebControls.LinkButton btnBulkUpdate;
         
         /// <summary>
-        /// designation control.
+        /// lblDecisionModalTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText designation;
+        protected global::System.Web.UI.WebControls.Label lblDecisionModalTitle;
         
         /// <summary>
-        /// dept control.
+        /// lblDecisionModalPeriodID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText dept;
+        protected global::System.Web.UI.WebControls.Label lblDecisionModalPeriodID;
         
         /// <summary>
-        /// grade control.
+        /// lblDecisionModalAccountCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText grade;
+        protected global::System.Web.UI.WebControls.Label lblDecisionModalAccountCode;
         
         /// <summary>
-        /// period control.
+        /// lblDecisionModalAccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText period;
+        protected global::System.Web.UI.WebControls.Label lblDecisionModalAccount;
         
         /// <summary>
-        /// offaddress control.
+        /// lblDecisionModalPeriod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea offaddress;
+        protected global::System.Web.UI.WebControls.Label lblDecisionModalPeriod;
         
         /// <summary>
-        /// prev control.
+        /// lblDecisionModalAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton prev;
+        protected global::System.Web.UI.WebControls.Label lblDecisionModalAmount;
         
         /// <summary>
-        /// next control.
+        /// rbldecision control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton next;
+        protected global::System.Web.UI.WebControls.RadioButtonList rbldecision;
         
         /// <summary>
-        /// form_List control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl form_List;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// btnAdd control.
+        /// tbRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnAdd;
+        protected global::System.Web.UI.WebControls.TextBox tbRemarks;
         
         /// <summary>
-        /// gvUsers control.
+        /// btnDecisionSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvUsers;
-        
-        /// <summary>
-        /// gvMengurusWorkFlow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMengurusWorkFlow;
-        
-        /// <summary>
-        /// gvPerjawatanWorkFlow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPerjawatanWorkFlow;
-        
-        /// <summary>
-        /// gvSegmentDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSegmentDetails;
-        
-        /// <summary>
-        /// btnSaveWorkflow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnSaveWorkflow;
+        protected global::System.Web.UI.WebControls.LinkButton btnDecisionSave;
     }
 }
