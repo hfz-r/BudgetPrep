@@ -5,39 +5,46 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="850a3dee494e4998890b71824235dce7" Name="Diagram1" ShowGrid="false" ZoomLevel="67">
-        <EntityTypeShape EntityType="BPModel.BPEventLog" Width="1.5" PointX="10.75" PointY="9.875" />
-        <EntityTypeShape EntityType="BPModel.MasterRole" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BPModel.AccountCode" Width="1.5" PointX="3.75" PointY="14.375" />
-        <EntityTypeShape EntityType="BPModel.YearUploadSetup" Width="1.5" PointX="12.75" PointY="1.875" />
-        <EntityTypeShape EntityType="BPModel.GroupPerjawatan" Width="1.5" PointX="0.75" PointY="20.5" />
-        <EntityTypeShape EntityType="BPModel.FieldMenguru" Width="1.5" PointX="5.75" PointY="10" />
-        <EntityTypeShape EntityType="BPModel.PeriodMenguru" Width="1.5" PointX="8" PointY="10" />
+        <EntityTypeShape EntityType="BPModel.BPEventLog" Width="1.5" PointX="5.75" PointY="10" />
+        <EntityTypeShape EntityType="BPModel.MasterRole" Width="1.5" PointX="0.75" PointY="23" />
+        <EntityTypeShape EntityType="BPModel.AccountCode" Width="1.5" PointX="3.75" PointY="14.5" />
+        <EntityTypeShape EntityType="BPModel.YearUploadSetup" Width="1.5" PointX="10.75" PointY="2" />
+        <EntityTypeShape EntityType="BPModel.GroupPerjawatan" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BPModel.FieldMenguru" Width="1.5" PointX="1.5" PointY="26.75" />
+        <EntityTypeShape EntityType="BPModel.PeriodMenguru" Width="1.5" PointX="3.75" PointY="26.625" />
         <AssociationConnector Association="BPModel.PeriodMengurus_FieldPerjawatan" />
-        <EntityTypeShape EntityType="BPModel.FieldPerjawatan" Width="1.5" PointX="8.75" PointY="6" />
-        <EntityTypeShape EntityType="BPModel.PeriodPerjawatan" Width="1.5" PointX="11" PointY="6" />
+        <EntityTypeShape EntityType="BPModel.FieldPerjawatan" Width="1.5" PointX="8.75" PointY="6.25" />
+        <EntityTypeShape EntityType="BPModel.PeriodPerjawatan" Width="1.5" PointX="11" PointY="6.25" />
         <AssociationConnector Association="BPModel.PeriodPerjawatan_FieldPerjawatan" />
-        <EntityTypeShape EntityType="BPModel.Segment" Width="1.5" PointX="1.5" PointY="16.5" />
-        <EntityTypeShape EntityType="BPModel.SegmentDetail" Width="1.5" PointX="0.75" PointY="12.25" />
+        <EntityTypeShape EntityType="BPModel.Segment" Width="1.5" PointX="1.5" PointY="18.625" />
+        <EntityTypeShape EntityType="BPModel.SegmentDetail" Width="1.5" PointX="0.75" PointY="14.375" />
         <AssociationConnector Association="BPModel.SegmentDetail_Segment" />
-        <EntityTypeShape EntityType="BPModel.UserMengurusWorkflow" Width="1.5" PointX="6" PointY="6.875" />
+        <EntityTypeShape EntityType="BPModel.UserMengurusWorkflow" Width="1.5" PointX="6" PointY="7" />
         <AssociationConnector Association="BPModel.UserWorkflow_AccountCode" />
-        <EntityTypeShape EntityType="BPModel.UserPerjawatanWorkflow" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="BPModel.UserPerjawatanWorkflow" Width="1.5" PointX="3" PointY="4" />
         <AssociationConnector Association="BPModel.UserPerjawatanWorkflow_AccountCode" />
-        <EntityTypeShape EntityType="BPModel.UserSegDtlWorkflow" Width="1.5" PointX="3" PointY="6.875" />
+        <EntityTypeShape EntityType="BPModel.UserSegDtlWorkflow" Width="1.5" PointX="3" PointY="7" />
         <AssociationConnector Association="BPModel.UserSegDtlWorkflow_SegDtls" />
-        <EntityTypeShape EntityType="BPModel.MasterUser" Width="1.5" PointX="0.75" PointY="4.375" />
+        <EntityTypeShape EntityType="BPModel.MasterUser" Width="1.5" PointX="0.75" PointY="4.5" />
         <AssociationConnector Association="BPModel.UserPerjawatanWorkflow_User" />
         <AssociationConnector Association="BPModel.UserSegDtlWorkflow_User" />
         <AssociationConnector Association="BPModel.UserWorkflow_User" />
-        <EntityTypeShape EntityType="BPModel.JuncRolePage" Width="1.5" PointX="10.25" PointY="1.625" />
-        <EntityTypeShape EntityType="BPModel.MasterMenu" Width="1.5" PointX="5.75" PointY="2.375" />
-        <EntityTypeShape EntityType="BPModel.MasterPage" Width="1.5" PointX="8" PointY="2" />
+        <EntityTypeShape EntityType="BPModel.JuncRolePage" Width="1.5" PointX="10.25" PointY="11.625" />
+        <EntityTypeShape EntityType="BPModel.MasterMenu" Width="1.5" PointX="5.75" PointY="2.5" />
+        <EntityTypeShape EntityType="BPModel.MasterPage" Width="1.5" PointX="8" PointY="2.25" />
         <AssociationConnector Association="BPModel.JuncRolePage_Page" />
         <AssociationConnector Association="BPModel.JuncRolePage_Role" />
         <AssociationConnector Association="BPModel.Menu_Page" />
-        <EntityTypeShape EntityType="BPModel.JuncUserRole" Width="1.5" PointX="3" PointY="3.875" />
+        <EntityTypeShape EntityType="BPModel.JuncUserRole" Width="1.5" PointX="3" PointY="10" />
         <AssociationConnector Association="BPModel.JuncUserRole_Role" />
         <AssociationConnector Association="BPModel.JuncUserRole_User" />
+        <EntityTypeShape EntityType="BPModel.BudgetMenguru" Width="1.5" PointX="6" PointY="14.375" />
+        <EntityTypeShape EntityType="BPModel.JuncBgtMengurusSegDtl" Width="1.5" PointX="8.25" PointY="14.75" />
+        <AssociationConnector Association="BPModel.BudgetMengurus_AccountCode" />
+        <AssociationConnector Association="BPModel.BudgetMengurus_PeriodMengurus" />
+        <AssociationConnector Association="BPModel.JuncBgtMengurusSegDtl_BudgetMengurus" />
+        <AssociationConnector Association="BPModel.JuncBgtMengurusSegDtl_SegmentDetail" />
+        <EntityTypeShape EntityType="BPModel.YearEnd" Width="1.5" PointX="12.75" PointY="2" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

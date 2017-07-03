@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Segment" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SegmentSetup.aspx.cs" Inherits="BP.SegmentSetup" %>
+﻿<%@ Page Title="Year End" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="YearEndProcess.aspx.cs" Inherits="BP.YearEndProcess" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -9,18 +9,18 @@
 		    <i class="ace-icon fa fa-home home-icon"></i>
 		    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
 	    </li>
-        <li class=""><a href="#">Setup</a></li>
-        <li class="active">Segment</li>
+        <li class=""><a href="#">Year End</a></li>
+        <li class="active">Year-End Execution</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="PageHeaderContent" runat="server">
     <div class="page-header">
 		<h1>
-			Segment
+			Year-End Execution
 			<small>
 				<i class="ace-icon fa fa-angle-double-right"></i>
-				setup &amp; manage segment
+				setup &amp; manage year-end execution
 			</small>
 		</h1>
 	</div><!-- /.page-header -->
@@ -33,7 +33,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 			<div class="widget-box" id="widget-box-edit">
 				<div class="widget-header">
-					<h5 id="widget_title" class="widget-title" runat="server">Segment - New</h5>
+					<h5 id="widget_title" class="widget-title" runat="server">Year End Execution - New</h5>
 
 					<div class="widget-toolbar">
 						<a href="#" data-action="fullscreen" class="orange2">
@@ -60,59 +60,42 @@
                         <div id="edit-form" class="form-horizontal" role="form">
                             <br />
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="tbSegName">Segment Name:</label>
+                                <asp:Label ID="lblBudgetType" runat="server" class="control-label col-xs-12 col-sm-3 no-padding-right">Budget Type</asp:Label>
 
                                 <div class="col-xs-12 col-sm-9">
                                     <div class="clearfix">
-                                        <asp:TextBox ID="tbSegName" runat="server" CssClass="col-xs-12 col-sm-6"></asp:TextBox>
+                                        <asp:DropDownList ID="ddlBudgetType" runat="server" CssClass="col-xs-12 col-sm-6">
+                                            <asp:ListItem Value="Mengurus">Mengurus</asp:ListItem>
+                                            <asp:ListItem Value="Perjawatan">Perjawatan</asp:ListItem>
+                                            <asp:ListItem Value="Projek">Projek</asp:ListItem>
+                                        </asp:DropDownList>
                                     </div>
-                                    <asp:RequiredFieldValidator ID="SegmentNameRequired" runat="server" ControlToValidate="tbSegName" Display="Dynamic"
-                                        CssClass="help-block" ErrorMessage="Segment Name is required." ValidationGroup="SaveValidation" />
-                                    <asp:CustomValidator ID="CustomVal1" runat="server" ClientValidationFunction="CustomValidationFunction" Display="None"
-                                        ValidateEmptyText="True" ValidationGroup="SaveValidation" ControlToValidate="tbSegName" SetFocusOnError="true" />
                                 </div>
                             </div>
 
                             <div class="space-2"></div>
 
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="tbSegFormat">Shape Format:</label>
+                                <asp:Label ID="lblYear" runat="server" class="control-label col-xs-12 col-sm-3 no-padding-right">Year</asp:Label>
 
                                 <div class="col-xs-12 col-sm-9">
                                     <div class="clearfix">
-                                        <asp:TextBox ID="tbSegFormat" runat="server" CssClass="col-xs-12 col-sm-6" onkeypress="return IsQuestionKey(event);"></asp:TextBox>
+                                        <asp:DropDownList ID="ddlBudgetYear" runat="server" CssClass="col-xs-12 col-sm-6" />
                                     </div>
-                                    <asp:RequiredFieldValidator ID="ShapeFormatRequired" runat="server" ControlToValidate="tbSegFormat" Display="Dynamic"
-                                        CssClass="help-block" ErrorMessage="Shape Format is required." ValidationGroup="SaveValidation" />
-                                    <asp:CustomValidator ID="CustomVal2" runat="server" ClientValidationFunction="CustomValidationFunction" Display="None"
-                                        ValidateEmptyText="True" ValidationGroup="SaveValidation" ControlToValidate="tbSegFormat" SetFocusOnError="true" />
                                 </div>
                             </div>
 
                             <div class="space-2"></div>
 
                             <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="tbSegOrder">Segment Order:</label>
+                                <asp:Label ID="lblStatus" runat="server" class="control-label col-xs-12 col-sm-3 no-padding-right">Status</asp:Label>
 
                                 <div class="col-xs-12 col-sm-9">
                                     <div class="clearfix">
-                                        <asp:TextBox ID="tbSegOrder" runat="server" CssClass="col-xs-12 col-sm-6" onkeypress="return IsNumberKey(event);"></asp:TextBox>
-                                    </div>
-                                    <asp:RequiredFieldValidator ID="SegmentOrderRequired" runat="server" ControlToValidate="tbSegOrder" Display="Dynamic"
-                                        CssClass="help-block" ErrorMessage="Segment Order is required." ValidationGroup="SaveValidation" />
-                                    <asp:CustomValidator ID="CustomVal3" runat="server" ClientValidationFunction="CustomValidationFunction" Display="None"
-                                        ValidateEmptyText="True" ValidationGroup="SaveValidation" ControlToValidate="tbSegOrder" SetFocusOnError="true" />
-                                </div>
-                            </div>
-
-                            <div class="space-2"></div>
-
-                            <div class="form-group">
-                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="status">Status:</label>
-
-                                <div class="col-xs-12 col-sm-9">
-                                    <div class="clearfix">
-                                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="col-xs-12 col-sm-4" />
+                                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="col-xs-12 col-sm-4">
+                                            <asp:ListItem Value="A">Open</asp:ListItem>
+                                            <asp:ListItem Value="D">End</asp:ListItem>
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +103,7 @@
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-9 col-md-9">
 
-                                    <asp:LinkButton ID="btnSave" runat="server" CssClass="btn btn-info" ValidationGroup="SaveValidation" OnClick="btnSave_Click">
+                                    <asp:LinkButton ID="btnSave" runat="server" CssClass="btn btn-info" OnClick="btnSave_Click">
                                         <i class="ace-icon fa fa-check bigger-110"></i>
                                         Save
                                     </asp:LinkButton>
@@ -129,8 +112,8 @@
                                     </button>
                                 </div>
                             </div>
+
                         </div>
-														
 					</div>
 				</div>
 			</div>
@@ -142,7 +125,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
 			<div class="widget-box" id="widget-box-list">
 				<div class="widget-header">
-					<h5 class="widget-title">Segment - List</h5>
+					<h5 class="widget-title">Year End Execution - List</h5>
 
 					<div class="widget-toolbar">
                         <div class="widget-menu">
@@ -153,23 +136,23 @@
 						    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
 							    <li> 
                                     <asp:LinkButton ID="btnAdd" runat="server" CssClass="blue" OnClientClick="ShowForm();" OnClick="btnAdd_Click">
-                                        <i class="ace-icon fa fa-briefcase"></i>&nbsp;&nbsp;Add Segment
+                                        <i class="ace-icon fa fa-calendar"></i>&nbsp;&nbsp;Add Year-End
                                     </asp:LinkButton>
 							    </li>
 						    </ul>
 					    </div>
 
-						<a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen">
-                            <i class="ace-icon fa fa-expand"></i>
-                        </a>
+						<a href="#" data-action="fullscreen" class="orange2">
+							<i class="ace-icon fa fa-expand"></i>
+						</a>
 
-                        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload">
-                            <i class="ace-icon fa fa-refresh"></i>
-                        </a>
+						<a href="#" data-action="reload">
+							<i class="ace-icon fa fa-refresh"></i>
+						</a>
 
-                        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse">
-                            <i class="ace-icon fa fa-chevron-up"></i>
-                        </a>
+						<a href="#" data-action="collapse">
+							<i class="ace-icon fa fa-chevron-up"></i>
+						</a>
 					</div>
 				</div>
 
@@ -182,35 +165,26 @@
                                 <div class="pull-right tableTools-container"></div>
                             </div>
 
-                            <asp:GridView ID="gvSegmentSetup" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped table-hover"
-                                DataKeyNames="SegmentID" OnRowCommand="gvSegmentSetup_RowCommand" OnRowDataBound="gvSegmentSetup_RowDataBound"
-                                OnPreRender="gvSegmentSetup_PreRender">
+                            <asp:GridView ID="gvYearEnd" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped table-hover"
+                                DataKeyNames="YearEndID" OnRowCommand="gvYearEnd_RowCommand" OnRowDataBound="gvYearEnd_RowDataBound" OnPreRender="gvYearEnd_PreRender">
                                 <Columns>
-                                    <asp:TemplateField HeaderStyle-Width="1px" ItemStyle-HorizontalAlign="Center">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="btnEditDetails" runat="server" CommandName="EditDetails" CommandArgument='<%# Container.DataItemIndex %>'>
-                                                <span><i class="ace-icon glyphicon glyphicon-info-sign red " data-rel="popover" title="Show Segment Details" 
-                                                    data-content="Heads up! This button leads to Segment Details."></i>
-                                                </span>
-                                            </asp:LinkButton>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="SegmentName" HeaderText="Segment Name" />
-                                    <asp:BoundField DataField="ShapeFormat" HeaderText="Shape Format" />
-                                    <asp:BoundField DataField="SegmentOrder" HeaderText="Segment Order" />
+                                    <asp:BoundField DataField="BudgetYear" HeaderText="Year" />
+						            <asp:BoundField DataField="BudgetType" HeaderText="Budget Type" />
                                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
+                                            <asp:LinkButton ID="btnStatus" runat="server" CommandName="Download" CommandArgument='<%# Container.DataItemIndex %>'/>
                                             <span id="CustomStatus" runat="server"></span>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <div class="hidden-sm hidden-xs btn-group">
-                                                <asp:LinkButton ID="btnEditRow" runat="server" OnClientClick="ShowForm();" CommandName="EditRow" 
-                                                    CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-white btn-minier btn-bold">
-                                                    <i class="ace-icon glyphicon glyphicon-edit blue"></i>
-                                                    Edit
+                                                <asp:LinkButton ID="btnEditRow" runat="server" OnClientClick="ShowForm();"
+                                                    CommandName="EditRow" CommandArgument='<%# Container.DataItemIndex %>'
+                                                    CssClass="btn btn-white btn-minier btn-bold">
+												            <i class="ace-icon glyphicon glyphicon-edit blue"></i>
+												            Edit
                                                 </asp:LinkButton>
                                             </div>
                                         </ItemTemplate>
@@ -234,7 +208,7 @@
             spinnerInit();
             ace.data.remove('demo', 'widget-state');
             ace.data.remove('demo', 'widget-order');
-            $("#<%=EditForm.ClientID%>").show();
+            $("#EditForm").show();
         }
 
         function InitScript() {
@@ -338,7 +312,7 @@
                 ace.data.remove('demo', 'widget-order');
                 $('#btnCancel').click();
 
-                $("#MainContent_gvSegmentSetup tr").each(function () {
+                $("#MainContent_gvYearEnd tr").each(function () {
                     $(this).css("background-color", "");
                 });
             });
@@ -348,32 +322,23 @@
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-order');
 
-                location.href = "<%=Page.ResolveUrl("~/SegmentSetup.aspx")%>";
-            });
-
-            //info button - to segment details page
-            $('[data-rel="popover"]').popover({
-                html: true,
-                placement: 'top',
-                trigger: 'hover'
+                location.href = "<%=Page.ResolveUrl("~/YearEndProcess.aspx")%>";
             });
         }
 
         function LoadDataTable() {
             //initiate dataTables plugin
-            var myTable = $('#<%=gvSegmentSetup.ClientID%>').DataTable({
+            var myTable = $('#<%=gvYearEnd.ClientID%>').DataTable({
                 bAutoWidth: false,
                 "aoColumns": [
-					{ "bSortable": false },
 					  null,
-                      null,
                       null,
                       null,
                     { "bSortable": false }
                 ],
                 "aaSorting": [],
                 select: {
-                    style: 'single'
+                    style: 'multi'
                 }
             });
 
@@ -385,14 +350,14 @@
                       "extend": "colvis",
                       "text": "<i class='fa fa-search bigger-110 blue'></i> <span class='hidden'>Show/hide columns</span>",
                       "className": "btn btn-white btn-primary btn-bold",
-                      columns: ':not(:first), :not(:last)'
+                      columns: ':not(:last)'
                   },
                   {
                       "extend": "copyHtml5",
                       "text": "<i class='fa fa-copy bigger-110 pink'></i> <span class='hidden'>Copy to clipboard</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       exportOptions: {
-                          columns: [1, 2, 3, 4]
+                          columns: [0, 1, 2]
                       }
                   },
                   {
@@ -400,7 +365,7 @@
                       "text": "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>Export to CSV</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       exportOptions: {
-                          columns: [1, 2, 3, 4],
+                          columns: [0, 1, 2],
                           modifier: {
                               search: 'none'
                           }
@@ -411,7 +376,7 @@
                       "text": "<i class='fa fa-file-excel-o bigger-110 green'></i> <span class='hidden'>Export to Excel</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       exportOptions: {
-                          columns: [1, 2, 3, 4],
+                          columns: [0, 1, 2],
                           modifier: {
                               page: 'current'
                           }
@@ -422,7 +387,7 @@
                       "text": "<i class='fa fa-file-pdf-o bigger-110 red'></i> <span class='hidden'>Export to PDF</span>",
                       "className": "btn btn-white btn-primary btn-bold",
                       exportOptions: {
-                          columns: [1, 2, 3, 4],
+                          columns: [0, 1, 2],
                           modifier: {
                               page: 'current'
                           }
@@ -435,7 +400,7 @@
                       autoPrint: false,
                       message: 'This print was produced using the Print button for DataTables',
                       exportOptions: {
-                          columns: [1, 2, 3, 4]
+                          columns: [0, 1, 2]
                       }
                   }
                 ]
@@ -470,7 +435,7 @@
                 });
             }, 500);
 
-            $(document).on('click', '#<%=gvSegmentSetup.ClientID%> .dropdown-toggle', function (e) {
+            $(document).on('click', '#<%=gvYearEnd.ClientID%> .dropdown-toggle', function (e) {
                 e.stopImmediatePropagation();
                 e.stopPropagation();
                 e.preventDefault();

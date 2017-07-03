@@ -17,6 +17,7 @@ namespace DAL
         public SegmentDetail()
         {
             this.UserSegDtlWorkflows = new HashSet<UserSegDtlWorkflow>();
+            this.JuncBgtMengurusSegDtls = new HashSet<JuncBgtMengurusSegDtl>();
         }
     
         public int SegmentDetailID { get; set; }
@@ -32,5 +33,6 @@ namespace DAL
     
         public virtual Segment Segment { get; set; }
         public virtual ICollection<UserSegDtlWorkflow> UserSegDtlWorkflows { get; set; }
+        public virtual ICollection<JuncBgtMengurusSegDtl> JuncBgtMengurusSegDtls { get; set; }
     }
 }

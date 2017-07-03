@@ -8,6 +8,7 @@ using System.Data;
 using BP.Classes;
 using DAL;
 using Newtonsoft.Json;
+using System.Web.UI.WebControls;
 
 namespace BP
 {
@@ -52,6 +53,10 @@ namespace BP
                         else if (source == "SegmenDetails")
                         {
                             SegmentDetailsFileUpload(ds, ref ListExcluded);
+                        }
+                        else if (source == "BudgetMengurus")
+                        {
+                            BudgetMengurusFileUpload(ds, ref ListExcluded);
                         }
                     }
                 }
@@ -307,6 +312,48 @@ namespace BP
             else
             {
                 ListExcluded.Add(ReturnObj = new
+                {
+                    status = "Error",
+                    message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)
+                });
+            }
+        }
+
+        public void BudgetMengurusFileUpload(DataSet ds, ref List<object> ListExcluded)
+        {
+            List<string> lstErrors = new List<string>();
+            DataTable dt = new DataTable();
+
+            GridView gvAccountCodes = (GridView)HttpContext.Current.Session["gvAccountCodes"];
+            dt = new ReportHelper().ValidateBudgetImport<BudgetMengurusSetup>(ds, gvAccountCodes, ref lstErrors);
+
+            if (lstErrors.Count == 0)
+            {
+                List<AccountCode> AccountCodesData = ((List<AccountCode>)HttpContext.Current.Session["AccountCodesData"])
+                    .Where(x => !String.IsNullOrEmpty(x.ParentAccountCode)).ToList();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    List<object> MessageModel = new List<object>();
+
+                    if (AccountCodesData.Where(x => x.AccountCode1 == Convert.ToString(row["AccountCode"])).Select(y => y.AccountCode1).Count() > 0)
+                    {
+                        new BudgetMengurusSetup().MatchingData(row, ref MessageModel);
+                        ListExcluded.AddRange(MessageModel);
+                    }
+                    else
+                    {
+                        ListExcluded.Add(new 
+                        {
+                            status = "Error",
+                            message = "Account Code not match. Please check and re-try."
+                        });
+                    }
+                }
+            }
+            else
+            {
+                ListExcluded.Add(new
                 {
                     status = "Error",
                     message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)

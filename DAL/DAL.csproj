@@ -11,6 +11,7 @@
     <AssemblyName>DAL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,6 +70,10 @@
     <Compile Include="BPEventLog.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="BudgetMenguru.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BudgetMengurusDAL.cs" />
     <Compile Include="EventLogDAL.cs" />
     <Compile Include="FieldMenguru.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
@@ -82,6 +87,9 @@
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="GroupPerjawatanDAL.cs" />
+    <Compile Include="JuncBgtMengurusSegDtl.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="JuncRolePage.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
@@ -128,6 +136,10 @@
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="UsersRoleDAL.cs" />
+    <Compile Include="YearEnd.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YearEndDAL.cs" />
     <Compile Include="YearUploadDAL.cs" />
     <Compile Include="YearUploadSetup.cs">
       <DependentUpon>BPDB.tt</DependentUpon>

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace OBSecurity
 {
@@ -33,7 +32,7 @@ namespace OBSecurity
                     lblStatus.ForeColor = Color.Green;
                     lblStatus.Text = "Encryption Successful";
                 }
-                catch(Exception ex)
+                catch
                 {
                     lblStatus.ForeColor = Color.Red;
                     lblStatus.Text = "Encryption Failed";
@@ -56,7 +55,7 @@ namespace OBSecurity
                     lblStatus.ForeColor = Color.Green;
                     lblStatus.Text = "Decryption Successful";
                 }
-                catch (Exception ex)
+                catch
                 {
                     lblStatus.ForeColor = Color.Red;
                     lblStatus.Text = "Decryption Failed";

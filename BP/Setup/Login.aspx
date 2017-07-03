@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="Login" Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="BP.Setup.Login" %>
 
 <!DOCTYPE html>
-<html lang="en">
-<head runat="server">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
     
@@ -155,7 +155,7 @@
                                                     </LayoutTemplate>
                                                 </asp:Login>
 
-										    <div class="social-or-login center">
+										    <%--<div class="social-or-login center">
 											    <span class="bigger-110">Or Login Using</span>
 										    </div>
 
@@ -173,7 +173,8 @@
 											    <a class="btn btn-danger">
 												    <i class="ace-icon fa fa-google-plus"></i>
 											    </a>
-										    </div>
+										    </div>--%>
+
 									    </div><!-- /.widget-main -->
 
 									    <div class="toolbar clearfix">
@@ -299,9 +300,9 @@
 									            </div>
 								            </div>
 										</div>
-                                        <br />
-										<div class="space-4"></div>
-                                        <br />
+                                        
+										<div class="space-4"></div><br />
+
 										<div class="form-group">
                                             <label class="control-label col-xs-3 no-padding-right" for="answer">Answer</label>
 
@@ -340,7 +341,7 @@
 	<!-- <![endif]-->
 
 	<script type="text/javascript">
-		if ('ontouchstart' in document.documentElement) document.write("<script src='<%=Page.ResolveUrl("~/assets/js/jquery.mobile.custom.min.js")%>'>"
+	    if ('ontouchstart' in document.documentElement) document.write("<script src='<%=Page.ResolveUrl("~/assets/js/jquery.mobile.custom.min.js")%>'>"
             + "<" + "/script>");
 	</script>
     <script src="<%=Page.ResolveUrl("~/assets/js/bootstrap.min.js")%>"></script>     
@@ -357,157 +358,155 @@
 
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
-		jQuery(function ($) {
-		    $(document).on('click', '.toolbar a[data-target]', function (e) {
-		        e.preventDefault();
-		        var target = $(this).data('target');
-		        $('.widget-box.visible').removeClass('visible');//hide others
-		        $(target).addClass('visible');//show target
-		    });
+	    jQuery(function ($) {
+	        $(document).on('click', '.toolbar a[data-target]', function (e) {
+	            e.preventDefault();
+	            var target = $(this).data('target');
+	            $('.widget-box.visible').removeClass('visible');//hide others
+	            $(target).addClass('visible');//show target
+	        });
 
-		    $('#LoginUser_RememberMe').addClass("ace");
-		});
+	        $('#LoginUser_RememberMe').addClass("ace");
+	    });
 
-		function VerifyButtonFunction(event)
-		{
-		    spinnerInit();
-
-		    event.preventDefault();
-		    $.ajax({
-		        type: "POST",
-		        url: '<%= ResolveUrl("Login.aspx/GetVerification") %>',
-		        data: '{email: "' + $("#<%=tbEmail.ClientID%>").val() + '" }',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    $('#spin').data('spinner').stop();
-                    $("#spin").hide();
-
-                    if (response.d.Response != "") {
-                        $('#<%=lblMessage.ClientID%>').text(response.d.Response);
-                    }
-                    else {
-                        $('#QuestionModal').modal('show');
-
-                        $('#QuestionModal').on('shown.bs.modal', function () {
-                            $('#<%=hdnUsername.ClientID%>').val(response.d.Username)
-                            $('#<%=lblQuestion.ClientID%>').text(response.d.Question); 
-                        });
-                    }
-                },
-                failure: function (response) {
-                    $('#<%=lblMessage.ClientID%>').text(response.d);
-		        }
-		    });
-		}
-
-	    function ProceedBtnFunction(event)
-	    {
+	    function VerifyButtonFunction(event) {
 	        spinnerInit();
 
 	        event.preventDefault();
 	        $.ajax({
 	            type: "POST",
-	            url: '<%= ResolveUrl("Login.aspx/ResetPassword") %>', 
-	            data: '{username: "' + $('#<%=hdnUsername.ClientID%>').val() + '",answer: "' + $("#answer").val() + '" }',
-		        contentType: "application/json; charset=utf-8",
-		        dataType: "json",
-		        success: function (response) {
-		            $('#spin').data('spinner').stop();
-		            $("#spin").hide();
+	            url: '<%= ResolveUrl("Login.aspx/GetVerification") %>',
+	            data: '{email: "' + $("#<%=tbEmail.ClientID%>").val() + '" }',
+	            contentType: "application/json; charset=utf-8",
+	            dataType: "json",
+	            success: function (response) {
+	                $('#spin').data('spinner').stop();
+	                $("#spin").hide();
 
-		            var res = JSON.parse(response.d);
-
-		            $.gritter.add({
-		                title: res.status,
-		                text: res.result,
-		                class_name: (res.status == 'Fail' ? 'gritter-error' : 'gritter-info') + ' gritter-light',
-		                after_close: function () {
-		                    if (res.status == 'Success') {
-		                        location.reload();
-		                    }
-		                }
-		            });
-                },
-		        failure: function (response) {
-		            alert(response.d);
-                }
-		    });
-	    }
-
-	    function CustomValidationFunction(sender, args) {
-	        var control = document.getElementById(sender.controltovalidate);
-
-	        if (args.Value == "") {
-	            args.isValid = false;
-	            $(control).closest(".form-group").addClass("has-error");
-
-	            return;
-	        }
-	        else {
-
-	            if (sender.controltovalidate == "tbEmail") {
-	                //RegularExpressionValidator
-	                var exp = new RegExp(control.Validators[1].validationexpression);
-
-	                if (exp.test(args.Value)) {
-	                    args.isValid = true;
-	                    $(control).closest(".form-group").removeClass("has-error");
-
-	                    return;
+	                if (response.d.Response != "") {
+	                    $('#<%=lblMessage.ClientID%>').text(response.d.Response);
 	                }
 	                else {
-	                    args.isValid = false;
-	                    $(control).closest(".form-group").addClass("has-error");
+	                    $('#QuestionModal').modal('show');
 
-	                    return;
-	                }
-	            }
-	            else {
-	                args.isValid = true;
-	                $(control).closest(".form-group").removeClass("has-error");
-
-	                return;
-	            }
-	        }
-	    }
-	    
-	    function spinnerInit() {
-	        var opts = {
-	            lines: 12, // The number of lines to draw
-	            length: 7, // The length of each line
-	            width: 4, // The line thickness
-	            radius: 10, // The radius of the inner circle
-	            corners: 1, // Corner roundness (0..1)
-	            rotate: 0, // The rotation offset
-	            color: '#000', // #rgb or #rrggbb
-	            speed: 1, // Rounds per second
-	            trail: 66, // Afterglow percentage
-	            shadow: false, // Whether to render a shadow
-	            hwaccel: false, // Whether to use hardware acceleration
-	        };
-
-	        $("#spin").show().spin(opts);
-	    }
-
-	    $.fn.spin = function (opts) {
-	        this.each(function () {
-	            var $this = $(this),
-                    spinner = $this.data('spinner');
-	            if (spinner) spinner.stop();
-	            if (opts !== false) {
-	                opts = $.extend({ color: $this.css('color') }, opts);
-	                spinner = new Spinner(opts).spin(this);
-	                $this.data('spinner', spinner);
+	                    $('#QuestionModal').on('shown.bs.modal', function () {
+	                        $('#<%=hdnUsername.ClientID%>').val(response.d.Username)
+		                    $('#<%=lblQuestion.ClientID%>').text(response.d.Question);
+		                });
+                    }
+	            },
+	            failure: function (response) {
+	                $('#<%=lblMessage.ClientID%>').text(response.d);
 	            }
 	        });
-	        return this;
-	    };
+            }
 
-	    $(document).one('ajaxloadstart.page', function (e) {
-	        $.gritter.removeAll();
-	        $('.modal').modal('hide');
-	    });
+            function ProceedBtnFunction(event) {
+                spinnerInit();
+
+                event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '<%= ResolveUrl("Login.aspx/ResetPassword") %>',
+                    data: '{username: "' + $('#<%=hdnUsername.ClientID%>').val() + '",answer: "' + $("#answer").val() + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        $('#spin').data('spinner').stop();
+                        $("#spin").hide();
+
+                        var res = JSON.parse(response.d);
+
+                        $.gritter.add({
+                            title: res.status,
+                            text: res.result,
+                            class_name: (res.status == 'Fail' ? 'gritter-error' : 'gritter-info') + ' gritter-light',
+                            after_close: function () {
+                                if (res.status == 'Success') {
+                                    location.reload();
+                                }
+                            }
+                        });
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
+            }
+
+            function CustomValidationFunction(sender, args) {
+                var control = document.getElementById(sender.controltovalidate);
+
+                if (args.Value == "") {
+                    args.isValid = false;
+                    $(control).closest(".form-group").addClass("has-error");
+
+                    return;
+                }
+                else {
+
+                    if (sender.controltovalidate == "tbEmail") {
+                        //RegularExpressionValidator
+                        var exp = new RegExp(control.Validators[1].validationexpression);
+
+                        if (exp.test(args.Value)) {
+                            args.isValid = true;
+                            $(control).closest(".form-group").removeClass("has-error");
+
+                            return;
+                        }
+                        else {
+                            args.isValid = false;
+                            $(control).closest(".form-group").addClass("has-error");
+
+                            return;
+                        }
+                    }
+                    else {
+                        args.isValid = true;
+                        $(control).closest(".form-group").removeClass("has-error");
+
+                        return;
+                    }
+                }
+            }
+
+            function spinnerInit() {
+                var opts = {
+                    lines: 12, // The number of lines to draw
+                    length: 7, // The length of each line
+                    width: 4, // The line thickness
+                    radius: 10, // The radius of the inner circle
+                    corners: 1, // Corner roundness (0..1)
+                    rotate: 0, // The rotation offset
+                    color: '#000', // #rgb or #rrggbb
+                    speed: 1, // Rounds per second
+                    trail: 66, // Afterglow percentage
+                    shadow: false, // Whether to render a shadow
+                    hwaccel: false, // Whether to use hardware acceleration
+                };
+
+                $("#spin").show().spin(opts);
+            }
+
+            $.fn.spin = function (opts) {
+                this.each(function () {
+                    var $this = $(this),
+                        spinner = $this.data('spinner');
+                    if (spinner) spinner.stop();
+                    if (opts !== false) {
+                        opts = $.extend({ color: $this.css('color') }, opts);
+                        spinner = new Spinner(opts).spin(this);
+                        $this.data('spinner', spinner);
+                    }
+                });
+                return this;
+            };
+
+            $(document).one('ajaxloadstart.page', function (e) {
+                $.gritter.removeAll();
+                $('.modal').modal('hide');
+            });
 
 	</script>
 

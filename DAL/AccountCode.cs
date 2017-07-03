@@ -17,6 +17,7 @@ namespace DAL
         public AccountCode()
         {
             this.UserMengurusWorkflows = new HashSet<UserMengurusWorkflow>();
+            this.BudgetMengurus = new HashSet<BudgetMenguru>();
         }
     
         public string AccountCode1 { get; set; }
@@ -31,5 +32,6 @@ namespace DAL
         public string Pengiraan { get; set; }
     
         public virtual ICollection<UserMengurusWorkflow> UserMengurusWorkflows { get; set; }
+        public virtual ICollection<BudgetMenguru> BudgetMengurus { get; set; }
     }
 }

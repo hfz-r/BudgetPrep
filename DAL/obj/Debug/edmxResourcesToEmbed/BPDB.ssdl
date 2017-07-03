@@ -28,6 +28,21 @@
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
   </EntityType>
+  <EntityType Name="BudgetMengurus">
+    <Key>
+      <PropertyRef Name="BudgetMengurusID" />
+    </Key>
+    <Property Name="BudgetMengurusID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PeriodMengurusID" Type="int4" Nullable="false" />
+    <Property Name="AccountCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Amount" Type="numeric" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="Remarks" Type="bpchar" MaxLength="500" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
   <EntityType Name="FieldMengurus">
     <Key>
       <PropertyRef Name="FieldMengurusID" />
@@ -62,6 +77,18 @@
     <Property Name="GroupPerjawatanDesc" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ParentGroupPerjawatanID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
+  <EntityType Name="JuncBgtMengurusSegDtl">
+    <Key>
+      <PropertyRef Name="JuncBgtMengurusSegDtlID" />
+    </Key>
+    <Property Name="JuncBgtMengurusSegDtlID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BudgetMengurusID" Type="int4" Nullable="false" />
+    <Property Name="SegmentDetailID" Type="int4" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -128,8 +155,8 @@
     <Property Name="UserIC" Type="varchar" MaxLength="8000" />
     <Property Name="Department" Type="varchar" MaxLength="30" />
     <Property Name="UserPhoneNo" Type="varchar" MaxLength="8000" />
-    <Property Name="SecQuestion" Type="bpchar" MaxLength="250" />
-    <Property Name="SecAnswer" Type="bpchar" MaxLength="250" />
+    <Property Name="SecQuestion" Type="varchar" MaxLength="250" />
+    <Property Name="SecAnswer" Type="varchar" MaxLength="250" />
     <Property Name="UserStatus" Type="bpchar" MaxLength="1" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
@@ -140,13 +167,13 @@
     <Property Name="Comment" Type="varchar" MaxLength="250" />
     <Property Name="Website" Type="varchar" MaxLength="50" />
     <Property Name="Image" Type="bytea" />
-    <Property Name="Title" Type="bpchar" MaxLength="15" />
-    <Property Name="PositionGrade" Type="bpchar" MaxLength="100" />
-    <Property Name="Fax" Type="bpchar" MaxLength="50" />
-    <Property Name="Designation" Type="bpchar" MaxLength="50" />
-    <Property Name="PeriodOfService" Type="bpchar" MaxLength="50" />
-    <Property Name="OfficeAddress" Type="bpchar" MaxLength="250" />
-    <Property Name="Language" Type="bpchar" MaxLength="50" />
+    <Property Name="Title" Type="varchar" MaxLength="15" />
+    <Property Name="PositionGrade" Type="varchar" MaxLength="100" />
+    <Property Name="Fax" Type="varchar" MaxLength="50" />
+    <Property Name="Designation" Type="varchar" MaxLength="50" />
+    <Property Name="PeriodOfService" Type="varchar" MaxLength="10" />
+    <Property Name="OfficeAddress" Type="varchar" MaxLength="250" />
+    <Property Name="Language" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="PeriodMengurus">
     <Key>
@@ -230,6 +257,19 @@
     <Property Name="SegmentDetailID" Type="int4" />
     <Property Name="Status" Type="bpchar" MaxLength="1" />
   </EntityType>
+  <EntityType Name="YearEnd">
+    <Key>
+      <PropertyRef Name="YearEndID" />
+    </Key>
+    <Property Name="YearEndID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BudgetType" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="BudgetYear" Type="int4" Nullable="false" />
+    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="CreatedBy" Type="int4" />
+    <Property Name="CreatedTimeStamp" Type="timestamp" />
+    <Property Name="ModifiedBy" Type="int4" />
+    <Property Name="ModifiedTimeStamp" Type="timestamp" />
+  </EntityType>
   <EntityType Name="YearUploadSetup">
     <Key>
       <PropertyRef Name="BudgetYearID" />
@@ -243,6 +283,54 @@
     <Property Name="ModifiedBy" Type="int4" />
     <Property Name="ModifiedTimeStamp" Type="timestamp" />
   </EntityType>
+  <Association Name="BudgetMengurus_AccountCode">
+    <End Role="AccountCode" Type="Self.AccountCode" Multiplicity="1" />
+    <End Role="BudgetMengurus" Type="Self.BudgetMengurus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AccountCode">
+        <PropertyRef Name="AccountCode" />
+      </Principal>
+      <Dependent Role="BudgetMengurus">
+        <PropertyRef Name="AccountCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BudgetMengurus_PeriodMengurus">
+    <End Role="PeriodMengurus" Type="Self.PeriodMengurus" Multiplicity="1" />
+    <End Role="BudgetMengurus" Type="Self.BudgetMengurus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodMengurus">
+        <PropertyRef Name="PeriodMengurusID" />
+      </Principal>
+      <Dependent Role="BudgetMengurus">
+        <PropertyRef Name="PeriodMengurusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JuncBgtMengurusSegDtl_BudgetMengurus">
+    <End Role="BudgetMengurus" Type="Self.BudgetMengurus" Multiplicity="1" />
+    <End Role="JuncBgtMengurusSegDtl" Type="Self.JuncBgtMengurusSegDtl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BudgetMengurus">
+        <PropertyRef Name="BudgetMengurusID" />
+      </Principal>
+      <Dependent Role="JuncBgtMengurusSegDtl">
+        <PropertyRef Name="BudgetMengurusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JuncBgtMengurusSegDtl_SegmentDetail">
+    <End Role="SegmentDetail" Type="Self.SegmentDetail" Multiplicity="1" />
+    <End Role="JuncBgtMengurusSegDtl" Type="Self.JuncBgtMengurusSegDtl" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SegmentDetail">
+        <PropertyRef Name="SegmentDetailID" />
+      </Principal>
+      <Dependent Role="JuncBgtMengurusSegDtl">
+        <PropertyRef Name="SegmentDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="JuncRolePage_Page">
     <End Role="MasterPage" Type="Self.MasterPage" Multiplicity="0..1" />
     <End Role="JuncRolePage" Type="Self.JuncRolePage" Multiplicity="*" />
@@ -414,9 +502,11 @@
   <EntityContainer Name="BPModelStoreContainer">
     <EntitySet Name="AccountCode" EntityType="Self.AccountCode" Schema="public" store:Type="Tables" />
     <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
+    <EntitySet Name="BudgetMengurus" EntityType="Self.BudgetMengurus" Schema="public" store:Type="Tables" />
     <EntitySet Name="FieldMengurus" EntityType="Self.FieldMengurus" Schema="public" store:Type="Tables" />
     <EntitySet Name="FieldPerjawatan" EntityType="Self.FieldPerjawatan" Schema="public" store:Type="Tables" />
     <EntitySet Name="GroupPerjawatan" EntityType="Self.GroupPerjawatan" Schema="public" store:Type="Tables" />
+    <EntitySet Name="JuncBgtMengurusSegDtl" EntityType="Self.JuncBgtMengurusSegDtl" Schema="public" store:Type="Tables" />
     <EntitySet Name="JuncRolePage" EntityType="Self.JuncRolePage" Schema="public" store:Type="Tables" />
     <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
     <EntitySet Name="MasterMenu" EntityType="Self.MasterMenu" Schema="public" store:Type="Tables" />
@@ -430,7 +520,24 @@
     <EntitySet Name="UserMengurusWorkflow" EntityType="Self.UserMengurusWorkflow" Schema="public" store:Type="Tables" />
     <EntitySet Name="UserPerjawatanWorkflow" EntityType="Self.UserPerjawatanWorkflow" Schema="public" store:Type="Tables" />
     <EntitySet Name="UserSegDtlWorkflow" EntityType="Self.UserSegDtlWorkflow" Schema="public" store:Type="Tables" />
+    <EntitySet Name="YearEnd" EntityType="Self.YearEnd" Schema="public" store:Type="Tables" />
     <EntitySet Name="YearUploadSetup" EntityType="Self.YearUploadSetup" Schema="public" store:Type="Tables" />
+    <AssociationSet Name="BudgetMengurus_AccountCode" Association="Self.BudgetMengurus_AccountCode">
+      <End Role="AccountCode" EntitySet="AccountCode" />
+      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="BudgetMengurus_PeriodMengurus" Association="Self.BudgetMengurus_PeriodMengurus">
+      <End Role="PeriodMengurus" EntitySet="PeriodMengurus" />
+      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="JuncBgtMengurusSegDtl_BudgetMengurus" Association="Self.JuncBgtMengurusSegDtl_BudgetMengurus">
+      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
+      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtl" />
+    </AssociationSet>
+    <AssociationSet Name="JuncBgtMengurusSegDtl_SegmentDetail" Association="Self.JuncBgtMengurusSegDtl_SegmentDetail">
+      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
+      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtl" />
+    </AssociationSet>
     <AssociationSet Name="JuncRolePage_Page" Association="Self.JuncRolePage_Page">
       <End Role="MasterPage" EntitySet="MasterPage" />
       <End Role="JuncRolePage" EntitySet="JuncRolePage" />

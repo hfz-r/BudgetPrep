@@ -265,17 +265,18 @@ namespace BP.Setup
         private void CustomizeButtonWorkflow(List<string> lstAccountCode, List<string> lstServiceCode, List<int> lstSegDtls)
         {
             var WorkflowBtn = (HtmlButton)btnWorkflow.FindControl("btnWorkflow");
-            var WorkflowDDBtn = (HtmlButton)btnWFdropdown.FindControl("btnWFdropdown");
 
             if (lstAccountCode.Count() > 0 || lstServiceCode.Count() > 0 || lstSegDtls.Count() > 0)
             {
-                WorkflowBtn.Attributes["class"] = "btn";
-                WorkflowDDBtn.Attributes["class"] = "btn dropdown-toggle"; 
+                WorkflowBtn.InnerHtml = "<span class=\"ace-icon fa fa-unlock bigger-110 tooltip-info\" " +
+                                        "data-rel=\"tooltip\" data-placement=\"bottom\" title=\"Workflow`s configured.\">&nbsp;Workflow</span>";
+                WorkflowBtn.Attributes["class"] = "btn btn-info";
             }
             else
             {
+                WorkflowBtn.InnerHtml = "<span class=\"ace-icon fa fa-lock bigger-110 tooltip-error\" " +
+                                        "data-rel=\"tooltip\" data-placement=\"bottom\" title=\"Workflow`s NOT configured.\">&nbsp;Workflow</span>";
                 WorkflowBtn.Attributes["class"] = "btn btn-danger";
-                WorkflowDDBtn.Attributes["class"] = "btn btn-danger dropdown-toggle"; 
             }
         }
 

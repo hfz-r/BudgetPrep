@@ -263,5 +263,48 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BudgetMengurus">
+      <EntityTypeMapping TypeName="BPModel.BudgetMenguru">
+        <MappingFragment StoreEntitySet="BudgetMengurus">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+          <ScalarProperty Name="PeriodMengurusID" ColumnName="PeriodMengurusID" />
+          <ScalarProperty Name="BudgetMengurusID" ColumnName="BudgetMengurusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JuncBgtMengurusSegDtls">
+      <EntityTypeMapping TypeName="BPModel.JuncBgtMengurusSegDtl">
+        <MappingFragment StoreEntitySet="JuncBgtMengurusSegDtl">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="SegmentDetailID" ColumnName="SegmentDetailID" />
+          <ScalarProperty Name="BudgetMengurusID" ColumnName="BudgetMengurusID" />
+          <ScalarProperty Name="JuncBgtMengurusSegDtlID" ColumnName="JuncBgtMengurusSegDtlID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YearEnds">
+      <EntityTypeMapping TypeName="BPModel.YearEnd">
+        <MappingFragment StoreEntitySet="YearEnd">
+          <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="BudgetYear" ColumnName="BudgetYear" />
+          <ScalarProperty Name="BudgetType" ColumnName="BudgetType" />
+          <ScalarProperty Name="YearEndID" ColumnName="YearEndID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

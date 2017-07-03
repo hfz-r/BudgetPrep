@@ -32,7 +32,7 @@ namespace DAL
                 db.SaveChanges();
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 //throw ex;
             }
@@ -49,7 +49,7 @@ namespace DAL
                 db.BPEventLogs.Add(objEventLog);
                 return true;
             }
-            catch (Exception ex)
+            catch 
             {
                 //throw ex;
             }

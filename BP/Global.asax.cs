@@ -28,7 +28,13 @@ namespace BP
         void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
-
+//            try
+//            { 
+//            }
+//            catch (System.Security.Cryptography.CryptographicException)
+//            {
+//                FormsAuthentication.SignOut();
+//            }
         }
     }
 }

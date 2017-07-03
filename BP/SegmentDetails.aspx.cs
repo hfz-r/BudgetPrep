@@ -80,13 +80,9 @@ namespace BP
                     {
                         if (!GetData.Where(y => y.BudgetYear == curryear.BudgetYear).Select(z => z.Status.Contains("A")).FirstOrDefault())
                         {
-                            //btnFileUpload.HRef = "#";
+                            btnFileUpload.HRef = "#";
                         }
                     }
-                }
-                else
-                {
-                    //btnFileUpload.HRef = "#";
                 }
 
                 Session["SegmentDetailsData"] = data;
@@ -309,9 +305,9 @@ namespace BP
                     if (rowItem.ChildCount > 0)
                     {
                         if (SelectedNodes.Contains(rowItem.SegmentDetailID))
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:red;\" class=\"fa fa-minus pull-right\"></i></label> ";
+                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-minus-square pull-right\"></i></label> ";
                         else
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i style=\"color:red;\" class=\"fa fa-plus pull-right\"></i></label> ";
+                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-plus-square pull-right\"></i></label> ";
                     }
                     else
                         strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i></i></label> ";
@@ -537,7 +533,7 @@ namespace BP
                 " > " + "Segment Details - New";
             string title_edit_edit = "<a href=\"javascript: history.go(-1);\" class=\"red\" style=\"text-decoration:none\">[" + obj.SegmentName + "]</a>" +
                 " > " + "Segment Details - Edit";
-            string title_list = "<a href=\"javascript: history.go(-1);\" class=\"red\" style=\"text-decoration:none\">[" + obj.SegmentName + "]</a>" +
+            string title_list = "<a href=\"javascript: history.go(-1);\" class=\"red\" title=\"**Format: "+ obj.ShapeFormat + " **\" style=\"text-decoration:none\">[" + obj.SegmentName + "]</a>" +
                 " > " + "Segment Details - List";
 
             switch (pagemode)
