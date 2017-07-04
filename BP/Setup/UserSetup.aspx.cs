@@ -161,12 +161,14 @@ namespace BP.Setup
 
                 List<int> ParSegDtls = new SegmentDetailsDAL().GetSegmentDetails().ToList().Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
                 gvSegmentDetails.DataSource = new SegmentDetailsDAL().GetSegmentDetails().Where(x => x.Segment.Status == "A" && x.Status == "A" && !ParSegDtls.Contains(x.SegmentDetailID))
-                    .OrderBy(x => x.Segment.SegmentOrder).ThenBy(x => x.DetailCode)
+                    .OrderBy(x => x.Segment.SegmentOrder)
+                    .ThenBy(x => x.DetailCode)
                     .Select(x => new
                     {
                         x.SegmentDetailID,
                         x.Segment.SegmentName,
-                        x.DetailCode
+                        x.DetailCode,
+                        x.DetailDesc
                     }).ToList();
                 gvSegmentDetails.DataBind();
             }

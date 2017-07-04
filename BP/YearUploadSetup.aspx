@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Budget Year" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="YearUploadSetup.aspx.cs" Inherits="BP.YearUploadSetup" %>
+﻿<%@ Page Title="Year Upload" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="YearUploadSetup.aspx.cs" Inherits="BP.YearUploadSetup" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
@@ -10,14 +10,14 @@
 		    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
 	    </li>
         <li class=""><a href="#">Setup</a></li>
-        <li class="active">Budget Year</li>
+        <li class="active">Year Upload</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="PageHeaderContent" runat="server">
      <div class="page-header">
 		<h1>
-			Budget Year
+			Year Upload
 			<small>
 				<i class="ace-icon fa fa-angle-double-right"></i>
 				setup &amp; manage budget year
@@ -33,7 +33,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
 			<div class="widget-box" id="widget-box-edit">
 				<div class="widget-header">
-					<h5 id="widget_title" class="widget-title" runat="server">Budget Year - New</h5>
+					<h5 id="widget_title" class="widget-title" runat="server">Year Upload - New</h5>
 
 					<div class="widget-toolbar">
 						<a href="#" data-action="fullscreen" class="orange2">
@@ -122,7 +122,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
 			<div class="widget-box" id="widget-box-list">
 				<div class="widget-header">
-					<h5 class="widget-title">Budget Year - List</h5>
+					<h5 class="widget-title">Year Upload - List</h5>
 
 					<div class="widget-toolbar">
                         <div class="widget-menu">
@@ -133,7 +133,7 @@
 						    <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
 							    <li> 
                                     <asp:LinkButton ID="btnAdd" runat="server" CssClass="blue" OnClientClick="ShowForm();" OnClick="btnAdd_Click">
-                                        <i class="ace-icon fa fa-calendar"></i>&nbsp;&nbsp;Add Budget Year
+                                        <i class="ace-icon fa fa-calendar"></i>&nbsp;&nbsp;Add Year Upload
                                     </asp:LinkButton>
 							    </li>
 						    </ul>
@@ -166,7 +166,7 @@
                                 DataKeyNames="BudgetYearID" OnRowCommand="gvYearUploadSetup_RowCommand" OnRowDataBound="gvYearUploadSetup_RowDataBound"
                                 OnPreRender="gvYearUploadSetup_PreRender">
                                 <Columns>
-                                    <asp:BoundField DataField="BudgetYear" HeaderText="Budget Year" />
+                                    <asp:BoundField DataField="BudgetYear" HeaderText="Year Upload" />
                                     <asp:BoundField DataField="BudgetYearDesc" HeaderText="Description" />
                                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">

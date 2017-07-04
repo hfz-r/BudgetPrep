@@ -114,6 +114,11 @@ namespace BP
                 bool CanEdit = false;
 
                 List<int> LstSegmentDetailIDs = GetSegmentDetails().Select(x => x.SegmentDetailID).ToList();
+                if (LstSegmentDetailIDs.Count() == 0)
+                {
+                    throw new Exception("Plese select at least one Segment Details.");
+                }
+
                 List<BudgetMenguru> BudgetData = new BudgetMengurusDAL().GetBudgetMengurusWithTreeCalc(LstSegmentDetailIDs, ref CanEdit)
                     //List<BudgetMenguru> BudgetData = new BudgetMengurusDAL().GetBudgetMengurus(LstSegmentDetailIDs)
                     .Select(x => new BudgetMenguru
@@ -331,6 +336,8 @@ namespace BP
                     }
                 }
 
+                chkMedan.Checked = false;
+
                 for (int i = 0; i < gvPeriod.Rows.Count; i++)
                 {
                     string stryear = gvPeriod.Rows[i].Cells[1].Text;
@@ -351,30 +358,50 @@ namespace BP
             }
         }
 
+        protected void btnSelectedRowClear(object sender, EventArgs e)
+        {
+            //Get the button that raised the event
+            LinkButton btn = (LinkButton)sender;
+
+            //Get the row that contains this button
+            GridViewRow gvr = (GridViewRow)btn.NamingContainer;
+            
+            TreeView tv = (TreeView)gvr.Cells[0].FindControl("tvSegmentDDL");
+            TextBox tb = (TextBox)gvr.Cells[0].FindControl("tbSegmentDDL");
+            if (tb != null)
+            {
+                if (tv.SelectedNode != null)
+                    tv.SelectedNode.Selected = false;
+                tb.Text = string.Empty;
+            }
+        }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            //gvAccountCodes.Visible = true;
-            //btnPrint.Visible = true;
-            //btnSubmit.Visible = true;
-            //btnSearchbox.Visible = true;
-            ListForm.Visible = true;
-
-            //SetBudgetCanEditable();
-            GetPrefixAcountCode();
-            GetData();
-
-            bool IsBudgetEditable = Convert.ToBoolean(Session["CanEdit"]);
-            if (!IsBudgetEditable)
+            try
             {
-                chkKeterangan.Checked = false;
-                chkPengiraan.Checked = false;
+                ListForm.Visible = true;
+
+                GetPrefixAcountCode();
+                GetData();
+
+                bool IsBudgetEditable = Convert.ToBoolean(Session["CanEdit"]);
+                if (!IsBudgetEditable)
+                {
+                    chkKeterangan.Checked = false;
+                    chkPengiraan.Checked = false;
+                }
+
+                CreateTreeData();
+                BuildGrid();
+                BindGrid();
+
+                EditForm.Visible = false;
             }
-
-            CreateTreeData();
-            BuildGrid();
-            BindGrid();
-
-            EditForm.Visible = false;
+            catch (Exception ex)
+            {
+                ((SiteMaster)this.Master).ShowMessage("Error", "An error occurred", ex, true);
+            }
         }
 
         protected void btnSearchbox_Click(object sender, EventArgs e)
@@ -985,17 +1012,26 @@ namespace BP
                 ((TextBox)((GridViewRow)((TreeView)sender).NamingContainer).FindControl("tbSegmentDDL")).Text = ((TreeView)sender).SelectedNode.Text;
 
                 bool CanEdit = true;
-                foreach (GridViewRow gvr in gvSegmentDLLs.Rows)
+                for (int i = 0; i < gvSegmentDLLs.Rows.Count; i++)
                 {
-                    TreeView tv = (TreeView)gvr.Cells[0].FindControl("tvSegmentDDL");
+                    TreeView tv = (TreeView)gvSegmentDLLs.Rows[i].Cells[0].FindControl("tvSegmentDDL");
 
-                    CanEdit = (tv != null && tv.SelectedNode != null && tv.SelectedNode.ChildNodes.Count == 0 && CanEdit);
+                    if (tv != null && tv.SelectedNode != null)
+                    { 
+                        if ((tv.SelectedNode.ChildNodes.Count == 0) == false)
+                        {
+                            CanEdit = false;
+                            break;
+                        }
+                    }
                 }
 
                 chkKeterangan.Checked = (CanEdit) ? chkKeterangan.Checked : false;
                 chkPengiraan.Checked = (CanEdit) ? chkPengiraan.Checked : false;
                 chkKeterangan.Enabled = CanEdit;
                 chkPengiraan.Enabled = CanEdit;
+
+                listBtnActionPnl.Visible = CanEdit;
                 btnSubmit.Visible = CanEdit;
                 btnReload.Visible = CanEdit;
 

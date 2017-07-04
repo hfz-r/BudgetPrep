@@ -91,9 +91,9 @@ namespace BP.Classes
             string conStr = "";
             switch (Extension)
             {
-                case ".xls": conStr = ConfigurationManager.ConnectionStrings["ExcelConString1"].ConnectionString; //Excel 97-03
+                case ".xls": conStr = ConfigurationManager.ConnectionStrings["ExcelConStringXLS"].ConnectionString; //Excel 97-03
                     break;
-                case ".xlsx": conStr = ConfigurationManager.ConnectionStrings["ExcelConString2"].ConnectionString; //Excel 07
+                case ".xlsx": conStr = ConfigurationManager.ConnectionStrings["ExcelConStringXLSX"].ConnectionString; //Excel 07
                     break;
                 case ".csv": conStr = ConfigurationManager.ConnectionStrings["CSVConString"].ConnectionString;  //.CSV
                     break;
@@ -115,7 +115,7 @@ namespace BP.Classes
             cmdExcel.Connection = connExcel;
 
             connExcel.Open();
-            
+
             DataSet ds = new DataSet();
             if (!string.IsNullOrEmpty(FilePath))
             {
@@ -131,6 +131,8 @@ namespace BP.Classes
             }
 
             connExcel.Close();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
             return ds;
         }
