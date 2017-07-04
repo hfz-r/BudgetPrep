@@ -555,7 +555,8 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:BoundField DataField="SegmentName" HeaderText="Segment" />
-                                                    <asp:BoundField DataField="DetailCode" HeaderText="Segment Detail" />
+                                                    <asp:BoundField DataField="DetailCode" HeaderText="S.Details Code" />
+                                                    <asp:BoundField DataField="DetailDesc" HeaderText="S.Details Description" />
                                                 </Columns>
                                             </asp:GridView>
                                         </div>

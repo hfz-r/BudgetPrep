@@ -35,7 +35,7 @@ namespace BP
                 {
                     if (new YearUploadDAL().GetYearUpload().Where(x => x.BudgetYear == Convert.ToInt32(ddlYear.SelectedValue)).Count() > 0)
                     {
-                        ((SiteMaster)this.Master).ShowMessage("Failure", "Budget Year already exists");
+                        ((SiteMaster)this.Master).ShowMessage("Failure", "Year Upload already exists");
                         return;
                     }
 
@@ -49,9 +49,9 @@ namespace BP
                     objYearUpload.ModifiedTimeStamp = DateTime.Now;
 
                     if (new YearUploadDAL().InsertYearUpload(objYearUpload))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget Year saved successfully");
+                        ((SiteMaster)this.Master).ShowMessage("Success", "Year Upload saved successfully");
                     else
-                        ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while processing Budget Year");
+                        ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while processing Year Upload");
                 }
                 else if ((Helper.PageMode)Session["YearUploadPageMode"] == Helper.PageMode.Edit)
                 {
@@ -64,7 +64,7 @@ namespace BP
                     {
                         if (pm.BudgetYearID != objYearUpload.BudgetYearID)
                         {
-                            ((SiteMaster)this.Master).ShowMessage("Failure", "Budget Year already exists");
+                            ((SiteMaster)this.Master).ShowMessage("Failure", "Year Upload already exists");
                             return;
                         }
                     }
@@ -76,9 +76,9 @@ namespace BP
                     objYearUpload.ModifiedTimeStamp = DateTime.Now;
 
                     if (new YearUploadDAL().UpdateYearUpload(objYearUpload))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget Year updated successfully");
+                        ((SiteMaster)this.Master).ShowMessage("Success", "Year Upload updated successfully");
                     else
-                        ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Budget Year");
+                        ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Year Upload");
                 }
 
                 GetData();
@@ -191,11 +191,11 @@ namespace BP
                 case Helper.PageMode.New:
                     ddlYear.Enabled = true;
                     tbDesc.Text = String.Empty;
-                    widget_title.InnerText = "Budget Year - New";
+                    widget_title.InnerText = "Year Upload - New";
                     break;
                 case Helper.PageMode.Edit:
                     ddlYear.Enabled = false;
-                    widget_title.InnerText = "Budget Year - Edit";
+                    widget_title.InnerText = "Year Upload - Edit";
                     break;
             }
             Session["YearUploadPageMode"] = pagemode;

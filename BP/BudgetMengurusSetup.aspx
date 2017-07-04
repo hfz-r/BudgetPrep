@@ -41,6 +41,14 @@
             padding: 0 10px;
             border-bottom: none;
         }
+
+        .clear-button {
+            position: absolute;
+            margin-left: -100px;
+            left: 50%;
+            width: 200px;
+            bottom: 5px;
+        }
     </style>
 
 </asp:Content>
@@ -75,33 +83,16 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
             <div class="widget-box widget-color-dark" id="widget-box-edit">
                 <div class="widget-header widget-header-small">
-                    <h6 id="widget_title" class="widget-title" runat="server">
-                        <i class="ace-icon fa fa-search"></i>
-                        Budget Mengurus - Search
+                    <h6 id="widget_title" class="widget-title" runat="server"><i class="ace-icon fa fa-search"></i>Budget Mengurus - Search
                     </h6>
-
                     <div class="widget-toolbar">
-                        <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen">
-                            <i class="ace-icon fa fa-expand"></i>
-                        </a>
-
-                        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload">
-                            <i class="ace-icon fa fa-refresh"></i>
-                        </a>
-
-                        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse">
-                            <i class="ace-icon fa fa-chevron-up"></i>
-                        </a>
-
-                        <a href="#" data-action="close" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Close">
-                            <i class="ace-icon fa fa-times"></i>
-                        </a>
+                        <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen"><i class="ace-icon fa fa-expand"></i></a>
+                        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload"><i class="ace-icon fa fa-refresh"></i></a>
+                        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse"><i class="ace-icon fa fa-chevron-up"></i></a>
                     </div>
                 </div>
-
                 <div class="widget-body">
                     <div class="widget-main padding-24">
-
                         <div id="edit-form" class="form-horizontal" role="form">
                             <script type="text/javascript">
 
@@ -114,14 +105,12 @@
                             </script>
 
                             <div class="row">
-
                                 <div class="col-sm-6" style="overflow: auto; min-height: 300px; max-height: 300px;">
                                     <div class="row">
                                         <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
                                             <b>Segments</b>
                                         </div>
                                     </div>
-
                                     <div class="col-xs-11">
                                         <asp:GridView ID="gvSegmentDLLs" runat="server" AutoGenerateColumns="false" AllowSorting="true" ShowHeader="false"
                                             CssClass="table table-bordered table-striped table-hover" DataKeyNames="SegmentID" OnRowDataBound="gvSegmentDLLs_RowDataBound">
@@ -134,30 +123,41 @@
                                                             ID="tbSegmentDDL" 
                                                             runat="server" 
                                                             CssClass="form-control" 
-                                                            placeholder="Please Select" />
-                                                        <asp:RequiredFieldValidator 
-                                                            ID="RequiredFieldValidator1" 
-                                                            runat="server" 
-                                                            ControlToValidate="tbSegmentDDL" 
+                                                            placeholder="Please Select" 
+                                                            onKeyDown="PreventBackspace(event);" />
+                                                        <asp:CustomValidator 
+                                                            ID="CustomValidator1" 
+                                                            runat="server"
                                                             Display="Dynamic"
                                                             CssClass="help-block"
-                                                            ForeColor="Red" 
+                                                            ForeColor="Red"
                                                             ErrorMessage="Segment is required." 
-                                                            ValidationGroup="SearchValidation" />
+                                                            ControlToValidate="tbSegmentDDL"
+                                                            ValidateEmptyText="True"
+                                                            SetFocusOnError="True"
+                                                            ValidationGroup="SearchValidation"
+                                                            ClientValidationFunction="ValidateSegment" />
                                                         <ajaxToolkit:DropDownExtender ID="DropDownExtender1" runat="server" TargetControlID="tbSegmentDDL"
-                                                            DropDownControlID="pnlSegmentDDL"></ajaxToolkit:DropDownExtender>
+                                                            DropDownControlID="pnlSegmentDDL">
+                                                        </ajaxToolkit:DropDownExtender>
                                                         <asp:Panel ID="pnlSegmentDDL" runat="server" OnClientClick="cancelClick(event)"
                                                             BackColor="#e8e8e8" CssClass="DDlPanel" Width="50%" Height="200px" ScrollBars="Auto">
                                                             <asp:TreeView ID="tvSegmentDDL" runat="server" BackColor="#e8e8e8" OnClientClick="cancelClick(event)"
                                                                 OnSelectedNodeChanged="tvSegmentDDL_SelectedNodeChanged">
                                                             </asp:TreeView>
+                                                            <!-- button clear for individual- start -->
+                                                            <asp:LinkButton runat="server" CssClass="btn btn-minier btn-yellow clear-button" OnClick="btnSelectedRowClear">
+                                                                Clear Textbox
+                                                            </asp:LinkButton>
+                                                            <!-- button clear for individual - end -->
                                                         </asp:Panel>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>
                                         </asp:GridView>
                                     </div>
-                                </div><!-- /.col -->
+                                </div>
+                                <!-- /.col -->
 
                                 <div class="col-sm-6" style="overflow: auto; max-height: 300px;">
                                     <div class="row">
@@ -165,20 +165,22 @@
                                             <b>Period</b>
                                         </div>
                                     </div>
-
                                     <div class="col-xs-11">
                                         <table class="table table-bordered table-striped">
                                             <tr style="display: none;">
                                                 <td style="text-align: center;">
-                                                    <asp:CheckBox ID="chkKeterangan" runat="server" /></td>
+                                                    <asp:CheckBox ID="chkKeterangan" runat="server" />
+                                                </td>
                                                 <td>Keterangan</td>
                                                 <td style="text-align: center;">
-                                                    <asp:CheckBox ID="chkPengiraan" runat="server" /></td>
+                                                    <asp:CheckBox ID="chkPengiraan" runat="server" />
+                                                </td>
                                                 <td>Pengiraan</td>
                                             </tr>
                                             <tr>
                                                 <td style="width: 70px; text-align: center;">
-                                                    <asp:CheckBox ID="chkMedan" runat="server" AutoPostBack="true" OnCheckedChanged="chkMedan_CheckedChanged" /></td>
+                                                    <asp:CheckBox ID="chkMedan" runat="server" AutoPostBack="true" OnCheckedChanged="chkMedan_CheckedChanged" />
+                                                </td>
                                                 <td colspan="3">Medan</td>
                                             </tr>
                                         </table>
@@ -188,7 +190,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Value" HeaderStyle-Width="70px" ItemStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                                                     <ItemTemplate>
-                                                        <asp:CheckBox ID="cbPeriodSelect" runat="server"></asp:CheckBox>
+                                                        <asp:CheckBox ID="cbPeriodSelect" runat="server">
+                                                        </asp:CheckBox>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField DataField="MengurusYear" HeaderText="Mengurus Year" />
@@ -196,25 +199,22 @@
                                             </Columns>
                                         </asp:GridView>
                                     </div>
-                                </div><!-- /.col -->
+                                </div>
+                                <!-- /.col -->
 
                             </div>
-
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-9 col-md-9">
-                                    <asp:LinkButton ID="btnSearch" runat="server" CssClass="btn btn-info" ValidationGroup="SearchValidation" OnClick="btnSearch_Click">
+                                    <asp:LinkButton ID="btnSearch" runat="server" CssClass="btn btn-info" ValidationGroup="SearchValidation" OnClick=" btnSearch_Click">
                                         <i class="ace-icon fa fa-check bigger-110"></i>
                                         Search
                                     </asp:LinkButton>
-
-                                    <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn" OnClientClick="return Reset();" OnClick="btnCancel_Click">
-                                        <i class="ace-icon fa fa-undo bigger-110"></i>Reset
+                                    <asp:LinkButton ID="btnCancel" runat="server" CssClass="btn" OnClick="btnCancel_Click">
+                                        <i class="ace-icon fa fa-undo bigger-110"></i>Reset All
                                     </asp:LinkButton>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -227,54 +227,30 @@
             <div class="widget-box widget-color-dark" id="widget-box-list">
                 <div class="widget-header widget-header-small">
                     <h6 class="widget-title">Budget Mengurus - List</h6>
-
                     <div class="widget-toolbar">
                         <div class="widget-menu">
-                            <a href="#" data-action="settings" data-toggle="dropdown" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Settings">
-                                <i class="ace-icon fa fa-cogs"></i>
-                            </a>
-
+                            <a href="#" data-action="settings" data-toggle="dropdown" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Settings"><i class="ace-icon fa fa-cogs"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
-                                <li>
-                                    <a href="#LegendExample" id="btnLegend" runat="server" role="button" class="red" data-toggle="collapse" data-rel="tooltip" 
-                                        data-placement="top" title="Legend">
-                                        <i class="ace-icon fa fa-list bigger-110"></i>
-                                        Legend
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#upload-form" id="btnFileUpload" runat="server" role="button" class="blue" data-toggle="modal" data-rel="tooltip" 
-                                        data-placement="top" title="Upload your .CSV file format here.">
-                                        <i class="ace-icon fa fa-cloud-upload bigger-110"></i>
-                                        Upload
-                                    </a>
-                                </li>
+                                <li><a href="#LegendExample" id="btnLegend" runat="server" role="button" class="red" data-toggle="collapse" data-rel="tooltip" 
+                                        data-placement="top" title="Legend"><i class="ace-icon fa fa-list bigger-110"></i>Legend
+                                    </a></li>
+                                <li><a href="#upload-form" id="btnFileUpload" runat="server" role="button" class="blue" data-toggle="modal" data-rel="tooltip" 
+                                        data-placement="top" title="Upload your .CSV file format here."><i class="ace-icon fa fa-cloud-upload bigger-110"></i>Upload
+                                    </a></li>
                             </ul>
                         </div>
-
-                        <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen">
-                            <i class="ace-icon fa fa-expand"></i>
-                        </a>
-
-                        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload">
-                            <i class="ace-icon fa fa-refresh"></i>
-                        </a>
-
-                        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse">
-                            <i class="ace-icon fa fa-chevron-up"></i>
-                        </a>
+                        <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen"><i class="ace-icon fa fa-expand"></i></a>
+                        <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload"><i class="ace-icon fa fa-refresh"></i></a>
+                        <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse"><i class="ace-icon fa fa-chevron-up"></i></a>
+                        <a href="#" data-action="close" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Close"><i class="ace-icon fa fa-times"></i></a>
                     </div>
-
                     <div class="widget-toolbar">
                         <button id="btnSearchbox" runat="server" class="badge badge-grey" onserverclick="btnSearchbox_Click">
-                           <i class="icon-only ace-icon fa fa-list txt-primary bigger-110"></i>
-                            Filter
+                            <i class="icon-only ace-icon fa fa-list txt-primary bigger-110"></i>Filter
                         </button>
                     </div>
                 </div>
-
                 <div class="widget-body">
-
                     <div class="form-horizontal" role="form">
 
                         <!-- LegendExample - start -->
@@ -283,12 +259,18 @@
                                 <fieldset class="scheduler-border">
                                     <legend class="scheduler-border">Legend</legend>
                                     <div class="row">
-                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #999999;">Saved</div>
-                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ffff00;">Prepared</div>
-                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #00ffff;">Reviewed</div>
-                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #00ff00;">Approved</div>
-                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ff00ff;">Reviewer Rejected</div>
-                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ff0000;">Approver Rejected</div>
+                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #999999;">
+                                            Saved</div>
+                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ffff00;">
+                                            Prepared</div>
+                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #00ffff;">
+                                            Reviewed</div>
+                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #00ff00;">
+                                            Approved</div>
+                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ff00ff;">
+                                            Reviewer Rejected</div>
+                                        <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ff0000;">
+                                            Approver Rejected</div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -297,9 +279,9 @@
 
                         <div class="widget-main padding-16">
                             <div class="clearfix">
-                                <div class="pull-right tableTools-container"></div>
+                                <div class="pull-right tableTools-container">
+                                </div>
                             </div>
-
                             <asp:GridView ID="gvAccountCodes" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped table-hover"
                                 DataKeyNames="AccountCode" Visible="true" ShowFooter="true" OnRowCommand="gvAccountCodes_RowCommand"
                                 OnRowDataBound="gvAccountCodes_RowDataBound" OnRowCreated="gvAccountCodes_RowCreated" OnPreRender="gvAccountCodes_PreRender">
@@ -315,8 +297,7 @@
                                     </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
-
-                            <div class="clearfix form-actions" style="margin-top:20px;">
+                            <div id="listBtnActionPnl" runat="server" class="clearfix form-actions" style="margin-top:20px;">
                                 <div class="col-md-offset-9 col-md-9">
                                     <button id="btnSubmit" runat="server" class="btn btn-warning" type="button" data-toggle="modal" data-target="#BulkSubmitExample" />
                                     <button id="btnReload" runat="server" type="button" class="btn" onclick="return location.reload();">
@@ -336,14 +317,17 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Budget Mengurus - Bulk Submit</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Budget Mengurus - Bulk Submit</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-10 col-lg-push-1 col-sm-12">
                             <div class="col-md-12 col-lg-4">
-                                <label class="control-label">Decision</label>
+                                <label class="control-label">
+                                Decision</label>
                             </div>
                             <div class="col-md-12 col-lg-8">
                                 <asp:DropDownList ID="ddlBulkDecision" runat="server" CssClass="form-control">
@@ -354,7 +338,8 @@
                         </div>
                         <div class="col-lg-10 col-lg-push-1 col-sm-12">
                             <div class="col-md-12 col-lg-4">
-                                <label class="control-label">Remarks</label>
+                                <label class="control-label">
+                                Remarks</label>
                             </div>
                             <div class="col-md-12 col-lg-8">
                                 <asp:TextBox ID="tbBulkRemarks" runat="server" TextMode="MultiLine" Height="60px" Text="" CssClass="form-control"></asp:TextBox>
@@ -363,7 +348,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Close
+                    </button>
                     <asp:LinkButton ID="btnBulkUpdate" runat="server" CssClass="btn btn-success" OnClientClick="return CloseModal();" OnClick="btnBulkUpdate_Click">
 						<i class="ace-icon fa fa-save"></i>Save changes
 					</asp:LinkButton>
@@ -378,16 +365,23 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
                     <h4 class="modal-title">
-                        <asp:Label ID="lblDecisionModalTitle" runat="server" Text="Budget Mengurus - Decision"></asp:Label></h4>
+                        <asp:Label ID="lblDecisionModalTitle" runat="server" Text="Budget Mengurus - Decision"></asp:Label>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <asp:Label ID="lblDecisionModalPeriodID" runat="server" Text="" class="control-label" Visible="false"></asp:Label>
-                    <asp:Label ID="lblDecisionModalAccountCode" runat="server" Text="" class="control-label" Visible="false"></asp:Label><br />
-                    <asp:Label ID="lblDecisionModalAccount" runat="server" Text="" class="control-label"></asp:Label><br />
-                    <asp:Label ID="lblDecisionModalPeriod" runat="server" Text="" class="control-label"></asp:Label><br />
-                    <asp:Label ID="lblDecisionModalAmount" runat="server" Text="" class="control-label"></asp:Label><br />
+                    <asp:Label ID="lblDecisionModalAccountCode" runat="server" Text="" class="control-label" Visible="false"></asp:Label>
+                    <br />
+                    <asp:Label ID="lblDecisionModalAccount" runat="server" Text="" class="control-label"></asp:Label>
+                    <br />
+                    <asp:Label ID="lblDecisionModalPeriod" runat="server" Text="" class="control-label"></asp:Label>
+                    <br />
+                    <asp:Label ID="lblDecisionModalAmount" runat="server" Text="" class="control-label"></asp:Label>
+                    <br />
                     <hr />
                     <asp:RadioButtonList ID="rbldecision" runat="server">
                         <asp:ListItem Text="Accept" Value="A" Selected="True" />
@@ -412,10 +406,11 @@
         <div class="modal-dialog" style="width: 400px;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
                     <h5 class="blue bigger">Budget Mengurus File Upload</h5>
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
@@ -424,20 +419,15 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <a class="btn btn-sm btn-success pull-left" data-toggle="popover" title="Template Preview - Budget Mengurus"
                         data-full="<%=Page.ResolveUrl("~/Images/BP/budget_mengurus_template.png")%>" onclick="return false;">Preview Sample
                     </a>
-
                     <button id="btnResetFile" type="reset" class="btn btn-sm">
-                        <i class="ace-icon fa fa-times"></i>
-                        Reset
+                        <i class="ace-icon fa fa-times"></i>Reset
                     </button>
-
                     <button id="btnUpload" class="btn btn-sm btn-primary" data-dismiss="modal">
-                        <i class="ace-icon fa fa-cloud-upload"></i>
-                        Upload
+                        <i class="ace-icon fa fa-cloud-upload"></i>Upload
                     </button>
                 </div>
             </div>
@@ -547,20 +537,34 @@
             $('#widget-box-edit').on('reloaded.ace.widget', function (event, info) {
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-order');
-                $('#btnCancel').click();
-            });
 
-            //edit-form onclosed
-            $('#widget-box-edit').on('closed.ace.widget', function (event, info) {
-                ace.data.remove('demo', 'widget-state');
-                ace.data.remove('demo', 'widget-order');
-                $('#btnCancel').click();
+                $('#<%=gvSegmentDLLs.ClientID%>').find('input:text').val('');
 
-                $("#MainContent_gvAccountCodes tr").each(function () {
-                    $(this).css("background-color", "");
+                $('#<%=chkMedan.ClientID%>').prop('checked', false);
+                $('#<%=gvPeriod.ClientID%>').find('input:checkbox').each(function () {
+
+                    if ($(this).is(":checked")) {
+                        var tds = $(this).closest('tr').find('td');
+
+                        var getyr = new Date().getFullYear() + 1;
+                        if ($(tds[1]).html() == getyr.toString()) {
+                            $(this).attr('checked', true);
+                        }
+                        else if ($(tds[2]).html() == "Peruntukan Asal"
+                            || $(tds[2]).html() == "Peruntukan Dipinda"
+                            || $(tds[2]).html() == "Perbelanjaan Sebenar") {
+                            $(this).attr('checked', true);
+                        }
+                        else {
+                            $(this).attr('checked', false);
+                        }
+                    }
+                    else {
+                        $(this).attr('checked', false);
+                    }
                 });
             });
-
+            
             //acc code list onreloaded
             $('#widget-box-list').on('reloaded.ace.widget', function (event, info) {
                 ace.data.remove('demo', 'widget-state');
@@ -568,6 +572,17 @@
 
                 location.href = "<%=Page.ResolveUrl("~/BudgetMengurusSetup.aspx")%>";
             });
+
+            //list-form widget close button action - start
+            $('#widget-box-list').on('closed.ace.widget', function (event, info) {
+                $('#<%=btnSearchbox.ClientID%>').click();
+            });
+
+            $('#<%=btnSearch.ClientID%>').on('click', function (e) {
+                ace.data.remove('demo', 'widget-state');
+                ace.data.remove('demo', 'widget-order');
+            });
+            //list-form widget close button action - end
 
             //preview template
             $('[data-toggle="popover"]').popover({
@@ -595,7 +610,7 @@
                 no_icon: 'ace-icon fa fa-cloud-upload',
                 droppable: true,
                 thumbnail: 'small',
-                allowExt: ['csv', 'CSV']
+                allowExt: ['csv', 'CSV', 'xls', 'XLS', 'xlsx', 'XLSX']
             });
 
             $('#btnUpload').on('click', function (e) {
@@ -783,20 +798,17 @@
             });
         }
 
-        function Reset() {
-            if (typeof (Page_Validators) != "undefined") {
-                for (var i = 0; i < Page_Validators.length; i++) {
-                    var validator = Page_Validators[i];
-                    validator.isvalid = true;
-                    ValidatorUpdateDisplay(validator);
-
-                    $('#edit-form').find('.form-group').each(function () {
-                        $(this).removeClass("has-error");
-                    })
+        function ValidateSegment(s, args)
+        {
+            var isValid = false;
+            $("#<%= gvSegmentDLLs.ClientID %> input[type=text]").each(function () {
+                if ($(this).val() != "") {
+                    isValid = true;
                 }
-            }
+            })
+            args.IsValid = isValid;
         }
-
+        
         $(document).ready(function () {
             InitScript();
             FileInput();

@@ -33,11 +33,12 @@ namespace BP
                     if (!Directory.Exists(FolderPath))
                         Directory.CreateDirectory(FolderPath);
 
-                    string FileName = DateTime.Now.ToString("dd'-'MM'-'yyyy HHmmss") + "_" + System.IO.Path.GetFileName(objFile.FileName);
+                    string FileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "-" + System.IO.Path.GetFileName(objFile.FileName);
                     string FullFileName = System.IO.Path.Combine(FolderPath, FileName);
+
                     objFile.SaveAs(FullFileName);
 
-                    if (Path.GetExtension(FileName) == ".csv")
+                    if (Path.GetExtension(FileName) == ".csv" || Path.GetExtension(FileName) == ".xls" || Path.GetExtension(FileName) == ".xlsx")
                     {
                         DataSet ds = new ReportHelper().ExcelToDataSet(FullFileName, Path.GetExtension(FileName));
 
