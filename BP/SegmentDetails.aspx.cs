@@ -315,6 +315,26 @@ namespace BP
                     LinkButton btnExpand = ((LinkButton)e.Row.FindControl("btnExpand"));
                     btnExpand.Text = "<div>" + strHTML + rowItem.DetailCode + "</div>";
 
+                    //disable Add-Child if AccountCodeFlag raise
+                    if (((Segment)Session["SelectedSegment"]).AccountCodeFlag == true)
+                    {
+                        LinkButton linkButton = ((LinkButton)e.Row.FindControl("lbAddChild"));
+
+                        linkButton.Attributes.Remove("href");
+                        linkButton.Attributes.CssStyle[HtmlTextWriterStyle.Color] = "gray";
+                        linkButton.Attributes.CssStyle[HtmlTextWriterStyle.Cursor] = "default";
+                        linkButton.ToolTip = "Add Child Disabled.";
+                        if (linkButton.Enabled != false)
+                        {
+                            linkButton.Enabled = false;
+                        }
+
+                        if (linkButton.OnClientClick != null)
+                        {
+                            linkButton.OnClientClick = null;
+                        }
+                    }
+
                     if (rowItem.ParentDetailID != 0)
                         ((LinkButton)e.Row.FindControl("lbAddItem")).Visible = false;
                     if (rowItem.ParentDetailID == 0)

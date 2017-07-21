@@ -8,6 +8,8 @@ using System.Data;
 using BP.Classes;
 using DAL;
 using System.Web.Services;
+using System.Web.UI.HtmlControls;
+using System.Drawing;
 
 namespace BP
 {
@@ -40,6 +42,9 @@ namespace BP
                 string innerstr = (IsPreparer) ? "<i class=\"ace-icon fa fa-upload bigger-110\"></i>Submit"
                         : (IsReviewer ? "<i class=\"ace-icon fa fa-exchange bigger-110\"></i>Review" : "<i class=\"ace-icon fa fa-check bigger-110\"></i>Approve");
                 btnSubmit.InnerHtml = innerstr;
+
+                myModalLabel.InnerText = (IsPreparer) ? "Budget Mengurus - Bulk Submit"
+                    : (IsReviewer ? "Budget Mengurus - Bulk Review" : "Budget Mengurus - Bulk Approve");
 
                 ddlBulkDecision.SelectedIndex = -1;
                 ddlBulkDecision.SelectedIndex = 0;
@@ -84,8 +89,10 @@ namespace BP
                 {
                     List<AccountCode> lstprnts = lstAccountCode.Where(x => lstprntcodes.Contains(x.AccountCode1)).ToList();
                     foreach (AccountCode o in lstprnts)
+                    {
                         if (AccountCodesData.Where(x => x.AccountCode1 == o.AccountCode1).Count() == 0)
                             AccountCodesData.Add(o);
+                    }
                     lstprntcodes = lstprnts.Select(x => x.ParentAccountCode).Distinct().ToList();
                 }
                 Session["AccountCodesData"] = AccountCodesData.OrderBy(x => x.AccountCode1).ToList();
@@ -384,6 +391,7 @@ namespace BP
 
                 GetPrefixAcountCode();
                 GetData();
+                PopulateSearchResult();
 
                 bool IsBudgetEditable = Convert.ToBoolean(Session["CanEdit"]);
                 if (!IsBudgetEditable)
@@ -391,7 +399,7 @@ namespace BP
                     chkKeterangan.Checked = false;
                     chkPengiraan.Checked = false;
                 }
-
+                
                 CreateTreeData();
                 BuildGrid();
                 BindGrid();
@@ -454,10 +462,14 @@ namespace BP
                     btnExpand.Text = "<div style=\"max-width:200px;overflow:hidden;white-space:nowrap;\">" + strHTML + rowItem.AccountCode + "</div>";
                     btnExpand.ToolTip = rowItem.AccountDesc;
 
-                    if (Session["SelectedAccountCode"] != null && ((AccountCode)Session["SelectedAccountCode"]).AccountCode1 == rowItem.AccountCode)
-                    {
-                        e.Row.Style["background-color"] = "skyblue";
-                    }
+                    //if (Session["SelectedAccountCode"] != null && ((AccountCode)Session["SelectedAccountCode"]).AccountCode1 == rowItem.AccountCode)
+                    //{
+                    //    e.Row.Style["background-color"] = "skyblue";
+                    //}
+                    //if (SelectedNodes.Contains(rowItem.AccountCode))
+                    //{
+                    //    e.Row.Style["background-color"] = "skyblue";
+                    //}
                     /*End Account Code logics*/
 
                     /*Start Buget logics*/
@@ -488,20 +500,26 @@ namespace BP
                         PeriodMenguru objpm = new PeriodMengurusDAL().GetAllPeriodMengurus().Where(x => x.MengurusYear == Convert.ToInt32(pm.MengurusYear)).FirstOrDefault();
                         BudgetMenguru ObjBudgetMenguru = BudgetData.Where(x => x.AccountCode == rowItem.AccountCode && x.PeriodMengurusID == PeriodMenguruID).FirstOrDefault();
 
-                        e.Row.Cells[c].BackColor = (ObjBudgetMenguru != null) ? new Helper().GetColorByStatusValue(Convert.ToChar(ObjBudgetMenguru.Status)) : System.Drawing.Color.White;
+                        //e.Row.Cells[c].BackColor = (ObjBudgetMenguru != null) ? new Helper().GetColorByStatusValue(Convert.ToChar(ObjBudgetMenguru.Status)) : System.Drawing.Color.White;
+                        if (ObjBudgetMenguru != null)
+                        {
+                            e.Row.Cells[c].BackColor = new Helper().GetColorByStatusValue(Convert.ToChar(ObjBudgetMenguru.Status));
+                        }
+                        
                         e.Row.Cells[c].Style.Add(HtmlTextWriterStyle.TextAlign, "right");
 
                         TextBox tb = ((TextBox)e.Row.Cells[c].FindControl("tb_" + PeriodMenguruID));
                         Label lbl = ((Label)e.Row.Cells[c].FindControl("lbl_" + PeriodMenguruID));
-                        Button btn = ((Button)e.Row.Cells[c].FindControl("btn_" + PeriodMenguruID));
+                        //Button btn = ((Button)e.Row.Cells[c].FindControl("btn_" + PeriodMenguruID));
+                        LinkButton btn = ((LinkButton)e.Row.Cells[c].FindControl("btn_" + PeriodMenguruID));
+
                         tb.CssClass = "ltor";
 
                         if (rowItem.ChildCount == 0 && IsBudgetEditable)
                         {
-
                             tb.Text = (ObjBudgetMenguru != null) ? ObjBudgetMenguru.Amount.ToString("#,##0.00") : Convert.ToDecimal(0).ToString("#,##0.00"); ;
                             //lbl.Text = (ObjBudgetMenguru != null) ? ObjBudgetMenguru.Amount.ToString("#,##0.00") : Convert.ToDecimal(0).ToString("#,##0.00"); ;
-                            btn.Text = Server.HtmlDecode("&#9635;");
+                            //btn.Text = Server.HtmlDecode("&#9635;");
 
                             if (PeriodMenguruID == Convert.ToInt32("1"))
                             {
@@ -555,7 +573,12 @@ namespace BP
                                 tb.Visible = false;
                                 lbl.Visible = true;
                                 if (ObjBudgetMenguru != null && ObjBudgetMenguru.Status == "R")
+                                {
+                                    lbl.Text += "&nbsp;";
+                                    btn.CssClass = "btn btn-primary btn-xs";
                                     btn.Visible = true;
+                                    btn.Text = "<i class=\"ace-icon fa fa-thumbs-o-up bigger-110 icon-only\"></i>";
+                                }
                                 else
                                     btn.Visible = false;
                             }
@@ -760,12 +783,13 @@ namespace BP
         {
             try
             {
-                lblDecisionModalAccount.Text = "Account Code : " + Session["PrefixAcountCode"].ToString() + e.Code;
-                lblDecisionModalAccountCode.Text = e.Code;
-                lblDecisionModalPeriodID.Text = e.PeriodID.ToString();
-                lblDecisionModalPeriod.Text = "Period : " + e.Period;
-                lblDecisionModalAmount.Text = "Amount : " + e.Amount.ToString("#,##0.00");
 
+                lblDecisionModalPeriodID.Text = e.PeriodID.ToString(); //hidden field
+                lblDecisionModalAccountCode.Text = e.Code; //hidden field
+                lblDecisionModalAccount.Text = Session["PrefixAcountCode"].ToString() + e.Code;
+                lblDecisionModalPeriod.Text = e.Period;
+                lblDecisionModalAmount.Text = e.Amount.ToString("#,##0.00");
+                
                 rbldecision.SelectedIndex = 0;
                 tbRemarks.Text = string.Empty;
 
@@ -862,7 +886,7 @@ namespace BP
         {
             try
             {
-                List<Segment> lstSegment = new SegmentDAL().GetSegments().Where(x => x.Status == "A").OrderBy(x => x.SegmentOrder).ToList();
+                List<Segment> lstSegment = new SegmentDAL().GetSegments().Where(x => x.Status == "A" && x.AccountCodeFlag == false).OrderBy(x => x.SegmentOrder).ToList();
 
                 //Session["Segments"] = lstSegment;
                 gvSegmentDLLs.DataSource = lstSegment;
@@ -907,22 +931,27 @@ namespace BP
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     Segment rowItem = (Segment)e.Row.DataItem;
-                    //List<SegmentDetail> lstSD = rowItem.SegmentDetails.Where(x => x.Status == "A" && x.ParentDetailID == 0).ToList();
-                    List<SegmentDetail> lst = new SegmentDetailsDAL().GetSegmentDetails().ToList();
-                    List<SegmentDetail> lstSD = new List<SegmentDetail>();
-
-                    lstSD = AuthUser.UserSegDtlWorkflows.Where(x => x.Status == "A" && x.SegmentDetail.SegmentID == rowItem.SegmentID).Select(x => x.SegmentDetail).ToList();
+                    
+                    List<SegmentDetail> lstSD = AuthUser.UserSegDtlWorkflows.Where(x => x.Status == "A" && x.SegmentDetail.SegmentID == rowItem.SegmentID).Select(x => x.SegmentDetail).ToList();
                     List<int> parntids = lstSD.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
+
+                    if ((lstSD.Count() > 0) == false)
+                    {
+                        e.Row.Visible = false;
+                    }
 
                     while (parntids.Count > 0)
                     {
-                        List<SegmentDetail> lstprnts = lst.Where(x => parntids.Contains(x.SegmentDetailID)).ToList();
+                        List<SegmentDetail> lstprnts = new SegmentDetailsDAL().GetSegmentDetails().ToList().Where(x => parntids.Contains(x.SegmentDetailID)).ToList();
                         foreach (SegmentDetail o in lstprnts)
-                            lstSD.Add(o);
+                        {
+                            if (lstSD.Where(x => x.SegmentDetailID == o.SegmentDetailID).Count() == 0)
+                                lstSD.Add(o);
+                        }
                         parntids = lstprnts.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
                     }
 
-                    lstSD = lstSD.OrderBy(x => x.ParentDetailID).ThenBy(x => x.DetailCode).ToList();
+                    lstSD = lstSD.OrderBy(x => x.ParentDetailID).ThenBy(x => x.DetailCode).Distinct().ToList();
 
                     TreeNode tn = new TreeNode();
                     CreateNode(lstSD, ref tn, 0);
@@ -932,7 +961,6 @@ namespace BP
                     {
                         tvSegmentDDL.Nodes.Add(tn.ChildNodes[0]);
                     }
-                    //tvSegmentDDL.Nodes.AddAt(0, new TreeNode("[Please Select]", "0"));
                 }
             }
             catch (Exception ex)
@@ -987,7 +1015,6 @@ namespace BP
         {
             try
             {
-                //List<TreeNode> TreeNodes = new List<TreeNode>();
                 foreach (SegmentDetail sd in ListSegDtls.Where(x => x.Status == "A" && x.ParentDetailID == ParentID))
                 {
                     TreeNode tn = new TreeNode();
@@ -1511,6 +1538,122 @@ namespace BP
                 gvAccountCodes.HeaderRow.TableSection = TableRowSection.TableHeader;
                 gvAccountCodes.FooterRow.TableSection = TableRowSection.TableFooter;
             }
+        }
+
+        protected void PopulateSearchResult()
+        {
+            tvSearchResult.Nodes.Clear();
+
+            string PrefixAcountCode = (string)Session["PrefixAcountCode"];
+            PrefAccCode.Text = (!string.IsNullOrEmpty(PrefixAcountCode)) ? PrefixAcountCode : "No Prefix Found";
+            PrefAccCode.ForeColor = System.Drawing.Color.DarkBlue;
+            PrefAccCode.Font.Bold = true;
+            PrefAccCode.Font.Underline = true;
+
+            //populate Search Result - Segment Details - START
+            List<SegmentDetail> ListSegDtls = AuthUser.UserSegDtlWorkflows.Where(x => x.Status == "A").Select(x => x.SegmentDetail).ToList();
+            List<int> ParentIDs = ListSegDtls.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
+
+            while (ParentIDs.Count > 0)
+            {
+                List<SegmentDetail> lstParObj = new SegmentDetailsDAL().GetSegmentDetails().ToList().Where(x => ParentIDs.Contains(x.SegmentDetailID)).ToList();
+                foreach (SegmentDetail o in lstParObj)
+                {
+                    if (ListSegDtls.Where(x => x.SegmentDetailID == o.SegmentDetailID).Count() == 0)
+                        ListSegDtls.Add(o);
+                }
+                ParentIDs = lstParObj.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
+            }
+
+            ListSegDtls = ListSegDtls.OrderBy(x => x.ParentDetailID).ThenBy(x => x.DetailCode).ToList();
+
+            foreach (Segment segment in new SegmentDAL().GetSegments().Where(w => ListSegDtls.Select(y => y.Segment.SegmentID).Contains(w.SegmentID))
+                .OrderBy(x => x.SegmentOrder).ToList())
+            {
+                TreeNode parentNode = new TreeNode(segment.SegmentName, segment.SegmentID.ToString());
+                parentNode.SelectAction = TreeNodeSelectAction.None;
+
+                //find deep level nodes
+                CreateSearhResultNode(ListSegDtls, ref parentNode, segment.SegmentID, 0);
+
+                tvSearchResult.Nodes.Add(parentNode);
+                tvSearchResult.ExpandAll();
+            }
+
+            foreach (TreeNode parentNode in tvSearchResult.Nodes)
+            {
+                FindAllNodes(parentNode);
+            }
+            //populate Search Result - Segment Details - END
+
+            //populate Search Result - Selected Period - START
+            BuildSelectedPeriodList();
+            //populate Search Result - Selected Period - END
+        }
+
+        protected void CreateSearhResultNode(List<SegmentDetail> ListSegDtls, ref TreeNode parent, int SegmentID, int ParentID)
+        {
+            foreach (SegmentDetail sd in ListSegDtls.Where(x => x.Status == "A" && x.SegmentID == SegmentID && x.ParentDetailID == ParentID))
+            {
+                TreeNode childNode = new TreeNode(sd.DetailCode + " - " + sd.DetailDesc, sd.SegmentDetailID.ToString());
+                childNode.SelectAction = TreeNodeSelectAction.None;
+
+                //recursively constructing nodes
+                CreateSearhResultNode(ListSegDtls, ref childNode, Convert.ToInt32(sd.SegmentID), Convert.ToInt32(sd.SegmentDetailID));
+
+                parent.ChildNodes.Add(childNode);
+            }
+        }
+
+        public void FindAllNodes(TreeNode parentNode)
+        {
+            List<int> SelectedSegDtls = GetSegmentDetails().Select(x => x.SegmentDetailID).ToList();
+
+            foreach (TreeNode childNode in parentNode.ChildNodes)
+            {
+                if (SelectedSegDtls.Contains(Convert.ToInt32(childNode.Value)))
+                {
+                    childNode.ShowCheckBox = true;
+                    childNode.Checked = true;
+                    childNode.Text = "<span class=\"label label-white middle\">" + childNode.Text + "</span>";
+                }
+
+                FindAllNodes(childNode);
+            }
+        }
+
+        protected void BuildSelectedPeriodList()
+        {
+            List<PeriodMenguru> PeriodData = (List<PeriodMenguru>)Session["PeriodData"];
+
+            //generate random color - start
+            List<string> lstItemColor = new List<string>();
+            lstItemColor.Add("item-orange");
+            lstItemColor.Add("item-red");
+            lstItemColor.Add("item-default");
+            lstItemColor.Add("item-blue");
+            lstItemColor.Add("item-grey");
+            lstItemColor.Add("item-green");
+            lstItemColor.Add("item-pink");
+
+            Random rnd = new Random();
+            //generate random color - end
+
+            //start build innerhtml
+            SelectedPeriod.InnerHtml = "<ul id=\"tasks\" class=\"item-list\">";
+
+            foreach (PeriodMenguru pm in PeriodData)
+            {
+                int r = rnd.Next(lstItemColor.Count);
+                string str = "<b>" + pm.MengurusYear.ToString() + "</b>" + " - " + pm.FieldMenguru.FieldMengurusDesc;
+
+                SelectedPeriod.InnerHtml += "<li class=\" " + (string)lstItemColor[r] + " clearfix\">";
+                SelectedPeriod.InnerHtml += "<label class=\"inline\"><input type=\"checkbox\" checked=\"checked\" class=\"ace\" /> " +
+                                  "<span class=\"lbl\"> " + str + "</span>" + 
+                                  "</label></li>";
+            }
+
+            SelectedPeriod.InnerHtml += "</ul>";
         }
     }
 }

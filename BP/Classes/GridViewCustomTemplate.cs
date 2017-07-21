@@ -82,11 +82,18 @@ namespace BP.Classes
                 tbGridCustomColumn.Attributes.Add("onkeypress", "return IsNumberKey(event,this);");
                 tbGridCustomColumn.TextChanged += tbGridCustomColumn_TextChanged;
 
-                Button btnDecision = new Button();
+                //Button btnDecision = new Button();
+                //btnDecision.ID = "btn_" + LocalPeriodID.ToString();
+                ////btnDecision.Text = Server.HtmlDecode("&#9635;");
+                //btnDecision.CssClass = "btn btn-info btn-xs";
+
+                ////cbDecision.AutoPostBack = true;
+                //btnDecision.Click += btnDecision_Click;
+
+                LinkButton btnDecision = new LinkButton();
                 btnDecision.ID = "btn_" + LocalPeriodID.ToString();
-                //btnDecision.Text = Server.HtmlDecode("&#9635;");
-                btnDecision.CssClass = "btn btn-info";
-                //cbDecision.AutoPostBack = true;
+                btnDecision.CssClass = "btn btn-info btn-xs";
+                btnDecision.Text = "<i class=\"ace-icon fa fa-wrench bigger-110 icon-only\"></i>";
                 btnDecision.Click += btnDecision_Click;
 
                 container.Controls.Add(lblPeriodMenguruID);
@@ -141,14 +148,14 @@ namespace BP.Classes
 
         public void btnDecision_Click(object sender, EventArgs e)
         {
-            string strAccountCode = ((GridView)((Button)sender).Parent.Parent.Parent.Parent).DataKeys[((GridViewRow)((Button)sender).Parent.Parent).RowIndex][0].ToString();
+            string strAccountCode = ((GridView)((LinkButton)sender).Parent.Parent.Parent.Parent).DataKeys[((GridViewRow)((LinkButton)sender).Parent.Parent).RowIndex][0].ToString();
             //string strPeriod = ((GridView)((Button)sender).Parent.Parent.Parent.Parent).HeaderRow.Cells[((GridViewRow)((Button)sender).Parent.Parent).RowIndex].Text;
 
             CustomEvenArgs eventargs = new CustomEvenArgs();
             eventargs.Code = strAccountCode;
             eventargs.PeriodID = LocalPeriodID;
             eventargs.Period = LocalColumnName;
-            eventargs.Amount = Convert.ToDecimal(((TextBox)((Button)sender).Parent.FindControl("tb_" + LocalPeriodID.ToString())).Text.Trim());
+            eventargs.Amount = Convert.ToDecimal(((TextBox)((LinkButton)sender).Parent.FindControl("tb_" + LocalPeriodID.ToString())).Text.Trim());
 
             this.OnCustomClicked(sender, eventargs);            
         }

@@ -545,6 +545,7 @@
             //initiate dataTables plugin
             var myTable = $('#<%=gvAccountCodes.ClientID%>').DataTable({
                 bAutoWidth: false,
+				"lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]],
                 "aoColumns": [
 					  null,
                       null,
@@ -553,7 +554,7 @@
                 ],
                 "aaSorting": [],
                 select: {
-                    style: 'multi'
+                    style: 'single'
                 }
             });
 
@@ -649,12 +650,6 @@
                     else $(this).tooltip({ container: 'body', title: $(this).text() });
                 });
             }, 500);
-
-            $(document).on('click', '#<%=gvAccountCodes.ClientID%> .dropdown-toggle', function (e) {
-                e.stopImmediatePropagation();
-                e.stopPropagation();
-                e.preventDefault();
-            });
         }
 
         function CustomValidationFunction(sender, args) {

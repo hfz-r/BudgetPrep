@@ -129,6 +129,7 @@
     <EntitySetMapping Name="Segments">
       <EntityTypeMapping TypeName="BPModel.Segment">
         <MappingFragment StoreEntitySet="Segment">
+          <ScalarProperty Name="AccountCodeFlag" ColumnName="AccountCodeFlag" />
           <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />

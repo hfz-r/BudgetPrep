@@ -389,6 +389,7 @@
             //initiate dataTables plugin
             var myTable = $('#<%=gvRoles.ClientID%>').DataTable({
                 bAutoWidth: false,
+				"lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]],
                 "aoColumns": [
                     { "bSortable": false },
                       null,

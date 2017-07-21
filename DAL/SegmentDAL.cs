@@ -19,6 +19,13 @@ namespace DAL
         {
             try
             {
+                if (objSegment.AccountCodeFlag == true)
+                {
+                    if (db.Segments.Where(x => x.AccountCodeFlag == true).Count() > 0)
+                    {
+                        throw new Exception("Account Code Flag Already Been Triggered By Other Segment. Please Try Again.");
+                    }
+                }
                 db.Segments.Add(objSegment);
                 db.SaveChanges();
 
@@ -52,6 +59,14 @@ namespace DAL
 
         public bool UpdateSegment(Segment objSegment)
         {
+            if (objSegment.AccountCodeFlag == true)
+            {
+                if (db.Segments.Where(x => x.AccountCodeFlag == true).Count() > 0)
+                {
+                    throw new Exception("Account Code Flag Already Been Triggered By Other Segment. Please Try Again.");
+                }
+            }
+
             Segment obj = db.Segments.Where(x => x.SegmentID == objSegment.SegmentID).FirstOrDefault();
             string changes = new EventLogDAL().ObjectDifference(obj, objSegment);
             try
@@ -64,6 +79,7 @@ namespace DAL
                     obj.Status = objSegment.Status;
                     obj.ModifiedBy = objSegment.ModifiedBy;
                     obj.ModifiedTimeStamp = objSegment.ModifiedTimeStamp;
+                    obj.AccountCodeFlag = objSegment.AccountCodeFlag;
                     db.SaveChanges();
 
                     BPEventLog bpe = new BPEventLog();
