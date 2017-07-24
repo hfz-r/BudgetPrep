@@ -117,6 +117,25 @@
                                 </div>
                             </div>
 
+                            <div class="space-10"></div>
+
+                            <div class="form-group">
+                                <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="cdaccflag">
+                                    Enable/Disable <br /><small class="red">Account Code Flag</small>:
+                                </label>
+
+                                <div class="col-xs-12 col-sm-9" style="margin-top:15px;">
+                                    <div class="clearfix">
+                                        <label>
+                                            <input id="cdaccflag" name="cdaccflag" runat="server" class="ace ace-switch ace-switch-6" type="checkbox" />
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-2"></div>
+
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-9 col-md-9">
 
@@ -130,7 +149,6 @@
                                 </div>
                             </div>
                         </div>
-														
 					</div>
 				</div>
 			</div>
@@ -363,6 +381,7 @@
             //initiate dataTables plugin
             var myTable = $('#<%=gvSegmentSetup.ClientID%>').DataTable({
                 bAutoWidth: false,
+				"lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]],
                 "aoColumns": [
 					{ "bSortable": false },
 					  null,

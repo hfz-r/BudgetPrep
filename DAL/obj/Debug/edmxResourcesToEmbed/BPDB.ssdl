@@ -214,6 +214,7 @@
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
     <Property Name="ModifiedTimeStamp" Type="timestamp" />
+    <Property Name="AccountCodeFlag" Type="bool" />
   </EntityType>
   <EntityType Name="SegmentDetail">
     <Key>

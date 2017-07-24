@@ -328,6 +328,7 @@
             //initiate dataTables plugin
             var myTable = $('#<%=gvYearUploadSetup.ClientID%>').DataTable({
                 bAutoWidth: false,
+				"lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]],
                 "aoColumns": [
 					  null,
                       null,

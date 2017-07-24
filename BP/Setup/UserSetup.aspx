@@ -180,7 +180,10 @@
 
                                                           <div class="col-xs-12 col-sm-9">
                                                               <div class="btn-group">
-                                                                  <button id="btnWorkflow" runat="server" class="btn btn-info"></button>
+                                                                  <button id="btnWorkflow" runat="server" class="btn btn-info">
+                                                                      <span class="ace-icon fa fa-unlock bigger-110 tooltip-info" data-rel="tooltip" 
+                                                                          data-placement="bottom" title="Workflow`s setup.">&nbsp;Workflow</span>
+                                                                  </button>
 
                                                                   <%--<button id="btnWFdropdown" runat="server" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
                                                                       <span class="ace-icon fa fa-caret-down icon-only"></span>
@@ -376,6 +379,7 @@
           </ContentTemplate>
           <Triggers>
               <asp:PostBackTrigger ControlID="btnSaveWorkflow" />
+              <asp:PostBackTrigger ControlID="btnCancelWorkflow" />
           </Triggers>
     </asp:UpdatePanel>
 
@@ -465,7 +469,7 @@
     <!-- workflow -->
     <div id="workflow-modal" class="modal gray" tabindex="-1">
 		<div class="modal-dialog ext">
-			<div class="modal-content">
+			<div class="modal-content" style="width:70%; margin:0 auto;">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="blue bigger">Workflow Setup</h4>
@@ -487,19 +491,36 @@
 
                                     <div class="panel-collapse collapse" id="collapseOne">
                                         <div class="panel-body">
-                                            <asp:GridView ID="gvMengurusWorkFlow" runat="server" AutoGenerateColumns="false" AllowSorting="true"
-                                                CssClass="table table-bordered table-striped table-hover" DataKeyNames="AccountCode1"
-                                                OnPreRender="gvMengurusWorkFlow_PreRender">
-                                                <Columns>
-                                                    <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
-                                                        <ItemTemplate>
-                                                            <asp:CheckBox ID="chkSelect" runat="server" />
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:BoundField DataField="AccountCode1" HeaderText="Account Code" />
-                                                    <asp:BoundField DataField="AccountDesc" HeaderText="Account Description" />
-                                                </Columns>
-                                            </asp:GridView>
+                                            <div class="widget-box transparent">
+                                                <div class="widget-header widget-header-small">
+                                                    <h4 class="widget-title smaller">
+                                                        <i class="ace-icon fa fa-check-square-o bigger-110"></i>
+                                                        Mengurus Workflow Setting.
+                                                    </h4>
+
+                                                    <div class="widget-toolbar no-border">
+                                                        <a href="#" data-action="settings">
+                                                            <i class="ace-icon fa fa-cog"></i>
+                                                        </a>
+                                                        <asp:LinkButton ID="ReloadMG" runat="server" OnClientClick="return ReloadTreeView(event,this);">
+                                                            <i class="ace-icon fa fa-refresh"></i>
+                                                        </asp:LinkButton>
+                                                    </div>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <asp:TreeView ID="tvMengurus" runat="server" ShowCheckBoxes="All" ImageSet="Arrows" Font-Size="Large">
+                                                            <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+                                                            <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="5px"
+                                                                NodeSpacing="0px" VerticalPadding="0px" />
+                                                            <ParentNodeStyle Font-Bold="False" />
+                                                            <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
+                                                        </asp:TreeView>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -516,7 +537,7 @@
 
                                     <div class="panel-collapse collapse" id="collapseTwo">
                                         <div class="panel-body">
-                                            <asp:GridView ID="gvPerjawatanWorkFlow" runat="server" AutoGenerateColumns="false" AllowSorting="true"
+                                            <asp:GridView ID="gvPerjawatanWorkFlow" runat="server" AutoGenerateColumns="false" Width="100%"
                                                 CssClass="table table-bordered table-striped table-hover" DataKeyNames="GroupPerjawatanCode"
                                                 OnPreRender="gvPerjawatanWorkFlow_PreRender">
                                                 <Columns>
@@ -545,30 +566,45 @@
 
                                     <div class="panel-collapse collapse" id="collapseThree">
                                         <div class="panel-body">
-                                            <asp:GridView ID="gvSegmentDetails" runat="server" AutoGenerateColumns="false" AllowSorting="true"
-                                                CssClass="table table-bordered table-striped table-hover" DataKeyNames="SegmentDetailID"
-                                                OnPreRender="gvSegmentDetails_PreRender">
-                                                <Columns>
-                                                    <asp:TemplateField HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
-                                                        <ItemTemplate>
-                                                            <asp:CheckBox ID="chkSelect" runat="server" />
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:BoundField DataField="SegmentName" HeaderText="Segment" />
-                                                    <asp:BoundField DataField="DetailCode" HeaderText="S.Details Code" />
-                                                    <asp:BoundField DataField="DetailDesc" HeaderText="S.Details Description" />
-                                                </Columns>
-                                            </asp:GridView>
+                                            <div class="widget-box transparent">
+                                                <div class="widget-header widget-header-small">
+                                                    <h4 class="widget-title smaller">
+                                                        <i class="ace-icon fa fa-check-square-o bigger-110"></i>
+                                                        Segment Details Workflow Setting.
+                                                    </h4>
+
+                                                    <div class="widget-toolbar no-border">
+														<a href="#" data-action="settings">
+															<i class="ace-icon fa fa-cog"></i>
+														</a>
+                                                        <asp:LinkButton ID="ReloadSD" runat="server" OnClientClick="return ReloadTreeView(event,this);">
+                                                            <i class="ace-icon fa fa-refresh"></i>
+                                                        </asp:LinkButton>
+													</div>
+                                                </div>
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <asp:TreeView ID="tvSegmentDetails" runat="server" ShowCheckBoxes="All" ImageSet="Arrows" Font-Size="Large">
+                                                            <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+                                                            <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="5px"
+                                                                NodeSpacing="0px" VerticalPadding="0px" />
+                                                            <ParentNodeStyle Font-Bold="False" />
+                                                            <SelectedNodeStyle Font-Underline="True" ForeColor="#5555DD" HorizontalPadding="0px" VerticalPadding="0px" />
+                                                        </asp:TreeView>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>		
+                        </div>
 					</div>
 				</div>
 
 				<div class="modal-footer">
-					<button class="btn btn-sm" data-dismiss="modal">
+					<button id="btnCancelWorkflow" runat="server" class="btn btn-sm" data-dismiss="modal" onserverclick="btnCancelWorkflow_OnClick">
 						<i class="ace-icon fa fa-times"></i>
 						Cancel
 					</button>
@@ -587,8 +623,8 @@
     
     <script type="text/javascript">
 
-        function InitScript() {
-
+        function InitScript()
+        {
             // widget box drag & drop example
             $('.widget-container-col').sortable({
                 connectWith: '.widget-container-col',
@@ -741,10 +777,13 @@
 
             $('[id^=<%=btnWorkflow.ClientID%>]').on('click', function (e) {
                 e.preventDefault();
-                $('#workflow-modal').modal('show');
+                $('#workflow-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
             });
 
-            $('#<%=btnSaveWorkflow.ClientID%>').on('click', function (e) {
+            $('#<%=btnSaveWorkflow.ClientID%>, #<%=btnCancelWorkflow.ClientID%>').on('click', function (e) {
                 SaveFormState();
             });
             //*workflow handler - end*//
@@ -828,14 +867,8 @@
 
         function ClearWorkflowCheckbox()
         {
-            var gvMengurus = $('#<%=gvMengurusWorkFlow.ClientID%>');
-            gvMengurus.find("input[type='checkbox']").prop('checked', false);
-
             var gvPerjawatan = $('#<%=gvPerjawatanWorkFlow.ClientID%>');
             gvPerjawatan.find("input[type='checkbox']").prop('checked', false);
-
-            var gvSegmentDetails = $('#<%=gvSegmentDetails.ClientID%>');
-            gvSegmentDetails.find("input[type='checkbox']").prop('checked', false);
         }
 
         function dummyFunc() { };
@@ -1034,7 +1067,7 @@
             //initiate dataTables plugin
             var myTable = $('#<%=gvUsers.ClientID%>').DataTable({
                 bAutoWidth: false,
-                "lengthMenu": [[15, 30, 45, -1], [15, 30, 45, "All"]],
+                "lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]],
                 "aoColumns": [
 					  null,
                       null,
@@ -1148,7 +1181,139 @@
                 e.stopPropagation();
                 e.preventDefault();
             });
+
+            //Load Workflow Datatables!
+            var gvs = [$('#<%=gvPerjawatanWorkFlow.ClientID%>')];
+            for (var i = 0; i < 2; i++) {
+                LoadWorkflowDatatable(gvs[i]);
+            }
         }
+
+        function LoadWorkflowDatatable(gvs)
+        {
+            var myTable = gvs.DataTable({
+                bAutoWidth: false,
+                "lengthMenu": [[10, 20, 30, -1], [10, 20, 30, "All"]],
+                "aoColumnDefs": [
+                    { bSortable: false, aTargets: [0] }
+                ],
+                "aaSorting": []
+            });
+        }
+
+        function WorkflowFlag()
+        {
+            bootbox.alert({
+                title: "<span class='red'>Important Note</span>",
+                message: "Please be informed that your <b>**Workflow Setup**</b> is <b><span class='red'>'TEMPORY SAVE'</span></b> until you continue to <b><span class='green'>(Complete)</span></b> the <b>**User Setup**</b>",
+                backdrop: true
+            });
+        }
+
+        //*Tree-View - start*//
+        function postBackByObject(evt) {
+            var src = window.event != window.undefined ? window.event.srcElement : evt.target;
+            var isChkBoxClick = (src.tagName.toLowerCase() == "input" && src.type == "checkbox");
+            if (isChkBoxClick) {
+                var parentTable = GetParentByTagName("table", src);
+                var nxtSibling = parentTable.nextSibling;
+                if (nxtSibling && nxtSibling.nodeType == 1) {
+                    if (nxtSibling.tagName.toLowerCase() == "div") {
+                        CheckUncheckChildren(parentTable.nextSibling, src.checked);
+                    }
+                }
+                CheckUncheckParents(src, src.checked);
+            }
+        }
+
+        function GetParentByTagName(parentTagName, childElementObj) {
+            var parent = childElementObj.parentNode;
+            while (parent.tagName.toLowerCase() != parentTagName.toLowerCase()) {
+                parent = parent.parentNode;
+            }
+            return parent;
+        }
+
+        function CheckUncheckChildren(childContainer, check) {
+            var childChkBoxes = childContainer.getElementsByTagName("input");
+            var childChkBoxCount = childChkBoxes.length;
+            for (var i = 0; i < childChkBoxCount; i++) {
+                childChkBoxes[i].checked = check;
+            }
+        }
+
+        function CheckUncheckParents(srcChild, check) {
+            var parentDiv = GetParentByTagName("div", srcChild);
+            var parentNodeTable = parentDiv.previousSibling;
+
+            if (parentNodeTable) {
+                var checkUncheckSwitch;
+                var isAllSiblingsChecked = AreAllSiblingsChecked(srcChild);
+                if (isAllSiblingsChecked) {
+                    checkUncheckSwitch = true;
+                }
+                else {
+                    checkUncheckSwitch = false;
+                }
+                var inpElemsInParentTable = parentNodeTable.getElementsByTagName("input");
+                if (inpElemsInParentTable.length > 0) {
+                    var parentNodeChkBox = inpElemsInParentTable[0];
+                    parentNodeChkBox.checked = checkUncheckSwitch;
+
+                    CheckUncheckParents(parentNodeChkBox, checkUncheckSwitch);
+                }
+            }
+        }
+
+        function AreAllSiblingsChecked(chkBox) {
+            var parentDiv = GetParentByTagName("div", chkBox);
+            var childCount = parentDiv.childNodes.length;
+            var k = 0;
+            for (var i = 0; i < childCount; i++) {
+                if (parentDiv.childNodes[i].nodeType == 1) {
+                    if (parentDiv.childNodes[i].tagName.toLowerCase() == "table") {
+                        var prevChkBox = parentDiv.childNodes[i].getElementsByTagName("input")[0];
+                        //if any of sibling nodes are not checked, return false
+                        if (prevChkBox.checked) {
+                            //add each selected node one value
+                            k = k + 1;
+                        }
+                    }
+                }
+            }
+
+            if (k > 0) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function ReloadTreeView(evt, elem)
+        {
+            evt.preventDefault();
+
+            var tv;
+            var id = $(elem).attr("id");
+
+            if (id == "MainContent_ReloadSD")
+            {
+                tv = $("div#<%=tvSegmentDetails.ClientID %>");
+            }
+            else if (id == "MainContent_ReloadMG")
+            {
+                tv = $("div#<%=tvMengurus.ClientID %>");
+            }
+
+            tv.find("table input:checkbox").each(function () {
+                var isChecked = $(this).is(":checked");
+                if (isChecked) {
+                    $(this).removeAttr("checked");
+                }
+            });
+        }
+        //*Tree-View - end*//
 
         $(document).ready(function () {
             InitScript();
@@ -1162,11 +1327,8 @@
             InitScript();
             ValidationInit();
             LoadDataTable();
-            //LoadFormState();
         });
 
     </script>
-
-
 
 </asp:Content>

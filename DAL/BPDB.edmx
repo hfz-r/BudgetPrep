@@ -219,6 +219,7 @@
           <Property Name="CreatedTimeStamp" Type="timestamp" />
           <Property Name="ModifiedBy" Type="int4" />
           <Property Name="ModifiedTimeStamp" Type="timestamp" />
+          <Property Name="AccountCodeFlag" Type="bool" />
         </EntityType>
         <EntityType Name="SegmentDetail">
           <Key>
@@ -864,6 +865,7 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
           <NavigationProperty Name="SegmentDetails" Relationship="BPModel.SegmentDetail_Segment" FromRole="Segment" ToRole="SegmentDetail" />
+          <Property Name="AccountCodeFlag" Type="Boolean" />
         </EntityType>
         <EntityType Name="SegmentDetail">
           <Key>
@@ -1369,6 +1371,7 @@
           <EntitySetMapping Name="Segments">
             <EntityTypeMapping TypeName="BPModel.Segment">
               <MappingFragment StoreEntitySet="Segment">
+                <ScalarProperty Name="AccountCodeFlag" ColumnName="AccountCodeFlag" />
                 <ScalarProperty Name="ModifiedTimeStamp" ColumnName="ModifiedTimeStamp" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedTimeStamp" ColumnName="CreatedTimeStamp" />

@@ -66,8 +66,10 @@ namespace BP.Setup
         {
             if (!Page.IsPostBack)
             {
-                GetData();
+                tvSegmentDetails.Attributes.Add("onclick", "postBackByObject(event)");
+                tvMengurus.Attributes.Add("onclick", "postBackByObject(event)");
 
+                GetData();
                 Session["UsersPageMode"] = Helper.PageMode.New;
             }
         }
@@ -84,16 +86,6 @@ namespace BP.Setup
             }
         }
 
-        protected void gvMengurusWorkFlow_PreRender(object sender, EventArgs e)
-        {
-            if (gvMengurusWorkFlow.Rows.Count > 0)
-            {
-                gvMengurusWorkFlow.UseAccessibleHeader = true;
-                gvMengurusWorkFlow.HeaderRow.TableSection = TableRowSection.TableHeader;
-                gvMengurusWorkFlow.FooterRow.TableSection = TableRowSection.TableFooter;
-            }
-        }
-
         protected void gvPerjawatanWorkFlow_PreRender(object sender, EventArgs e)
         {
             if (gvPerjawatanWorkFlow.Rows.Count > 0)
@@ -101,16 +93,6 @@ namespace BP.Setup
                 gvPerjawatanWorkFlow.UseAccessibleHeader = true;
                 gvPerjawatanWorkFlow.HeaderRow.TableSection = TableRowSection.TableHeader;
                 gvPerjawatanWorkFlow.FooterRow.TableSection = TableRowSection.TableFooter;
-            }
-        }
-
-        protected void gvSegmentDetails_PreRender(object sender, EventArgs e)
-        {
-            if (gvSegmentDetails.Rows.Count > 0)
-            {
-                gvSegmentDetails.UseAccessibleHeader = true;
-                gvSegmentDetails.HeaderRow.TableSection = TableRowSection.TableHeader;
-                gvSegmentDetails.FooterRow.TableSection = TableRowSection.TableFooter;
             }
         }
 
@@ -151,31 +133,85 @@ namespace BP.Setup
                 gvUsers.DataSource = (List<MasterUser>)Session["MasterUserData"];
                 gvUsers.DataBind();
 
-                List<string> ParAccounts = new AccountCodeDAL().GetAccountCodes().Select(x => x.ParentAccountCode).Distinct().ToList();
-                gvMengurusWorkFlow.DataSource = new AccountCodeDAL().GetAccountCodes().Where(x => x.Status == "A" && !ParAccounts.Contains(x.AccountCode1)).ToList();
-                gvMengurusWorkFlow.DataBind();
+                //Bind Mengurus Workflow - start
+                foreach (AccountCode obj in new AccountCodeDAL().GetAccountCodes().ToList().Where(x => x.Status == "A"))
+                {
+                    if (obj.ParentAccountCode == "" || string.IsNullOrEmpty(obj.ParentAccountCode))
+                    {
+                        TreeNode tnParent = new TreeNode(obj.AccountCode1 + " - " + obj.AccountDesc, obj.AccountCode1);
+                        tnParent.SelectAction = TreeNodeSelectAction.None;
+                        tnParent.Collapse();
+
+                        FillChild("MG", tnParent, 0, obj.AccountCode1);
+
+                        tvMengurus.Nodes.Add(tnParent);
+                    }
+                }
+                //Bind Mengurus Workflow - end
 
                 List<string> ParServices = new GroupPerjawatanDAL().GetGroupPerjawatans().Select(x => x.ParentGroupPerjawatanID).Distinct().ToList();
                 gvPerjawatanWorkFlow.DataSource = new GroupPerjawatanDAL().GetGroupPerjawatans().Where(x => x.Status == "A" && !ParServices.Contains(x.GroupPerjawatanCode)).ToList();
                 gvPerjawatanWorkFlow.DataBind();
 
-                List<int> ParSegDtls = new SegmentDetailsDAL().GetSegmentDetails().ToList().Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
-                gvSegmentDetails.DataSource = new SegmentDetailsDAL().GetSegmentDetails().Where(x => x.Segment.Status == "A" && x.Status == "A" && !ParSegDtls.Contains(x.SegmentDetailID))
-                    .OrderBy(x => x.Segment.SegmentOrder)
-                    .ThenBy(x => x.DetailCode)
-                    .Select(x => new
+                //Bind Segment Details Workflow - start
+                foreach (Segment segment in new SegmentDAL().GetSegments().Where(w => w.Status == "A" && w.AccountCodeFlag == false).OrderBy(x => x.SegmentOrder).ToList())
+                {
+                    TreeNode segmentNode = new TreeNode(segment.SegmentName, segment.SegmentID.ToString());
+                    segmentNode.SelectAction = TreeNodeSelectAction.None;
+                    segmentNode.Collapse();
+
+                    foreach (SegmentDetail obj in new SegmentDetailsDAL().GetSegmentDetails().ToList().Where(x => x.Status == "A" && x.SegmentID == segment.SegmentID))
                     {
-                        x.SegmentDetailID,
-                        x.Segment.SegmentName,
-                        x.DetailCode,
-                        x.DetailDesc
-                    }).ToList();
-                gvSegmentDetails.DataBind();
+                        if (obj.ParentDetailID == 0)
+                        {
+                            TreeNode tnParent = new TreeNode(obj.DetailCode + " - " + obj.DetailDesc, obj.SegmentDetailID.ToString());
+                            tnParent.SelectAction = TreeNodeSelectAction.None;
+                            tnParent.Collapse();
+
+                            segmentNode.ChildNodes.Add(tnParent);
+                            FillChild("SD", tnParent, obj.SegmentDetailID, string.Empty);
+                        }
+                    }
+
+                    tvSegmentDetails.Nodes.Add(segmentNode);
+                }
+                //Bind Segment Details Workflow - end
             }
             catch (Exception ex)
             {
                 ((SiteMaster)this.Master).ShowMessage("Error", "An error occurred", ex, true);
             }
+        }
+
+        private void FillChild(string type, TreeNode parent, int ParentId = 0, string ParentAccountCode = "")
+        {
+            if (type == "SD")
+            {
+                var nodes = new SegmentDetailsDAL().GetSegmentDetails().ToList().Where(x => x.Status == "A" && x.ParentDetailID == ParentId);
+                foreach (var node in nodes)
+                {
+                    TreeNode child = new TreeNode(node.DetailCode + " - " + node.DetailDesc, node.SegmentDetailID.ToString());
+                    child.SelectAction = TreeNodeSelectAction.None;
+                    child.Collapse();
+
+                    parent.ChildNodes.Add(child);
+                    FillChild("SD", child, node.SegmentDetailID, string.Empty);
+                }
+            }
+            else if (type == "MG")
+            {
+                var nodes = new AccountCodeDAL().GetAccountCodes().ToList().Where(x => x.Status == "A" && x.ParentAccountCode == ParentAccountCode);
+                foreach (var node in nodes)
+                {
+                    TreeNode child = new TreeNode(node.AccountCode1 + " - " + node.AccountDesc, node.AccountCode1);
+                    child.SelectAction = TreeNodeSelectAction.None;
+                    child.Collapse();
+
+                    parent.ChildNodes.Add(child);
+                    FillChild("MG", child, 0, node.AccountCode1);
+                }
+            }
+            
         }
 
         protected void gvUsers_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -223,11 +259,20 @@ namespace BP.Setup
                         }
 
                         /*User Mengurus Workflow - start*/
-                        List<string> lstAccountCode = objMasterUser.UserMengurusWorkflows.Where(x => x.Status == "A").Select(x => x.AccountCode).ToList();
-                        for (int i = 0; i < gvMengurusWorkFlow.Rows.Count; i++)
+                        List<AccountCode> lstAccCode = objMasterUser.UserMengurusWorkflows.Where(x => x.Status == "A").Select(x => x.AccountCode1).ToList();
+                        List<string> lstParAccCode = lstAccCode.Select(x => x.ParentAccountCode).Distinct().ToList();
+                        while (lstParAccCode.Count() > 0)
                         {
-                            ((CheckBox)gvMengurusWorkFlow.Rows[i].Cells[0].FindControl("chkSelect")).Checked = lstAccountCode.Contains(gvMengurusWorkFlow.DataKeys[i]["AccountCode1"].ToString());
+                            List<AccountCode> lstObjPar = new AccountCodeDAL().GetAccountCodes().ToList().Where(x => lstParAccCode.Contains(x.AccountCode1)).ToList();
+                            foreach (AccountCode ac in lstObjPar)
+                            {
+                                if (lstAccCode.Where(x => x.AccountCode1 == ac.AccountCode1).Count() == 0)
+                                    lstAccCode.Add(ac);
+                            }
+                            lstParAccCode = lstObjPar.Select(x => x.ParentAccountCode).Distinct().ToList();
                         }
+
+                        PopulateACChild(tvMengurus.Nodes, lstAccCode);
                         /*User Mengurus Workflow - end*/
 
                         /*User Perjawatan Workflow - start*/
@@ -239,17 +284,35 @@ namespace BP.Setup
                         /*User Perjawatan Workflow - end*/
 
                         /*User Segment Details Workflow - start*/
-                        List<int> lstSegDtls = objMasterUser.UserSegDtlWorkflows.Where(x => x.Status == "A").Select(x => Convert.ToInt32(x.SegmentDetailID)).ToList();
-                        for (int i = 0; i < gvSegmentDetails.Rows.Count; i++)
+                        List<SegmentDetail> lstSegDtls = objMasterUser.UserSegDtlWorkflows.Where(x => x.Status == "A").Select(x => x.SegmentDetail).ToList();
+                        List<int> lstParSegDtls = lstSegDtls.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
+                        while (lstParSegDtls.Count > 0)
                         {
-                            ((CheckBox)gvSegmentDetails.Rows[i].Cells[0].FindControl("chkSelect")).Checked = lstSegDtls.Contains(Convert.ToInt32(gvSegmentDetails.DataKeys[i]["SegmentDetailID"].ToString()));
+                            List<SegmentDetail> lstParObj = new SegmentDetailsDAL().GetSegmentDetails().ToList().Where(x => lstParSegDtls.Contains(x.SegmentDetailID)).ToList();
+                            foreach (SegmentDetail o in lstParObj)
+                            {
+                                if (lstSegDtls.Where(x => x.SegmentDetailID == o.SegmentDetailID).Count() == 0)
+                                    lstSegDtls.Add(o);
+                            }
+                            lstParSegDtls = lstParObj.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
+                        }
+
+                        Boolean TVcheckbox = false;
+                        foreach (TreeNode node in tvSegmentDetails.Nodes)
+                        {
+                            TVcheckbox = PopulateSDChild(node, lstSegDtls, 0);
+
+                            if (TVcheckbox == true)
+                            {
+                                node.Checked = true;
+                            }
                         }
                         /*User Segment Details Workflow - end*/
 
                         //Change workflow button colors accordingly - start
                         if (role.SelectedValue != "3")
                         {
-                            CustomizeButtonWorkflow(lstAccountCode, lstServiceCode, lstSegDtls);
+                            CustomizeButtonWorkflow(lstAccCode.Select(x => x.AccountCode1).ToList(), lstServiceCode, lstSegDtls.Select(x => x.SegmentDetailID).ToList());
                         }
                         //Change workflow button colors accordingly - end
 
@@ -263,6 +326,47 @@ namespace BP.Setup
                 ((SiteMaster)this.Master).ShowMessage("Error", "An error occurred", ex, true);
             }
         }
+
+        #region Segment Details
+        protected Boolean PopulateSDChild(TreeNode nodes, List<SegmentDetail> ListSegDtls, int ParentID)
+        {
+            Boolean TVcheckbox = false;
+
+            foreach (SegmentDetail obj in ListSegDtls.Where(x => x.Status == "A" && x.ParentDetailID == ParentID))
+            {
+                foreach (TreeNode subnode in nodes.ChildNodes)
+                {
+                    if (Convert.ToInt32(subnode.Value) == obj.SegmentDetailID || Convert.ToInt32(subnode.Value) == obj.ParentDetailID)
+                    {
+                        subnode.Checked = true;
+                        TVcheckbox = true;
+                    }
+
+                    PopulateSDChild(subnode, ListSegDtls, Convert.ToInt32(obj.SegmentDetailID));
+                }
+            }
+
+            return TVcheckbox;
+        }
+        #endregion
+
+        #region Account Code/Mengurus
+        protected void PopulateACChild(TreeNodeCollection nodes, List<AccountCode> lstAccCode)
+        {
+            foreach (AccountCode ac in lstAccCode.Where(x => x.Status == "A"))
+            {
+                foreach (TreeNode subnode in nodes)
+                {
+                    if (subnode.Value == ac.AccountCode1 || subnode.Value == ac.ParentAccountCode)
+                    {
+                        subnode.Checked = true;
+                    }
+
+                    PopulateACChild(subnode.ChildNodes, lstAccCode);
+                }
+            }
+        }
+        #endregion
 
         private void CustomizeButtonWorkflow(List<string> lstAccountCode, List<string> lstServiceCode, List<int> lstSegDtls)
         {
@@ -484,7 +588,7 @@ namespace BP.Setup
                     int SegmentDetailsId = Convert.ToInt32(lstUserSegmentDetails[i].SegmentDetailID);
 
                     var objUSG = lstUserSegmentDetails.Where(o => o.SegmentDetailID == SegmentDetailsId).FirstOrDefault();
-                    if (objUSG != null) { objUSG.MasterUser = objMasterUser; }
+                    if (objUSG != null)  { objUSG.MasterUser = objMasterUser; }
                 }
             }
             /*User Segment Details Workflow - end*/
@@ -632,9 +736,7 @@ namespace BP.Setup
                     gvr.Style["background-color"] = "";
 
                 List<GridViewRowCollection> WorkflowGridview = new List<GridViewRowCollection>();
-                WorkflowGridview.Add(gvMengurusWorkFlow.Rows);
                 WorkflowGridview.Add(gvPerjawatanWorkFlow.Rows);
-                WorkflowGridview.Add(gvSegmentDetails.Rows);
 
                 for (int i = 0; i < WorkflowGridview.Count(); i++)
                 {
@@ -689,20 +791,18 @@ namespace BP.Setup
             {
                 /*User Mengurus Workflow - start*/
                 List<UserMengurusWorkflow> lstAccountCode = new List<UserMengurusWorkflow>();
-                for (int i = 0; i < gvMengurusWorkFlow.Rows.Count; i++)
+                GetNodeRecursiveAC(tvMengurus.Nodes, lstAccountCode);
+
+                List<string> ParAccCode = new AccountCodeDAL().GetAccountCodes().ToList().Select(x => x.ParentAccountCode).Distinct().ToList();
+                for (int i = 0; i < ParAccCode.Count; i++)
                 {
-                    if (((CheckBox)gvMengurusWorkFlow.Rows[i].Cells[0].FindControl("chkSelect")).Checked)
-                        lstAccountCode.Add(new UserMengurusWorkflow()
-                        {
-                            AccountCode = gvMengurusWorkFlow.DataKeys[i]["AccountCode1"].ToString(),
-                            Status = "A"
-                        });
+                    lstAccountCode = lstAccountCode.Where(x => x.AccountCode != ParAccCode[i]).ToList();
                 }
 
                 Session["UserMengurusWorkflow"] = lstAccountCode;
                 /*User Mengurus Workflow - end*/
 
-                /*User Perjawatan Workflow - start*/
+                /*User Perjawatan Workflow - START*/
                 List<UserPerjawatanWorkflow> lstServiceCode = new List<UserPerjawatanWorkflow>();
                 for (int i = 0; i < gvPerjawatanWorkFlow.Rows.Count; i++)
                 {
@@ -715,27 +815,79 @@ namespace BP.Setup
                 }
 
                 Session["UserPerjawatanWorkflow"] = lstServiceCode;
-                /*User Perjawatan Workflow - end*/
+                /*User Perjawatan Workflow - END*/
 
-                /*User Segment Details Workflow - start*/
+                /*User Segment Details Workflow - START*/
                 List<UserSegDtlWorkflow> lstSegmentDetail = new List<UserSegDtlWorkflow>();
-                for (int i = 0; i < gvSegmentDetails.Rows.Count; i++)
+
+                foreach (TreeNode node in tvSegmentDetails.CheckedNodes)
                 {
-                    if (((CheckBox)gvSegmentDetails.Rows[i].Cells[0].FindControl("chkSelect")).Checked)
-                        lstSegmentDetail.Add(new UserSegDtlWorkflow()
-                        {
-                            SegmentDetailID = Convert.ToInt32(gvSegmentDetails.DataKeys[i]["SegmentDetailID"].ToString()),
-                            Status = "A"
-                        });
+                    GetNodeRecursiveSD(node, lstSegmentDetail);
+                }
+
+                List<int> ParSegDtls = new SegmentDetailsDAL().GetSegmentDetails().ToList().Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
+                for (int i = 0; i < ParSegDtls.Count; i++)
+                {
+                    lstSegmentDetail = lstSegmentDetail.Where(x => x.SegmentDetailID != ParSegDtls[i]).ToList();
                 }
 
                 Session["UserSegmentDetailsWorkflow"] = lstSegmentDetail;
-                /*User Segment Details Workflow - start*/
+                /*User Segment Details Workflow - END*/
+
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "GetWorkflowFlag", "WorkflowFlag();", true);
             }
             catch (Exception ex)
             {
                 ((SiteMaster)this.Master).ShowMessage("Error", "An error occurred", ex, true);
             }
         }
+
+        #region Segment Details
+        protected void GetNodeRecursiveSD(TreeNode nodes, List<UserSegDtlWorkflow> lstSegmentDetail)
+        {
+            foreach (TreeNode subnode in nodes.ChildNodes)
+            {
+                if (subnode.Checked)
+                {
+                    lstSegmentDetail.Add(new UserSegDtlWorkflow()
+                    {
+                        SegmentDetailID = Convert.ToInt32(subnode.Value),
+                        Status = "A"
+                    });
+                }
+            }
+        }
+        #endregion
+
+        #region Account Code
+        protected void GetNodeRecursiveAC(TreeNodeCollection nodes, List<UserMengurusWorkflow> lstAccountCode)
+        {
+            foreach (TreeNode subnode in nodes)
+            {
+                if (subnode.Checked)
+                {
+                    lstAccountCode.Add(new UserMengurusWorkflow()
+                    {
+                        AccountCode = subnode.Value,
+                        Status = "A"
+                    });
+                }
+
+                GetNodeRecursiveAC(subnode.ChildNodes, lstAccountCode);
+            }
+        }
+        #endregion
+
+        #region Clear Workflow Treeview
+        protected void btnCancelWorkflow_OnClick(object sender, EventArgs e)
+        {
+            TreeView[] array = { tvSegmentDetails, tvMengurus };
+
+            foreach (TreeView tv in array)
+            {
+                tv.CollapseAll();
+            }
+        }
+        #endregion
     }
 }

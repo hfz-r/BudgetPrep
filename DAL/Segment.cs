@@ -28,6 +28,7 @@ namespace DAL
         public Nullable<System.DateTime> CreatedTimeStamp { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedTimeStamp { get; set; }
+        public Nullable<bool> AccountCodeFlag { get; set; }
     
         public virtual ICollection<SegmentDetail> SegmentDetails { get; set; }
     }

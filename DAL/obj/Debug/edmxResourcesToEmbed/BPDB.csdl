@@ -260,6 +260,7 @@
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
     <NavigationProperty Name="SegmentDetails" Relationship="BPModel.SegmentDetail_Segment" FromRole="Segment" ToRole="SegmentDetail" />
+    <Property Name="AccountCodeFlag" Type="Boolean" />
   </EntityType>
   <EntityType Name="SegmentDetail">
     <Key>

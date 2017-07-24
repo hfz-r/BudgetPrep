@@ -283,13 +283,22 @@ namespace BP.Setup {
         protected global::System.Web.UI.WebControls.GridView gvUsers;
         
         /// <summary>
-        /// gvMengurusWorkFlow control.
+        /// ReloadMG control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMengurusWorkFlow;
+        protected global::System.Web.UI.WebControls.LinkButton ReloadMG;
+        
+        /// <summary>
+        /// tvMengurus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvMengurus;
         
         /// <summary>
         /// gvPerjawatanWorkFlow control.
@@ -301,13 +310,31 @@ namespace BP.Setup {
         protected global::System.Web.UI.WebControls.GridView gvPerjawatanWorkFlow;
         
         /// <summary>
-        /// gvSegmentDetails control.
+        /// ReloadSD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSegmentDetails;
+        protected global::System.Web.UI.WebControls.LinkButton ReloadSD;
+        
+        /// <summary>
+        /// tvSegmentDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvSegmentDetails;
+        
+        /// <summary>
+        /// btnCancelWorkflow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnCancelWorkflow;
         
         /// <summary>
         /// btnSaveWorkflow control.

@@ -15,6 +15,10 @@
             overflow-wrap: inherit;
         }
 
+        .ltor {
+            direction: rtl;
+        }
+
         .DDlPanel {
             position: fixed;
             z-index: 9999999;
@@ -125,7 +129,7 @@
                                                             CssClass="form-control" 
                                                             placeholder="Please Select" 
                                                             onKeyDown="PreventBackspace(event);" />
-                                                        <asp:CustomValidator 
+                                                        <%--<asp:CustomValidator 
                                                             ID="CustomValidator1" 
                                                             runat="server"
                                                             Display="Dynamic"
@@ -136,7 +140,16 @@
                                                             ValidateEmptyText="True"
                                                             SetFocusOnError="True"
                                                             ValidationGroup="SearchValidation"
-                                                            ClientValidationFunction="ValidateSegment" />
+                                                            ClientValidationFunction="ValidateSegment" />--%>
+                                                        <asp:RequiredFieldValidator
+                                                            ID="RequiredFieldValidator1"
+                                                            runat="server" 
+                                                            Display="Dynamic"
+                                                            CssClass="help-block"
+                                                            ForeColor="Red"
+                                                            ErrorMessage="Segment is required." 
+                                                            ControlToValidate="tbSegmentDDL"
+                                                            ValidationGroup="SearchValidation" />
                                                         <ajaxToolkit:DropDownExtender ID="DropDownExtender1" runat="server" TargetControlID="tbSegmentDDL"
                                                             DropDownControlID="pnlSegmentDDL">
                                                         </ajaxToolkit:DropDownExtender>
@@ -231,12 +244,12 @@
                         <div class="widget-menu">
                             <a href="#" data-action="settings" data-toggle="dropdown" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Settings"><i class="ace-icon fa fa-cogs"></i></a>
                             <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
-                                <li><a href="#LegendExample" id="btnLegend" runat="server" role="button" class="red" data-toggle="collapse" data-rel="tooltip" 
-                                        data-placement="top" title="Legend"><i class="ace-icon fa fa-list bigger-110"></i>Legend
-                                    </a></li>
-                                <li><a href="#upload-form" id="btnFileUpload" runat="server" role="button" class="blue" data-toggle="modal" data-rel="tooltip" 
-                                        data-placement="top" title="Upload your .CSV file format here."><i class="ace-icon fa fa-cloud-upload bigger-110"></i>Upload
-                                    </a></li>
+                                <li>
+                                    <a href="#upload-form" id="btnFileUpload" runat="server" role="button" class="blue" data-toggle="modal" data-rel="tooltip"
+                                        data-placement="top" title="Upload your .CSV file format here.">
+                                        <i class="ace-icon fa fa-cloud-upload bigger-110"></i> Upload
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen"><i class="ace-icon fa fa-expand"></i></a>
@@ -244,38 +257,149 @@
                         <a href="#" data-action="collapse" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Collapse"><i class="ace-icon fa fa-chevron-up"></i></a>
                         <a href="#" data-action="close" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Close"><i class="ace-icon fa fa-times"></i></a>
                     </div>
+
                     <div class="widget-toolbar">
-                        <button id="btnSearchbox" runat="server" class="badge badge-grey" onserverclick="btnSearchbox_Click">
-                            <i class="icon-only ace-icon fa fa-list txt-primary bigger-110"></i>Filter
-                        </button>
+                        <label class="pull-right inline">
+                            <small class="muted">Legend:</small>
+
+                            <input id="id-pills-stacked" type="checkbox" class="ace ace-switch ace-switch-5" />
+                            <span class="lbl middle"></span>
+                        </label>
                     </div>
                 </div>
                 <div class="widget-body">
                     <div class="form-horizontal" role="form">
 
                         <!-- LegendExample - start -->
-                        <div class="collapse" id="LegendExample">
+                        <div class="collapse" id="LegendExample" style="margin: 10px;">
                             <div class="well">
                                 <fieldset class="scheduler-border">
                                     <legend class="scheduler-border">Legend</legend>
                                     <div class="row">
                                         <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #999999;">
-                                            Saved</div>
+                                            Saved
+                                        </div>
                                         <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ffff00;">
-                                            Prepared</div>
+                                            Prepared
+                                        </div>
                                         <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #00ffff;">
-                                            Reviewed</div>
+                                            Reviewed
+                                        </div>
                                         <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #00ff00;">
-                                            Approved</div>
+                                            Approved
+                                        </div>
                                         <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ff00ff;">
-                                            Reviewer Rejected</div>
+                                            Reviewer Rejected
+                                        </div>
                                         <div class="col-lg-2 col-md-4 col-sm-4" style="background-color: #ff0000;">
-                                            Approver Rejected</div>
+                                            Approver Rejected
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
                         </div>
                         <!-- LegendExample - end -->
+
+                        <!--Search Result Widget - start-->
+                        <div id="SearchResult" class="widget-box transparent" style="padding:20px;">
+                            <div class="widget-header widget-header-flat">
+                                <h4 class="widget-title lighter">
+                                    <i class="ace-icon fa fa-search-plus orange"></i>
+                                    Search Results
+                                </h4>
+
+                                <div class="widget-toolbar">
+                                    <a href="#" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
+
+                                <div class="widget-toolbar no-border">
+                                    <button id="btnSearchbox" runat="server" class="badge badge-info" onserverclick="btnSearchbox_Click">
+                                        <i class="ace-icon fa fa-sliders light-green bigger-110"></i><strong>&nbsp;Refine Search</strong>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main no-padding">
+
+                                    <div class="row" style="padding:20px;">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="center" style="width:30%;background-color:#EDF3F4;">Prefix Account Code</td>
+
+                                                    <td>
+                                                        <asp:Label ID="PrefAccCode" runat="server" Text="" CssClass="control-label"></asp:Label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-sm-6">
+
+                                                                <div class="widget-box transparent">
+                                                                    <div class="widget-header">
+                                                                        <h4 class="widget-title lighter smaller">
+                                                                            <i class="ace-icon fa fa-users blue"></i>Segments
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main padding-4">
+
+                                                                            <div class="content padding-8">
+                                                                                <asp:TreeView ID="tvSearchResult" runat="server" ShowLines="true" Font-Size="Medium">
+                                                                                    <HoverNodeStyle Font-Underline="True" ForeColor="#5555DD" />
+                                                                                    <NodeStyle Font-Names="Tahoma" Font-Size="10pt" ForeColor="Black" HorizontalPadding="5px"
+                                                                                        NodeSpacing="0px" VerticalPadding="0px" />
+                                                                                    <ParentNodeStyle Font-Bold="False" />
+                                                                                    <SelectedNodeStyle Font-Underline="False" ForeColor="#5555DD"
+                                                                                        HorizontalPadding="0px" VerticalPadding="0px" />
+                                                                                </asp:TreeView>
+                                                                                <br />
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-sm-6">
+
+                                                                <div class="widget-box transparent">
+                                                                    <div class="widget-header">
+                                                                        <h4 class="widget-title lighter smaller">
+                                                                            <i class="ace-icon fa fa-bar-chart-o green"></i>Periods
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main padding-4">
+
+                                                                            <div class="content padding-8">
+                                                                                <span id="SelectedPeriod" runat="server"></span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- /.widget-main -->
+                            </div>
+                            <!-- /.widget-body -->
+                        </div>
+                        <!-- /.widget-box -->
+                        <!--Search Result Widget - end-->
 
                         <div class="widget-main padding-16">
                             <div class="clearfix">
@@ -290,14 +414,14 @@
                                     <asp:TemplateField HeaderText="Code" HeaderStyle-CssClass="treecontainer" ItemStyle-HorizontalAlign="Left"
                                         ItemStyle-VerticalAlign="Middle">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="btnExpand" runat="server" Font-Underline="false" CommandName="Expand" 
+                                            <asp:LinkButton ID="btnExpand" runat="server" Font-Underline="false" CommandName="Expand"
                                                 CommandArgument='<%# Container.DataItemIndex %>'>
                                             </asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
                             </asp:GridView>
-                            <div id="listBtnActionPnl" runat="server" class="clearfix form-actions" style="margin-top:20px;">
+                            <div id="listBtnActionPnl" runat="server" class="clearfix form-actions" style="margin-top: 20px;">
                                 <div class="col-md-offset-9 col-md-9">
                                     <button id="btnSubmit" runat="server" class="btn btn-warning" type="button" data-toggle="modal" data-target="#BulkSubmitExample" />
                                     <button id="btnReload" runat="server" type="button" class="btn" onclick="return location.reload();">
@@ -320,7 +444,7 @@
                     <button type="button" class="close" data-dismiss="modal">
                         &times;
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Budget Mengurus - Bulk Submit</h4>
+                    <h4 class="modal-title" id="myModalLabel" runat="server">Budget Mengurus - Bulk Submit</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -351,7 +475,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Close
                     </button>
-                    <asp:LinkButton ID="btnBulkUpdate" runat="server" CssClass="btn btn-success" OnClientClick="return CloseModal();" OnClick="btnBulkUpdate_Click">
+                    <asp:LinkButton ID="btnBulkUpdate" runat="server" CssClass="btn btn-warning" OnClientClick="return CloseModal();" OnClick="btnBulkUpdate_Click">
 						<i class="ace-icon fa fa-save"></i>Save changes
 					</asp:LinkButton>
                 </div>
@@ -368,32 +492,72 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
-                    <h4 class="modal-title">
-                        <asp:Label ID="lblDecisionModalTitle" runat="server" Text="Budget Mengurus - Decision"></asp:Label>
-                    </h4>
+                    <h4 class="modal-title" id="lblDecisionModalTitle">Budget Mengurus - Decision</h4>
                 </div>
                 <div class="modal-body">
-                    <asp:Label ID="lblDecisionModalPeriodID" runat="server" Text="" class="control-label" Visible="false"></asp:Label>
-                    <asp:Label ID="lblDecisionModalAccountCode" runat="server" Text="" class="control-label" Visible="false"></asp:Label>
-                    <br />
-                    <asp:Label ID="lblDecisionModalAccount" runat="server" Text="" class="control-label"></asp:Label>
-                    <br />
-                    <asp:Label ID="lblDecisionModalPeriod" runat="server" Text="" class="control-label"></asp:Label>
-                    <br />
-                    <asp:Label ID="lblDecisionModalAmount" runat="server" Text="" class="control-label"></asp:Label>
-                    <br />
-                    <hr />
-                    <asp:RadioButtonList ID="rbldecision" runat="server">
-                        <asp:ListItem Text="Accept" Value="A" Selected="True" />
-                        <asp:ListItem Text="Reject" Value="R" />
-                    </asp:RadioButtonList>
-                    <asp:Label ID="Label1" runat="server" Text="Remarks" class="control-label"></asp:Label>
-                    <asp:TextBox ID="tbRemarks" runat="server" TextMode="MultiLine" Height="60px" Text="" CssClass="form-control"></asp:TextBox>
+
+                    <!-- hidden field - start -->
+                    <asp:Label ID="lblDecisionModalPeriodID" runat="server" Text="" Visible="false"></asp:Label>
+                    <asp:Label ID="lblDecisionModalAccountCode" runat="server" Text="" Visible="false"></asp:Label>
+                    <!-- hidden field - end -->
+
+                    <div class="profile-user-info profile-user-info-striped">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">Account Code </div>
+
+                            <div class="profile-info-value">
+                                <asp:Label ID="lblDecisionModalAccount" runat="server" Text="" CssClass="control-label"></asp:Label>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">Period </div>
+
+                            <div class="profile-info-value">
+                                <asp:Label ID="lblDecisionModalPeriod" runat="server" Text="" CssClass="control-label"></asp:Label>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">Amount </div>
+
+                            <div class="profile-info-value">
+                                <asp:Label ID="lblDecisionModalAmount" runat="server" Text="" CssClass="control-label"></asp:Label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-20"></div>
+
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-push-1 col-sm-12">
+                            <div class="col-md-12 col-lg-4">
+                                <label class="control-label">Decision </label>
+                            </div>
+                            <div class="col-md-12 col-lg-8 radio">
+                                <asp:RadioButtonList ID="rbldecision" runat="server">
+                                    <asp:ListItem Text="Accept" Value="A" Selected="True" />
+                                    <asp:ListItem Text="Reject" Value="R" />
+                                </asp:RadioButtonList>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-lg-push-1 col-sm-12" style="margin-top:10px;">
+                            <div class="col-md-12 col-lg-4">
+                                <label class="control-label">Remarks </label>
+                            </div>
+                            <div class="col-md-12 col-lg-8" style="margin-left:-20px;">
+                                <asp:TextBox ID="tbRemarks" runat="server" TextMode="MultiLine" Height="60px" Text="" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
                 <div class="modal-footer">
-                    <asp:LinkButton ID="btnDecisionSave" runat="server" CssClass="btn btn-label-left"
-                        OnClientClick="return CloseModal();" OnClick="btnDecisionSave_Click">
-                            <span><i class="fa fa-save txt-success"></i></span>Simpan
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    <asp:LinkButton ID="btnDecisionSave" runat="server" CssClass="btn btn-info" OnClientClick="return CloseModal();" OnClick="btnDecisionSave_Click">
+					    <i class="ace-icon fa fa-save"></i>Save changes
                     </asp:LinkButton>
                 </div>
             </div>
@@ -455,7 +619,7 @@
                 cancel: '.fullscreen',
                 opacity: 0.8,
                 revert: true,
-                cancel: '.widget-main, .widget-toolbar',
+                cancel: '.widget-main, .widget-toolbar, #SearchResult',
                 forceHelperSize: true,
                 placeholder: 'widget-placeholder',
                 forcePlaceholderSize: true,
@@ -582,6 +746,18 @@
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-order');
             });
+
+            $('#<%=SelectedPeriod.ClientID%>').find('#tasks').sortable({
+                opacity: 0.8,
+                revert: true,
+                forceHelperSize: true,
+                placeholder: 'draggable-placeholder',
+                forcePlaceholderSize: true,
+                tolerance: 'pointer',
+                stop: function (event, ui) {
+                    $(ui.item).css('z-index', 'auto');
+                }
+            });
             //list-form widget close button action - end
 
             //preview template
@@ -597,7 +773,12 @@
                 }
             });
 
+            //tooltip & fuck you
             $('[data-rel=tooltip]').tooltip();
+
+            $('#id-pills-stacked').removeAttr('checked').on('click', function () {
+                $('#LegendExample').slideToggle();
+            });
         }
 
         function FileInput() {
@@ -682,11 +863,10 @@
 
             var myTable = $('#<%=gvAccountCodes.ClientID%>').DataTable({
                 bAutoWidth: false,
+				"lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]],
                 "aoColumnDefs": [
-                    {
-                    "targets": 0,
-                    "bSortable": false
-                    }
+                    { bSortable: false, aTargets: [0] },
+                    { bSortable: true, aTargets: ['_all'] }
                 ],
                 "aaSorting": [],
                 select: {
@@ -790,14 +970,9 @@
                 $("#spin").hide();
 
             }, 500);
-
-            $(document).on('click', '#<%=gvAccountCodes.ClientID%> .dropdown-toggle', function (e) {
-                e.stopImmediatePropagation();
-                e.stopPropagation();
-                e.preventDefault();
-            });
         }
 
+        //for CustomValidator
         function ValidateSegment(s, args)
         {
             var isValid = false;
@@ -818,7 +993,6 @@
                 e.cancelBubble = true;
                 if (e.stopPropagation) e.stopPropagation();
             });
-
         });
 
         var prm = Sys.WebForms.PageRequestManager.getInstance();

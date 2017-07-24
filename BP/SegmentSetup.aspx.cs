@@ -16,6 +16,7 @@ namespace BP
         {
             if (!Page.IsPostBack)
             {
+                cdaccflag.Checked = false;
                 GetData();
                 Session["SegmentPageMode"] = Helper.PageMode.New;
             }
@@ -60,6 +61,7 @@ namespace BP
                     objSegment.CreatedTimeStamp = DateTime.Now;
                     objSegment.ModifiedBy = LoggedInUser.UserID;
                     objSegment.ModifiedTimeStamp = DateTime.Now;
+                    objSegment.AccountCodeFlag = (cdaccflag.Checked) ? true : false;
 
                     if (new SegmentDAL().InsertSegment(objSegment))
                         ((SiteMaster)this.Master).ShowMessage("Success", "Segment saved successfully");
@@ -85,6 +87,7 @@ namespace BP
                     objSegment.Status = new Helper().GetItemStatusEnumValueByName(ddlStatus.SelectedValue);
                     objSegment.ModifiedBy = LoggedInUser.UserID;
                     objSegment.ModifiedTimeStamp = DateTime.Now;
+                    objSegment.AccountCodeFlag = (cdaccflag.Checked) ? true : false;
 
                     if (new SegmentDAL().UpdateSegment(objSegment))
                         ((SiteMaster)this.Master).ShowMessage("Success", "Segment updated successfully");
@@ -125,6 +128,8 @@ namespace BP
                     objSegment.ShapeFormat = selectedRow.Cells[2].Text;
                     objSegment.SegmentOrder = Convert.ToInt32(selectedRow.Cells[3].Text);
                     objSegment.Status = new SegmentDAL().GetSegments().Where(x => x.SegmentID == objSegment.SegmentID).Select(y => y.Status).FirstOrDefault();
+                    objSegment.AccountCodeFlag = new SegmentDAL().GetSegments().Where(x => x.SegmentID == objSegment.SegmentID)
+                        .Select(y => y.AccountCodeFlag).FirstOrDefault() ?? false;
                     //objSegment.Status = selectedRow.Cells[4].Text;
 
                     Session["SelectedSegment"] = objSegment;
@@ -134,6 +139,7 @@ namespace BP
                     tbSegOrder.Text = objSegment.SegmentOrder.ToString();
                     ddlStatus.SelectedIndex = -1;
                     ddlStatus.Items.FindByValue(new Helper().GetItemStatusEnumName(Convert.ToChar(objSegment.Status))).Selected = true;
+                    cdaccflag.Checked = (bool)objSegment.AccountCodeFlag;
 
                     ChangePageMode(Helper.PageMode.Edit);
                     EditForm.Visible = true;
@@ -149,6 +155,8 @@ namespace BP
                     objSegment.ShapeFormat = selectedRow.Cells[2].Text;
                     objSegment.SegmentOrder = Convert.ToInt32(selectedRow.Cells[3].Text);
                     objSegment.Status = selectedRow.Cells[4].Text;
+                    objSegment.AccountCodeFlag = new SegmentDAL().GetSegments().Where(x => x.SegmentID == objSegment.SegmentID)
+                        .Select(y => y.AccountCodeFlag).FirstOrDefault() ?? false;
 
                     Session["SelectedSegment"] = objSegment;
 
@@ -225,6 +233,7 @@ namespace BP
             tbSegFormat.Attributes.Add("value", "");
             tbSegOrder.Text = string.Empty;
             ddlStatus.SelectedIndex = 0;
+            cdaccflag.Checked = false;
 
             foreach (GridViewRow gvr in gvSegmentSetup.Rows)
                 gvr.Style["background-color"] = "";

@@ -45,8 +45,7 @@ namespace BP
 
             /********************************************************************************************************/
 
-            /* masterpage - start */
-
+//////////////* masterpage - start *///////////////
             //CSS
             bundles.Add(new StyleBundle("~/css/site-css")
             //<!-- page specific plugin styles start -->
@@ -104,8 +103,7 @@ namespace BP
             .Include("~/assets/js/jszip.min.js")
             .Include("~/assets/js/pdfmake.min.js")
             .Include("~/assets/js/vfs_fonts.js"));
-
-            /* masterpage - end */
+//////////////* masterpage - end *///////////////
 
             /* page-specific - start */
             //using at (SCRIPTS): Dashboard (CHART etc.)

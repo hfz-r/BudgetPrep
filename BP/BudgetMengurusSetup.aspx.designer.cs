@@ -103,15 +103,6 @@ namespace BP {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ListForm;
         
         /// <summary>
-        /// btnLegend control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnLegend;
-        
-        /// <summary>
         /// btnFileUpload control.
         /// </summary>
         /// <remarks>
@@ -128,6 +119,33 @@ namespace BP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnSearchbox;
+        
+        /// <summary>
+        /// PrefAccCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PrefAccCode;
+        
+        /// <summary>
+        /// tvSearchResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvSearchResult;
+        
+        /// <summary>
+        /// SelectedPeriod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SelectedPeriod;
         
         /// <summary>
         /// gvAccountCodes control.
@@ -166,6 +184,15 @@ namespace BP {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnReload;
         
         /// <summary>
+        /// myModalLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl myModalLabel;
+        
+        /// <summary>
         /// ddlBulkDecision control.
         /// </summary>
         /// <remarks>
@@ -191,15 +218,6 @@ namespace BP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnBulkUpdate;
-        
-        /// <summary>
-        /// lblDecisionModalTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDecisionModalTitle;
         
         /// <summary>
         /// lblDecisionModalPeriodID control.
@@ -254,15 +272,6 @@ namespace BP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rbldecision;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// tbRemarks control.
