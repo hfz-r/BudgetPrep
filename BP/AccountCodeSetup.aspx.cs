@@ -25,11 +25,11 @@ namespace BP
 
     public class AccountCodeImport
     {
-        public Int32 AccountCode { get; set; }
+        public string AccountCode { get; set; }
         public string AccountDesc { get; set; }
         public string Status { get; set; }
         public string Action { get; set; }
-        public Int32 UpperLevel { get; set; }
+        public string UpperLevel { get; set; }
     }
 
     public partial class AccountCodeSetup : PageHelper

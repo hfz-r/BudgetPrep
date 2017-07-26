@@ -472,7 +472,7 @@
                 no_icon: 'ace-icon fa fa-cloud-upload',
                 droppable: true,
                 thumbnail: 'small',
-                allowExt: ['csv', 'CSV']
+                allowExt: ['csv', 'CSV', 'xls', 'XLS', 'xlsx', 'XLSX']
             });
 
             $('#btnUpload').on('click', function (e) {

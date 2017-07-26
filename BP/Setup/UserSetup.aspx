@@ -439,7 +439,7 @@
                                     <asp:BoundField DataField="FullName" HeaderText="Full Name" />
                                     <asp:BoundField DataField="UserName" HeaderText="User Name" />
                                     <asp:BoundField DataField="UserEmail" HeaderText="Email" />
-                                    <asp:BoundField DataField="UserPhoneNo" HeaderText="Phone No" />
+                                    <asp:BoundField DataField="JuncUserRoles" HeaderText="Role" />
                                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -1184,7 +1184,7 @@
 
             //Load Workflow Datatables!
             var gvs = [$('#<%=gvPerjawatanWorkFlow.ClientID%>')];
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 1; i++) {
                 LoadWorkflowDatatable(gvs[i]);
             }
         }

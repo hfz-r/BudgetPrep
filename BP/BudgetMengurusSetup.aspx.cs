@@ -738,10 +738,13 @@ namespace BP
                     newBudgetMenguru.ModifiedTimeStamp = DateTime.Now;
 
                     List<int> LstSegmentDetailIDs = ((List<JuncBgtMengurusSegDtl>)Session["ListSegmentDetails"]).Select(x => x.SegmentDetailID).ToList();
-                    if (new BudgetMengurusDAL().UpdateBudgetMenguru(newBudgetMenguru, LstSegmentDetailIDs))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget updated successfully");
-                    else
+                    if (!new BudgetMengurusDAL().UpdateBudgetMenguru(newBudgetMenguru, LstSegmentDetailIDs))
+                    {
+                        //((SiteMaster)this.Master).ShowMessage("Success", "Budget updated successfully");
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Budget");
+                    }
+                    //else
+                    //    ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Budget");
                 }
                 else
                 {
@@ -763,10 +766,13 @@ namespace BP
                     foreach (JuncBgtMengurusSegDtl obj in lstBgtSegDtl)
                         obj.BudgetMenguru = newBudgetMenguru;
 
-                    if (new BudgetMengurusDAL().InsertBudgetMenguru(newBudgetMenguru, lstBgtSegDtl))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget saved successfully");
-                    else
+                    if (!new BudgetMengurusDAL().InsertBudgetMenguru(newBudgetMenguru, lstBgtSegDtl))
+                    {
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while saving Budget");
+                        //((SiteMaster)this.Master).ShowMessage("Success", "Budget saved successfully");
+                    }
+                    //else
+                    //    ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while saving Budget");
                 }
 
                 CreateTreeData();
