@@ -59,6 +59,18 @@ namespace BP
                         {
                             BudgetMengurusFileUpload(ds, ref ListExcluded);
                         }
+                        else if (source == "PeruntukanAsal")
+                        {
+                            PeruntukanAsalFileUpload(ds, ref ListExcluded);
+                        }
+                        else if (source == "PeruntukanDipinda")
+                        {
+                            PeruntukanDipindaFileUpload(ds, ref ListExcluded);
+                        }
+                        else if (source == "PerbelanjaanSebenar")
+                        {
+                            PerbelanjaanSebenarFileUpload(ds, ref ListExcluded);
+                        }
                     }
                 }
 
@@ -355,6 +367,325 @@ namespace BP
             else
             {
                 ListExcluded.Add(new
+                {
+                    status = "Error",
+                    message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)
+                });
+            }
+        }
+        public void PeruntukanAsalFileUpload(DataSet ds, ref List<object> ListExcluded)
+        {
+            object ReturnObj = new object();
+
+            List<string> lstErrors = new List<string>();
+            DataTable dt = new DataTable();
+
+            dt = new ReportHelper().Validate<PeruntukanAsalImport>(ds, "", ref lstErrors);
+
+            if (lstErrors.Count == 0)
+            {
+                List<PeruntukanAsal> PeruntukanData = (List<PeruntukanAsal>)HttpContext.Current.Session["PeruntukanData"];
+                List<PeruntukanAsal> UploadedData = new ReportHelper().DataTableToList<PeruntukanAsalImport>(dt).Select(x => new PeruntukanAsal()
+                {
+                    BudgetAccount = Convert.ChangeType(x.BudgetAccount, typeof(string)).ToString(),
+                    Description = x.Description,
+                    BudgetType = x.BudgetType,
+                    BudgetAccKey = Convert.ToInt32(x.BudgetAccKey),
+                    BudgetLedgerKey = Convert.ToInt32(x.BudgetLedgerKey),
+                    BudgetYear = Convert.ToInt32(x.BudgetYear),
+                    BudgetAmount = Convert.ToDecimal(x.BudgetAmount),
+                    Type = x.Type
+                }).ToList();
+
+                if (UploadedData.Count > 0)
+                {
+                    foreach (PeruntukanAsal item in UploadedData)
+                    {
+                        PeruntukanAsal objAccountCode = new PeruntukanAsal();
+
+                        if (PeruntukanData != null)
+                        {
+                            if (PeruntukanData.Where(x => x.BudgetAccount == item.BudgetAccount).Count() > 0)
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Error",
+                                    message = "Budget Account **" + item.BudgetAccount + "** already exists. It`ll be excluded."
+                                };
+                            }
+                            else
+                            {
+                                objAccountCode.BudgetAccount = item.BudgetAccount;
+                                objAccountCode.Description = item.Description;
+                                objAccountCode.BudgetType = item.BudgetType;
+                                objAccountCode.BudgetAccKey = item.BudgetAccKey;
+                                objAccountCode.BudgetLedgerKey = item.BudgetLedgerKey;
+                                objAccountCode.BudgetYear = item.BudgetYear;
+                                objAccountCode.Type = item.Type;
+                                objAccountCode.BudgetAmount = item.BudgetAmount;
+                                if (new PeruntukanAsalDAL().InsertAccountCode(objAccountCode))
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Success",
+                                        message = "Peruntukan Asal **" + item.BudgetAccount + "** uploaded successfully"
+                                    };
+                                }
+                                else
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Failure",
+                                        message = "An error occurred while uploading Account Code"
+                                    };
+                                }
+                            }
+                        }
+                        else
+                        {
+                            objAccountCode.BudgetAccount = item.BudgetAccount;
+                            objAccountCode.Description = item.Description;
+                            objAccountCode.BudgetType = item.BudgetType;
+                            objAccountCode.BudgetAccKey = item.BudgetAccKey;
+                            objAccountCode.BudgetLedgerKey = item.BudgetLedgerKey;
+                            objAccountCode.BudgetYear = item.BudgetYear;
+                            objAccountCode.Type = item.Type;
+                            objAccountCode.BudgetAmount = item.BudgetAmount;
+                            if (new PeruntukanAsalDAL().InsertAccountCode(objAccountCode))
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Success",
+                                    message = "Peruntukan Asal **" + item.BudgetAccount + "** uploaded successfully"
+                                };
+                            }
+                            else
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Failure",
+                                    message = "An error occurred while uploading Account Code"
+                                };
+                            }
+                        }
+
+                        ListExcluded.Add(ReturnObj);
+                    }
+                }
+            }
+            else
+            {
+                ListExcluded.Add(ReturnObj = new
+                {
+                    status = "Error",
+                    message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)
+                });
+            }
+        }
+        public void PeruntukanDipindaFileUpload(DataSet ds, ref List<object> ListExcluded)
+        {
+            object ReturnObj = new object();
+
+            List<string> lstErrors = new List<string>();
+            DataTable dt = new DataTable();
+
+            dt = new ReportHelper().Validate<PeruntukanDipindaImport>(ds, "", ref lstErrors);
+
+            if (lstErrors.Count == 0)
+            {
+                List<PeruntukanDipinda> PeruntukanData = (List<PeruntukanDipinda>)HttpContext.Current.Session["PeruntukanDipinda"];
+                List<PeruntukanDipinda> UploadedData = new ReportHelper().DataTableToList<PeruntukanDipindaImport>(dt).Select(x => new PeruntukanDipinda()
+                {
+                    BudgetAccount = Convert.ChangeType(x.BudgetAccount, typeof(string)).ToString(),
+                    Description = x.Description,
+                    BudgetType = x.BudgetType,
+                    BudgetAccKey = Convert.ToInt32(x.BudgetAccKey),
+                    BudgetLedgerKey = Convert.ToInt32(x.BudgetLedgerKey),
+                    BudgetYear = Convert.ToInt32(x.BudgetYear),
+                    BudgetAmount = Convert.ToDecimal(x.BudgetAmount),
+                    Type = x.Type
+                }).ToList();
+
+                if (UploadedData.Count > 0)
+                {
+                    foreach (PeruntukanDipinda item in UploadedData)
+                    {
+                        PeruntukanDipinda objAccountCode = new PeruntukanDipinda();
+
+                        if (PeruntukanData != null)
+                        {
+                            if (PeruntukanData.Where(x => x.BudgetAccount == item.BudgetAccount).Count() > 0)
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Error",
+                                    message = "Budget Account **" + item.BudgetAccount + "** already exists. It`ll be excluded."
+                                };
+                            }
+                            else
+                            {
+                                objAccountCode.BudgetAccount = item.BudgetAccount;
+                                objAccountCode.Description = item.Description;
+                                objAccountCode.BudgetType = item.BudgetType;
+                                objAccountCode.BudgetAccKey = item.BudgetAccKey;
+                                objAccountCode.BudgetLedgerKey = item.BudgetLedgerKey;
+                                objAccountCode.BudgetYear = item.BudgetYear;
+                                objAccountCode.Type = item.Type;
+                                objAccountCode.BudgetAmount = item.BudgetAmount;
+                                if (new PeruntukanDipindaDAL().InsertAccountCode(objAccountCode))
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Success",
+                                        message = "Peruntukan Dipinda **" + item.BudgetAccount + "** uploaded successfully"
+                                    };
+                                }
+                                else
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Failure",
+                                        message = "An error occurred while uploading Account Code"
+                                    };
+                                }
+                            }
+                        }
+                        else
+                        {
+                            objAccountCode.BudgetAccount = item.BudgetAccount;
+                            objAccountCode.Description = item.Description;
+                            objAccountCode.BudgetType = item.BudgetType;
+                            objAccountCode.BudgetAccKey = item.BudgetAccKey;
+                            objAccountCode.BudgetLedgerKey = item.BudgetLedgerKey;
+                            objAccountCode.BudgetYear = item.BudgetYear;
+                            objAccountCode.Type = item.Type;
+                            objAccountCode.BudgetAmount = item.BudgetAmount;
+                            if (new PeruntukanDipindaDAL().InsertAccountCode(objAccountCode))
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Success",
+                                    message = "Peruntukan Dipinda **" + item.BudgetAccount + "** uploaded successfully"
+                                };
+                            }
+                            else
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Failure",
+                                    message = "An error occurred while uploading Account Code"
+                                };
+                            }
+                        }
+
+                        ListExcluded.Add(ReturnObj);
+                    }
+                }
+            }
+            else
+            {
+                ListExcluded.Add(ReturnObj = new
+                {
+                    status = "Error",
+                    message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)
+                });
+            }
+        }
+        public void PerbelanjaanSebenarFileUpload(DataSet ds, ref List<object> ListExcluded)
+        {
+            object ReturnObj = new object();
+
+            List<string> lstErrors = new List<string>();
+            DataTable dt = new DataTable();
+
+            dt = new ReportHelper().Validate<PerbelanjaanSebenarImport>(ds, "", ref lstErrors);
+
+            if (lstErrors.Count == 0)
+            {
+                List<PerbelanjaanSebenar> PeruntukanData = (List<PerbelanjaanSebenar>)HttpContext.Current.Session["PerbelanjaanSebenar"];
+                List<PerbelanjaanSebenar> UploadedData = new ReportHelper().DataTableToList<PerbelanjaanSebenarImport>(dt).Select(x => new PerbelanjaanSebenar()
+                {
+                    BudgetAccount = Convert.ChangeType(x.BudgetAccount, typeof(string)).ToString(),
+                    Description = x.Description,
+                    BudgetAmount = Convert.ToDecimal(x.BudgetAmount),
+                    BudgetYear = Convert.ToInt32(x.BudgetYear),
+
+                }).ToList();
+
+                if (UploadedData.Count > 0)
+                {
+                    foreach (PerbelanjaanSebenar item in UploadedData)
+                    {
+                        PerbelanjaanSebenar objAccountCode = new PerbelanjaanSebenar();
+
+                        if (PeruntukanData != null)
+                        {
+                            if (PeruntukanData.Where(x => x.BudgetAccount == item.BudgetAccount).Count() > 0)
+                            {
+                                ReturnObj = new
+                                {
+                                    status = "Error",
+                                    message = "Budget Account **" + item.BudgetAccount + "** already exists. It`ll be excluded."
+                                };
+                            }
+                            else
+                            {
+                                objAccountCode.BudgetAccount = item.BudgetAccount;
+                                objAccountCode.Description = item.Description;
+                                objAccountCode.BudgetAmount = item.BudgetAmount;
+                                objAccountCode.BudgetYear = item.BudgetYear;
+                                if (new PerbelanjaanSebenarDAL().InsertAccountCode(objAccountCode))
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Success",
+                                        message = "Perbelanjaan Sebenar **" + item.BudgetAccount + "** uploaded successfully"
+                                    };
+                                }
+                                else
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Failure",
+                                        message = "An error occurred while uploading Account Code"
+                                    };
+                                }
+
+                            }
+                        }
+
+                            else
+                            {
+                                objAccountCode.BudgetAccount = item.BudgetAccount;
+                                objAccountCode.Description = item.Description;
+                                objAccountCode.BudgetAmount = item.BudgetAmount;
+                                objAccountCode.BudgetYear = item.BudgetYear;
+                                if (new PerbelanjaanSebenarDAL().InsertAccountCode(objAccountCode))
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Success",
+                                        message = "Perbelanjaan Sebenar **" + item.BudgetAccount + "** uploaded successfully"
+                                    };
+                                }
+                                else
+                                {
+                                    ReturnObj = new
+                                    {
+                                        status = "Failure",
+                                        message = "An error occurred while uploading Account Code"
+                                    };
+                                }
+
+                            }
+                        }
+                        ListExcluded.Add(ReturnObj);
+                    
+                }
+            }
+            else
+            {
+                ListExcluded.Add(ReturnObj = new
                 {
                     status = "Error",
                     message = lstErrors.Aggregate((a, b) => a + "<br/>" + b)

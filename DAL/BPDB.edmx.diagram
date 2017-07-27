@@ -45,6 +45,9 @@
         <AssociationConnector Association="BPModel.JuncBgtMengurusSegDtl_BudgetMengurus" />
         <AssociationConnector Association="BPModel.JuncBgtMengurusSegDtl_SegmentDetail" />
         <EntityTypeShape EntityType="BPModel.YearEnd" Width="1.5" PointX="9.75" PointY="12" />
+        <EntityTypeShape EntityType="BPModel.PeruntukanAsal" Width="1.5" PointX="6" PointY="28.875" />
+        <EntityTypeShape EntityType="BPModel.PeruntukanDipinda" Width="1.5" PointX="8" PointY="28.875" />
+        <EntityTypeShape EntityType="BPModel.PerbelanjaanSebenar" Width="1.5" PointX="10.25" PointY="29.125" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

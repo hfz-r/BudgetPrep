@@ -47,5 +47,8 @@ namespace DAL
         public DbSet<BudgetMenguru> BudgetMengurus { get; set; }
         public DbSet<JuncBgtMengurusSegDtl> JuncBgtMengurusSegDtls { get; set; }
         public DbSet<YearEnd> YearEnds { get; set; }
+        public DbSet<PeruntukanAsal> PeruntukanAsals { get; set; }
+        public DbSet<PeruntukanDipinda> PeruntukanDipindas { get; set; }
+        public DbSet<PerbelanjaanSebenar> PerbelanjaanSebenars { get; set; }
     }
 }

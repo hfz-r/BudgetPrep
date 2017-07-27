@@ -82,9 +82,12 @@ namespace BP
         {
             try
             {
+                string PrefixAcountCode = (string)Session["PrefixAcountCode"];
+                //string SelectNodes = (string)Session["SelectedNodes"];
                 List<AccountCode> lstAccountCode = new AccountCodeDAL().GetAccountCodes().Where(x => x.Status == "A").ToList();
-                List<AccountCode> AccountCodesData = AuthUser.UserMengurusWorkflows.Where(x => x.Status == "A").Select(x => x.AccountCode1).ToList();
-                List<string> lstprntcodes = AccountCodesData.Select(x => x.ParentAccountCode).Distinct().ToList();
+                List<AccountCode> AccountCodesData = AuthUser.UserMengurusWorkflows.Where(x => x.Status == "A" && x.AccountCode1.ParentAccountCode.Contains(PrefixAcountCode.Substring(17, 6))).Select(x => x.AccountCode1).ToList();
+                //List<string> lstprntcodes = AccountCodesData.Select(x => x.ParentAccountCode).Distinct().ToList();
+                List<string> lstprntcodes = AccountCodesData.Select(x => x.ParentAccountCode = PrefixAcountCode.Substring(17, 6)).Distinct().ToList();
                 while (lstprntcodes.Count > 0)
                 {
                     List<AccountCode> lstprnts = lstAccountCode.Where(x => lstprntcodes.Contains(x.AccountCode1)).ToList();
@@ -156,6 +159,7 @@ namespace BP
         {
             try
             {
+                string PrefixAcountCode = (string)Session["PrefixAcountCode"];
                 List<string> SelectedNodes = (List<string>)Session["SelectedNodes"];
                 List<AccountCode> AccountCodesData = (List<AccountCode>)Session["AccountCodesData"];
                 List<AccountCodeTreeHelper> TreeData = new List<AccountCodeTreeHelper>();
@@ -245,7 +249,7 @@ namespace BP
                     //bf.HeaderText = "Keterangan";
                     //bf.DataField = "Keterangan";
                     //gvAccountCodes.Columns.Add(bf);
-                    
+
                     TemplateField tf = new TemplateField();
                     tf.HeaderText = "Keterangan";
                     GridViewCustomTemplate objTemp = new GridViewCustomTemplate(2, "Keterangan", 0);
@@ -282,8 +286,57 @@ namespace BP
                     {
                         if (objpm != null)
                         {
-                            templateField.FooterText = BudgetData.Where(x => x.PeriodMengurusID == objpm.PeriodMengurusID && ChildCodes.Contains(x.AccountCode)
-                                && x.Status == "A").Select(x => x.Amount).Sum().ToString("#,##0.00");
+                            //templateField.FooterText = BudgetData.Where(x => x.PeriodMengurusID == objpm.PeriodMengurusID && ChildCodes.Contains(x.AccountCode)
+                            //    && x.Status == "A").Select(x => x.Amount).Sum().ToString("#,##0.00");
+                            //if (BudgetData.Count > 0)
+                            //{
+                            //    templateField.FooterText = BudgetData.Where(x => x.PeriodMengurusID == objpm.PeriodMengurusID && ChildCodes.Contains(x.AccountCode)
+                            //    && x.Status == "A").Select(x => x.Amount).Sum().ToString("#,##0.00");
+                            //}
+                            //else if (BudgetData.Count == 0)
+                            //{
+                                List<PeruntukanAsal> data = new PeruntukanAsalDAL().GetAccountCodes().ToList();
+                                templateField.FooterText = data.Where(x => parentcodes.Contains(x.BudgetAccount.Substring(17, 6)) && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum().ToString("#,##0.00");
+
+                            //}
+                        }
+                    }
+                    else if (pm.PeriodMengurusID == Convert.ToInt32("2"))
+                    {
+                        if (objpm != null)
+                        {
+                            //templateField.FooterText = BudgetData.Where(x => x.PeriodMengurusID == objpm.PeriodMengurusID && ChildCodes.Contains(x.AccountCode)
+                            //    && x.Status == "A").Select(x => x.Amount).Sum().ToString("#,##0.00");
+                            //if (BudgetData.Count > 0)
+                            //{
+                            //    templateField.FooterText = BudgetData.Where(x => x.PeriodMengurusID == objpm.PeriodMengurusID && ChildCodes.Contains(x.AccountCode)
+                            //    && x.Status == "A").Select(x => x.Amount).Sum().ToString("#,##0.00");
+                            //}
+                            //else if (BudgetData.Count == 0)
+                            //{
+                                List<PeruntukanDipinda> data = new PeruntukanDipindaDAL().GetAccountCodes().ToList();
+                                templateField.FooterText = data.Where(x => parentcodes.Contains(x.BudgetAccount.Substring(17, 6)) && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum().ToString("#,##0.00");
+
+                            //}
+                        }
+                    }
+                    else if (pm.PeriodMengurusID == Convert.ToInt32("3"))
+                    {
+                        if (objpm != null)
+                        {
+                            //templateField.FooterText = BudgetData.Where(x => x.PeriodMengurusID == objpm.PeriodMengurusID && ChildCodes.Contains(x.AccountCode)
+                            //    && x.Status == "A").Select(x => x.Amount).Sum().ToString("#,##0.00");
+                            //if (BudgetData.Count > 0)
+                            //{
+                            //    templateField.FooterText = BudgetData.Where(x => x.PeriodMengurusID == objpm.PeriodMengurusID && ChildCodes.Contains(x.AccountCode)
+                            //    && x.Status == "A").Select(x => x.Amount).Sum().ToString("#,##0.00");
+                            //}
+                            //else if (BudgetData.Count == 0)
+                            //{
+                                List<PerbelanjaanSebenar> data = new PerbelanjaanSebenarDAL().GetAccountCodes().ToList();
+                                templateField.FooterText = data.Where(x => parentcodes.Contains(x.ParentAccountCode) && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum().ToString("#,##0.00");
+
+                            //}
                         }
                     }
                     else
@@ -310,7 +363,7 @@ namespace BP
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "loadDatatable", "LoadDataTable('" + gvAccountCodes.Columns.Count + "');", true);
                 Session["gvAccountCodes"] = gvAccountCodes;
-                
+
                 BulkUpdateFlag = false;
             }
             catch (Exception ex)
@@ -372,7 +425,7 @@ namespace BP
 
             //Get the row that contains this button
             GridViewRow gvr = (GridViewRow)btn.NamingContainer;
-            
+
             TreeView tv = (TreeView)gvr.Cells[0].FindControl("tvSegmentDDL");
             TextBox tb = (TextBox)gvr.Cells[0].FindControl("tbSegmentDDL");
             if (tb != null)
@@ -399,7 +452,7 @@ namespace BP
                     chkKeterangan.Checked = false;
                     chkPengiraan.Checked = false;
                 }
-                
+
                 CreateTreeData();
                 BuildGrid();
                 BindGrid();
@@ -435,13 +488,14 @@ namespace BP
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     List<string> SelectedNodes = (List<string>)Session["SelectedNodes"];
+                    //string SelectNodes = (string)Session["SelectedNodes"];
                     List<BudgetMenguru> BudgetData = (List<BudgetMenguru>)Session["BudgetData"];
                     List<AccountCodeTreeHelper> TreeData = (List<AccountCodeTreeHelper>)Session["AccountCodesTree"];
                     List<AccountCode> AccountCodesData = (List<AccountCode>)Session["AccountCodesData"];
                     List<PeriodMenguru> PeriodData = (List<PeriodMenguru>)Session["PeriodData"];
                     List<int> BlockedYears = (List<int>)Session["BlockedYears"];
                     List<int> OpenYears = (List<int>)Session["OpenYears"];
-
+                    string PrefixAcountCode = (string)Session["PrefixAcountCode"];
                     AccountCodeTreeHelper rowItem = (AccountCodeTreeHelper)e.Row.DataItem;
 
                     /*Start Account Code logics*/
@@ -505,7 +559,7 @@ namespace BP
                         {
                             e.Row.Cells[c].BackColor = new Helper().GetColorByStatusValue(Convert.ToChar(ObjBudgetMenguru.Status));
                         }
-                        
+
                         e.Row.Cells[c].Style.Add(HtmlTextWriterStyle.TextAlign, "right");
 
                         TextBox tb = ((TextBox)e.Row.Cells[c].FindControl("tb_" + PeriodMenguruID));
@@ -605,15 +659,58 @@ namespace BP
                                     {
                                         if (objpm != null)
                                         {
-                                            amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == objpm.PeriodMengurusID
-                                                && x.Status == "A").Select(x => x.Amount).Sum();
+                                            //if (BudgetData.Count > 0)
+                                            //{
+                                            //    amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == objpm.PeriodMengurusID
+                                            //        && x.Status == "A").Select(x => x.Amount).Sum();
+                                            //}
+                                            //else if (BudgetData.Count == 0)
+                                            //{
+                                            List<PeruntukanAsal> data = new PeruntukanAsalDAL().GetAccountCodes().ToList();
+                                            amount = amount + data.Where(x => x.BudgetAccount.Substring(17, 6) == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
+                                            //}
                                         }
                                     }
-                                    else
-                                        amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID).Select(x => x.Amount).Sum();
+                                    else if (PeriodMenguruID == Convert.ToInt32("2"))
+                                    {
+                                        if (objpm != null)
+                                        {
+                                            //if (BudgetData.Count > 0)
+                                            //{
+                                            //    amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == objpm.PeriodMengurusID
+                                            //        && x.Status == "A").Select(x => x.Amount).Sum();
+                                            //}
+                                            //else if (BudgetData.Count == 0)
+                                            //{
+                                            List<PeruntukanDipinda> data = new PeruntukanDipindaDAL().GetAccountCodes().ToList();
+                                            amount = amount + data.Where(x => x.BudgetAccount.Substring(17, 6) == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
+                                            //}
+                                           
+                                        }
+                                    }
+                                    else if (PeriodMenguruID == Convert.ToInt32("3"))
+                                    {
+                                        if (objpm != null)
+                                        {
+                                            //if (BudgetData.Count > 0)
+                                            //{
+                                            //    amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == objpm.PeriodMengurusID
+                                            //        && x.Status == "A").Select(x => x.Amount).Sum();
+                                            //}
+                                            //else if (BudgetData.Count == 0)
+                                            //{
+                                            List<PerbelanjaanSebenar> data = new PerbelanjaanSebenarDAL().GetAccountCodes().ToList();
+                                            amount = amount + data.Where(x => x.ParentAccountCode == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
+                                            //t.AccountCode1 = PrefixAcountCode.Substring(17, 6);
+                                            
+                                        }
+                                    }
+                                    else                                    
+                                       amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID).Select(x => x.Amount).Sum();
 
                                     foreach (string s in AccountCodesData.Where(x => x.ParentAccountCode == t.AccountCode1).Select(x => x.AccountCode1).ToList())
-                                        RefChildIDs.Add(s);
+                                            RefChildIDs.Add(s);
+                                    
                                     if (IsPreparer)
                                     {
                                         cnt = cnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
@@ -738,13 +835,10 @@ namespace BP
                     newBudgetMenguru.ModifiedTimeStamp = DateTime.Now;
 
                     List<int> LstSegmentDetailIDs = ((List<JuncBgtMengurusSegDtl>)Session["ListSegmentDetails"]).Select(x => x.SegmentDetailID).ToList();
-                    if (!new BudgetMengurusDAL().UpdateBudgetMenguru(newBudgetMenguru, LstSegmentDetailIDs))
-                    {
-                        //((SiteMaster)this.Master).ShowMessage("Success", "Budget updated successfully");
+                    if (new BudgetMengurusDAL().UpdateBudgetMenguru(newBudgetMenguru, LstSegmentDetailIDs))
+                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget updated successfully");
+                    else
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Budget");
-                    }
-                    //else
-                    //    ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Budget");
                 }
                 else
                 {
@@ -766,13 +860,10 @@ namespace BP
                     foreach (JuncBgtMengurusSegDtl obj in lstBgtSegDtl)
                         obj.BudgetMenguru = newBudgetMenguru;
 
-                    if (!new BudgetMengurusDAL().InsertBudgetMenguru(newBudgetMenguru, lstBgtSegDtl))
-                    {
+                    if (new BudgetMengurusDAL().InsertBudgetMenguru(newBudgetMenguru, lstBgtSegDtl))
+                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget saved successfully");
+                    else
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while saving Budget");
-                        //((SiteMaster)this.Master).ShowMessage("Success", "Budget saved successfully");
-                    }
-                    //else
-                    //    ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while saving Budget");
                 }
 
                 CreateTreeData();
@@ -795,7 +886,7 @@ namespace BP
                 lblDecisionModalAccount.Text = Session["PrefixAcountCode"].ToString() + e.Code;
                 lblDecisionModalPeriod.Text = e.Period;
                 lblDecisionModalAmount.Text = e.Amount.ToString("#,##0.00");
-                
+
                 rbldecision.SelectedIndex = 0;
                 tbRemarks.Text = string.Empty;
 
@@ -937,7 +1028,7 @@ namespace BP
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     Segment rowItem = (Segment)e.Row.DataItem;
-                    
+
                     List<SegmentDetail> lstSD = AuthUser.UserSegDtlWorkflows.Where(x => x.Status == "A" && x.SegmentDetail.SegmentID == rowItem.SegmentID).Select(x => x.SegmentDetail).ToList();
                     List<int> parntids = lstSD.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
 
@@ -1050,7 +1141,7 @@ namespace BP
                     TreeView tv = (TreeView)gvSegmentDLLs.Rows[i].Cells[0].FindControl("tvSegmentDDL");
 
                     if (tv != null && tv.SelectedNode != null)
-                    { 
+                    {
                         if ((tv.SelectedNode.ChildNodes.Count == 0) == false)
                         {
                             CanEdit = false;
@@ -1247,7 +1338,7 @@ namespace BP
                 string filename = Session["PrefixAcountCode"].ToString().Substring(0, Session["PrefixAcountCode"].ToString().Length - 1);
                 new ReportHelper().ToExcel(ds, "BudgetMengurus_" + filename + ".xls", ref Response);
             }
-            catch 
+            catch
             {
 
             }
@@ -1378,7 +1469,7 @@ namespace BP
         public bool MatchingData(DataRow dt, ref List<object> MessageModel)
         {
             bool res = false;
-            object ReturnObj = new object(); 
+            object ReturnObj = new object();
 
             try
             {
@@ -1423,7 +1514,7 @@ namespace BP
                                     ReturnObj = new
                                     {
                                         status = "Failure",
-                                        message = "An error occurred while uploading Budget Mengurus - Object:" + bp.Select(x => x.AccountCode).FirstOrDefault() + ", "+
+                                        message = "An error occurred while uploading Budget Mengurus - Object:" + bp.Select(x => x.AccountCode).FirstOrDefault() + ", " +
                                                   "**" + dipohon + "** is in Prepared/Reviewed/Approved Status."
                                     };
                                     res = false;
@@ -1465,7 +1556,7 @@ namespace BP
         {
             GridView gvAccountCodes = (GridView)Session["gvAccountCodes"];
             IsPreparer = Convert.ToBoolean(new UsersRoleDAL().ListUserRole().Where(x => x.UserID == DAL.UsersDAL.StaticUserId(0, HttpContext.Current.User.Identity.Name).UserID && x.RoleID == 1).Count() > 0);
-            
+
             for (int r = 0; r < gvAccountCodes.Rows.Count; r++)
             {
                 for (int c = 0; c < gvAccountCodes.Columns.Count; c++)
@@ -1655,7 +1746,7 @@ namespace BP
 
                 SelectedPeriod.InnerHtml += "<li class=\" " + (string)lstItemColor[r] + " clearfix\">";
                 SelectedPeriod.InnerHtml += "<label class=\"inline\"><input type=\"checkbox\" checked=\"checked\" class=\"ace\" /> " +
-                                  "<span class=\"lbl\"> " + str + "</span>" + 
+                                  "<span class=\"lbl\"> " + str + "</span>" +
                                   "</label></li>";
             }
 
