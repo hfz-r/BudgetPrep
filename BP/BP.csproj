@@ -382,9 +382,12 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="FileUploadHandler.ashx" />
+    <Content Include="PerbelanjaanSebenarSetup.aspx" />
     <Content Include="PeriodMengurusSetup.aspx" />
     <Content Include="PeriodPerjawatanSetup.aspx" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="PeruntukanAsalSetup.aspx" />
+    <Content Include="PeruntukanDipindaSetup.aspx" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="SegmentDetails.aspx" />
@@ -495,6 +498,13 @@
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PerbelanjaanSebenarSetup.aspx.cs">
+      <DependentUpon>PerbelanjaanSebenarSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PerbelanjaanSebenarSetup.aspx.designer.cs">
+      <DependentUpon>PerbelanjaanSebenarSetup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PeriodMengurusSetup.aspx.cs">
       <DependentUpon>PeriodMengurusSetup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -508,6 +518,20 @@
     </Compile>
     <Compile Include="PeriodPerjawatanSetup.aspx.designer.cs">
       <DependentUpon>PeriodPerjawatanSetup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PeruntukanAsalSetup.aspx.cs">
+      <DependentUpon>PeruntukanAsalSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PeruntukanAsalSetup.aspx.designer.cs">
+      <DependentUpon>PeruntukanAsalSetup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PeruntukanDipindaSetup.aspx.cs">
+      <DependentUpon>PeruntukanDipindaSetup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PeruntukanDipindaSetup.aspx.designer.cs">
+      <DependentUpon>PeruntukanDipindaSetup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -626,7 +650,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>60147</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44302/</IISUrl>
+          <IISUrl>http://localhost:44302/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
