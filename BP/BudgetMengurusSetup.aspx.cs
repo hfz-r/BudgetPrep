@@ -85,9 +85,9 @@ namespace BP
                 string PrefixAcountCode = (string)Session["PrefixAcountCode"];
                 //string SelectNodes = (string)Session["SelectedNodes"];
                 List<AccountCode> lstAccountCode = new AccountCodeDAL().GetAccountCodes().Where(x => x.Status == "A").ToList();
-                List<AccountCode> AccountCodesData = AuthUser.UserMengurusWorkflows.Where(x => x.Status == "A" && x.AccountCode1.ParentAccountCode.Contains(PrefixAcountCode.Substring(17, 6))).Select(x => x.AccountCode1).ToList();
-                //List<string> lstprntcodes = AccountCodesData.Select(x => x.ParentAccountCode).Distinct().ToList();
-                List<string> lstprntcodes = AccountCodesData.Select(x => x.ParentAccountCode = PrefixAcountCode.Substring(17, 6)).Distinct().ToList();
+                List<AccountCode> AccountCodesData = AuthUser.UserMengurusWorkflows.Where(x => x.Status == "A").Select(x => x.AccountCode1).ToList();
+                List<string> lstprntcodes = AccountCodesData.Select(x => x.ParentAccountCode).Distinct().ToList();
+                //List<string> lstprntcodes = AccountCodesData.Select(x => x.ParentAccountCode = PrefixAcountCode.Substring(17, 6)).Distinct().ToList();
                 while (lstprntcodes.Count > 0)
                 {
                     List<AccountCode> lstprnts = lstAccountCode.Where(x => lstprntcodes.Contains(x.AccountCode1)).ToList();
@@ -657,8 +657,10 @@ namespace BP
                                 {
                                     if (PeriodMenguruID == Convert.ToInt32("1"))
                                     {
+                                        objpm = new PeriodMengurusDAL().GetAllPeriodMengurus().Where(x => x.MengurusYear == Convert.ToInt32(pm.MengurusYear + 1)).FirstOrDefault();
                                         if (objpm != null)
                                         {
+
                                             //if (BudgetData.Count > 0)
                                             //{
                                             //    amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == objpm.PeriodMengurusID
@@ -667,12 +669,13 @@ namespace BP
                                             //else if (BudgetData.Count == 0)
                                             //{
                                             List<PeruntukanAsal> data = new PeruntukanAsalDAL().GetAccountCodes().ToList();
-                                            amount = amount + data.Where(x => x.BudgetAccount.Substring(17, 6) == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
+                                            amount = amount + data.Where(x => x.BudgetAccount.Substring(0, 17) == PrefixAcountCode && x.BudgetAccount.Substring(17, 6) == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
                                             //}
                                         }
                                     }
                                     else if (PeriodMenguruID == Convert.ToInt32("2"))
                                     {
+                                        objpm = new PeriodMengurusDAL().GetAllPeriodMengurus().Where(x => x.MengurusYear == Convert.ToInt32(pm.MengurusYear + 1)).FirstOrDefault();
                                         if (objpm != null)
                                         {
                                             //if (BudgetData.Count > 0)
@@ -683,13 +686,14 @@ namespace BP
                                             //else if (BudgetData.Count == 0)
                                             //{
                                             List<PeruntukanDipinda> data = new PeruntukanDipindaDAL().GetAccountCodes().ToList();
-                                            amount = amount + data.Where(x => x.BudgetAccount.Substring(17, 6) == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
+                                            amount = amount + data.Where(x => x.BudgetAccount.Substring(0, 17) == PrefixAcountCode && x.BudgetAccount.Substring(17, 6) == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
                                             //}
-                                           
+
                                         }
                                     }
                                     else if (PeriodMenguruID == Convert.ToInt32("3"))
                                     {
+                                        objpm = new PeriodMengurusDAL().GetAllPeriodMengurus().Where(x => x.MengurusYear == Convert.ToInt32(pm.MengurusYear + 1)).FirstOrDefault();
                                         if (objpm != null)
                                         {
                                             //if (BudgetData.Count > 0)
@@ -700,9 +704,9 @@ namespace BP
                                             //else if (BudgetData.Count == 0)
                                             //{
                                             List<PerbelanjaanSebenar> data = new PerbelanjaanSebenarDAL().GetAccountCodes().ToList();
-                                            amount = amount + data.Where(x => x.ParentAccountCode == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
+                                            amount = amount + data.Where(x => x.BudgetAccount.Substring(0, 17) == PrefixAcountCode && x.ParentAccountCode == t.AccountCode1 && x.BudgetYear == pm.MengurusYear).Select(x => x.BudgetAmount).Sum();
                                             //t.AccountCode1 = PrefixAcountCode.Substring(17, 6);
-                                            
+
                                         }
                                     }
                                     else                                    
@@ -835,10 +839,10 @@ namespace BP
                     newBudgetMenguru.ModifiedTimeStamp = DateTime.Now;
 
                     List<int> LstSegmentDetailIDs = ((List<JuncBgtMengurusSegDtl>)Session["ListSegmentDetails"]).Select(x => x.SegmentDetailID).ToList();
-                    if (new BudgetMengurusDAL().UpdateBudgetMenguru(newBudgetMenguru, LstSegmentDetailIDs))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget updated successfully");
-                    else
+                    if (!new BudgetMengurusDAL().UpdateBudgetMenguru(newBudgetMenguru, LstSegmentDetailIDs))
+                    {
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Budget");
+                    }
                 }
                 else
                 {
@@ -860,10 +864,10 @@ namespace BP
                     foreach (JuncBgtMengurusSegDtl obj in lstBgtSegDtl)
                         obj.BudgetMenguru = newBudgetMenguru;
 
-                    if (new BudgetMengurusDAL().InsertBudgetMenguru(newBudgetMenguru, lstBgtSegDtl))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget saved successfully");
-                    else
+                    if (!new BudgetMengurusDAL().InsertBudgetMenguru(newBudgetMenguru, lstBgtSegDtl))
+                    {
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while saving Budget");
+                    }
                 }
 
                 CreateTreeData();
