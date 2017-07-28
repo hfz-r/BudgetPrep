@@ -10,7 +10,7 @@
 namespace BP {
     
     
-    public partial class SummaryMengurus {
+    public partial class StatusMengurus {
         
         /// <summary>
         /// EditForm control.
@@ -139,6 +139,15 @@ namespace BP {
         protected global::System.Web.UI.WebControls.GridView gvAccountCodes;
         
         /// <summary>
+        /// ColorHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ColorHeader;
+        
+        /// <summary>
         /// lblDecisionModalPeriodID control.
         /// </summary>
         /// <remarks>
@@ -173,15 +182,6 @@ namespace BP {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDecisionModalPeriod;
-        
-        /// <summary>
-        /// ColorHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ColorHeader;
         
         /// <summary>
         /// gvModelDetails control.

@@ -204,19 +204,19 @@ namespace DAL
                     if (swo != sw)
                         wochanges = wochanges + "<tr><td>SegmentDetails Workflow</td><td>" + swo + "</td><td>" + sw + "</td></tr>";
 
-                    if (objUserMengurus.Count() > 0)
+                    if (objUserMengurus.Count() >= 0)
                     {
                         foreach (UserMengurusWorkflow o in db.UserMengurusWorkflows.Where(x => x.UserID == objMasterUser.UserID).ToList())
                             db.UserMengurusWorkflows.Remove(o);
                     }
 
-                    if (objUserPerjawatan.Count() > 0)
+                    if (objUserPerjawatan.Count() >= 0)
                     {
                         foreach (UserPerjawatanWorkflow o in db.UserPerjawatanWorkflows.Where(x => x.UserID == objMasterUser.UserID).ToList())
                             db.UserPerjawatanWorkflows.Remove(o);
                     }
 
-                    if (objUserSegmentDetails.Count() > 0)
+                    if (objUserSegmentDetails.Count() >= 0)
                     {
                         foreach (UserSegDtlWorkflow o in db.UserSegDtlWorkflows.Where(x => x.UserID == objMasterUser.UserID).ToList())
                             db.UserSegDtlWorkflows.Remove(o);

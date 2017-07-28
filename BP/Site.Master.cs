@@ -86,7 +86,7 @@ namespace BP
         {
             AuthUser = (MasterUser)Session["UserData"];
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "onrefLoad", "RefreshSession();", true);
-            
+
             LoadImageHeader();
 
             if (!IsPostBack)
@@ -95,7 +95,7 @@ namespace BP
             }
         }
 
-        protected void LoadImageHeader()
+        public void LoadImageHeader()
         {
             try
             {
@@ -118,15 +118,27 @@ namespace BP
             List<PageMenuHelper> lstPages = (List<PageMenuHelper>)Session["ListPages"];
 
             string ActiveClassDashboard = "\"\"";
+            string ActiveClassInbox = "\"\"";
+
             string PATH = HttpContext.Current.Request.Url.AbsolutePath;
             if (PATH.Contains("/Dashboard.aspx"))
             {
                 ActiveClassDashboard = "\"active\"";
             }
+            if (PATH.Contains("/MailInbox.aspx"))
+            {
+                ActiveClassInbox = "\"active\"";
+            }
 
+            //dashboard
             string DashboardMenu = "<li class=" + ActiveClassDashboard + "><a href=\"" + (HttpContext.Current.Handler as Page).ResolveUrl("~/Dashboard.aspx") + "\"><i class=\"menu-icon fa fa-tachometer\"></i>" +
                 "<span class=\"menu-text\"> Dashboard </span></a><b class=\"arrow\"></b></li>";
 
+            //inbox
+            string strInbox = (AuthUser.JuncUserRoles.First().RoleID == 3) ? "Event Log" : "Inbox"; //<span class=\"badge\">10</span>
+            string InboxMenu = "<li class=" + ActiveClassInbox + "><a href=\"" + (HttpContext.Current.Handler as Page).ResolveUrl("~/MailInbox.aspx") + "\"><i class=\"menu-icon fa fa-envelope\"></i>" +
+                "<span class=\"menu-text\"> " + strInbox + " </span></a><b class=\"arrow\"></b></li>";
+            
             string MenuBuilder = string.Empty;
             foreach (int MenuId in lstPages.Where(x => x.ParentPageID == 0).OrderBy(x => x.MenuOrder).Select(x => x.MenuID).Distinct())
             {
@@ -155,7 +167,7 @@ namespace BP
                 MenuBuilder = MenuBuilder + "</ul></li>";
             }
 
-            MENU.InnerHtml = "<ul class=\"nav nav-list\">" + DashboardMenu + MenuBuilder + "</ul>";
+            MENU.InnerHtml = "<ul class=\"nav nav-list\">" + DashboardMenu + InboxMenu + MenuBuilder + "</ul>";
         }
 
         public void ShowMessage(string Title, string Body)

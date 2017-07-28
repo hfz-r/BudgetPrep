@@ -1184,7 +1184,7 @@
 
             //Load Workflow Datatables!
             var gvs = [$('#<%=gvPerjawatanWorkFlow.ClientID%>')];
-            for (var i = 0; i < 2; i++) {
+            for (var i = 0; i < 1; i++) {
                 LoadWorkflowDatatable(gvs[i]);
             }
         }

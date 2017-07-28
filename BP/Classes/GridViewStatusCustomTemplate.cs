@@ -40,43 +40,43 @@ namespace BP.Classes
 
                 LinkButton btnstatus = new LinkButton();
                 btnstatus.ID = "btnSaved_" + LocalPeriodID.ToString();
-                btnstatus.CssClass = "btn btn-primary";
-                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('S').Name);
+                btnstatus.CssClass = "btn btn-primary btn-white btn-sm";
+                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('S').Name + "!important");
                 btnstatus.Click += btnstatus_Click;
                 container.Controls.Add(btnstatus);
 
                 btnstatus = new LinkButton();
                 btnstatus.ID = "btnPrepared_" + LocalPeriodID.ToString();
-                btnstatus.CssClass = "btn btn-primary";
-                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('P').Name);
+                btnstatus.CssClass = "btn btn-primary btn-white btn-sm";
+                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('P').Name + "!important");
                 btnstatus.Click += btnstatus_Click;
                 container.Controls.Add(btnstatus);
 
                 btnstatus = new LinkButton();
                 btnstatus.ID = "btnReviewed_" + LocalPeriodID.ToString();
-                btnstatus.CssClass = "btn btn-primary";
-                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('R').Name);
+                btnstatus.CssClass = "btn btn-primary btn-white btn-sm";
+                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('R').Name + "!important");
                 btnstatus.Click += btnstatus_Click;
                 container.Controls.Add(btnstatus);
 
                 btnstatus = new LinkButton();
                 btnstatus.ID = "btnApproved_" + LocalPeriodID.ToString();
-                btnstatus.CssClass = "btn btn-primary";
-                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('A').Name);
+                btnstatus.CssClass = "btn btn-primary btn-white btn-sm";
+                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('A').Name + "!important");
                 btnstatus.Click += btnstatus_Click;
                 container.Controls.Add(btnstatus);
 
                 btnstatus = new LinkButton();
                 btnstatus.ID = "btnRevRej_" + LocalPeriodID.ToString();
-                btnstatus.CssClass = "btn btn-primary";
-                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('X').Name);
+                btnstatus.CssClass = "btn btn-primary btn-white btn-sm";
+                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('X').Name + "!important");
                 btnstatus.Click += btnstatus_Click;
                 container.Controls.Add(btnstatus);
 
                 btnstatus = new LinkButton();
                 btnstatus.ID = "btnAprRej_" + LocalPeriodID.ToString();
-                btnstatus.CssClass = "btn btn-primary";
-                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('Y').Name);
+                btnstatus.CssClass = "btn btn-primary btn-white btn-sm";
+                btnstatus.Style.Add("background-color", new Helper().GetColorByStatusValue('Y').Name + "!important");
                 btnstatus.Click += btnstatus_Click;
                 container.Controls.Add(btnstatus);
             }

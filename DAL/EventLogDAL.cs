@@ -15,6 +15,7 @@ namespace DAL
         public DateTime LastModDateTime { get; set; }
         public string Detail { get; set; }
         public string ModifiedBy { get; set; }
+        public string HiddenField1 { get; set; }
     }
 
     public class EventLogDAL
@@ -56,22 +57,22 @@ namespace DAL
             return false;
         }
 
-        //private List<string> GetSearchStrings(MasterUser User)
-        //{
-        //    List<string> search = (User.JuncUserRoles.First().RoleID == 1) ?
-        //        new List<string>() { string.Empty } :
-        //        (
-        //            (User.JuncUserRoles.First().RoleID == 2) ?
-        //            new List<string>() { "<td>O</td>", "<td>S</td>", "<td>P</td>", "<td>X</td>", "<td>Y</td>" } :
-        //            (
-        //                (User.JuncUserRoles.First().RoleID == 3) ?
-        //                new List<string>() { "<td>P</td>", "<td>R</td>", "<td>X</td>", "<td>Y</td>" } :
-        //                new List<string>() { "<td>R</td>", "<td>A</td>", "<td>Y</td>" }
-        //            )
-        //        );
+        private List<string> GetSearchStrings(MasterUser User)
+        {
+            List<string> search = (User.JuncUserRoles.First().RoleID == 3) ?
+                new List<string>() { string.Empty } :
+                (
+                    (User.JuncUserRoles.First().RoleID == 1) ?
+                    new List<string>() { "<td>O</td>", "<td>S</td>", "<td>P</td>", "<td>X</td>", "<td>Y</td>" } :
+                    (
+                        (User.JuncUserRoles.First().RoleID == 5) ?
+                        new List<string>() { "<td>P</td>", "<td>R</td>", "<td>X</td>", "<td>Y</td>" } :
+                        new List<string>() { "<td>R</td>", "<td>A</td>", "<td>Y</td>" }
+                    )
+                );
 
-        //    return search;
-        //}
+            return search;
+        }
 
         private bool IsStringExists(string Phrase, List<string> LstSearch)
         {
@@ -83,47 +84,32 @@ namespace DAL
             return false;
         }
 
-        //public List<InboxHelper> GetInboxList(MasterUser User)
-        //{
-        //    try
-        //    {
-        //        string Status = (User.JuncUserRoles.First().RoleID == 1) ? "A" : "I";
+        public List<InboxHelper> GetInboxList(MasterUser User)
+        {
+            try
+            {
+                string Status = (User.JuncUserRoles.First().RoleID == 3) ? "A" : "I";
 
-        //        List<string> lstsearch = GetSearchStrings(User);
+                List<string> lstsearch = GetSearchStrings(User);
 
-        //        DateTime dtlimit = DateTime.Now.AddDays(30);
-        //        var data = db.BPEventLogs.Where(x => x.Status == Status && x.ObjectChanges != null); //&& x.CreatedTimeStamp > dtlimit
-        //        List<BPEventLog> EventData = data.ToList().Where(x => IsStringExists(x.ObjectChanges, lstsearch)).ToList();
-        //        return (from x in EventData
-        //                group x by new { x.Object, x.ObjectName } into g
-        //                select new InboxHelper
-        //                {
-        //                    Title = g.Key.Object,
-        //                    Object = g.Key.ObjectName,
-        //                    NoCount = g.Count(),
-        //                    LastModDateTime = Convert.ToDateTime(g.Max(y => y.CreatedTimeStamp))
-        //                }).OrderByDescending(x => x.LastModDateTime).Take(100).ToList();
-
-        //        //string search = (User.JuncUserRoles.First().RoleID == 1) ? string.Empty :
-        //        //    ((User.JuncUserRoles.First().RoleID == 2) ? "<td>S</td>" :
-        //        //    ((User.JuncUserRoles.First().RoleID == 3) ? "<td>P</td>" : "<td>R</td>"));
-
-        //        //return (from x in db.BPEventLogs.ToList()
-        //        //        where x.Status == Status && x.ObjectChanges != null && x.ObjectChanges.ToUpper().Contains(search.ToUpper())
-        //        //        group x by new { x.Object, x.ObjectName } into g
-        //        //        select new InboxHelper
-        //        //        {
-        //        //            Title = g.Key.Object,
-        //        //            Object = g.Key.ObjectName,
-        //        //            NoCount = g.Count(),
-        //        //            LastModDateTime = Convert.ToDateTime(g.Max(y => y.CreatedTimeStamp))
-        //        //        }).OrderByDescending(x => x.LastModDateTime).Take(100).ToList();
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
+                DateTime dtlimit = DateTime.Now.AddDays(30);
+                var data = db.BPEventLogs.Where(x => x.Status == Status && x.ObjectChanges != null); //&& x.CreatedTimeStamp > dtlimit
+                List<BPEventLog> EventData = data.ToList().Where(x => IsStringExists(x.ObjectChanges, lstsearch)).ToList();
+                return (from x in EventData
+                        group x by new { x.Object, x.ObjectName } into g
+                        select new InboxHelper
+                        {
+                            Title = g.Key.Object,
+                            Object = g.Key.ObjectName,
+                            NoCount = g.Count(),
+                            LastModDateTime = Convert.ToDateTime(g.Max(y => y.CreatedTimeStamp))
+                        }).OrderByDescending(x => x.LastModDateTime).Take(100).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public List<InboxHelper> GetMailDetails(string Title, string Object)
         {
@@ -145,53 +131,38 @@ namespace DAL
             }
         }
 
-        //public List<InboxHelper> GetMailDetails(string Title, string Object, MasterUser User)
-        //{
-        //    try
-        //    {
-        //        string Status = (User.JuncUserRoles.First().RoleID == 1) ? "A" : "I";
+        public List<InboxHelper> GetMailDetails(string Title, string Object, MasterUser User)
+        {
+            try
+            {
+                string Status = (User.JuncUserRoles.First().RoleID == 3) ? "A" : "I";
 
-        //        List<string> lstsearch = GetSearchStrings(User);
+                List<string> lstsearch = GetSearchStrings(User);
 
-        //        DateTime dtlimit = DateTime.Now.AddDays(30);
-        //        var data = db.BPEventLogs.Where(x => x.Status == Status && x.Object == Title && x.ObjectName == Object && x.ObjectChanges != null); //&& x.CreatedTimeStamp > dtlimit
-        //        List<BPEventLog> EventData = data.ToList().Where(x => IsStringExists(x.ObjectChanges, lstsearch)).ToList();
-                
-        //        int role = Convert.ToInt32(User.JuncUserRoles.First().RoleID);
-        //        return EventData.Join(db.MasterUsers.ToList(), x => x.CreatedBy, y => y.UserID, 
-        //            (x, y) => new InboxHelper()
-        //                    {
-        //                        Title = x.Object,
-        //                        Object = x.ObjectName,
-        //                        Detail = "<table class=\"table table-bordered\"><tr><th>Field</th><th>Old</th><th>New</th></tr>" + StatusStringReplace(x.ObjectChanges.Trim(), role) + "</table>",
-        //                        ModifiedBy = y.UserName,
-        //                        LastModDateTime = Convert.ToDateTime(x.CreatedTimeStamp)
-        //                    }).OrderByDescending(x => x.LastModDateTime).ToList();
+                DateTime dtlimit = DateTime.Now.AddDays(30);
+                var data = db.BPEventLogs.Where(x => x.Status == Status && x.Object == Title && x.ObjectName == Object && x.ObjectChanges != null); //&& x.CreatedTimeStamp > dtlimit
+                List<BPEventLog> EventData = data.ToList().Where(x => IsStringExists(x.ObjectChanges, lstsearch)).ToList();
 
-
-        //        //string search = (User.JuncUserRoles.First().RoleID == 1) ? string.Empty :
-        //        //    ((User.JuncUserRoles.First().RoleID == 2) ? "<td>S</td>" :
-        //        //    ((User.JuncUserRoles.First().RoleID == 3) ? "<td>P</td>" : "<td>R</td>"));
-        //        //int role = Convert.ToInt32(User.JuncUserRoles.First().RoleID);
-        //        //return db.BPEventLogs.Where(x => x.Object == Title && x.ObjectName == Object && x.ObjectChanges.ToUpper().Contains(search.ToUpper())).ToList()
-        //        //            .Join(db.MasterUsers.ToList(), x => x.CreatedBy, y => y.UserID, (x, y) => new InboxHelper()
-        //        //            {
-        //        //                Title = x.Object,
-        //        //                Object = x.ObjectName,
-        //        //                Detail = "<table class=\"table table-bordered\"><tr><th>Field</th><th>Old</th><th>New</th></tr>" + StatusStringReplace(x.ObjectChanges.Trim(), role) + "</table>",
-        //        //                ModifiedBy = y.UserName,
-        //        //                LastModDateTime = Convert.ToDateTime(x.CreatedTimeStamp)
-        //        //            }).OrderByDescending(x => x.LastModDateTime).ToList();
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
+                int role = Convert.ToInt32(User.JuncUserRoles.First().RoleID);
+                return EventData.Join(db.MasterUsers.ToList(), x => x.CreatedBy, y => y.UserID,
+                    (x, y) => new InboxHelper()
+                            {
+                                Title = x.Object,
+                                Object = x.ObjectName,
+                                Detail = "<table class=\"table table-bordered\"><tr><th>Field</th><th>Old</th><th>New</th></tr>" + StatusStringReplace(x.ObjectChanges.Trim(), role) + "</table>",
+                                ModifiedBy = y.UserName,
+                                LastModDateTime = Convert.ToDateTime(x.CreatedTimeStamp)
+                            }).OrderByDescending(x => x.LastModDateTime).ToList();
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         private string StatusStringReplace(string Changes, int RoleID)
         {
-            if (RoleID == 1)
+            if (RoleID == 3)
                 Changes = Changes.Replace("<td>A</td>", "<td>Active</td>").Replace("<td>D</td>", "<td>Inactive</td>");
             else
                 Changes = Changes.Replace("<td>O</td>", "<td>Open</td>").Replace("<td>S</td>", "<td>Saved</td>").Replace("<td>P</td>", "<td>Prepared</td>")

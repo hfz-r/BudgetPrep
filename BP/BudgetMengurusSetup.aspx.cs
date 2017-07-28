@@ -739,7 +739,8 @@ namespace BP
 
                     List<int> LstSegmentDetailIDs = ((List<JuncBgtMengurusSegDtl>)Session["ListSegmentDetails"]).Select(x => x.SegmentDetailID).ToList();
                     if (new BudgetMengurusDAL().UpdateBudgetMenguru(newBudgetMenguru, LstSegmentDetailIDs))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget updated successfully");
+                        //((SiteMaster)this.Master).ShowMessage("Success", "Budget updated successfully");
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "UpdateSuccess", "spinnerInit();", true);
                     else
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while updating Budget");
                 }
@@ -764,7 +765,8 @@ namespace BP
                         obj.BudgetMenguru = newBudgetMenguru;
 
                     if (new BudgetMengurusDAL().InsertBudgetMenguru(newBudgetMenguru, lstBgtSegDtl))
-                        ((SiteMaster)this.Master).ShowMessage("Success", "Budget saved successfully");
+                        //((SiteMaster)this.Master).ShowMessage("Success", "Budget saved successfully");
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "SaveSuccess", "spinnerInit();", true);
                     else
                         ((SiteMaster)this.Master).ShowMessage("Failure", "An error occurred while saving Budget");
                 }
@@ -857,7 +859,7 @@ namespace BP
             return lst;
         }
 
-        private void GetPrefixAcountCode()
+        public void GetPrefixAcountCode()
         {
             try
             {

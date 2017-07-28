@@ -368,6 +368,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Logout.aspx" />
+    <Content Include="MailInbox.aspx" />
     <Content Include="MailTemplates\email-confirmation.html" />
     <Content Include="MailTemplates\email-contrast.html" />
     <Content Include="MailTemplates\email-navbar.html" />
@@ -390,6 +391,8 @@
     <Content Include="SegmentDetails.aspx" />
     <Content Include="SegmentSetup.aspx" />
     <Content Include="Setup\Login.aspx" />
+    <Content Include="StatusMengurus.aspx" />
+    <Content Include="SummaryMengurus.aspx" />
     <Content Include="YearEndProcess.aspx" />
     <Content Include="YearUploadSetup.aspx" />
     <Content Include="Profile.aspx" />
@@ -460,6 +463,7 @@
     <Compile Include="BudgetMengurusSetup.aspx.designer.cs">
       <DependentUpon>BudgetMengurusSetup.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\EFPagination.cs" />
     <Compile Include="Classes\GridViewCustomTemplate.cs" />
     <Compile Include="Classes\GridViewStatusCustomTemplate.cs" />
     <Compile Include="Classes\Helper.cs" />
@@ -494,6 +498,13 @@
     </Compile>
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MailInbox.aspx.cs">
+      <DependentUpon>MailInbox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MailInbox.aspx.designer.cs">
+      <DependentUpon>MailInbox.aspx</DependentUpon>
     </Compile>
     <Compile Include="PeriodMengurusSetup.aspx.cs">
       <DependentUpon>PeriodMengurusSetup.aspx</DependentUpon>
@@ -572,6 +583,20 @@
     </Compile>
     <Compile Include="Setup\UserSetup.aspx.designer.cs">
       <DependentUpon>UserSetup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StatusMengurus.aspx.cs">
+      <DependentUpon>StatusMengurus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StatusMengurus.aspx.designer.cs">
+      <DependentUpon>StatusMengurus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SummaryMengurus.aspx.cs">
+      <DependentUpon>SummaryMengurus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SummaryMengurus.aspx.designer.cs">
+      <DependentUpon>SummaryMengurus.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

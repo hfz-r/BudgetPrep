@@ -10,7 +10,7 @@ using System.Data;
 
 namespace BP
 {
-    public partial class SummaryMengurus : PageHelper
+    public partial class StatusMengurus : PageHelper
     {
         MasterUser AuthUser;
 
@@ -117,30 +117,15 @@ namespace BP
                 bool CanEdit = false;
 
                 List<BudgetMenguru> BudgetData = new BudgetMengurusDAL().GetBudgetMengurusStatus(GetSelectedSegmentDetails(), ref CanEdit)
-                    .Where(x => x.Status == "A")
                     .Select(x => new BudgetMenguru
                     {
-                        BudgetMengurusID = 0,
+                        BudgetMengurusID = x.BudgetMengurusID,
                         AccountCode = x.AccountCode,
                         PeriodMengurusID = x.PeriodMengurusID,
                         Status = x.Status,
-                        Remarks = string.Empty,
+                        Remarks = x.Remarks,
                         Amount = (AccountCodesData.Where(y => y.ParentAccountCode == x.AccountCode).Count() == 0) ? x.Amount : 0
-                    })
-                    .GroupBy(x => new
-                    {
-                        x.AccountCode,
-                        x.PeriodMengurusID,
-                        x.Status
-                    })
-                    .Select(x => new BudgetMenguru
-                    {
-                        AccountCode = x.Key.AccountCode,
-                        PeriodMengurusID = x.Key.PeriodMengurusID,
-                        Status = x.Key.Status,
-                        Amount = x.Sum(y => y.Amount)
-                    })
-                    .ToList();
+                    }).ToList();
 
                 Session["BudgetData"] = BudgetData;
                 Session["CanEdit"] = CanEdit;
@@ -167,6 +152,8 @@ namespace BP
                     TreeView tv = (TreeView)gvr.Cells[0].FindControl("tvSegmentDDL");
                     TextBox tb = (TextBox)gvr.Cells[0].FindControl("tbSegmentDDL");
 
+                    //DicSegDtls.Add(Convert.ToInt32(gvSegmentDLLs.DataKeys[gvr.RowIndex]["SegmentID"].ToString()),
+                    //   (tv == null || tb.Text.Trim() == string.Empty) ? 0 : Convert.ToInt32(tv.SelectedValue));
                     if (!string.IsNullOrEmpty(tv.SelectedValue))
                     {
                         DicSegDtls.Add(Convert.ToInt32(gvSegmentDLLs.DataKeys[gvr.RowIndex]["SegmentID"].ToString()), Convert.ToInt32(tv.SelectedValue));
@@ -177,6 +164,8 @@ namespace BP
             {
                 ((SiteMaster)this.Master).ShowMessage("Error", "An error occurred", ex, true);
             }
+
+            Session["SegDtlsDictionary"] = DicSegDtls;
             return DicSegDtls;
         }
 
@@ -449,7 +438,6 @@ namespace BP
                     bool IsBudgetEditable = Convert.ToBoolean(Session["CanEdit"]);
                     for (int c = index; c < gvAccountCodes.Columns.Count; c++)
                     {
-                        //int PeriodMenguruID = Convert.ToInt32(((Label)e.Row.Cells[c].FindControl("lbl_PeriodMenguruID")).Text);
                         int PeriodMenguruID = Convert.ToInt32(((Label)e.Row.Cells[c].Controls[0]).Text);
                         PeriodMenguru pm = PeriodData.Where(x => x.PeriodMengurusID == PeriodMenguruID).FirstOrDefault();
                         BudgetMenguru ObjBudgetMenguru = BudgetData.Where(x => x.AccountCode == rowItem.AccountCode && x.PeriodMengurusID == PeriodMenguruID).FirstOrDefault();
@@ -462,22 +450,29 @@ namespace BP
                         LinkButton btnRevRej = ((LinkButton)e.Row.Cells[c].FindControl("btnRevRej_" + PeriodMenguruID));
                         LinkButton btnAprRej = ((LinkButton)e.Row.Cells[c].FindControl("btnAprRej_" + PeriodMenguruID));
 
-                        lbl.Visible = true;
-                        btnSaved.Visible = false;
-                        btnPrepared.Visible = false;
-                        btnReviewed.Visible = false;
-                        btnApproved.Visible = false;
-                        btnRevRej.Visible = false;
-                        btnAprRej.Visible = false;
-
-                        e.Row.Cells[c].BackColor = ((ObjBudgetMenguru != null) ? new Helper().GetColorByStatusValue('A') : new System.Drawing.Color());
-
-                        if (rowItem.ChildCount == 0)
+                        if (rowItem.ChildCount == 0 && IsBudgetEditable)
                         {
-                            lbl.Text = (ObjBudgetMenguru != null) ? ObjBudgetMenguru.Amount.ToString() : string.Empty;
+                            lbl.Text = (ObjBudgetMenguru != null) ? ObjBudgetMenguru.Amount.ToString() : Convert.ToDecimal(0).ToString("F");
+
+                            lbl.Visible = true;
+                            btnSaved.Visible = false;
+                            btnPrepared.Visible = false;
+                            btnReviewed.Visible = false;
+                            btnApproved.Visible = false;
+                            btnRevRej.Visible = false;
+                            btnAprRej.Visible = false;
+
+                            e.Row.Cells[c].BackColor = (ObjBudgetMenguru != null) ? new Helper().GetColorByStatusValue(Convert.ToChar(ObjBudgetMenguru.Status)) : System.Drawing.Color.White;
                         }
                         else
                         {
+                            int Scnt = 0;
+                            int Pcnt = 0;
+                            int Rcnt = 0;
+                            int Acnt = 0;
+                            int RRcnt = 0;
+                            int ARcnt = 0;
+
                             decimal amount = 0;
 
                             List<string> ChildIDs = new List<string>() { rowItem.AccountCode };
@@ -485,18 +480,79 @@ namespace BP
                             while (ChildIDs.Count > 0)
                             {
                                 RefChildIDs.Clear();
-                                foreach (AccountCode t in AccountCodesData.Where(x => ChildIDs.Contains(x.AccountCode1)))
+                                foreach (AccountCode t in AccountCodesData.Where(x => ChildIDs.Contains(x.AccountCode1)))  //&& x.ChildCount == 0
                                 {
                                     amount = amount + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID).Select(x => x.Amount).Sum();
                                     foreach (string s in AccountCodesData.Where(x => x.ParentAccountCode == t.AccountCode1).Select(x => x.AccountCode1).ToList())
                                         RefChildIDs.Add(s);
+                                    if (IsBudgetEditable)
+                                    {
+                                        Scnt = Scnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "S").Select(x => x.BudgetMengurusID).Count();
+
+                                        Pcnt = Pcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "P").Select(x => x.BudgetMengurusID).Count();
+
+                                        Rcnt = Rcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "R").Select(x => x.BudgetMengurusID).Count();
+
+                                        Acnt = Acnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "A").Select(x => x.BudgetMengurusID).Count();
+
+                                        RRcnt = RRcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "X").Select(x => x.BudgetMengurusID).Count();
+
+                                        ARcnt = ARcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "Y").Select(x => x.BudgetMengurusID).Count();
+                                    }
+                                    else
+                                    {
+                                        Scnt = Scnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "S").Select(x => x.BudgetMengurusID).Sum();
+
+                                        Pcnt = Pcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "P").Select(x => x.BudgetMengurusID).Sum();
+
+                                        Rcnt = Rcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "R").Select(x => x.BudgetMengurusID).Sum();
+
+                                        Acnt = Acnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "A").Select(x => x.BudgetMengurusID).Sum();
+
+                                        RRcnt = RRcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "X").Select(x => x.BudgetMengurusID).Sum();
+
+                                        ARcnt = ARcnt + BudgetData.Where(x => x.AccountCode == t.AccountCode1 && x.PeriodMengurusID == PeriodMenguruID
+                                            && x.Status == "Y").Select(x => x.BudgetMengurusID).Sum();
+                                    }
                                 }
                                 ChildIDs.Clear();
                                 foreach (string s in RefChildIDs)
                                     ChildIDs.Add(s);
+                                //ChildIDs = TreeData.Where(x => ChildIDs.Contains(x.ParentAccountCode) && x.ChildCount > 0).Select(x => x.AccountCode).ToList();
                             }
 
-                            lbl.Text = (amount != 0) ? amount.ToString("F") : string.Empty;
+                            string Sstr = (Scnt > 0) ? "<span class=\"badge\">" + Scnt.ToString() + "</span>" : string.Empty;
+                            string Pstr = (Pcnt > 0) ? "<span class=\"badge\">" + Pcnt.ToString() + "</span>" : string.Empty;
+                            string Rstr = (Rcnt > 0) ? "<span class=\"badge\">" + Rcnt.ToString() + "</span>" : string.Empty;
+                            string Astr = (Acnt > 0) ? "<span class=\"badge\">" + Acnt.ToString() + "</span>" : string.Empty;
+                            string RRstr = (RRcnt > 0) ? "<span class=\"badge\">" + RRcnt.ToString() + "</span>" : string.Empty;
+                            string ARstr = (ARcnt > 0) ? "<span class=\"badge\">" + ARcnt.ToString() + "</span>" : string.Empty;
+
+                            btnSaved.Text = Sstr;
+                            btnPrepared.Text = Pstr;
+                            btnReviewed.Text = Rstr;
+                            btnApproved.Text = Astr;
+                            btnRevRej.Text = RRstr;
+                            btnAprRej.Text = ARstr;
+
+                            lbl.Visible = false;
+                            btnSaved.Visible = (Sstr != string.Empty);
+                            btnPrepared.Visible = (Pstr != string.Empty);
+                            btnReviewed.Visible = (Rstr != string.Empty);
+                            btnApproved.Visible = (Astr != string.Empty);
+                            btnRevRej.Visible = (RRstr != string.Empty);
+                            btnAprRej.Visible = (ARstr != string.Empty);
                         }
                     }
                     /*End Buget logics*/
@@ -551,7 +607,7 @@ namespace BP
             try
             {
                 List<Segment> lstSegment = new SegmentDAL().GetSegments().Where(x => x.Status == "A" && x.AccountCodeFlag == false).OrderBy(x => x.SegmentOrder).ToList();
-                
+
                 gvSegmentDLLs.DataSource = lstSegment;
                 gvSegmentDLLs.DataBind();
 
@@ -695,6 +751,148 @@ namespace BP
                 lblDecisionModalAccountCode.Text = e.Code; //hidden field
                 lblDecisionModalAccount.Text = e.Code;
                 lblDecisionModalPeriod.Text = e.Period;
+
+                LinkButton btn = (LinkButton)sender;
+                string status = (btn.ID == "btnSaved_" + e.PeriodID.ToString()) ? "S" :
+                                    ((btn.ID == "btnPrepared_" + e.PeriodID.ToString()) ? "P" :
+                                        ((btn.ID == "btnReviewed_" + e.PeriodID.ToString()) ? "R" :
+                                            ((btn.ID == "btnApproved_" + e.PeriodID.ToString()) ? "A" :
+                                                ((btn.ID == "btnRevRej_" + e.PeriodID.ToString()) ? "X" :
+                                                    ((btn.ID == "btnAprRej_" + e.PeriodID.ToString()) ? "Y" : string.Empty)))));
+
+                ColorHeader.Style.Add("background-color", new Helper().GetColorByStatusValue(Convert.ToChar(status)).Name);
+                //ColorHeader.Style.Add("width", "100%");
+                ColorHeader.InnerText = "Budget Mengurus - " + new Helper().GetBudgetStatusEnumName(Convert.ToChar(status));
+
+                //Grid
+                List<SegmentDetail> segdtls = new SegmentDetailsDAL().GetSegmentDetails().ToList();
+
+                //int seglength = new SegmentDAL().GetSegments().Where(x => x.Status == "A" && x.AccountCodeFlag == false).Count();
+                int seglength = ((Dictionary<int, int>)Session["SegDtlsDictionary"]).Count();
+
+                List<int> segdtlids = new List<int>();
+                foreach (KeyValuePair<int, int> pair in (Dictionary<int, int>)Session["SegDtlsDictionary"])
+                {
+                    List<int> parntsegdtlids = new List<int>();
+                    parntsegdtlids = segdtls.Select(x => Convert.ToInt32(x.ParentDetailID)).Distinct().ToList();
+                    if (pair.Value == 0)
+                    {
+                        foreach (int i in segdtls.Where(x => !parntsegdtlids.Contains(x.SegmentDetailID) && x.Status == "A" && x.SegmentID == pair.Key)
+                                        .Select(x => x.SegmentDetailID).ToList())
+                            segdtlids.Add(i);
+                    }
+                    else
+                    {
+                        if (!parntsegdtlids.Contains(pair.Value))
+                            segdtlids.Add(pair.Value);
+                        else
+                        {
+                            List<SegmentDetail> lstsubdtl = segdtls.Where(x => x.ParentDetailID == pair.Value).ToList();
+                            for (int i = 0; i < lstsubdtl.Count; i++)
+                            {
+                                if (!parntsegdtlids.Contains(lstsubdtl[i].SegmentDetailID))
+                                    segdtlids.Add(lstsubdtl[i].SegmentDetailID);
+                                else
+                                {
+                                    foreach (SegmentDetail o in segdtls.Where(x => x.ParentDetailID == lstsubdtl[i].SegmentDetailID))
+                                        lstsubdtl.Add(o);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                IQueryable<AccountCode> lstacccode = new AccountCodeDAL().GetAccountCodes();
+                List<string> accntcodes = new List<string>();
+                List<string> parntacntcodes = lstacccode.Select(x => x.ParentAccountCode).Distinct().ToList();
+                if (!parntacntcodes.Contains(e.Code))
+                    accntcodes.Add(e.Code);
+                else
+                {
+                    List<AccountCode> lstsubacccode = lstacccode.Where(x => x.ParentAccountCode == e.Code).ToList();
+                    for (int i = 0; i < lstsubacccode.Count; i++)
+                    {
+                        if (!parntacntcodes.Contains(lstsubacccode[i].AccountCode1))
+                            accntcodes.Add(lstsubacccode[i].AccountCode1);
+                        else
+                        {
+                            string ac = lstsubacccode[i].AccountCode1;
+                            foreach (AccountCode o in lstacccode.Where(x => x.ParentAccountCode == ac))
+                                lstsubacccode.Add(o);
+                        }
+                    }
+                }
+
+                List<int> budids = new BudgetMengurusDAL().GetMengurusSegDtls()
+                    .Where(x => segdtlids.Contains(x.SegmentDetailID))
+                    .GroupBy(x => new
+                    {
+                        x.BudgetMengurusID
+                    })
+                    .Select(x => new
+                    {
+                        BudgetMengurusID = x.Key.BudgetMengurusID,
+                        JuncBgtMengurusSegDtlID = x.Count()
+                    })
+                    .Where(x => x.JuncBgtMengurusSegDtlID == seglength)
+                    .Select(x => x.BudgetMengurusID).ToList();
+
+                List<BudgetMenguru> budData = new BudgetMengurusDAL().GetBudgetMengurus()
+                    .Where(x => x.Status == status && accntcodes.Contains(x.AccountCode) && x.PeriodMengurusID == e.PeriodID && budids.Contains(x.BudgetMengurusID)).ToList();
+
+                budids = budData.Select(y => y.BudgetMengurusID).ToList();
+                var jundata = new BudgetMengurusDAL().GetMengurusSegDtls()
+                    .AsEnumerable()
+                    .Where(x => budids.Contains(x.BudgetMengurusID))
+                    .OrderBy(x => x.BudgetMengurusID)
+                    .ThenBy(x => x.SegmentDetail.Segment.SegmentOrder)
+                    .GroupBy(x => new
+                    {
+                        x.BudgetMengurusID
+                    })
+                    .Select(x => new
+                    {
+                        BudgetMengurusID = x.Key.BudgetMengurusID,
+                        //AccountCode = String.Join("-", x.Select(y => y.SegmentDetail.DetailCode)) 
+                        AccountCode = x.Select(y => y.SegmentDetail.DetailCode).Aggregate((a, b) => a + "-" + b)
+                        //AccountCode = x.Aggregate(string.Empty, (a, b) => a + "," + i.text)
+                    })
+                    .ToList();
+
+                if (status == "S" || status == "P" || status == "R" || status == "A")
+                {
+                    gvModelDetails.DataSource =
+                        (from x in budData
+                         join y in jundata on x.BudgetMengurusID equals y.BudgetMengurusID
+                         join z in new UsersDAL().GetUsers() on x.ModifiedBy equals z.UserID
+                         select new
+                         {
+                             AccountCode = y.AccountCode + "-" + x.AccountCode,
+                             Amount = x.Amount,
+                             Username = z.UserName,
+                             Email = z.UserEmail,
+                             Contact = z.UserPhoneNo,
+                             DateTime = x.ModifiedTimeStamp
+                         }).ToList();
+                }
+                else
+                {
+                    gvModelDetails.DataSource =
+                        (from x in budData
+                         join y in jundata on x.BudgetMengurusID equals y.BudgetMengurusID
+                         join z in new UsersDAL().GetUsers() on x.ModifiedBy equals z.UserID
+                         select new
+                         {
+                             AccountCode = y.AccountCode + "-" + x.AccountCode,
+                             Amount = x.Amount,
+                             Remarks = x.Remarks,
+                             Username = z.UserName,
+                             Email = z.UserEmail,
+                             Contact = z.UserPhoneNo,
+                             DateTime = x.ModifiedTimeStamp
+                         }).ToList();
+                }
+                gvModelDetails.DataBind();
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "myModal", "$('#myModal').modal();", true);
             }
@@ -1057,5 +1255,6 @@ namespace BP
             SelectedPeriod.InnerHtml += "</ul>";
         }
         #endregion
+
     }
 }

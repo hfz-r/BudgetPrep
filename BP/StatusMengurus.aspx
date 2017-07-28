@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Budget Summary" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SummaryMengurus.aspx.cs" Inherits="BP.SummaryMengurus" %>
+﻿<%@ Page Title="Budget Status" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StatusMengurus.aspx.cs" Inherits="BP.StatusMengurus" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
@@ -48,6 +48,10 @@
             width: 200px;
             bottom: 5px;
         }
+
+        .btn.btn-app.btn-xs.smallz {
+            width:35px;
+        }
     </style>
 </asp:Content>
 
@@ -58,17 +62,17 @@
             <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
         </li>
         <li class=""><a href="#">Budget</a></li>
-        <li class="active">Summary</li>
+        <li class="active">Status</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="PageHeaderContent" runat="server">
     <div class="page-header">
 		<h1>
-			Budget Summary
+			Budget Status
 			<small>
 				<i class="ace-icon fa fa-angle-double-right"></i>
-				view &amp; manage budget`s summary
+				view &amp; manage budget`s status
 			</small>
 		</h1>
 	</div><!-- /.page-header -->
@@ -81,7 +85,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-2">
             <div class="widget-box widget-color-dark" id="widget-box-edit">
                 <div class="widget-header widget-header-small">
-                    <h6 id="widget_title" class="widget-title" runat="server"><i class="ace-icon fa fa-search"></i>Budget Summary - Search
+                    <h6 id="widget_title" class="widget-title" runat="server"><i class="ace-icon fa fa-search"></i>Budget Status - Search
                     </h6>
                     <div class="widget-toolbar">
                         <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen"><i class="ace-icon fa fa-expand"></i></a>
@@ -219,7 +223,7 @@
         <div class="col-xs-12 widget-container-col" id="widget-container-col-1">
             <div class="widget-box widget-color-dark" id="widget-box-list">
                 <div class="widget-header widget-header-small">
-                    <h6 class="widget-title">Budget Summary - List</h6>
+                    <h6 class="widget-title">Budget Status - List</h6>
                     <div class="widget-toolbar">
                         <a href="#" data-action="fullscreen" class="orange2 tooltip-info" data-rel="tooltip" data-placement="top" title="Fullscreen"><i class="ace-icon fa fa-expand"></i></a>
                         <a href="#" data-action="reload" class="tooltip-info" data-rel="tooltip" data-placement="top" title="Reload"><i class="ace-icon fa fa-refresh"></i></a>
@@ -394,7 +398,7 @@
     <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div id="ColorHeader" runat="server" class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         &times;
                     </button>
@@ -425,36 +429,16 @@
                         </div>
                     </div>
 
-                    <div class="space-20"></div>
-
-                    <div class="row">
-                        <div id="ColorHeader" runat="server" class="row text-center" style="width: 100%; background-color: yellow;">
-                            Saved
-                        </div>
+                    <div class="row" style="margin:5px;">
                         <hr />
-                        <asp:GridView ID="gvModelDetails" runat="server" AutoGenerateColumns="false" AllowSorting="true"
-                            CssClass="table table-bordered table-striped" DataKeyNames="AccountCode" ShowFooter="true">
-                            <FooterStyle Font-Bold="true" BackColor="LightGray" />
-                            <Columns>
-                                <asp:TemplateField HeaderText="Code" HeaderStyle-CssClass="treecontainer" ItemStyle-HorizontalAlign="Left" ItemStyle-VerticalAlign="Middle">
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="btnExpand" runat="server" CommandName="Expand" CommandArgument='<%# Container.DataItemIndex %>'>
-                                        </asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
+                        <asp:GridView ID="gvModelDetails" runat="server" AutoGenerateColumns="true" AllowSorting="true"
+                            CssClass="table table-bordered table-striped" DataKeyNames="AccountCode" ShowFooter="false">
                         </asp:GridView>
                     </div>
 
                 </div>
 
-                <div class="modal-footer">
-                    <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                    <asp:LinkButton ID="btnDecisionSave" runat="server" CssClass="btn btn-info" OnClientClick="return CloseModal();" OnClick="btnDecisionSave_Click">
-					    <i class="ace-icon fa fa-save"></i>Save changes
-                    </asp:LinkButton>--%>
-                </div>
+                <div class="modal-footer"></div>
             </div>
         </div>
     </div>
@@ -543,7 +527,7 @@
                 for (var id in widgets) if (widgets.hasOwnProperty(id)) {
                     var state = widgets[id];
                     var widget = $('#' + id);
-                    if 
+                    if
 						(
                         (state == 'shown' && widget.hasClass('collapsed'))
                         ||
@@ -771,5 +755,6 @@
         });
 
     </script>
+
 
 </asp:Content>

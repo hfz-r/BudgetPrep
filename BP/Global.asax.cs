@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using BP;
+using System.Web.UI.WebControls;
 
 namespace BP
 {
@@ -17,6 +18,9 @@ namespace BP
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterOpenAuth();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            //custom datapager
+            WebControl.DisabledCssClass = "customDisabledClassName";
         }
 
         void Application_End(object sender, EventArgs e)
