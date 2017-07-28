@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Account Code" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AccountCodeSetup.aspx.cs" Inherits="BP.AccountCodeSetup" %>
+﻿<%@ Page Title="Peruntukan Dipinda Setup" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PeruntukanDipindaSetup.aspx.cs" Inherits="BP.PeruntukanDipindaSetup" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
@@ -19,17 +19,17 @@
 		    <a href="<%=Page.ResolveUrl("~/Dashboard.aspx")%>">Home</a>
 	    </li>
         <li class=""><a href="#">Setup</a></li>
-        <li class="active">Account Code</li>
+        <li class="active">PeruntukanDipinda</li>
     </ul><!-- /.breadcrumb -->
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="PageHeaderContent" runat="server">
     <div class="page-header">
 		<h1>
-			Account Code
+			Peruntukan Dipinda
 			<small>
 				<i class="ace-icon fa fa-angle-double-right"></i>
-				setup &amp; manage account code
+				setup &amp; manage Peruntukan Dipinda
 			</small>
 		</h1>
 	</div><!-- /.page-header -->
@@ -42,7 +42,7 @@
 		    <div class="modal-content">
                 <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h5 class="blue bigger">Account Code File Upload</h5>
+					<h5 class="blue bigger">Peruntukan Dipinda File Upload</h5>
 				</div>
 
 			    <div class="modal-body">
@@ -223,11 +223,11 @@
                                 <div class="pull-right tableTools-container"></div>
                             </div>
 
-                            <asp:GridView ID="gvAccountCodes" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped table-hover"
-                                DataKeyNames="AccountCode" OnRowCommand="gvAccountCodes_RowCommand" OnRowDataBound="gvAccountCodes_RowDataBound"
-                                OnPreRender="gvAccountCodes_PreRender">
+                            <asp:GridView ID="gvOpenbudget" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-striped table-hover"
+                                DataKeyNames="BudgetAccount" OnRowCommand="gvOpenbudget_RowCommand" OnRowDataBound="gvOpenbudget_RowDataBound"
+                                OnPreRender="gvOpenbudget_PreRender">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Code" HeaderStyle-CssClass="treecontainer" ItemStyle-HorizontalAlign="Left"
+                                    <asp:TemplateField HeaderText="BudgetAccount" HeaderStyle-CssClass="treecontainer" ItemStyle-HorizontalAlign="Left"
                                         ItemStyle-VerticalAlign="Middle">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="btnExpand" Font-Underline="false" runat="server" CommandName="Expand"
@@ -235,13 +235,19 @@
                                             </asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:BoundField DataField="AccountDesc" HeaderText="Account Description" />
-                                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
+                                    <asp:BoundField DataField="Description" HeaderText="Description" />
+                                    <asp:BoundField DataField="BudgetType" HeaderText="BudgetType" />
+                                    <asp:BoundField DataField="BudgetAccKey" HeaderText="BudgetAccKey" />
+                                    <asp:BoundField DataField="BudgetLedgerKey" HeaderText="BudgetLedgerKey" />
+                                    <asp:BoundField DataField="BudgetYear" HeaderText="BudgetYear" />
+                                    <asp:BoundField DataField="Type" HeaderText="Type" />
+                                    <asp:BoundField DataField="BudgetAmount" HeaderText="BudgetAmount" />
+                                   <%-- <asp:TemplateField HeaderText="Status" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center"
                                         HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <span id="CustomStatus" runat="server"></span>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField HeaderText="Actions" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="50px">
                                         <ItemTemplate>
                                             <div class="btn-group">
@@ -319,8 +325,7 @@
             $("#EditForm").show();
         }
 
-        function InitScript() 
-        {
+        function InitScript() {
             // widget box drag & drop
             $('.widget-container-col').sortable({
                 connectWith: '.widget-container-col',
@@ -420,18 +425,17 @@
                 ace.data.remove('demo', 'widget-order');
                 $('#btnCancel').click();
 
-                $("#MainContent_gvAccountCodes tr").each(function () {
+                $("#MainContent_gvOpenbudget tr").each(function () {
                     $(this).css("background-color", "");
                 });
 
                 $.ajax({
                     type: "POST",
-                    url: "AccountCodeSetup.aspx/ReloadField?f=widgetclosed",
+                    url: "PeruntukanDipindaSetup.aspx/ReloadField?f=widgetclosed",
                     data: "{}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (result)
-                    {
+                    success: function (result) {
                         console.log("Field Reloaded!");
                     }
                 });
@@ -442,7 +446,7 @@
                 ace.data.remove('demo', 'widget-state');
                 ace.data.remove('demo', 'widget-order');
 
-                location.href = "<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>";
+                location.href = "<%=Page.ResolveUrl("~/PeruntukanDipindaSetup.aspx")%>";
             });
 
             //preview template
@@ -461,8 +465,7 @@
             $('[data-rel=tooltip]').tooltip();
         }
 
-        function FileInput()
-        {
+        function FileInput() {
             var file_input = $('#upload');
 
             file_input.ace_file_input({
@@ -478,14 +481,13 @@
             $('#btnUpload').on('click', function (e) {
                 spinnerInit();
 
-                if (!file_input.data('ace_input_files'))
-                {
+                if (!file_input.data('ace_input_files')) {
                     $('#spin').data('spinner').stop();
                     $("#spin").hide();
 
                     alert("Upload Fail - No file selected!");
                     return false;
-                } 
+                }
 
                 var fd = new FormData();
                 fd.append('upload', $('#upload')[0].files[0]);
@@ -498,7 +500,7 @@
                 }
 
                 $.ajax({
-                    url: 'FileUploadHandler.ashx?source=AccountCode',
+                    url: 'FileUploadHandler.ashx?source=PeruntukanDipinda',
                     type: 'post',
                     data: fd,
                     success: fnsuccesscallback,
@@ -509,8 +511,7 @@
                     }
                 });
 
-                function fnsuccesscallback(response)
-                {
+                function fnsuccesscallback(response) {
                     $('#spin').data('spinner').stop();
                     $("#spin").hide();
 
@@ -530,7 +531,7 @@
                             time: 60000,
                             after_close: function () {
                                 if (item.status.indexOf("Success") >= 0) {
-                                    location.href = "<%=Page.ResolveUrl("~/AccountCodeSetup.aspx")%>";
+                                    location.href = "<%=Page.ResolveUrl("~/PeruntukanDipindaSetup.aspx")%>";
                                 }
                             }
                         });
@@ -540,12 +541,10 @@
             });
         }
 
-        function LoadDataTable()
-        {
+        function LoadDataTable() {
             //initiate dataTables plugin
-            var myTable = $('#<%=gvAccountCodes.ClientID%>').DataTable({
+            var myTable = $('#<%=gvOpenbudget.ClientID%>').DataTable({
                 bAutoWidth: false,
-				"lengthMenu": [[20, 40, 60, -1], [20, 40, 60, "All"]],
                 "aoColumns": [
 					  null,
                       null,
@@ -554,7 +553,7 @@
                 ],
                 "aaSorting": [],
                 select: {
-                    style: 'single'
+                    style: 'multi'
                 }
             });
 
@@ -650,6 +649,12 @@
                     else $(this).tooltip({ container: 'body', title: $(this).text() });
                 });
             }, 500);
+
+            $(document).on('click', '#<%=gvOpenbudget.ClientID%> .dropdown-toggle', function (e) {
+                e.stopImmediatePropagation();
+                e.stopPropagation();
+                e.preventDefault();
+            });
         }
 
         function CustomValidationFunction(sender, args) {
@@ -669,13 +674,11 @@
             }
         }
 
-        function Reset()
-        {
+        function Reset() {
             //Page_ClientValidate('');
 
             if (typeof (Page_Validators) != "undefined") {
-                for (var i = 0; i < Page_Validators.length; i++)
-                {
+                for (var i = 0; i < Page_Validators.length; i++) {
                     var validator = Page_Validators[i];
                     validator.isvalid = true;
                     ValidatorUpdateDisplay(validator);

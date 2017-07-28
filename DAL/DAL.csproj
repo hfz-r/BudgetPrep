@@ -108,6 +108,10 @@
     <Compile Include="MasterUser.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="PerbelanjaanSebenar.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PerbelanjaanSebenarDAL.cs" />
     <Compile Include="PeriodMenguru.cs">
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
@@ -116,6 +120,14 @@
       <DependentUpon>BPDB.tt</DependentUpon>
     </Compile>
     <Compile Include="PeriodPerjawatanDAL.cs" />
+    <Compile Include="PeruntukanAsal.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeruntukanAsalDAL.cs" />
+    <Compile Include="PeruntukanDipinda.cs">
+      <DependentUpon>BPDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PeruntukanDipindaDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segment.cs">
       <DependentUpon>BPDB.tt</DependentUpon>

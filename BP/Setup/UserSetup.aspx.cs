@@ -762,6 +762,11 @@ namespace BP.Setup
                 
                 int UserId = Convert.ToInt32(DataBinder.Eval(e.Row.DataItem, "UserID"));
                 string UserStatus = data.Where(x => x.UserID==UserId).Select(y => y.UserStatus).FirstOrDefault();
+                int roles = (new UsersRoleDAL().ListUserRole().Where(x => x.UserID == UserId)
+                            .Select(y => Convert.ToInt32(y.RoleID)).FirstOrDefault());
+                string rolename = (new UsersRoleDAL().GetRoles().Where(x => x.RoleID == roles)
+                            .Select(y => Convert.ToString(y.RoleName)).FirstOrDefault());
+                e.Row.Cells[3].Text = rolename;                               
                 bool LockedOut = Membership.GetUser(e.Row.Cells[1].Text).IsLockedOut;
 
                 if (LockedOut == true)

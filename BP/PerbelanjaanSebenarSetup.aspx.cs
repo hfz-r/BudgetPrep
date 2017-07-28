@@ -11,28 +11,24 @@ using System.Web.Services;
 
 namespace BP
 {
-    public class AccountCodeTreeHelper
+    public class PerbelanjaanSebenarTreeHelper
     {
-        public string AccountCode { get; set; }
-        public string AccountDesc { get; set; }
-        public string Keterangan { get; set; }
-        public string Pengiraan { get; set; }
-        public string ParentAccountCode { get; set; }
-        public string Status { get; set; }
-        public int Level { get; set; }
-        public int ChildCount { get; set; }
+        public string BudgetAccount { get; set; }
+        public string Description { get; set; }
+        public double BudgetYear { get; set; }
+        public double BudgetAmount { get; set; }
     }
 
-    public class AccountCodeImport
+    public class PerbelanjaanSebenarImport
     {
-        public string AccountCode { get; set; }
-        public string AccountDesc { get; set; }
-        public string Status { get; set; }
-        public string Action { get; set; }
-        public string UpperLevel { get; set; }
+        public string BudgetAccount { get; set; }
+        public string Description { get; set; }
+        public double BudgetYear { get; set; }
+        public double BudgetAmount { get; set; }
+
     }
 
-    public partial class AccountCodeSetup : PageHelper
+    public partial class PerbelanjaanSebenarSetup : PageHelper
     {
         List<string> SelectedNodes;
 
@@ -53,25 +49,25 @@ namespace BP
         {
             try
             {
-                List<AccountCode> data = new AccountCodeDAL().GetAccountCodes().ToList();
+                List<PerbelanjaanSebenar> data = new PerbelanjaanSebenarDAL().GetAccountCodes().ToList();
                 if (data.Count == 0)
                 {
-                    data = new List<AccountCode>();
-                    data.Add(new AccountCode() { AccountCode1 = string.Empty, ParentAccountCode = string.Empty });
+                    data = new List<PerbelanjaanSebenar>();
+                    data.Add(new PerbelanjaanSebenar() { BudgetAccount = string.Empty });
 
-                    List<DAL.YearUploadSetup> GetData = new YearUploadDAL().GetYearUpload();
-                    DAL.YearUploadSetup curryear = GetData.Where(x => x.BudgetYear == DateTime.Now.Year).FirstOrDefault();
+                    //List<DAL.PerbelanjaanSebenar> GetData = new PerbelanjaanSebenarDAL().GetAccountCodes();
+                    //DAL.YearUploadSetup curryear = GetData.Where(x => x.BudgetYear == DateTime.Now.Year).FirstOrDefault();
 
-                    if (curryear.ToString().Count() > 0)
-                    {
-                        if (!GetData.Where(y => y.BudgetYear == curryear.BudgetYear).Select(z => z.Status.Contains("A")).FirstOrDefault())
-                        {
-                            btnFileUpload.HRef = "#";
-                        }
-                    }
+                    //if (curryear.ToString().Count() > 0)
+                    //{
+                    //    if (!GetData.Where(y => y.BudgetYear == curryear.BudgetYear).Select(z => z.Status.Contains("A")).FirstOrDefault())
+                    //    {
+                    //        btnFileUpload.HRef = "#";
+                    //    }
+                    //}
                 }
 
-                Session["AccountCodesData"] = data;
+                Session["PerbelanjaanData"] = data;
             }
             catch (Exception ex)
             {
@@ -84,21 +80,17 @@ namespace BP
             try
             {
                 SelectedNodes = (List<string>)Session["SelectedNodes"];
-                List<AccountCode> data = (List<AccountCode>)Session["AccountCodesData"];
-                List<AccountCodeTreeHelper> TreeData = new List<AccountCodeTreeHelper>();
+                List<PerbelanjaanSebenar> data = (List<PerbelanjaanSebenar>)Session["PerbelanjaanData"];
+                List<PerbelanjaanSebenarTreeHelper> TreeData = new List<PerbelanjaanSebenarTreeHelper>();
                 if (data.Count > 0)
                 {
-                    TreeData = data.Where(x => x.ParentAccountCode == string.Empty).OrderBy(x => x.AccountCode1).Select(x =>
-                            new AccountCodeTreeHelper()
+                    TreeData = data.OrderBy(x => x.BudgetAccount).Select(x =>
+                            new PerbelanjaanSebenarTreeHelper()
                             {
-                                AccountCode = x.AccountCode1,
-                                AccountDesc = x.AccountDesc,
-                                //Keterangan = x.Keterangan,
-                                //Pengiraan = x.Pengiraan,
-                                ParentAccountCode = x.ParentAccountCode,
-                                Status = x.Status,
-                                Level = 0,
-                                ChildCount = data.Where(y => y.ParentAccountCode == x.AccountCode1).Count()
+                                BudgetAccount = x.BudgetAccount,
+                                Description = x.Description,
+                                BudgetAmount = Convert.ToDouble(x.BudgetAmount),
+                                BudgetYear = Convert.ToDouble(x.BudgetYear),
                             }).ToList();
 
                     if (SelectedNodes == null || SelectedNodes.Count == 0)
@@ -112,21 +104,17 @@ namespace BP
                         //{
                         for (int i = 0; i < TreeData.Count; i++)
                         {
-                            if (SelectedNodes.Contains(TreeData[i].AccountCode))
+                            if (SelectedNodes.Contains(TreeData[i].BudgetAccount))
                             {
                                 //TreeData[i].IsExpanded = true;
-                                foreach (AccountCode sd in data.Where(x => x.ParentAccountCode == TreeData[i].AccountCode).OrderByDescending(x => x.AccountCode1))
+                                foreach (PerbelanjaanSebenar sd in data.Where(x => x.BudgetAccount == TreeData[i].BudgetAccount).OrderByDescending(x => x.BudgetAccount))
                                 {
-                                    AccountCodeTreeHelper objSH = new AccountCodeTreeHelper()
+                                    PerbelanjaanSebenarTreeHelper objSH = new PerbelanjaanSebenarTreeHelper()
                                     {
-                                        AccountCode = sd.AccountCode1,
-                                        AccountDesc = sd.AccountDesc,
-                                        //Keterangan = sd.Keterangan,
-                                        //Pengiraan = sd.Pengiraan,
-                                        ParentAccountCode = sd.ParentAccountCode,
-                                        Status = sd.Status,
-                                        Level = TreeData[i].Level + 1,
-                                        ChildCount = data.Where(y => y.ParentAccountCode == sd.AccountCode1).Count()
+                                        BudgetAccount = sd.BudgetAccount,
+                                        Description = sd.Description,
+                                        BudgetAmount = Convert.ToDouble(sd.BudgetAmount),
+                                        BudgetYear = Convert.ToDouble(sd.BudgetYear),
                                     };
                                     TreeData.Insert(i + 1, objSH);
                                 }
@@ -135,7 +123,7 @@ namespace BP
                         //}
                     }
                 }
-                Session["AccountCodesTree"] = TreeData;
+                Session["PerbelanjaanDataTree"] = TreeData;
                 BindGrid();
             }
             catch (Exception ex)
@@ -148,8 +136,8 @@ namespace BP
         {
             try
             {
-                gvAccountCodes.DataSource = (List<AccountCodeTreeHelper>)Session["AccountCodesTree"];
-                gvAccountCodes.DataBind();
+                gvOpenbudget.DataSource = (List<PerbelanjaanSebenarTreeHelper>)Session["PerbelanjaanDataTree"];
+                gvOpenbudget.DataBind();
             }
             catch (Exception ex)
             {
@@ -161,7 +149,7 @@ namespace BP
         {
             try
             {
-                foreach (GridViewRow gvr in gvAccountCodes.Rows)
+                foreach (GridViewRow gvr in gvOpenbudget.Rows)
                     gvr.Style["background-color"] = "";
                 GridViewRow.Style["background-color"] = "skyblue";
             }
@@ -175,7 +163,7 @@ namespace BP
         {
             try
             {
-                Session["SelectedAccountCode"] = ((List<AccountCode>)Session["AccountCodesData"]).Where(x => x.AccountCode1 == selectedAccountCodeID).FirstOrDefault();
+                Session["SelectedAccountCode"] = ((List<AccountCode>)Session["PerbelanjaanData"]).Where(x => x.AccountCode1 == selectedAccountCodeID).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -191,7 +179,7 @@ namespace BP
             //tbPengiraan.Text = string.Empty;
             ddlStatus.SelectedIndex = 0;
 
-            foreach (GridViewRow gvr in gvAccountCodes.Rows)
+            foreach (GridViewRow gvr in gvOpenbudget.Rows)
                 gvr.Style["background-color"] = "";
 
             EditForm.Visible = false;
@@ -271,37 +259,37 @@ namespace BP
         //    Session["SelectedAccountCode"] = null;
         //}
 
-        protected void gvAccountCodes_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvOpenbudget_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    AccountCodeTreeHelper rowItem = (AccountCodeTreeHelper)e.Row.DataItem;
+                    PerbelanjaanSebenarTreeHelper rowItem = (PerbelanjaanSebenarTreeHelper)e.Row.DataItem;
                     //((Label)e.Row.FindControl("lblIndent")).Width = Unit.Pixel(rowItem.Level * 30);
                     //((Label)e.Row.FindControl("lblDetailCode")).Text = rowItem.DetailCode;
-                    int width = rowItem.Level * 30;
+                    //int width = rowItem.BudgetAccKey * 30;
 
                     string strHTML = string.Empty;
 
-                    if (rowItem.ChildCount > 0)
-                    {
-                        if (SelectedNodes.Contains(rowItem.AccountCode))
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-minus-square pull-right\"></i></label> ";
-                        else
-                            strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-plus-square pull-right\"></i></label> ";
-                    }
-                    else
-                        strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i></i></label> ";
+                    //if (rowItem.BudgetAccKey > 0)
+                    //{
+                    //    if (SelectedNodes.Contains(rowItem.BudgetAccount))
+                    //        strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-minus-square pull-right\"></i></label> ";
+                    //    else
+                    //        strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i class=\"ace-icon fa fa-plus-square pull-right\"></i></label> ";
+                    //}
+                    //else
+                    //    strHTML = "<label style=\"width:" + (width + 10).ToString() + "px;vertical-align:middle;\"><i></i></label> ";
 
                     LinkButton btnExpand = ((LinkButton)e.Row.FindControl("btnExpand"));
-                    btnExpand.Text = "<div>" + strHTML + rowItem.AccountCode + "</div>";
+                    btnExpand.Text = "<div>" + strHTML + rowItem.BudgetAccount + "</div>";
 
-                    if (rowItem.ParentAccountCode != string.Empty)
+                    if (rowItem.BudgetAccount != string.Empty)
                         ((LinkButton)e.Row.FindControl("lbAddItem")).Visible = false;
-                    if (rowItem.ParentAccountCode == string.Empty)
+                    if (rowItem.BudgetAccount == string.Empty)
                         ((LinkButton)e.Row.FindControl("lbMakeRoot")).Visible = false;
-                    if (rowItem.AccountCode == string.Empty)
+                    if (rowItem.BudgetAccount == string.Empty)
                     {
                         ((LinkButton)e.Row.FindControl("btnExpand")).Visible = false;
                         ((LinkButton)e.Row.FindControl("lbEit")).Visible = false;
@@ -312,25 +300,25 @@ namespace BP
                         ((LinkButton)e.Row.FindControl("lbAddChild")).Visible = false;
                     }
 
-                    if (Session["SelectedAccountCode"] != null && ((AccountCode)Session["SelectedAccountCode"]).AccountCode1 == rowItem.AccountCode)
+                    if (Session["SelectedAccountCode"] != null && ((AccountCode)Session["SelectedAccountCode"]).AccountCode1 == rowItem.BudgetAccount)
                     {
                         e.Row.Style["background-color"] = "skyblue";
                     }
 
                     var span = ((HtmlGenericControl)e.Row.Cells[2].FindControl("CustomStatus"));
-                    if (rowItem.Status == "A")
-                    {
-                        //span.Attributes["class"] = "label label-success";
-                        //span.InnerHtml = "<i class=\"fa fa-flag green bigger-150 tooltip-success\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Active\"></i>";
-                        span.InnerHtml = "<span class=\"label label-sm label-success arrowed-in arrowed-in-right tooltip-success\" " +
-                            "data-rel=\"tooltip\" data-placement=\"right\" title=\"Active Status. All operation has been enabled.\">Active</span>";
-                    }
-                    else if (rowItem.Status == "D")
-                    {
-                        //span.InnerHtml = "<i class=\"fa fa-flag red bigger-150 tooltip-error\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive\"></i>";
-                        span.InnerHtml = "<span class=\"label label-sm label-danger arrowed-in arrowed-in-right tooltip-error\" " +
-                            "data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive Status. All operation has been disabled.\">Inactive</span>";
-                    }
+                    //if (rowItem.Status == "A")
+                    //{
+                    //    //span.Attributes["class"] = "label label-success";
+                    //    //span.InnerHtml = "<i class=\"fa fa-flag green bigger-150 tooltip-success\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Active\"></i>";
+                    //    span.InnerHtml = "<span class=\"label label-sm label-success arrowed-in arrowed-in-right tooltip-success\" " +
+                    //        "data-rel=\"tooltip\" data-placement=\"right\" title=\"Active Status. All operation has been enabled.\">Active</span>";
+                    //}
+                    //else if (rowItem.Status == "D")
+                    //{
+                    //    //span.InnerHtml = "<i class=\"fa fa-flag red bigger-150 tooltip-error\" data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive\"></i>";
+                    //    span.InnerHtml = "<span class=\"label label-sm label-danger arrowed-in arrowed-in-right tooltip-error\" " +
+                    //        "data-rel=\"tooltip\" data-placement=\"right\" title=\"Inactive Status. All operation has been disabled.\">Inactive</span>";
+                    //}
                 }
             }
             catch (Exception ex)
@@ -339,19 +327,19 @@ namespace BP
             }
         }
 
-        protected void gvAccountCodes_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvOpenbudget_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
-                List<AccountCodeTreeHelper> TreeData = (List<AccountCodeTreeHelper>)Session["AccountCodesTree"];
-                GridViewRow selectedRow = gvAccountCodes.Rows[Convert.ToInt32(e.CommandArgument)];
-                string AccountCode = gvAccountCodes.DataKeys[selectedRow.RowIndex]["AccountCode"].ToString();
+                List<PerbelanjaanSebenarTreeHelper> TreeData = (List<PerbelanjaanSebenarTreeHelper>)Session["PerbelanjaanDataTree"];
+                GridViewRow selectedRow = gvOpenbudget.Rows[Convert.ToInt32(e.CommandArgument)];
+                string AccountCode = gvOpenbudget.DataKeys[selectedRow.RowIndex]["BudgetAccount"].ToString();
                 if (e.CommandName == "Expand")
                 {
                     SelectedNodes = (List<string>)Session["SelectedNodes"];
                     if (!SelectedNodes.Contains(AccountCode))
                     {
-                        if (TreeData.Where(x => x.AccountCode == AccountCode).FirstOrDefault().ChildCount > 0)
+                        if (TreeData.Where(x => x.BudgetAccount == AccountCode).FirstOrDefault().BudgetAmount > 0)
                             SelectedNodes.Add(AccountCode);
                     }
                     else
@@ -434,7 +422,7 @@ namespace BP
             {
                 AccountCode cutAccountCode = (AccountCode)Session["SelectedAccountCode"];
 
-                List<AccountCode> data = (List<AccountCode>)Session["AccountCodesData"];
+                List<AccountCode> data = (List<AccountCode>)Session["PerbelanjaanData"];
                 AccountCode parent = new AccountCode() { ParentAccountCode = ParentAccountCodeID };
                 do
                 {
@@ -451,7 +439,7 @@ namespace BP
                 SelectedNodes = (List<string>)Session["SelectedNodes"];
                 if (!SelectedNodes.Contains(ParentAccountCodeID))
                 {
-                    if (((List<AccountCodeTreeHelper>)Session["AccountCodesTree"]).Where(x => x.AccountCode == ParentAccountCodeID).FirstOrDefault().ChildCount > 0)
+                    if (((List<PerbelanjaanSebenarTreeHelper>)Session["PerbelanjaanDataTree"]).Where(x => x.BudgetAccount == ParentAccountCodeID).FirstOrDefault().BudgetAmount > 0)
                         SelectedNodes.Add(ParentAccountCodeID);
                 }
                 Session["SelectedNodes"] = SelectedNodes;
@@ -474,7 +462,7 @@ namespace BP
                 SelectedNodes = (List<string>)Session["SelectedNodes"];
                 if (!SelectedNodes.Contains(cutAccountCode.AccountCode1))
                 {
-                    if (((List<AccountCodeTreeHelper>)Session["AccountCodesTree"]).Where(x => x.AccountCode == cutAccountCode.AccountCode1).FirstOrDefault().ChildCount > 0)
+                    if (((List<PerbelanjaanSebenarTreeHelper>)Session["PerbelanjaanDataTree"]).Where(x => x.BudgetAccount == cutAccountCode.AccountCode1).FirstOrDefault().BudgetAmount > 0)
                         SelectedNodes.Add(cutAccountCode.AccountCode1);
                 }
                 Session["SelectedNodes"] = SelectedNodes;
@@ -511,13 +499,13 @@ namespace BP
             ddlStatus.DataBind();
         }
 
-        protected void gvAccountCodes_PreRender(object sender, EventArgs e)
+        protected void gvOpenbudget_PreRender(object sender, EventArgs e)
         {
-            if (gvAccountCodes.Rows.Count > 0)
+            if (gvOpenbudget.Rows.Count > 0)
             {
-                gvAccountCodes.UseAccessibleHeader = true;
-                gvAccountCodes.HeaderRow.TableSection = TableRowSection.TableHeader;
-                gvAccountCodes.FooterRow.TableSection = TableRowSection.TableFooter;
+                gvOpenbudget.UseAccessibleHeader = true;
+                gvOpenbudget.HeaderRow.TableSection = TableRowSection.TableHeader;
+                gvOpenbudget.FooterRow.TableSection = TableRowSection.TableFooter;
             }
         }
     }

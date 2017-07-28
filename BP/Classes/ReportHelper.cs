@@ -116,11 +116,31 @@ namespace BP.Classes
 
             connExcel.Open();
 
+            DataTable dtSchema = new DataTable();
             DataSet ds = new DataSet();
             if (!string.IsNullOrEmpty(FilePath))
             {
+                if (Extension == ".xls" || Extension == ".xlsx")
+                {
+                    dtSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    if (dtSchema == null)
+                    {
+                        return null;
+                    }
+                }
+
                 DataTable dt = new DataTable();
-                cmdExcel.CommandText = "SELECT * From [" + Path.GetFileName(FilePath) + "]";
+
+                if (Extension == ".csv")
+                {
+                    cmdExcel.CommandText = "SELECT * From [" + Path.GetFileName(FilePath) + "]";
+                }
+                else if (Extension == ".xls" || Extension == ".xlsx")
+                {
+                    cmdExcel.CommandText = "SELECT * From [" + dtSchema.DefaultView[0][2] + "]";
+                }
+                
                 oda.SelectCommand = cmdExcel;
                 oda.Fill(dt);
                 ds.Tables.Add(dt);
@@ -199,7 +219,7 @@ namespace BP.Classes
                         }
                         else
                         {
-                            if (string.IsNullOrWhiteSpace(dt.Rows[r][c].ToString()) | !System.Text.RegularExpressions.Regex.IsMatch(dt.Rows[r][c].ToString(), @"^[0-9]+$"))
+                            if (string.IsNullOrWhiteSpace(dt.Rows[r][c].ToString()) | !System.Text.RegularExpressions.Regex.IsMatch(dt.Rows[r][c].ToString(), @"^[a-zA-Z0-9]+$"))
                             {
                                 dt.Rows[r][c] = "0";
                             }
@@ -215,13 +235,13 @@ namespace BP.Classes
                         }
 
                         //validate column = AccountDesc
-                        if (props[c].Name == "AccountDesc")
-                        {
-                            if (!System.Text.RegularExpressions.Regex.IsMatch(dt.Rows[r][c].ToString(), @"^[a-zA-Z\s]+$"))
-                            {
-                                ListErrors.Add("Invalid " + proptype.ToString() + " format at Row:" + (r + 1).ToString() + ", Column:" + (c + 1).ToString());
-                            }
-                        }
+                        //if (props[c].Name == "AccountDesc")
+                        //{
+                        //    if (!System.Text.RegularExpressions.Regex.IsMatch(dt.Rows[r][c].ToString(), @"^[a-zA-Z\s]+$"))
+                        //    {
+                        //        ListErrors.Add("Invalid " + proptype.ToString() + " format at Row:" + (r + 1).ToString() + ", Column:" + (c + 1).ToString());
+                        //    }
+                        //}
                     }
                     else if (typeof(T).Name.Contains("ServiceCodeImport")) //ServiceCodeImport
                     {
@@ -249,13 +269,13 @@ namespace BP.Classes
                         }
 
                         //validate column = ServiceDesc
-                        if (props[c].Name == "ServiceDesc")
-                        {
-                            if (!System.Text.RegularExpressions.Regex.IsMatch(dt.Rows[r][c].ToString(), @"^[a-zA-Z\s]+$"))
-                            {
-                                ListErrors.Add("Invalid " + proptype.ToString() + " format at Row:" + (r + 1).ToString() + ", Column:" + (c + 1).ToString());
-                            }
-                        }
+                        //if (props[c].Name == "ServiceDesc")
+                        //{
+                        //    if (!System.Text.RegularExpressions.Regex.IsMatch(dt.Rows[r][c].ToString(), @"^[a-zA-Z\s]+$"))
+                        //    {
+                        //        ListErrors.Add("Invalid " + proptype.ToString() + " format at Row:" + (r + 1).ToString() + ", Column:" + (c + 1).ToString());
+                        //    }
+                        //}
                     }
 
                     //validate column Status - start
