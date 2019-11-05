@@ -8,7 +8,7 @@ namespace DAL
 {
     public class YearEndDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public List<YearEnd> GetYearEnds()
         {

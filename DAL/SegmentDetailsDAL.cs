@@ -8,7 +8,7 @@ namespace DAL
 {
     public class SegmentDetailsDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public IQueryable<SegmentDetail> GetSegmentDetails()
         {

@@ -9,7 +9,7 @@ namespace DAL
 {
     public class UsersDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public MasterUser GetValidUser(string UserName, string Password="")
         {

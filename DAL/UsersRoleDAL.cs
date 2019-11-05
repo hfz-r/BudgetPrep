@@ -8,7 +8,7 @@ namespace DAL
 {
     public class UsersRoleDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public List<MasterRole> GetRoles()
         {

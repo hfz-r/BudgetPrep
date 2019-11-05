@@ -95,6 +95,9 @@
       <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtls" />
     </AssociationSet>
     <EntitySet Name="YearEnds" EntityType="BPModel.YearEnd" />
+    <EntitySet Name="PeruntukanAsals" EntityType="BPModel.PeruntukanAsal" />
+    <EntitySet Name="PeruntukanDipindas" EntityType="BPModel.PeruntukanDipinda" />
+    <EntitySet Name="PerbelanjaanSebenars" EntityType="BPModel.PerbelanjaanSebenar" />
   </EntityContainer>
   <EntityType Name="BPEventLog">
     <Key>
@@ -385,11 +388,11 @@
     <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
     <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Website" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="Title" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
     <Property Name="PositionGrade" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
     <Property Name="Fax" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PeriodOfService" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
     <Property Name="OfficeAddress" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
     <Property Name="Language" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
@@ -631,5 +634,41 @@
     <Property Name="CreatedTimeStamp" Type="DateTime" Precision="6" />
     <Property Name="ModifiedBy" Type="Int32" />
     <Property Name="ModifiedTimeStamp" Type="DateTime" Precision="6" />
+  </EntityType>
+  <EntityType Name="PeruntukanAsal">
+    <Key>
+      <PropertyRef Name="BudgetAccount" />
+    </Key>
+    <Property Type="String" Name="BudgetAccount" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Description" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BudgetType" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="BudgetAccKey" />
+    <Property Type="Int32" Name="BudgetLedgerKey" />
+    <Property Type="Int32" Name="BudgetYear" />
+    <Property Type="String" Name="Type" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="BudgetAmount" Nullable="false" Precision="16" Scale="2" />
+  </EntityType>
+  <EntityType Name="PeruntukanDipinda">
+    <Key>
+      <PropertyRef Name="BudgetAccount" />
+    </Key>
+    <Property Type="String" Name="BudgetAccount" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Description" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BudgetType" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="BudgetAccKey" />
+    <Property Type="Int32" Name="BudgetLedgerKey" />
+    <Property Type="Int32" Name="BudgetYear" />
+    <Property Type="String" Name="Type" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="BudgetAmount" Nullable="false" Precision="16" Scale="2" />
+  </EntityType>
+  <EntityType Name="PerbelanjaanSebenar">
+    <Key>
+      <PropertyRef Name="BudgetAccount" />
+    </Key>
+    <Property Type="String" Name="BudgetAccount" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Description" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="Decimal" Name="BudgetAmount" Nullable="false" Precision="16" Scale="2" />
+    <Property Type="Int32" Name="BudgetYear" />
+    <Property Type="String" Name="ParentAccountCode" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

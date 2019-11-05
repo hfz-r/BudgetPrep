@@ -8,7 +8,7 @@ namespace DAL
 {
     public class FieldMenguruDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public List<FieldMenguru> GetFieldMengurus()
         {

@@ -8,7 +8,7 @@ namespace DAL
 {
     public class AccountCodeDAL
     {
-        BPEntities db = new BPEntities();        
+        BudgetPrep db = new BudgetPrep();        
 
         public IQueryable<AccountCode> GetAccountCodes()
         {

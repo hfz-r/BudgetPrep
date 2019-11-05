@@ -14,4 +14,12 @@ D:\Projects\BP\Security\obj\Debug\Security.Properties.Resources.resources
 D:\Projects\BP\Security\obj\Debug\Security.csproj.GenerateResource.Cache
 D:\Projects\BP\Security\obj\Debug\Security.exe
 D:\Projects\BP\Security\obj\Debug\Security.pdb
-D:\Projects\BP\Security\obj\Debug\Security.csprojResolveAssemblyReference.cache
+C:\Users\hafiz\Documents\My Projects\BP\Security\bin\Debug\Security.exe.config
+C:\Users\hafiz\Documents\My Projects\BP\Security\bin\Debug\Security.exe
+C:\Users\hafiz\Documents\My Projects\BP\Security\bin\Debug\Security.pdb
+C:\Users\hafiz\Documents\My Projects\BP\Security\obj\Debug\OBSecurity.Form1.resources
+C:\Users\hafiz\Documents\My Projects\BP\Security\obj\Debug\Security.Properties.Resources.resources
+C:\Users\hafiz\Documents\My Projects\BP\Security\obj\Debug\Security.csproj.GenerateResource.cache
+C:\Users\hafiz\Documents\My Projects\BP\Security\obj\Debug\Security.csproj.CoreCompileInputs.cache
+C:\Users\hafiz\Documents\My Projects\BP\Security\obj\Debug\Security.exe
+C:\Users\hafiz\Documents\My Projects\BP\Security\obj\Debug\Security.pdb

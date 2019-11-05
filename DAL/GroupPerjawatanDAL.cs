@@ -8,7 +8,7 @@ namespace DAL
 {
     public class GroupPerjawatanDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public IQueryable<GroupPerjawatan> GetGroupPerjawatans()
         {

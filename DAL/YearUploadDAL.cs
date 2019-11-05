@@ -8,7 +8,7 @@ namespace DAL
 {
     public class YearUploadDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public List<YearUploadSetup> GetYearUpload()
         {

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7ca8ca66e6474ac690a4c7894656945a" Name="Diagram1">
+        <EntityTypeShape EntityType="BPModel.AccountCode" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.BPEventLog" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.BPLanguage" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.BudgetMenguru" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.BudgetPerjawatan" Width="1.5" PointX="6" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.BudgetProjek" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.FieldMenguru" Width="1.5" PointX="1.5" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.FieldPerjawatan" Width="1.5" PointX="1.5" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.GroupPerjawatan" Width="1.5" PointX="3.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.JuncBgtMengurusSegDtl" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.JuncBgtPerjawatanSegDtl" Width="1.5" PointX="8.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.JuncBgtProjekSegDtl" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.JuncRolePage" Width="1.5" PointX="12.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.JuncUserRole" Width="1.5" PointX="5.25" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.MasterGroup" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.MasterMenu" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.MasterPage" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.MasterRole" Width="1.5" PointX="3" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.MasterUser" Width="1.5" PointX="3" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.PeriodMenguru" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.PeriodPerjawatan" Width="1.5" PointX="3.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.Segment" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.SegmentDetail" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.UserMengurusWorkflow" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.UserPerjawatanWorkflow" Width="1.5" PointX="6" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.UserSegDtlWorkflow" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.YearEnd" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BPModel.YearUploadSetup" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="BPModel.BudgetMengurus_AccountCode" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.BudgetProjek_AccountCode" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.UserWorkflow_AccountCode" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.BudgetMengurus_PeriodMengurus" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncBgtMengurusSegDtl_BudgetMengurus" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.BudgetPerjawatan_GroupPerjawatan" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.BudgetPerjawatan_PeriodPerjawatan" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncBgtPerjawatanSegDtl_BudgetPerjawatan" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncBgtProjekSegDtl_BudgetProjek" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.PeriodMengurus_FieldPerjawatan" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.PeriodPerjawatan_FieldPerjawatan" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.UserPerjawatanWorkflow_AccountCode" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncBgtMengurusSegDtl_SegmentDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncBgtPerjawatanSegDtl_SegmentDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncBgtProjekSegDtl_SegmentDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncRolePage_Page" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncRolePage_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncUserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.JuncUserRole_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.Menu_Page" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.UserPerjawatanWorkflow_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.UserSegDtlWorkflow_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.UserWorkflow_User" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.SegmentDetail_Segment" ManuallyRouted="false" />
+        <AssociationConnector Association="BPModel.UserSegDtlWorkflow_SegDtls" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BPModel.PerbelanjaanSebenar" Width="1.5" PointX="10.375" PointY="12.75" />
+        <EntityTypeShape EntityType="BPModel.PeruntukanAsal" Width="1.5" PointX="12.375" PointY="12.75" />
+        <EntityTypeShape EntityType="BPModel.PeruntukanDipinda" Width="1.5" PointX="7.375" PointY="13.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

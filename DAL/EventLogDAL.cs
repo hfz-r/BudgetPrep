@@ -20,7 +20,7 @@ namespace DAL
 
     public class EventLogDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public bool AddEventLog(BPEventLog objEventLog)
         {

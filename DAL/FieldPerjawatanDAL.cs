@@ -8,7 +8,7 @@ namespace DAL
 {
     public class FieldPerjawatanDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public List<FieldPerjawatan> GetFieldPerjawatans()
         {

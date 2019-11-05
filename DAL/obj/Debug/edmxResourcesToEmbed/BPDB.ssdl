@@ -1,13 +1,106 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BPModel.Store" Provider="Npgsql" ProviderManifestToken="9.4.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="BPModel.Store" Alias="Self" Provider="Npgsql" ProviderManifestToken="9.4.10" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BPModelStoreContainer">
+    <EntitySet Name="AccountCode" EntityType="BPModel.Store.AccountCode" store:Type="Tables" Schema="public" />
+    <EntitySet Name="BPEventLog" EntityType="BPModel.Store.BPEventLog" store:Type="Tables" Schema="public" />
+    <EntitySet Name="BudgetMengurus" EntityType="BPModel.Store.BudgetMengurus" store:Type="Tables" Schema="public" />
+    <EntitySet Name="FieldMengurus" EntityType="BPModel.Store.FieldMengurus" store:Type="Tables" Schema="public" />
+    <EntitySet Name="FieldPerjawatan" EntityType="BPModel.Store.FieldPerjawatan" store:Type="Tables" Schema="public" />
+    <EntitySet Name="GroupPerjawatan" EntityType="BPModel.Store.GroupPerjawatan" store:Type="Tables" Schema="public" />
+    <EntitySet Name="JuncBgtMengurusSegDtl" EntityType="BPModel.Store.JuncBgtMengurusSegDtl" store:Type="Tables" Schema="public" />
+    <EntitySet Name="JuncRolePage" EntityType="BPModel.Store.JuncRolePage" store:Type="Tables" store:Schema="public" store:Name="JuncRolePage">
+      <DefiningQuery>SELECT "JuncRolePage"."JuncRolePageID", "JuncRolePage"."RoleID", "JuncRolePage"."PageID", "JuncRolePage"."Status" FROM "public"."JuncRolePage" AS "JuncRolePage"</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="JuncUserRole" EntityType="BPModel.Store.JuncUserRole" store:Type="Tables" Schema="public" />
+    <EntitySet Name="MasterMenu" EntityType="BPModel.Store.MasterMenu" store:Type="Tables" store:Schema="public" store:Name="MasterMenu">
+      <DefiningQuery>SELECT "MasterMenu"."MenuID", "MasterMenu"."MenuName", "MasterMenu"."MenuOrder", "MasterMenu"."MenuIcon" FROM "public"."MasterMenu" AS "MasterMenu"</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="MasterPage" EntityType="BPModel.Store.MasterPage" store:Type="Tables" store:Schema="public" store:Name="MasterPage">
+      <DefiningQuery>SELECT "MasterPage"."PageID", "MasterPage"."PageName", "MasterPage"."PagePath", "MasterPage"."PageOrder", "MasterPage"."ParentPageID", "MasterPage"."MenuID" FROM "public"."MasterPage" AS "MasterPage"</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="MasterRole" EntityType="BPModel.Store.MasterRole" store:Type="Tables" Schema="public" />
+    <EntitySet Name="MasterUser" EntityType="BPModel.Store.MasterUser" store:Type="Tables" Schema="public" />
+    <EntitySet Name="PerbelanjaanSebenar" EntityType="BPModel.Store.PerbelanjaanSebenar" store:Type="Tables" Schema="public" />
+    <EntitySet Name="PeriodMengurus" EntityType="BPModel.Store.PeriodMengurus" store:Type="Tables" Schema="public" />
+    <EntitySet Name="PeriodPerjawatan" EntityType="BPModel.Store.PeriodPerjawatan" store:Type="Tables" Schema="public" />
+    <EntitySet Name="PeruntukanAsal" EntityType="BPModel.Store.PeruntukanAsal" store:Type="Tables" Schema="public" />
+    <EntitySet Name="PeruntukanDipinda" EntityType="BPModel.Store.PeruntukanDipinda" store:Type="Tables" Schema="public" />
+    <EntitySet Name="Segment" EntityType="BPModel.Store.Segment" store:Type="Tables" Schema="public" />
+    <EntitySet Name="SegmentDetail" EntityType="BPModel.Store.SegmentDetail" store:Type="Tables" Schema="public" />
+    <EntitySet Name="UserMengurusWorkflow" EntityType="BPModel.Store.UserMengurusWorkflow" store:Type="Tables" Schema="public" />
+    <EntitySet Name="UserPerjawatanWorkflow" EntityType="BPModel.Store.UserPerjawatanWorkflow" store:Type="Tables" Schema="public" />
+    <EntitySet Name="UserSegDtlWorkflow" EntityType="BPModel.Store.UserSegDtlWorkflow" store:Type="Tables" Schema="public" />
+    <EntitySet Name="YearEnd" EntityType="BPModel.Store.YearEnd" store:Type="Tables" Schema="public" />
+    <EntitySet Name="YearUploadSetup" EntityType="BPModel.Store.YearUploadSetup" store:Type="Tables" Schema="public" />
+    <AssociationSet Name="BudgetMengurus_AccountCode" Association="BPModel.Store.BudgetMengurus_AccountCode">
+      <End Role="AccountCode" EntitySet="AccountCode" />
+      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="BudgetMengurus_PeriodMengurus" Association="BPModel.Store.BudgetMengurus_PeriodMengurus">
+      <End Role="PeriodMengurus" EntitySet="PeriodMengurus" />
+      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="JuncBgtMengurusSegDtl_BudgetMengurus" Association="BPModel.Store.JuncBgtMengurusSegDtl_BudgetMengurus">
+      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
+      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtl" />
+    </AssociationSet>
+    <AssociationSet Name="JuncBgtMengurusSegDtl_SegmentDetail" Association="BPModel.Store.JuncBgtMengurusSegDtl_SegmentDetail">
+      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
+      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtl" />
+    </AssociationSet>
+    <AssociationSet Name="JuncUserRole_Role" Association="BPModel.Store.JuncUserRole_Role">
+      <End Role="MasterRole" EntitySet="MasterRole" />
+      <End Role="JuncUserRole" EntitySet="JuncUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="JuncUserRole_User" Association="BPModel.Store.JuncUserRole_User">
+      <End Role="MasterUser" EntitySet="MasterUser" />
+      <End Role="JuncUserRole" EntitySet="JuncUserRole" />
+    </AssociationSet>
+    <AssociationSet Name="PeriodMengurus_FieldPerjawatan" Association="BPModel.Store.PeriodMengurus_FieldPerjawatan">
+      <End Role="FieldMengurus" EntitySet="FieldMengurus" />
+      <End Role="PeriodMengurus" EntitySet="PeriodMengurus" />
+    </AssociationSet>
+    <AssociationSet Name="PeriodPerjawatan_FieldPerjawatan" Association="BPModel.Store.PeriodPerjawatan_FieldPerjawatan">
+      <End Role="FieldPerjawatan" EntitySet="FieldPerjawatan" />
+      <End Role="PeriodPerjawatan" EntitySet="PeriodPerjawatan" />
+    </AssociationSet>
+    <AssociationSet Name="SegmentDetail_Segment" Association="BPModel.Store.SegmentDetail_Segment">
+      <End Role="Segment" EntitySet="Segment" />
+      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="UserPerjawatanWorkflow_AccountCode" Association="BPModel.Store.UserPerjawatanWorkflow_AccountCode">
+      <End Role="GroupPerjawatan" EntitySet="GroupPerjawatan" />
+      <End Role="UserPerjawatanWorkflow" EntitySet="UserPerjawatanWorkflow" />
+    </AssociationSet>
+    <AssociationSet Name="UserPerjawatanWorkflow_User" Association="BPModel.Store.UserPerjawatanWorkflow_User">
+      <End Role="MasterUser" EntitySet="MasterUser" />
+      <End Role="UserPerjawatanWorkflow" EntitySet="UserPerjawatanWorkflow" />
+    </AssociationSet>
+    <AssociationSet Name="UserSegDtlWorkflow_SegDtls" Association="BPModel.Store.UserSegDtlWorkflow_SegDtls">
+      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
+      <End Role="UserSegDtlWorkflow" EntitySet="UserSegDtlWorkflow" />
+    </AssociationSet>
+    <AssociationSet Name="UserSegDtlWorkflow_User" Association="BPModel.Store.UserSegDtlWorkflow_User">
+      <End Role="MasterUser" EntitySet="MasterUser" />
+      <End Role="UserSegDtlWorkflow" EntitySet="UserSegDtlWorkflow" />
+    </AssociationSet>
+    <AssociationSet Name="UserWorkflow_AccountCode" Association="BPModel.Store.UserWorkflow_AccountCode">
+      <End Role="AccountCode" EntitySet="AccountCode" />
+      <End Role="UserMengurusWorkflow" EntitySet="UserMengurusWorkflow" />
+    </AssociationSet>
+    <AssociationSet Name="UserWorkflow_User" Association="BPModel.Store.UserWorkflow_User">
+      <End Role="MasterUser" EntitySet="MasterUser" />
+      <End Role="UserMengurusWorkflow" EntitySet="UserMengurusWorkflow" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="AccountCode">
     <Key>
       <PropertyRef Name="AccountCode" />
     </Key>
-    <Property Name="AccountCode" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="AccountDesc" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="ParentAccountCode" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="AccountCode" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="AccountDesc" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ParentAccountCode" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -19,12 +112,12 @@
     <Key>
       <PropertyRef Name="EventLogID" />
     </Key>
-    <Property Name="EventLogID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Object" Type="varchar" MaxLength="75" Nullable="false" />
-    <Property Name="ObjectName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="EventLogID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Object" Type="varchar" Nullable="false" MaxLength="75" />
+    <Property Name="ObjectName" Type="varchar" Nullable="false" MaxLength="200" />
     <Property Name="ObjectChanges" Type="bpchar" MaxLength="1000" />
     <Property Name="EventMassage" Type="bpchar" MaxLength="100" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="Status" Type="bpchar" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
   </EntityType>
@@ -32,11 +125,11 @@
     <Key>
       <PropertyRef Name="BudgetMengurusID" />
     </Key>
-    <Property Name="BudgetMengurusID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BudgetMengurusID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="PeriodMengurusID" Type="int4" Nullable="false" />
-    <Property Name="AccountCode" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="Amount" Type="numeric" Precision="16" Scale="2" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="AccountCode" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Amount" Type="numeric" Nullable="false" Precision="16" Scale="2" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="Remarks" Type="bpchar" MaxLength="500" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
@@ -47,10 +140,10 @@
     <Key>
       <PropertyRef Name="FieldMengurusID" />
     </Key>
-    <Property Name="FieldMengurusID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FieldMengurusSDesc" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="FieldMengurusDesc" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="FieldMengurusID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FieldMengurusSDesc" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="FieldMengurusDesc" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -60,10 +153,10 @@
     <Key>
       <PropertyRef Name="FieldPerjawatanID" />
     </Key>
-    <Property Name="FieldPerjawatanID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FieldPerjawatanSDesc" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="FieldPerjawatanDesc" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="FieldPerjawatanID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FieldPerjawatanSDesc" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="FieldPerjawatanDesc" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -73,10 +166,10 @@
     <Key>
       <PropertyRef Name="GroupPerjawatanCode" />
     </Key>
-    <Property Name="GroupPerjawatanCode" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="GroupPerjawatanDesc" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="ParentGroupPerjawatanID" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="GroupPerjawatanCode" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="GroupPerjawatanDesc" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ParentGroupPerjawatanID" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -86,7 +179,7 @@
     <Key>
       <PropertyRef Name="JuncBgtMengurusSegDtlID" />
     </Key>
-    <Property Name="JuncBgtMengurusSegDtlID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JuncBgtMengurusSegDtlID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="BudgetMengurusID" Type="int4" Nullable="false" />
     <Property Name="SegmentDetailID" Type="int4" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
@@ -94,40 +187,49 @@
     <Property Name="ModifiedBy" Type="int4" />
     <Property Name="ModifiedTimeStamp" Type="timestamp" />
   </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'BP.public.JuncRolePage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
   <EntityType Name="JuncRolePage">
     <Key>
       <PropertyRef Name="JuncRolePageID" />
     </Key>
-    <Property Name="JuncRolePageID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JuncRolePageID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="RoleID" Type="int4" />
     <Property Name="PageID" Type="int4" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="Status" Type="bpchar" />
   </EntityType>
   <EntityType Name="JuncUserRole">
     <Key>
       <PropertyRef Name="JuncUserRoleID" />
     </Key>
-    <Property Name="JuncUserRoleID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JuncUserRoleID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="int4" />
     <Property Name="RoleID" Type="int4" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="Status" Type="bpchar" />
   </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'BP.public.MasterMenu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
   <EntityType Name="MasterMenu">
     <Key>
       <PropertyRef Name="MenuID" />
     </Key>
-    <Property Name="MenuID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MenuName" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="MenuID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="varchar" Nullable="false" MaxLength="40" />
     <Property Name="MenuOrder" Type="int4" Nullable="false" />
     <Property Name="MenuIcon" Type="bpchar" MaxLength="100" />
   </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'BP.public.MasterPage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
   <EntityType Name="MasterPage">
     <Key>
       <PropertyRef Name="PageID" />
     </Key>
-    <Property Name="PageID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PageName" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="PagePath" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="PageID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PageName" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="PagePath" Type="varchar" Nullable="false" MaxLength="200" />
     <Property Name="PageOrder" Type="int4" Nullable="false" />
     <Property Name="ParentPageID" Type="int4" />
     <Property Name="MenuID" Type="int4" />
@@ -136,53 +238,63 @@
     <Key>
       <PropertyRef Name="RoleID" />
     </Key>
-    <Property Name="RoleID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RoleName" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="RoleID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="varchar" Nullable="false" MaxLength="40" />
     <Property Name="Description" Type="varchar" MaxLength="300" />
     <Property Name="RUID" Type="uuid" />
-    <Property Name="RoleStatus" Type="bpchar" MaxLength="1" />
+    <Property Name="RoleStatus" Type="bpchar" />
   </EntityType>
   <EntityType Name="MasterUser">
     <Key>
       <PropertyRef Name="UserID" />
     </Key>
-    <Property Name="UserID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UUID" Type="uuid" Nullable="false" />
     <Property Name="UserName" Type="varchar" MaxLength="100" />
     <Property Name="UserPassword" Type="varchar" MaxLength="200" />
     <Property Name="UserEmail" Type="varchar" MaxLength="50" />
     <Property Name="FullName" Type="varchar" MaxLength="100" />
-    <Property Name="UserIC" Type="varchar" MaxLength="8000" />
+    <Property Name="UserIC" Type="varchar" />
     <Property Name="Department" Type="varchar" MaxLength="30" />
-    <Property Name="UserPhoneNo" Type="varchar" MaxLength="8000" />
-    <Property Name="SecQuestion" Type="varchar" MaxLength="250" />
-    <Property Name="SecAnswer" Type="varchar" MaxLength="250" />
-    <Property Name="UserStatus" Type="bpchar" MaxLength="1" />
+    <Property Name="Designation" Type="varchar" MaxLength="50" />
+    <Property Name="UserPhoneNo" Type="varchar" />
+    <Property Name="SecQuestion" Type="bpchar" MaxLength="250" />
+    <Property Name="SecAnswer" Type="bpchar" MaxLength="250" />
+    <Property Name="UserStatus" Type="bpchar" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
     <Property Name="ModifiedTimeStamp" Type="timestamp" />
     <Property Name="BirthDate" Type="timestamp" />
-    <Property Name="Gender" Type="bpchar" MaxLength="1" />
+    <Property Name="Gender" Type="bpchar" />
     <Property Name="Comment" Type="varchar" MaxLength="250" />
     <Property Name="Website" Type="varchar" MaxLength="50" />
     <Property Name="Image" Type="bytea" />
-    <Property Name="Title" Type="varchar" MaxLength="15" />
-    <Property Name="PositionGrade" Type="varchar" MaxLength="100" />
-    <Property Name="Fax" Type="varchar" MaxLength="50" />
-    <Property Name="Designation" Type="varchar" MaxLength="50" />
-    <Property Name="PeriodOfService" Type="varchar" MaxLength="10" />
-    <Property Name="OfficeAddress" Type="varchar" MaxLength="250" />
-    <Property Name="Language" Type="varchar" MaxLength="50" />
+    <Property Name="Title" Type="bpchar" MaxLength="15" />
+    <Property Name="PositionGrade" Type="bpchar" MaxLength="100" />
+    <Property Name="Fax" Type="bpchar" MaxLength="50" />
+    <Property Name="PeriodOfService" Type="bpchar" MaxLength="50" />
+    <Property Name="OfficeAddress" Type="bpchar" MaxLength="250" />
+    <Property Name="Language" Type="bpchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PerbelanjaanSebenar">
+    <Key>
+      <PropertyRef Name="BudgetAccount" />
+    </Key>
+    <Property Name="BudgetAccount" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Description" Type="varchar" MaxLength="200" />
+    <Property Name="BudgetAmount" Type="numeric" Nullable="false" Precision="16" Scale="2" />
+    <Property Name="BudgetYear" Type="int4" />
+    <Property Name="ParentAccountCode" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="PeriodMengurus">
     <Key>
       <PropertyRef Name="PeriodMengurusID" />
     </Key>
-    <Property Name="PeriodMengurusID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PeriodMengurusID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="FieldMengurusID" Type="int4" Nullable="false" />
     <Property Name="MengurusYear" Type="int4" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -192,24 +304,50 @@
     <Key>
       <PropertyRef Name="PeriodPerjawatanID" />
     </Key>
-    <Property Name="PeriodPerjawatanID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PeriodPerjawatanID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="FieldPerjawatanID" Type="int4" Nullable="false" />
     <Property Name="PerjawatanYear" Type="int4" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
     <Property Name="ModifiedTimeStamp" Type="timestamp" />
   </EntityType>
+  <EntityType Name="PeruntukanAsal">
+    <Key>
+      <PropertyRef Name="BudgetAccount" />
+    </Key>
+    <Property Name="BudgetAccount" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Description" Type="varchar" MaxLength="200" />
+    <Property Name="BudgetType" Type="varchar" MaxLength="2" />
+    <Property Name="BudgetAccKey" Type="int4" />
+    <Property Name="BudgetLedgerKey" Type="int4" />
+    <Property Name="BudgetYear" Type="int4" />
+    <Property Name="Type" Type="varchar" MaxLength="2" />
+    <Property Name="BudgetAmount" Type="numeric" Nullable="false" Precision="16" Scale="2" />
+  </EntityType>
+  <EntityType Name="PeruntukanDipinda">
+    <Key>
+      <PropertyRef Name="BudgetAccount" />
+    </Key>
+    <Property Name="BudgetAccount" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Description" Type="varchar" MaxLength="200" />
+    <Property Name="BudgetType" Type="varchar" MaxLength="2" />
+    <Property Name="BudgetAccKey" Type="int4" />
+    <Property Name="BudgetLedgerKey" Type="int4" />
+    <Property Name="BudgetYear" Type="int4" />
+    <Property Name="Type" Type="varchar" MaxLength="2" />
+    <Property Name="BudgetAmount" Type="numeric" Nullable="false" Precision="16" Scale="2" />
+  </EntityType>
   <EntityType Name="Segment">
     <Key>
       <PropertyRef Name="SegmentID" />
     </Key>
-    <Property Name="SegmentID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SegmentName" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SegmentID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SegmentName" Type="varchar" Nullable="false" MaxLength="40" />
     <Property Name="SegmentOrder" Type="int4" />
-    <Property Name="ShapeFormat" Type="varchar" MaxLength="15" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="ShapeFormat" Type="varchar" Nullable="false" MaxLength="15" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -220,12 +358,12 @@
     <Key>
       <PropertyRef Name="SegmentDetailID" />
     </Key>
-    <Property Name="SegmentDetailID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SegmentDetailID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="SegmentID" Type="int4" />
-    <Property Name="DetailCode" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="DetailDesc" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DetailCode" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="DetailDesc" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="ParentDetailID" Type="int4" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -235,37 +373,37 @@
     <Key>
       <PropertyRef Name="UserMengurusWorkflowID" />
     </Key>
-    <Property Name="UserMengurusWorkflowID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserMengurusWorkflowID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="int4" />
     <Property Name="AccountCode" Type="varchar" MaxLength="20" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="Status" Type="bpchar" />
   </EntityType>
   <EntityType Name="UserPerjawatanWorkflow">
     <Key>
       <PropertyRef Name="UserPerjawatanWorkflowID" />
     </Key>
-    <Property Name="UserPerjawatanWorkflowID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserPerjawatanWorkflowID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="int4" />
     <Property Name="GroupPerjawatanCode" Type="varchar" MaxLength="20" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="Status" Type="bpchar" />
   </EntityType>
   <EntityType Name="UserSegDtlWorkflow">
     <Key>
       <PropertyRef Name="UserSegDtlWorkflowID" />
     </Key>
-    <Property Name="UserSegDtlWorkflowID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserSegDtlWorkflowID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="int4" />
     <Property Name="SegmentDetailID" Type="int4" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="Status" Type="bpchar" />
   </EntityType>
   <EntityType Name="YearEnd">
     <Key>
       <PropertyRef Name="YearEndID" />
     </Key>
-    <Property Name="YearEndID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="BudgetType" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="YearEndID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BudgetType" Type="varchar" Nullable="false" MaxLength="100" />
     <Property Name="BudgetYear" Type="int4" Nullable="false" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" Nullable="false" />
+    <Property Name="Status" Type="bpchar" Nullable="false" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
@@ -275,18 +413,18 @@
     <Key>
       <PropertyRef Name="BudgetYearID" />
     </Key>
-    <Property Name="BudgetYearID" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BudgetYearID" Type="int4" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="BudgetYear" Type="int4" />
-    <Property Name="BudgetYearDesc" Type="varchar" MaxLength="8000" />
-    <Property Name="Status" Type="bpchar" MaxLength="1" />
+    <Property Name="BudgetYearDesc" Type="varchar" />
+    <Property Name="Status" Type="bpchar" />
     <Property Name="CreatedBy" Type="int4" />
     <Property Name="CreatedTimeStamp" Type="timestamp" />
     <Property Name="ModifiedBy" Type="int4" />
     <Property Name="ModifiedTimeStamp" Type="timestamp" />
   </EntityType>
   <Association Name="BudgetMengurus_AccountCode">
-    <End Role="AccountCode" Type="Self.AccountCode" Multiplicity="1" />
-    <End Role="BudgetMengurus" Type="Self.BudgetMengurus" Multiplicity="*" />
+    <End Role="AccountCode" Type="BPModel.Store.AccountCode" Multiplicity="1" />
+    <End Role="BudgetMengurus" Type="BPModel.Store.BudgetMengurus" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AccountCode">
         <PropertyRef Name="AccountCode" />
@@ -297,8 +435,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="BudgetMengurus_PeriodMengurus">
-    <End Role="PeriodMengurus" Type="Self.PeriodMengurus" Multiplicity="1" />
-    <End Role="BudgetMengurus" Type="Self.BudgetMengurus" Multiplicity="*" />
+    <End Role="PeriodMengurus" Type="BPModel.Store.PeriodMengurus" Multiplicity="1" />
+    <End Role="BudgetMengurus" Type="BPModel.Store.BudgetMengurus" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PeriodMengurus">
         <PropertyRef Name="PeriodMengurusID" />
@@ -309,8 +447,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="JuncBgtMengurusSegDtl_BudgetMengurus">
-    <End Role="BudgetMengurus" Type="Self.BudgetMengurus" Multiplicity="1" />
-    <End Role="JuncBgtMengurusSegDtl" Type="Self.JuncBgtMengurusSegDtl" Multiplicity="*" />
+    <End Role="BudgetMengurus" Type="BPModel.Store.BudgetMengurus" Multiplicity="1" />
+    <End Role="JuncBgtMengurusSegDtl" Type="BPModel.Store.JuncBgtMengurusSegDtl" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BudgetMengurus">
         <PropertyRef Name="BudgetMengurusID" />
@@ -321,8 +459,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="JuncBgtMengurusSegDtl_SegmentDetail">
-    <End Role="SegmentDetail" Type="Self.SegmentDetail" Multiplicity="1" />
-    <End Role="JuncBgtMengurusSegDtl" Type="Self.JuncBgtMengurusSegDtl" Multiplicity="*" />
+    <End Role="SegmentDetail" Type="BPModel.Store.SegmentDetail" Multiplicity="1" />
+    <End Role="JuncBgtMengurusSegDtl" Type="BPModel.Store.JuncBgtMengurusSegDtl" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SegmentDetail">
         <PropertyRef Name="SegmentDetailID" />
@@ -332,33 +470,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="JuncRolePage_Page">
-    <End Role="MasterPage" Type="Self.MasterPage" Multiplicity="0..1" />
-    <End Role="JuncRolePage" Type="Self.JuncRolePage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MasterPage">
-        <PropertyRef Name="PageID" />
-      </Principal>
-      <Dependent Role="JuncRolePage">
-        <PropertyRef Name="PageID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="JuncRolePage_Role">
-    <End Role="MasterRole" Type="Self.MasterRole" Multiplicity="0..1" />
-    <End Role="JuncRolePage" Type="Self.JuncRolePage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MasterRole">
-        <PropertyRef Name="RoleID" />
-      </Principal>
-      <Dependent Role="JuncRolePage">
-        <PropertyRef Name="RoleID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="JuncUserRole_Role">
-    <End Role="MasterRole" Type="Self.MasterRole" Multiplicity="0..1" />
-    <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="*" />
+    <End Role="MasterRole" Type="BPModel.Store.MasterRole" Multiplicity="0..1" />
+    <End Role="JuncUserRole" Type="BPModel.Store.JuncUserRole" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="MasterRole">
         <PropertyRef Name="RoleID" />
@@ -369,8 +483,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="JuncUserRole_User">
-    <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="0..1" />
-    <End Role="JuncUserRole" Type="Self.JuncUserRole" Multiplicity="*" />
+    <End Role="MasterUser" Type="BPModel.Store.MasterUser" Multiplicity="0..1" />
+    <End Role="JuncUserRole" Type="BPModel.Store.JuncUserRole" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="MasterUser">
         <PropertyRef Name="UserID" />
@@ -380,21 +494,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="Menu_Page">
-    <End Role="MasterMenu" Type="Self.MasterMenu" Multiplicity="0..1" />
-    <End Role="MasterPage" Type="Self.MasterPage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MasterMenu">
-        <PropertyRef Name="MenuID" />
-      </Principal>
-      <Dependent Role="MasterPage">
-        <PropertyRef Name="MenuID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="PeriodMengurus_FieldPerjawatan">
-    <End Role="FieldMengurus" Type="Self.FieldMengurus" Multiplicity="1" />
-    <End Role="PeriodMengurus" Type="Self.PeriodMengurus" Multiplicity="*" />
+    <End Role="FieldMengurus" Type="BPModel.Store.FieldMengurus" Multiplicity="1" />
+    <End Role="PeriodMengurus" Type="BPModel.Store.PeriodMengurus" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="FieldMengurus">
         <PropertyRef Name="FieldMengurusID" />
@@ -405,8 +507,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PeriodPerjawatan_FieldPerjawatan">
-    <End Role="FieldPerjawatan" Type="Self.FieldPerjawatan" Multiplicity="1" />
-    <End Role="PeriodPerjawatan" Type="Self.PeriodPerjawatan" Multiplicity="*" />
+    <End Role="FieldPerjawatan" Type="BPModel.Store.FieldPerjawatan" Multiplicity="1" />
+    <End Role="PeriodPerjawatan" Type="BPModel.Store.PeriodPerjawatan" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="FieldPerjawatan">
         <PropertyRef Name="FieldPerjawatanID" />
@@ -417,8 +519,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="SegmentDetail_Segment">
-    <End Role="Segment" Type="Self.Segment" Multiplicity="0..1" />
-    <End Role="SegmentDetail" Type="Self.SegmentDetail" Multiplicity="*" />
+    <End Role="Segment" Type="BPModel.Store.Segment" Multiplicity="0..1" />
+    <End Role="SegmentDetail" Type="BPModel.Store.SegmentDetail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Segment">
         <PropertyRef Name="SegmentID" />
@@ -429,8 +531,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserPerjawatanWorkflow_AccountCode">
-    <End Role="GroupPerjawatan" Type="Self.GroupPerjawatan" Multiplicity="0..1" />
-    <End Role="UserPerjawatanWorkflow" Type="Self.UserPerjawatanWorkflow" Multiplicity="*" />
+    <End Role="GroupPerjawatan" Type="BPModel.Store.GroupPerjawatan" Multiplicity="0..1" />
+    <End Role="UserPerjawatanWorkflow" Type="BPModel.Store.UserPerjawatanWorkflow" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="GroupPerjawatan">
         <PropertyRef Name="GroupPerjawatanCode" />
@@ -441,8 +543,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserPerjawatanWorkflow_User">
-    <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="0..1" />
-    <End Role="UserPerjawatanWorkflow" Type="Self.UserPerjawatanWorkflow" Multiplicity="*" />
+    <End Role="MasterUser" Type="BPModel.Store.MasterUser" Multiplicity="0..1" />
+    <End Role="UserPerjawatanWorkflow" Type="BPModel.Store.UserPerjawatanWorkflow" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="MasterUser">
         <PropertyRef Name="UserID" />
@@ -453,8 +555,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserSegDtlWorkflow_SegDtls">
-    <End Role="SegmentDetail" Type="Self.SegmentDetail" Multiplicity="0..1" />
-    <End Role="UserSegDtlWorkflow" Type="Self.UserSegDtlWorkflow" Multiplicity="*" />
+    <End Role="SegmentDetail" Type="BPModel.Store.SegmentDetail" Multiplicity="0..1" />
+    <End Role="UserSegDtlWorkflow" Type="BPModel.Store.UserSegDtlWorkflow" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SegmentDetail">
         <PropertyRef Name="SegmentDetailID" />
@@ -465,8 +567,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserSegDtlWorkflow_User">
-    <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="0..1" />
-    <End Role="UserSegDtlWorkflow" Type="Self.UserSegDtlWorkflow" Multiplicity="*" />
+    <End Role="MasterUser" Type="BPModel.Store.MasterUser" Multiplicity="0..1" />
+    <End Role="UserSegDtlWorkflow" Type="BPModel.Store.UserSegDtlWorkflow" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="MasterUser">
         <PropertyRef Name="UserID" />
@@ -477,8 +579,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserWorkflow_AccountCode">
-    <End Role="AccountCode" Type="Self.AccountCode" Multiplicity="0..1" />
-    <End Role="UserMengurusWorkflow" Type="Self.UserMengurusWorkflow" Multiplicity="*" />
+    <End Role="AccountCode" Type="BPModel.Store.AccountCode" Multiplicity="0..1" />
+    <End Role="UserMengurusWorkflow" Type="BPModel.Store.UserMengurusWorkflow" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AccountCode">
         <PropertyRef Name="AccountCode" />
@@ -489,8 +591,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UserWorkflow_User">
-    <End Role="MasterUser" Type="Self.MasterUser" Multiplicity="0..1" />
-    <End Role="UserMengurusWorkflow" Type="Self.UserMengurusWorkflow" Multiplicity="*" />
+    <End Role="MasterUser" Type="BPModel.Store.MasterUser" Multiplicity="0..1" />
+    <End Role="UserMengurusWorkflow" Type="BPModel.Store.UserMengurusWorkflow" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="MasterUser">
         <PropertyRef Name="UserID" />
@@ -500,100 +602,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="BPModelStoreContainer">
-    <EntitySet Name="AccountCode" EntityType="Self.AccountCode" Schema="public" store:Type="Tables" />
-    <EntitySet Name="BPEventLog" EntityType="Self.BPEventLog" Schema="public" store:Type="Tables" />
-    <EntitySet Name="BudgetMengurus" EntityType="Self.BudgetMengurus" Schema="public" store:Type="Tables" />
-    <EntitySet Name="FieldMengurus" EntityType="Self.FieldMengurus" Schema="public" store:Type="Tables" />
-    <EntitySet Name="FieldPerjawatan" EntityType="Self.FieldPerjawatan" Schema="public" store:Type="Tables" />
-    <EntitySet Name="GroupPerjawatan" EntityType="Self.GroupPerjawatan" Schema="public" store:Type="Tables" />
-    <EntitySet Name="JuncBgtMengurusSegDtl" EntityType="Self.JuncBgtMengurusSegDtl" Schema="public" store:Type="Tables" />
-    <EntitySet Name="JuncRolePage" EntityType="Self.JuncRolePage" Schema="public" store:Type="Tables" />
-    <EntitySet Name="JuncUserRole" EntityType="Self.JuncUserRole" Schema="public" store:Type="Tables" />
-    <EntitySet Name="MasterMenu" EntityType="Self.MasterMenu" Schema="public" store:Type="Tables" />
-    <EntitySet Name="MasterPage" EntityType="Self.MasterPage" Schema="public" store:Type="Tables" />
-    <EntitySet Name="MasterRole" EntityType="Self.MasterRole" Schema="public" store:Type="Tables" />
-    <EntitySet Name="MasterUser" EntityType="Self.MasterUser" Schema="public" store:Type="Tables" />
-    <EntitySet Name="PeriodMengurus" EntityType="Self.PeriodMengurus" Schema="public" store:Type="Tables" />
-    <EntitySet Name="PeriodPerjawatan" EntityType="Self.PeriodPerjawatan" Schema="public" store:Type="Tables" />
-    <EntitySet Name="Segment" EntityType="Self.Segment" Schema="public" store:Type="Tables" />
-    <EntitySet Name="SegmentDetail" EntityType="Self.SegmentDetail" Schema="public" store:Type="Tables" />
-    <EntitySet Name="UserMengurusWorkflow" EntityType="Self.UserMengurusWorkflow" Schema="public" store:Type="Tables" />
-    <EntitySet Name="UserPerjawatanWorkflow" EntityType="Self.UserPerjawatanWorkflow" Schema="public" store:Type="Tables" />
-    <EntitySet Name="UserSegDtlWorkflow" EntityType="Self.UserSegDtlWorkflow" Schema="public" store:Type="Tables" />
-    <EntitySet Name="YearEnd" EntityType="Self.YearEnd" Schema="public" store:Type="Tables" />
-    <EntitySet Name="YearUploadSetup" EntityType="Self.YearUploadSetup" Schema="public" store:Type="Tables" />
-    <AssociationSet Name="BudgetMengurus_AccountCode" Association="Self.BudgetMengurus_AccountCode">
-      <End Role="AccountCode" EntitySet="AccountCode" />
-      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
-    </AssociationSet>
-    <AssociationSet Name="BudgetMengurus_PeriodMengurus" Association="Self.BudgetMengurus_PeriodMengurus">
-      <End Role="PeriodMengurus" EntitySet="PeriodMengurus" />
-      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
-    </AssociationSet>
-    <AssociationSet Name="JuncBgtMengurusSegDtl_BudgetMengurus" Association="Self.JuncBgtMengurusSegDtl_BudgetMengurus">
-      <End Role="BudgetMengurus" EntitySet="BudgetMengurus" />
-      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtl" />
-    </AssociationSet>
-    <AssociationSet Name="JuncBgtMengurusSegDtl_SegmentDetail" Association="Self.JuncBgtMengurusSegDtl_SegmentDetail">
-      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
-      <End Role="JuncBgtMengurusSegDtl" EntitySet="JuncBgtMengurusSegDtl" />
-    </AssociationSet>
-    <AssociationSet Name="JuncRolePage_Page" Association="Self.JuncRolePage_Page">
-      <End Role="MasterPage" EntitySet="MasterPage" />
-      <End Role="JuncRolePage" EntitySet="JuncRolePage" />
-    </AssociationSet>
-    <AssociationSet Name="JuncRolePage_Role" Association="Self.JuncRolePage_Role">
-      <End Role="MasterRole" EntitySet="MasterRole" />
-      <End Role="JuncRolePage" EntitySet="JuncRolePage" />
-    </AssociationSet>
-    <AssociationSet Name="JuncUserRole_Role" Association="Self.JuncUserRole_Role">
-      <End Role="MasterRole" EntitySet="MasterRole" />
-      <End Role="JuncUserRole" EntitySet="JuncUserRole" />
-    </AssociationSet>
-    <AssociationSet Name="JuncUserRole_User" Association="Self.JuncUserRole_User">
-      <End Role="MasterUser" EntitySet="MasterUser" />
-      <End Role="JuncUserRole" EntitySet="JuncUserRole" />
-    </AssociationSet>
-    <AssociationSet Name="Menu_Page" Association="Self.Menu_Page">
-      <End Role="MasterMenu" EntitySet="MasterMenu" />
-      <End Role="MasterPage" EntitySet="MasterPage" />
-    </AssociationSet>
-    <AssociationSet Name="PeriodMengurus_FieldPerjawatan" Association="Self.PeriodMengurus_FieldPerjawatan">
-      <End Role="FieldMengurus" EntitySet="FieldMengurus" />
-      <End Role="PeriodMengurus" EntitySet="PeriodMengurus" />
-    </AssociationSet>
-    <AssociationSet Name="PeriodPerjawatan_FieldPerjawatan" Association="Self.PeriodPerjawatan_FieldPerjawatan">
-      <End Role="FieldPerjawatan" EntitySet="FieldPerjawatan" />
-      <End Role="PeriodPerjawatan" EntitySet="PeriodPerjawatan" />
-    </AssociationSet>
-    <AssociationSet Name="SegmentDetail_Segment" Association="Self.SegmentDetail_Segment">
-      <End Role="Segment" EntitySet="Segment" />
-      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
-    </AssociationSet>
-    <AssociationSet Name="UserPerjawatanWorkflow_AccountCode" Association="Self.UserPerjawatanWorkflow_AccountCode">
-      <End Role="GroupPerjawatan" EntitySet="GroupPerjawatan" />
-      <End Role="UserPerjawatanWorkflow" EntitySet="UserPerjawatanWorkflow" />
-    </AssociationSet>
-    <AssociationSet Name="UserPerjawatanWorkflow_User" Association="Self.UserPerjawatanWorkflow_User">
-      <End Role="MasterUser" EntitySet="MasterUser" />
-      <End Role="UserPerjawatanWorkflow" EntitySet="UserPerjawatanWorkflow" />
-    </AssociationSet>
-    <AssociationSet Name="UserSegDtlWorkflow_SegDtls" Association="Self.UserSegDtlWorkflow_SegDtls">
-      <End Role="SegmentDetail" EntitySet="SegmentDetail" />
-      <End Role="UserSegDtlWorkflow" EntitySet="UserSegDtlWorkflow" />
-    </AssociationSet>
-    <AssociationSet Name="UserSegDtlWorkflow_User" Association="Self.UserSegDtlWorkflow_User">
-      <End Role="MasterUser" EntitySet="MasterUser" />
-      <End Role="UserSegDtlWorkflow" EntitySet="UserSegDtlWorkflow" />
-    </AssociationSet>
-    <AssociationSet Name="UserWorkflow_AccountCode" Association="Self.UserWorkflow_AccountCode">
-      <End Role="AccountCode" EntitySet="AccountCode" />
-      <End Role="UserMengurusWorkflow" EntitySet="UserMengurusWorkflow" />
-    </AssociationSet>
-    <AssociationSet Name="UserWorkflow_User" Association="Self.UserWorkflow_User">
-      <End Role="MasterUser" EntitySet="MasterUser" />
-      <End Role="UserMengurusWorkflow" EntitySet="UserMengurusWorkflow" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

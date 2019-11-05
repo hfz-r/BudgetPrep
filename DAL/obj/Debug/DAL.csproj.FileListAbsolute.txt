@@ -18,3 +18,36 @@ D:\Projects\BP\DAL\bin\Debug\EntityFramework.xml
 D:\Projects\BP\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
 D:\Projects\BP\DAL\obj\Debug\DAL.dll
 D:\Projects\BP\DAL\obj\Debug\DAL.pdb
+C:\Users\hafiz\Documents\My Projects\BP\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
+C:\Users\hafiz\Documents\My Projects\BP\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\DAL.dll.config
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\DAL.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\DAL.pdb
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\EntityFramework.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\EntityFramework6.Npgsql.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Microsoft.Extensions.Logging.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Npgsql.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Security.exe
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\System.ValueTuple.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Security.pdb
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Security.exe.config
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\EntityFramework.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\EntityFramework6.Npgsql.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Microsoft.Extensions.Logging.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Npgsql.pdb
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\Npgsql.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\bin\Debug\System.ValueTuple.xml
+C:\Users\hafiz\Documents\My Projects\BP\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\hafiz\Documents\My Projects\BP\DAL\obj\Debug\DAL.dll
+C:\Users\hafiz\Documents\My Projects\BP\DAL\obj\Debug\DAL.pdb

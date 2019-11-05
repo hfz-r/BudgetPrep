@@ -18,7 +18,7 @@ namespace DAL
 
     public class BudgetMengurusDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public IQueryable<BudgetMenguru> GetBudgetMengurus()
         {

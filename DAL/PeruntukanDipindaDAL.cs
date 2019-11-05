@@ -8,7 +8,7 @@ namespace DAL
 {
     public class PeruntukanDipindaDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public IQueryable<PeruntukanDipinda> GetAccountCodes()
         {

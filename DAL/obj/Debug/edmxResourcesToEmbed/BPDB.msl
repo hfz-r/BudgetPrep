@@ -307,5 +307,44 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PeruntukanAsals">
+      <EntityTypeMapping TypeName="BPModel.PeruntukanAsal">
+        <MappingFragment StoreEntitySet="PeruntukanAsal">
+          <ScalarProperty Name="BudgetAmount" ColumnName="BudgetAmount" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="BudgetYear" ColumnName="BudgetYear" />
+          <ScalarProperty Name="BudgetLedgerKey" ColumnName="BudgetLedgerKey" />
+          <ScalarProperty Name="BudgetAccKey" ColumnName="BudgetAccKey" />
+          <ScalarProperty Name="BudgetType" ColumnName="BudgetType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BudgetAccount" ColumnName="BudgetAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PeruntukanDipindas">
+      <EntityTypeMapping TypeName="BPModel.PeruntukanDipinda">
+        <MappingFragment StoreEntitySet="PeruntukanDipinda">
+          <ScalarProperty Name="BudgetAmount" ColumnName="BudgetAmount" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="BudgetYear" ColumnName="BudgetYear" />
+          <ScalarProperty Name="BudgetLedgerKey" ColumnName="BudgetLedgerKey" />
+          <ScalarProperty Name="BudgetAccKey" ColumnName="BudgetAccKey" />
+          <ScalarProperty Name="BudgetType" ColumnName="BudgetType" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BudgetAccount" ColumnName="BudgetAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerbelanjaanSebenars">
+      <EntityTypeMapping TypeName="BPModel.PerbelanjaanSebenar">
+        <MappingFragment StoreEntitySet="PerbelanjaanSebenar">
+          <ScalarProperty Name="ParentAccountCode" ColumnName="ParentAccountCode" />
+          <ScalarProperty Name="BudgetYear" ColumnName="BudgetYear" />
+          <ScalarProperty Name="BudgetAmount" ColumnName="BudgetAmount" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BudgetAccount" ColumnName="BudgetAccount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

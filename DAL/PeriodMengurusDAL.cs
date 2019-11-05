@@ -8,7 +8,7 @@ namespace DAL
 {
     public class PeriodMengurusDAL
     {
-        BPEntities db = new BPEntities();
+        BudgetPrep db = new BudgetPrep();
 
         public List<PeriodMenguru> GetPeriodMengurus()
         {
